@@ -1,11 +1,9 @@
 import { Utilities } from "./Utilities/Utilities.js";
-
-import { Metadata } from "./Metadata.js";
-
-import { TupleNode, Icon } from "./TupleType.meta.js";
+import { TupleNode } from "./TupleType.meta.js";
+import { Icon, StructureType, Metadata } from "./Node.js";
 
 export class TupleType {
-  public static structure = "tuple";
+  public static structure: StructureType = "tuple";
   public static create = ({ name, type, coordinates, icon }): TupleNode => [
     Utilities.uuid,
     name,

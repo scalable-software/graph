@@ -1,13 +1,6 @@
 import { Utilities } from "../../src/Utilities/Utilities.js";
-import { Metadata } from "../../src/Metadata.js";
-
-import {
-  NodeTypes,
-  NodeType,
-  TupleNode,
-  TupleCoordinates,
-} from "../../src/TupleType.meta.js";
-
+import { NodeTypes, NodeType, Metadata } from "../../src/Node.js";
+import { TupleNode, TupleCoordinates } from "../../src/TupleType.meta.js";
 import { TupleType } from "../../src/TupleType.js";
 
 describe("Given TupleType imported", () => {

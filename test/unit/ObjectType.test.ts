@@ -1,13 +1,6 @@
 import { Utilities } from "../../src/Utilities/Utilities.js";
-import { Metadata } from "../../src/Metadata.js";
-
-import {
-  NodeTypes,
-  NodeType,
-  ObjectNode,
-  ObjectCoordinates,
-} from "../../src/ObjectType.meta.js";
-
+import { NodeTypes, NodeType, Metadata } from "../../src/Node.js";
+import { ObjectNode, ObjectCoordinates } from "../../src/ObjectType.meta.js";
 import { ObjectType } from "../../src/ObjectType.js";
 
 describe("Given ObjectType imported", () => {

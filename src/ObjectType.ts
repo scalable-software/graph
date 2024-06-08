@@ -1,10 +1,10 @@
 import { Utilities } from "./Utilities/Utilities.js";
-import { Metadata } from "./Metadata.js";
+import { Icon, StructureType, Metadata } from "./Node.js";
 
-import { ObjectNode, ObjectCoordinates, Icon } from "./ObjectType.meta.js";
+import { ObjectNode, ObjectCoordinates } from "./ObjectType.meta.js";
 
 export class ObjectType {
-  public static structure = "object";
+  public static structure: StructureType = "object";
   public static create = ({ name, type, coordinates, icon }): ObjectNode => ({
     id: Utilities.uuid,
     name,
