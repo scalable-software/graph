@@ -1,11 +1,11 @@
 import { Utilities } from "../../src/Utilities/Utilities.js";
+import { Metadata } from "../../src/Metadata.js";
 
 import {
   NodeTypes,
   NodeType,
   ObjectNode,
   ObjectCoordinates,
-  Metadata,
 } from "../../src/ObjectType.meta.js";
 
 import { ObjectType } from "../../src/ObjectType.js";

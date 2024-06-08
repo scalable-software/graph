@@ -1,4 +1,5 @@
 import { UUID } from "./Utilities/Utilities.js";
+import { Metadata } from "./Metadata.js";
 
 export const NodeTypes = [
   "start",
@@ -10,22 +11,6 @@ export const NodeTypes = [
 export type NodeType = (typeof NodeTypes)[number];
 
 export type Icon = string;
-
-export type Arrival = {
-  distribution: string;
-  parameters: { rate: number }[];
-};
-export type Duration = {
-  distribution: string;
-  parameters: { meanlog: number; sdlog?: number }[];
-};
-export type Prevalence = { target: string; probability: number }[];
-
-export type Metadata = {
-  arrival?: Arrival;
-  duration?: Duration;
-  prevalence?: Prevalence;
-};
 
 export type ObjectCoordinates = {
   x: number;

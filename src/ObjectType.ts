@@ -1,11 +1,7 @@
 import { Utilities } from "./Utilities/Utilities.js";
+import { Metadata } from "./Metadata.js";
 
-import {
-  ObjectNode,
-  ObjectCoordinates,
-  Icon,
-  Metadata,
-} from "./ObjectType.meta.js";
+import { ObjectNode, ObjectCoordinates, Icon } from "./ObjectType.meta.js";
 
 export class ObjectType {
   public static structure = "object";
