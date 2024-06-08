@@ -1,5 +1,5 @@
 {
-  "name": "@scalable-software/module.example",
+  "name": "@scalable-software/graph.structure",
   "version": "1.0.7",
   "description": "ESM based Simple Calculator",
   "exports": {
@@ -25,14 +25,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scalable-software/module.example.git"
+    "url": "git+https://github.com/scalable-software/graph.structure.git"
   },
   "author": "Scalable.Software",
   "license": "CC-BY-NC-SA-4.0",
   "bugs": {
-    "url": "https://github.com/scalable-software/module.example/issues"
+    "url": "https://github.com/scalable-software/graph.structure/issues"
   },
-  "homepage": "https://github.com/scalable-software/module.example#readme",
+  "homepage": "https://github.com/scalable-software/graph.structure#readme",
   "devDependencies": {
     "@types/jasmine": "^5.1.4",
     "@web/dev-server": "^0.0.6",
