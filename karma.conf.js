@@ -16,7 +16,12 @@ module.exports = function (config) {
     preprocessors: {
       "src/**/!(*.test).js": ["karma-coverage-istanbul-instrumenter"],
     },
-    reporters: ["spec", "coverage-istanbul"],
+    plugins: ["karma-*", require("./tasks/benchmarkReporter.js")],
+    reporters: ["spec", "coverage-istanbul", "benchmark"],
+    benchmarkReporter: {
+      dir: "./output",
+      filename: "benchmark.report.json",
+    },
     coverageIstanbulInstrumenter: {
       esModules: true,
     },
@@ -25,7 +30,13 @@ module.exports = function (config) {
       dir: path.join(__dirname, "coverage"),
       skipFilesWithNoCoverage: true,
     },
-    browsers: ["ChromeHeadless"],
+    customLaunchers: {
+      Chrome_with_memory: {
+        base: "Chrome",
+        flags: ["--enable-precise-memory-info"],
+      },
+    },
+    browsers: ["Chrome_with_memory"],
     singleRun: true,
     logLevel: config.LOG_DISABLED,
   });
