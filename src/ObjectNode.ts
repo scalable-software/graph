@@ -1,11 +1,16 @@
 import { Utilities } from "./Utilities/Utilities.js";
 import { Icon, StructureType, Metadata } from "./Node.js";
 
-import { ObjectNode, ObjectCoordinates } from "./ObjectType.meta.js";
+import { ObjectNodeType, ObjectCoordinates } from "./ObjectNode.meta.js";
 
-export class ObjectType {
+export class ObjectNode {
   public static structure: StructureType = "object";
-  public static create = ({ name, type, coordinates, icon }): ObjectNode => ({
+  public static create = ({
+    name,
+    type,
+    coordinates,
+    icon,
+  }): ObjectNodeType => ({
     id: Utilities.uuid,
     name,
     type,
@@ -14,49 +19,54 @@ export class ObjectType {
   });
 
   public static addMetadata = (
-    node: ObjectNode,
+    node: ObjectNodeType,
     metadata: Metadata
-  ): ObjectNode => ({
+  ): ObjectNodeType => ({
     ...node,
     metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
   });
 
-  public static update = (node: ObjectNode, update: ObjectNode): ObjectNode =>
-    update;
+  public static update = (
+    node: ObjectNodeType,
+    update: ObjectNodeType
+  ): ObjectNodeType => update;
 
   public static updateMetadata = (
-    node: ObjectNode,
+    node: ObjectNodeType,
     metadata: Metadata
-  ): ObjectNode => {
+  ): ObjectNodeType => {
     let key = Object.keys(metadata)[0];
     node.metadata = node.metadata.map((node) => (node[key] ? metadata : node));
     return node;
   };
 
   public static updateCoordinates = (
-    node: ObjectNode,
+    node: ObjectNodeType,
     coordinates: ObjectCoordinates
-  ): ObjectNode => ({
+  ): ObjectNodeType => ({
     ...node,
     coordinates,
   });
 
-  public static updateIcon = (node: ObjectNode, icon: Icon): ObjectNode => ({
+  public static updateIcon = (
+    node: ObjectNodeType,
+    icon: Icon
+  ): ObjectNodeType => ({
     ...node,
     icon,
   });
 
   public static removeMetadata = (
-    node: ObjectNode,
+    node: ObjectNodeType,
     type: string
-  ): ObjectNode => {
+  ): ObjectNodeType => {
     node.metadata = node.metadata.filter(
       (metadata) => metadata[type] === undefined
     );
     return node;
   };
 
-  public static translate = (node: ObjectNode, offset: any) => {
+  public static translate = (node: ObjectNodeType, offset: any) => {
     node.coordinates = {
       x: node.coordinates.x + offset.x,
       y: node.coordinates.y + offset.y,

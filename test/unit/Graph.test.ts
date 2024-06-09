@@ -53,11 +53,11 @@ describe("Given Graph imported", () => {
   });
 });
 
-import { ObjectType } from "../../src/ObjectType.js";
+import { ObjectNode } from "../../src/ObjectNode.js";
 describe("Given graph = new Graph(Object)", () => {
   let graph;
   beforeEach(() => {
-    graph = new Graph(ObjectType);
+    graph = new Graph(ObjectNode);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -66,7 +66,7 @@ describe("Given graph = new Graph(Object)", () => {
     expect(graph.node).toBeDefined();
   });
   it("then graph.node equals ObjectType", () => {
-    expect(graph.node).toBe(ObjectType);
+    expect(graph.node).toBe(ObjectNode);
   });
   describe("when nodes = graph.createNodes(1, details)", () => {
     let nodes;
@@ -358,11 +358,11 @@ describe("Given graph = new Graph(Object)", () => {
   });
 });
 
-import { TupleType } from "../../src/TupleType.js";
+import { TupleNode } from "../../src/TupleNode.js";
 describe("Given graph = new Graph(Tuple)", () => {
   let graph;
   beforeEach(() => {
-    graph = new Graph(TupleType);
+    graph = new Graph(TupleNode);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -371,7 +371,7 @@ describe("Given graph = new Graph(Tuple)", () => {
     expect(graph.node).toBeDefined();
   });
   it("then graph.node equals Tuple", () => {
-    expect(graph.node).toBe(TupleType);
+    expect(graph.node).toBe(TupleNode);
   });
   describe("when nodes = graph.createNodes(1, details)", () => {
     let nodes;

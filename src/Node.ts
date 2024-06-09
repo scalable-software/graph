@@ -1,5 +1,5 @@
-import { ObjectNode } from "./ObjectType.meta.js";
-import { TupleNode } from "./TupleType.meta.js";
+import { ObjectNodeType } from "./ObjectNode.meta.js";
+import { TupleNodeType } from "./TupleNode.meta.js";
 
 export const StructureTypes = ["object", "tuple"] as const;
 export type StructureType = (typeof StructureTypes)[number];
@@ -15,7 +15,7 @@ export const NodeTypes = [
 ] as const;
 export type NodeType = (typeof NodeTypes)[number];
 
-export type Node = ObjectNode | TupleNode;
+export type Node = ObjectNodeType | TupleNodeType;
 export type Nodes = Node[];
 
 export type Arrival = {

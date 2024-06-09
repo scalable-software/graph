@@ -1,10 +1,10 @@
 import { Utilities } from "./Utilities/Utilities.js";
-import { TupleNode } from "./TupleType.meta.js";
+import { TupleNodeType } from "./TupleNode.meta.js";
 import { Icon, StructureType, Metadata } from "./Node.js";
 
-export class TupleType {
+export class TupleNode {
   public static structure: StructureType = "tuple";
-  public static create = ({ name, type, coordinates, icon }): TupleNode => [
+  public static create = ({ name, type, coordinates, icon }): TupleNodeType => [
     Utilities.uuid,
     name,
     type,
@@ -13,44 +13,49 @@ export class TupleType {
   ];
 
   public static addMetadata = (
-    node: TupleNode,
+    node: TupleNodeType,
     metadata: Metadata
-  ): TupleNode => {
+  ): TupleNodeType => {
     node[5] = Array.isArray(node[5]) ? [...node[5], metadata] : [metadata];
     return node;
   };
 
   public static updateMetadata = (
-    node: TupleNode,
+    node: TupleNodeType,
     metadata: Metadata
-  ): TupleNode => {
+  ): TupleNodeType => {
     let key = Object.keys(metadata)[0];
     node[5] = node[5].map((node) => (node[key] ? metadata : node));
     return node;
   };
 
   public static updateCoordinates = (
-    node: TupleNode,
+    node: TupleNodeType,
     coordinates
-  ): TupleNode => {
+  ): TupleNodeType => {
     node[3] = [coordinates.x, coordinates.y];
     return node;
   };
 
-  public static updateIcon = (node: TupleNode, icon: Icon): TupleNode => {
+  public static updateIcon = (
+    node: TupleNodeType,
+    icon: Icon
+  ): TupleNodeType => {
     node[4] = icon;
     return node;
   };
 
-  public static update = (node: TupleNode, update: TupleNode): TupleNode =>
-    update;
+  public static update = (
+    node: TupleNodeType,
+    update: TupleNodeType
+  ): TupleNodeType => update;
 
-  public static removeMetadata = (node: TupleNode, type): TupleNode => {
+  public static removeMetadata = (node: TupleNodeType, type): TupleNodeType => {
     node[5] = node[5].filter((metadata) => metadata[type] === undefined);
     return node;
   };
 
-  public static translate = (node: TupleNode, offset: any) => {
+  public static translate = (node: TupleNodeType, offset: any) => {
     node[3] = [node[3][0] + offset.x, node[3][0] + offset.y];
     return node;
   };

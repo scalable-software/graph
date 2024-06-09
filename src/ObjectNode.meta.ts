@@ -6,7 +6,7 @@ export type ObjectCoordinates = {
   y: number;
 };
 
-export type ObjectNode = {
+export type ObjectNodeType = {
   id: UUID;
   name: string;
   type: NodeType;

@@ -1,51 +1,51 @@
 import { Utilities } from "../../src/Utilities/Utilities.js";
 import { NodeTypes, NodeType, Metadata } from "../../src/Node.js";
-import { TupleNode, TupleCoordinates } from "../../src/TupleType.meta.js";
-import { TupleType } from "../../src/TupleType.js";
+import { TupleNodeType, TupleCoordinates } from "../../src/TupleNode.meta.js";
+import { TupleNode } from "../../src/TupleNode.js";
 
 describe("Given TupleType imported", () => {
   it("then TupleType is defined", () => {
-    expect(TupleType).toBeDefined();
+    expect(TupleNode).toBeDefined();
   });
   it("then TupleType.structure static property is defined", () => {
-    expect(TupleType.structure).toBeDefined();
+    expect(TupleNode.structure).toBeDefined();
   });
   it("then TupleType.create static method is defined", () => {
-    expect(TupleType.create).toBeDefined();
+    expect(TupleNode.create).toBeDefined();
   });
   it("then TupleType.addMetadata static method is defined", () => {
-    expect(TupleType.addMetadata).toBeDefined();
+    expect(TupleNode.addMetadata).toBeDefined();
   });
   it("then TupleType.updateMetadata static method is defined", () => {
-    expect(TupleType.addMetadata).toBeDefined();
+    expect(TupleNode.addMetadata).toBeDefined();
   });
   it("then TupleType.updateIcon static method is defined", () => {
-    expect(TupleType.updateIcon).toBeDefined();
+    expect(TupleNode.updateIcon).toBeDefined();
   });
   it("then TupleType.update static method is defined", () => {
-    expect(TupleType.update).toBeDefined();
+    expect(TupleNode.update).toBeDefined();
   });
   it("then TupleType.updateCoordinates static method is defined", () => {
-    expect(TupleType.updateCoordinates).toBeDefined();
+    expect(TupleNode.updateCoordinates).toBeDefined();
   });
   it("then TupleType.removeMetadata static method is defined", () => {
-    expect(TupleType.removeMetadata).toBeDefined();
+    expect(TupleNode.removeMetadata).toBeDefined();
   });
   it("then TupleType.translate static method is defined", () => {
-    expect(TupleType.translate).toBeDefined();
+    expect(TupleNode.translate).toBeDefined();
   });
 });
 
 describe("Given TupleType.structure static property exist", () => {
   it("then TupleType.structure equals tuple", () => {
-    expect(TupleType.structure).toEqual("tuple");
+    expect(TupleNode.structure).toEqual("tuple");
   });
 });
 
 describe("Given TupleType.create static method exist", () => {
   describe("when node = TupleType.create(details)", () => {
     let details;
-    let node: TupleNode;
+    let node: TupleNodeType;
     beforeEach(() => {
       details = {
         name: "Node",
@@ -53,7 +53,7 @@ describe("Given TupleType.create static method exist", () => {
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
-      node = TupleType.create(details);
+      node = TupleNode.create(details);
     });
     it("then node is exist", () => {
       expect(node).toBeDefined();
@@ -94,11 +94,11 @@ describe("Given TupleType.create static method exist", () => {
 
 describe("Given TupleType.addMetadata static method exist", () => {
   describe("when extendedNode = TupleType.addMetadata(node, metadata)", () => {
-    let node: TupleNode;
+    let node: TupleNodeType;
     let metadata: Metadata;
-    let extendedNode: TupleNode;
+    let extendedNode: TupleNodeType;
     beforeEach(() => {
-      node = TupleType.create({
+      node = TupleNode.create({
         name: "Node",
         type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
@@ -110,7 +110,7 @@ describe("Given TupleType.addMetadata static method exist", () => {
           parameters: [{ rate: 1 }],
         },
       };
-      extendedNode = TupleType.addMetadata(node, metadata);
+      extendedNode = TupleNode.addMetadata(node, metadata);
     });
     it("then extendedNode exist", () => {
       expect(extendedNode).toBeDefined();
@@ -156,9 +156,9 @@ describe("Given TupleType.addMetadata static method exist", () => {
 
 describe("Given TupleType.updateMetadata static method exist", () => {
   describe("and node with metadata exist", () => {
-    let node: TupleNode;
+    let node: TupleNodeType;
     beforeEach(() => {
-      node = TupleType.create({
+      node = TupleNode.create({
         name: "Node",
         type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
@@ -170,11 +170,11 @@ describe("Given TupleType.updateMetadata static method exist", () => {
           parameters: [{ rate: 1 }],
         },
       };
-      node = TupleType.addMetadata(node, metadata);
+      node = TupleNode.addMetadata(node, metadata);
     });
     describe("when updatedNode = TupleType.updateMetadata(node, metadata)", () => {
       let metadata: Metadata;
-      let updatedNode: TupleNode;
+      let updatedNode: TupleNodeType;
       beforeEach(() => {
         metadata = {
           arrival: {
@@ -182,7 +182,7 @@ describe("Given TupleType.updateMetadata static method exist", () => {
             parameters: [{ rate: 10 }],
           },
         };
-        updatedNode = TupleType.updateMetadata(node, metadata);
+        updatedNode = TupleNode.updateMetadata(node, metadata);
       });
       it("then updatedNode exist", () => {
         expect(updatedNode).toBeDefined();
@@ -229,11 +229,11 @@ describe("Given TupleType.updateMetadata static method exist", () => {
 
 describe("Given TupleType.updateCoordinates static method exist", () => {
   describe("when updateNode = TupleType.updateCoordinates(node, coordinates)", () => {
-    let node: TupleNode;
+    let node: TupleNodeType;
     let coordinates;
-    let updatedNode: TupleNode;
+    let updatedNode: TupleNodeType;
     beforeEach(() => {
-      node = TupleType.create({
+      node = TupleNode.create({
         name: "Node",
         type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
@@ -241,7 +241,7 @@ describe("Given TupleType.updateCoordinates static method exist", () => {
       });
       coordinates = { x: 1, y: 1 };
       let input = structuredClone(node);
-      updatedNode = TupleType.updateCoordinates(input, coordinates);
+      updatedNode = TupleNode.updateCoordinates(input, coordinates);
     });
     it("then updatedNode exist", () => {
       expect(updatedNode).toBeDefined();
@@ -285,9 +285,9 @@ describe("Given TupleType.updateCoordinates static method exist", () => {
 
 describe("Given TupleType.updateIcon static method exist", () => {
   describe("Given node exist", () => {
-    let node: TupleNode;
+    let node: TupleNodeType;
     beforeEach(() => {
-      node = TupleType.create({
+      node = TupleNode.create({
         name: "Node",
         type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
@@ -298,7 +298,7 @@ describe("Given TupleType.updateIcon static method exist", () => {
       let icon;
       beforeEach(() => {
         icon = "./newIcon.svg";
-        node = TupleType.updateIcon(node, icon);
+        node = TupleNode.updateIcon(node, icon);
       });
       it("then node[4] equals icon", () => {
         expect(node[4]).toEqual(icon);
@@ -309,9 +309,9 @@ describe("Given TupleType.updateIcon static method exist", () => {
 
 describe("Given TupleType.update static method exist", () => {
   describe("Given node exist", () => {
-    let node: TupleNode;
+    let node: TupleNodeType;
     beforeEach(() => {
-      node = TupleType.create({
+      node = TupleNode.create({
         name: "Node",
         type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
@@ -336,7 +336,7 @@ describe("Given TupleType.update static method exist", () => {
             },
           ],
         };
-        node = TupleType.update(node, details);
+        node = TupleNode.update(node, details);
       });
       it("then node[4] equals icon", () => {
         expect(node).toEqual(details);
@@ -347,15 +347,15 @@ describe("Given TupleType.update static method exist", () => {
 
 describe("Given TupleType.removeMetadata exist", () => {
   describe("Given node with metadata exist", () => {
-    let node: TupleNode;
+    let node: TupleNodeType;
     beforeEach(() => {
-      node = TupleType.create({
+      node = TupleNode.create({
         name: "Node",
         type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
-      node = TupleType.addMetadata(node, {
+      node = TupleNode.addMetadata(node, {
         arrival: {
           distribution: "exponential",
           parameters: [{ rate: 1 }],
@@ -366,7 +366,7 @@ describe("Given TupleType.removeMetadata exist", () => {
       let type: string;
       beforeEach(() => {
         type = "arrival";
-        node = TupleType.removeMetadata(node, type);
+        node = TupleNode.removeMetadata(node, type);
       });
       it("then node does not contain metadata of type", () => {
         expect(node[5]).toEqual([]);
@@ -377,9 +377,9 @@ describe("Given TupleType.removeMetadata exist", () => {
 
 describe("Given TupleType.translate static method exit", () => {
   describe("Given node exist", () => {
-    let node: TupleNode;
+    let node: TupleNodeType;
     beforeEach(() => {
-      node = TupleType.create({
+      node = TupleNode.create({
         name: "Node",
         type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
@@ -395,7 +395,7 @@ describe("Given TupleType.translate static method exit", () => {
           x: 10,
           y: 10,
         };
-        node = TupleType.translate(node, offset);
+        node = TupleNode.translate(node, offset);
       });
       it("then node[3] is original coordinates plus offset", () => {
         let newCoordinates = [
