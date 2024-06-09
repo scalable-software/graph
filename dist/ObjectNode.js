@@ -1,7 +1,7 @@
 import { Utilities } from "./Utilities/Utilities.js";
-export class ObjectType {
+export class ObjectNode {
     static structure = "object";
-    static create = ({ name, type, coordinates, icon }) => ({
+    static create = ({ name, type, coordinates, icon, }) => ({
         id: Utilities.uuid,
         name,
         type,

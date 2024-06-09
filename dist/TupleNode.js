@@ -1,5 +1,5 @@
 import { Utilities } from "./Utilities/Utilities.js";
-export class TupleType {
+export class TupleNode {
     static structure = "tuple";
     static create = ({ name, type, coordinates, icon }) => [
         Utilities.uuid,

@@ -1,6 +1,6 @@
 import { Node, Nodes, Metadata } from "./Node.js";
-import { ObjectNode } from "./ObjectType.meta.js";
-import { TupleNode } from "./TupleType.meta.js";
+import { ObjectNodeType } from "./ObjectNode.meta.js";
+import { TupleNodeType } from "./TupleNode.meta.js";
 import { NodeFactory } from "./Graph.meta.js";
 export declare class Graph {
     node: NodeFactory;
@@ -10,13 +10,13 @@ export declare class Graph {
     addNodes: (nodes: Nodes, newNodes: Nodes) => Nodes;
     addNodeMetadata: (nodes: Nodes, id: string, metadata: Metadata) => Nodes;
     updateNodeMetadata: (nodes: Nodes, id: string, metadata: Metadata) => Nodes;
-    updateNodeCoordinates: (nodes: Nodes, id: string, coordinates: any) => (ObjectNode | TupleNode)[];
-    updateNodeIcon: (nodes: Nodes, id: string, icon: any) => (ObjectNode | TupleNode)[];
-    updateNode: (nodes: Nodes, id: string, update: any) => (ObjectNode | TupleNode)[];
+    updateNodeCoordinates: (nodes: Nodes, id: string, coordinates: any) => (ObjectNodeType | TupleNodeType)[];
+    updateNodeIcon: (nodes: Nodes, id: string, icon: any) => (ObjectNodeType | TupleNodeType)[];
+    updateNode: (nodes: Nodes, id: string, update: any) => (ObjectNodeType | TupleNodeType)[];
     findNodeById: (nodes: Nodes, id: string) => Node;
     findNodesByType: (nodes: Nodes, type: string) => Nodes;
     findNodeByCoordinates: (nodes: Nodes, coordinates: any) => Node;
-    removeNodeMetadata: (nodes: Nodes, id: string, type: string) => (ObjectNode | TupleNode)[];
+    removeNodeMetadata: (nodes: Nodes, id: string, type: string) => (ObjectNodeType | TupleNodeType)[];
     removeNodeById: (nodes: Nodes, id: string) => Nodes;
-    translateNode: (nodes: Nodes, id: string, offset: any) => (ObjectNode | TupleNode)[];
+    translateNode: (nodes: Nodes, id: string, offset: any) => (ObjectNodeType | TupleNodeType)[];
 }

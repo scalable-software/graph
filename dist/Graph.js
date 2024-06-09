@@ -1,10 +1,10 @@
-import { ObjectType } from "./ObjectType.js";
+import { ObjectNode } from "./ObjectNode.js";
 // Operations on Graph takes nodes as first argument to enable performance testing
 // Once performance testing is done, we can refactor to use a class instance
 // Also operations can return this to enable fluent interface
 export class Graph {
     node;
-    constructor(nodeFactory = ObjectType) {
+    constructor(nodeFactory = ObjectNode) {
         this.node = nodeFactory;
     }
     createNodes = (qty, details) => Array.from({ length: qty }, () => this.node.create(details));
@@ -12,7 +12,10 @@ export class Graph {
         ...nodes,
         this.node.create(details),
     ];
-    addNodes = (nodes, newNodes) => [...nodes, ...newNodes];
+    addNodes = (nodes, newNodes) => [
+        ...nodes,
+        ...newNodes,
+    ];
     addNodeMetadata = (nodes, id, metadata) => {
         let addMetadata = (node, metadata) => this.node.addMetadata(node, metadata);
         return this.node.structure === "object"

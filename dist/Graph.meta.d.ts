@@ -1,3 +1,3 @@
-import { ObjectType } from "./ObjectType.js";
-import { TupleType } from "./TupleType.js";
-export type NodeFactory = typeof ObjectType | typeof TupleType;
+import { ObjectNode } from "./ObjectNode.js";
+import { TupleNode } from "./TupleNode.js";
+export type NodeFactory = typeof ObjectNode | typeof TupleNode;
