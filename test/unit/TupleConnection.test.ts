@@ -70,10 +70,11 @@ describe("Given TupleConnection.create static method exist", () => {
       expect(connection[1]).toBe(details.name);
     });
     it("then connection[4] equals details.coordinates", () => {
-      expect(connection[4]).toEqual([
+      const expectedCoordinates: [TupleCoordinates, TupleCoordinates] = [
         [details.coordinates.start.x, details.coordinates.start.y],
         [details.coordinates.end.x, details.coordinates.end.y],
-      ]);
+      ];
+      expect(connection[4]).toEqual(expectedCoordinates);
     });
   });
 });
