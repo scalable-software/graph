@@ -21,7 +21,9 @@
     "build": "tsc --project tsconfig.build.json",
     "preserve": "npm run build",
     "serve": "web-dev-server --open /demo/index.html",
-    "document": "npx typedoc --tsconfig tsconfig.test.json"
+    "document": "npx typedoc --tsconfig tsconfig.test.json",
+    "clean": "npm run clean.test && npm run clean.build",
+    "precommit": "npm run clean && npm run build && npm run test && npm run document"
   },
   "repository": {
     "type": "git",
