@@ -14,11 +14,26 @@ describe("Given Graph imported", () => {
     it("then graph.createNodes exist", () => {
       expect(graph.createNodes).toBeDefined();
     });
+    it("then graph.createConnections exist", () => {
+      expect(graph.createConnections).toBeDefined();
+    });
+    it("then graph.addNode exist", () => {
+      expect(graph.addNode).toBeDefined();
+    });
+    it("then graph.addConnection exist", () => {
+      expect(graph.addConnection).toBeDefined();
+    });
     it("then graph.addNodes exist", () => {
       expect(graph.addNodes).toBeDefined();
     });
+    it("then graph.addConnections exist", () => {
+      expect(graph.addConnections).toBeDefined();
+    });
     it("then graph.findNodeById exist", () => {
       expect(graph.findNodeById).toBeDefined();
+    });
+    it("then graph.findConnectionById exist", () => {
+      expect(graph.findConnectionById).toBeDefined();
     });
     it("then graph.findNodesByType exist", () => {
       expect(graph.findNodesByType).toBeDefined();
@@ -35,11 +50,17 @@ describe("Given Graph imported", () => {
     it("then graph.updateNodeCoordinates exist", () => {
       expect(graph.updateNodeCoordinates).toBeDefined();
     });
+    it("then graph.updateConnectionCoordinates exist", () => {
+      expect(graph.updateConnectionCoordinates).toBeDefined();
+    });
     it("then graph.updateNodeIcon exist", () => {
       expect(graph.updateNodeIcon).toBeDefined();
     });
     it("then graph.updateNode exist", () => {
       expect(graph.updateNode).toBeDefined();
+    });
+    it("then graph.updateConnection exist", () => {
+      expect(graph.updateConnection).toBeDefined();
     });
     it("then graph.removeNodeMetadata exist", () => {
       expect(graph.removeNodeMetadata).toBeDefined();
@@ -47,8 +68,14 @@ describe("Given Graph imported", () => {
     it("then graph.removeNodeById exist", () => {
       expect(graph.removeNodeById).toBeDefined();
     });
+    it("then graph.removeConnectionById exist", () => {
+      expect(graph.removeConnectionById).toBeDefined();
+    });
     it("then graph.translateNode exist", () => {
       expect(graph.translateNode).toBeDefined();
+    });
+    it("then graph.translateConnection exist", () => {
+      expect(graph.translateConnection).toBeDefined();
     });
   });
 });

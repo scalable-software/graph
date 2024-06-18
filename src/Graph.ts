@@ -1,31 +1,53 @@
 import { Node, Nodes, Metadata } from "./Node.js";
+import { Connection, Connections } from "./Connection.js";
 import { ObjectNode } from "./ObjectNode.js";
+import { ObjectConnection } from "./ObjectConnection.js";
 import { ObjectNodeType } from "./ObjectNode.meta.js";
 import { TupleNodeType } from "./TupleNode.meta.js";
+import { ObjectConnectionType } from "./ObjectConnection.meta.js";
+import { TupleConnectionType } from "./TupleConnection.meta.js";
 
-import { NodeFactory } from "./Graph.meta.js";
+import { NodeFactory, ConnectionFactory } from "./Graph.meta.js";
 
 // Operations on Graph takes nodes as first argument to enable performance testing
 // Once performance testing is done, we can refactor to use a class instance
 // Also operations can return this to enable fluent interface
 export class Graph {
   public node: NodeFactory;
-  constructor(nodeFactory: NodeFactory = ObjectNode) {
+  public connection: ConnectionFactory;
+  constructor(
+    nodeFactory: NodeFactory = ObjectNode,
+    connectionFactory: ConnectionFactory = ObjectConnection
+  ) {
     this.node = nodeFactory;
+    this.connection = connectionFactory;
   }
 
   public createNodes = (qty: number, details): Nodes =>
     Array.from({ length: qty }, () => this.node.create(details));
+
+  public createConnections = (qty: number, details): Connections =>
+    Array.from({ length: qty }, () => this.connection.create(details));
 
   public addNode = (nodes: Nodes, details): Nodes => [
     ...nodes,
     this.node.create(details),
   ];
 
+  public addConnection = (connections: Connections, details): Connections => [
+    ...connections,
+    this.connection.create(details),
+  ];
+
   public addNodes = (nodes: Nodes, newNodes: Nodes): Nodes => [
     ...nodes,
     ...newNodes,
   ];
+
+  public addConnections = (
+    connections: Connections,
+    newConnections: Connections
+  ): Connections => [...connections, ...newConnections];
 
   public addNodeMetadata = (
     nodes: Nodes,
@@ -70,6 +92,26 @@ export class Graph {
         );
   };
 
+  public updateConnectionCoordinates = (
+    connections: Connections,
+    id: string,
+    coordinates
+  ) => {
+    let updateCoordinates = (connection, coordinates) =>
+      this.connection.updateCoordinates(connection, coordinates);
+    return this.node.structure === "object"
+      ? connections.map((connection: ObjectConnectionType) =>
+          connection.id === id
+            ? updateCoordinates(connection, coordinates)
+            : connection
+        )
+      : connections.map((connection: TupleConnectionType) =>
+          connection[0] === id
+            ? updateCoordinates(connection, coordinates)
+            : connection
+        );
+  };
+
   public updateNodeIcon = (nodes: Nodes, id: string, icon) => {
     let updateIcon = (node, icon) => this.node.updateIcon(node, icon);
     return this.node.structure === "object"
@@ -92,10 +134,38 @@ export class Graph {
         );
   };
 
+  public updateConnection = (connections: Connections, id: string, update) => {
+    let updateConnection = (connection, update) =>
+      this.connection.update(connection, update);
+    return this.connection.structure === "object"
+      ? connections.map((connection: ObjectConnectionType) =>
+          connection.id === id
+            ? updateConnection(connection, update)
+            : connection
+        )
+      : connections.map((connection: TupleConnectionType) =>
+          connection[0] === id
+            ? updateConnection(connection, update)
+            : connection
+        );
+  };
+
   public findNodeById = (nodes: Nodes, id: string): Node =>
     this.node.structure === "object"
       ? nodes.find((node: ObjectNodeType) => node.id === id)
       : nodes.find((node: TupleNodeType) => node[0] === id);
+
+  public findConnectionById = (
+    connections: Connections,
+    id: string
+  ): Connection =>
+    this.connection.structure === "object"
+      ? connections.find(
+          (connection: ObjectConnectionType) => connection.id === id
+        )
+      : connections.find(
+          (connection: TupleConnectionType) => connection[0] === id
+        );
 
   public findNodesByType = (nodes: Nodes, type: string): Nodes =>
     this.node.structure === "object"
@@ -131,6 +201,18 @@ export class Graph {
       ? nodes.filter((node: ObjectNodeType) => node.id !== id)
       : nodes.filter((node: TupleNodeType) => node[0] !== id);
 
+  public removeConnectionById = (
+    connections: Connections,
+    id: string
+  ): Connections =>
+    this.connection.structure === "object"
+      ? connections.filter(
+          (connection: ObjectConnectionType) => connection.id !== id
+        )
+      : connections.filter(
+          (connection: TupleConnectionType) => connection[0] !== id
+        );
+
   public translateNode = (nodes: Nodes, id: string, offset) => {
     let translate = (node, offset) => this.node.translate(node, offset);
     return this.node.structure === "object"
@@ -139,6 +221,22 @@ export class Graph {
         )
       : nodes.map((node: TupleNodeType) =>
           node[0] === id ? translate(node, offset) : node
+        );
+  };
+
+  public translateConnection = (
+    connections: Connections,
+    id: string,
+    offset
+  ) => {
+    let translate = (connection, offset) =>
+      this.connection.translate(connection, offset);
+    return this.connection.structure === "object"
+      ? connections.map((connection: ObjectConnectionType) =>
+          connection.id === id ? translate(connection, offset) : connection
+        )
+      : connections.map((connection: TupleConnectionType) =>
+          connection[0] === id ? translate(connection, offset) : connection
         );
   };
 }
