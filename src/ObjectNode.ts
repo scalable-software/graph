@@ -18,6 +18,9 @@ export class ObjectNode {
     icon,
   });
 
+  public static getStartNode = (nodes: ObjectNodeType[]): ObjectNodeType => 
+     nodes.find((node) => node.type === "start");
+  
   public static addMetadata = (
     node: ObjectNodeType,
     metadata: Metadata
