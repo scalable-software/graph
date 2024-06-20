@@ -3,6 +3,11 @@ const path = require("path");
 module.exports = function (config) {
   config.set({
     frameworks: ["jasmine"],
+    client : {
+      jasmine: {
+        random: false
+      }
+    },
     proxies: {
       "/src/": "/base/src/",
       "/test/": "/base/test/unit/",
