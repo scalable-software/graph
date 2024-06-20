@@ -16,6 +16,9 @@ describe("Given ObjectType imported", () => {
   it("then ObjectType.create static method is defined", () => {
     expect(ObjectNode.create).toBeDefined();
   });
+  it("then ObjectType.getStartNode static method is defined", () => {
+    expect(ObjectNode.getStartNode).toBeDefined();
+  });
   it("then ObjectType.addMetadata static method is defined", () => {
     expect(ObjectNode.addMetadata).toBeDefined();
   });
