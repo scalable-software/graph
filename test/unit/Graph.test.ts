@@ -485,6 +485,30 @@ describe("Given graph = new Graph(Object)", () => {
       expect(nodes.length).toBe(1);
     });
   });
+  describe("when connections = graph.removeNodeById(existingConnections, id)", () => {
+    let existingConnections;
+    let id;
+    let connections;
+    beforeEach(() => {
+      existingConnections = graph.createConnections(2, {
+        name: "Node",
+        source: "Node 1",
+        target: "Node 2",
+        coordinates: {
+          start: { x: 0, y: 0 },
+          end: { x: 10, y: 10 }
+        },
+      });
+      id = existingConnections[1].id;
+      connections = graph.removeConnectionById(existingConnections, id);
+    });
+    it("then connections exist", () => {
+      expect(connections).toBeDefined();
+    });
+    it("then connections.length equals 1", () => {
+      expect(connections.length).toBe(1);
+    });
+  });
 });
 
 import { TupleNode } from "../../src/TupleNode.js";
@@ -891,6 +915,30 @@ describe("Given graph = new Graph(Tuple)", () => {
     });
     it("then nodes.length equals 1", () => {
       expect(nodes.length).toBe(1);
+    });
+  });
+  describe("when connections = graph.removeNodeById(existingConnections, id)", () => {
+    let existingConnections;
+    let id;
+    let connections;
+    beforeEach(() => {
+      existingConnections = graph.createConnections(2, {
+        name: "Node",
+        source: "Node 1",
+        target: "Node 2",
+        coordinates: {
+          start: { x: 0, y: 0 },
+          end: { x: 10, y: 10 }
+        },
+      });
+      id = existingConnections[1][0];
+      connections = graph.removeConnectionById(existingConnections, id);
+    });
+    it("then connections exist", () => {
+      expect(connections).toBeDefined();
+    });
+    it("then connections.length equals 1", () => {
+      expect(connections.length).toBe(1);
     });
   });
 });
