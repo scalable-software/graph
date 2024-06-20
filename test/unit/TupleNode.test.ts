@@ -13,6 +13,9 @@ describe("Given TupleType imported", () => {
   it("then TupleType.create static method is defined", () => {
     expect(TupleNode.create).toBeDefined();
   });
+  it("then TupleType.getStartNode static method is defined", () => {
+    expect(TupleNode.getStartNode).toBeDefined();
+  });
   it("then TupleType.addMetadata static method is defined", () => {
     expect(TupleNode.addMetadata).toBeDefined();
   });
