@@ -247,4 +247,11 @@ export class Graph {
         ? _getConnectionBySource(connections, nodeId)
         : _getConnectionBySource(connections, nodeId);
     }
+
+  public getStartNode = (nodes: Nodes) => {
+      let _getStartNode = (nodes) => this.node.getStartNode(nodes);
+      return this.node.structure === "object"
+        ? _getStartNode(nodes)
+        : _getStartNode(nodes);
+    }
 }
