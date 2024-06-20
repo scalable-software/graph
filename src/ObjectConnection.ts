@@ -50,4 +50,10 @@ export class ObjectConnection {
     };
     return connection;
   };
+
+  public static getConnectionBySource = (
+    connections: ObjectConnectionType[],
+    nodeId: string
+  ): ObjectConnectionType[] =>
+    connections.filter(connection => connection.source === nodeId);
 }
