@@ -56,5 +56,4 @@ export class TupleConnection {
     nodeId: string
   ): TupleConnectionType[] => 
     connections.filter(connection => connection[2] === nodeId);
-  
 }
