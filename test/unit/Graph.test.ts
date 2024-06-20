@@ -464,6 +464,75 @@ describe("Given graph = new Graph(Object)", () => {
       });
     });
   });
+  describe("When connection exists in connections", () => {
+    let id;
+    let connections;
+    beforeEach(() => {
+      let details = {
+        name: "Node",
+        source: "Node 1",
+        target: "Node 2",
+        coordinates: {
+          start: { x: 0, y: 0 },
+          end: { x: 10, y: 10 }
+        },
+      };
+      connections = graph.createConnections(1, details);
+      id = connections[0].id;
+    });
+    describe("when connections = graph.translateConnection(connections, id, offset)", () => {
+      let offset;
+      let coordinates;
+      beforeEach(() => {
+        coordinates = connections[0].coordinates;
+        offset = { x: 10, y: 10 };
+        connections = graph.translateConnection(connections, id, offset);
+
+        console.log(connections)
+      });
+      it("then connections[0].coordinates.start.x equals coordinates.start.x + offset.x", () => {
+        expect(connections[0].coordinates.start.x).toEqual(coordinates.start.x + offset.x);
+      });
+      it("then connections[0].coordinates.end.x equals coordinates.end.x + offset.x", () => {
+        expect(connections[0].coordinates.end.x).toEqual(coordinates.end.x + offset.x);
+      });
+      it("then connections[0].coordinates.start.y equals coordinates.start.y + offset.y", () => {
+        expect(connections[0].coordinates.start.y).toEqual(coordinates.start.y + offset.y);
+      });
+      it("then connections[0].coordinates.end.y equals coordinates.end.y + offset.y", () => {
+        expect(connections[0].coordinates.end.y).toEqual(coordinates.end.y + offset.y);
+      });
+    });
+    describe("when connections = graph.updateConnectionCoordinates(connections, id, coordinates)", () => {
+      let coordinates;
+      beforeEach(() => {
+        coordinates = { x: 10, y: 10 };
+        connections = graph.updateConnectionCoordinates(connections, id, coordinates);
+      });
+      it("then connections[0].coordinates equals coordinates", () => {
+        expect(connections[0].coordinates).toEqual(coordinates);
+      });
+    });
+    describe("When connections = graph.updateConnection(connections, id, update)", () => {
+      let update;
+      beforeEach(() => {
+        update = {
+          name: "New Node",
+          source: "",
+          target: "",
+          coordinates: {
+            start: { x: 0, y: 0 },
+            end: { x: 10, y: 10 }
+          },
+        };
+        connections = graph.updateConnection(connections, id, update);
+      });
+      it("then connections[0] equals update", () => {
+        expect(connections[0]).toEqual(update);
+      });
+    });
+  });
+
   describe("when nodes = graph.removeNodeById(existingNodes, id)", () => {
     let existingNodes;
     let id;
@@ -896,6 +965,93 @@ describe("Given graph = new Graph(Tuple)", () => {
       });
     });
   });
+  describe("When connection exists in connections", () => {
+    let id;
+    let connections;
+    beforeEach(() => {
+      let details = {
+        name: "Node",
+        source: "Node 1",
+        target: "Node 2",
+        coordinates: {
+          start: { x: 0, y: 0 },
+          end: { x: 10, y: 10 }
+        },
+      };
+      connections = graph.createConnections(1, details);
+      id = connections[0][0];
+    });
+    describe("when connections = graph.translateConnection(connections, id, offset)", () => {
+      let offset;
+      let coordinates;
+      let translatedConnection;
+      let translatedStart, translatedEnd;
+      beforeEach(() => {
+        coordinates = connections[0][4];
+        offset = { x: 10, y: 10 };
+        connections = graph.translateConnection(connections, id, offset);
+        translatedConnection = connections[0];
+        translatedStart = translatedConnection[4][0];
+        translatedEnd = translatedConnection[4][1];
+      });
+      it("then translatedStart.x equals coordinates.start.x + offset.x", () => {
+        expect(translatedStart[0]).toEqual(coordinates[0][0] + offset.x);
+      });
+      it("then translatedEnd.x equals coordinates.end.x + offset.x", () => {
+        expect(translatedEnd[0]).toEqual(coordinates[1][0] + offset.x);
+      });
+      it("then translatedStart.y equals coordinates.start.y + offset.y", () => {
+        expect(translatedStart[1]).toEqual(coordinates[0][0] + offset.y);
+      });
+      it("then translatedEnd.y equals coordinates.end.y + offset.y", () => {
+        expect(translatedEnd[1]).toEqual(coordinates[1][1] + offset.y);
+      });
+    });
+    describe("when connections = graph.updateConnectionCoordinates(connections, id, coordinates)", () => {
+      let coordinates;
+      let updatedStart, updatedEnd;
+      beforeEach(() => {
+        coordinates = { 
+          start: { x: 0, y: 0}, 
+          end: { x: 10, y: 10 } 
+        };
+        connections = graph.updateConnectionCoordinates(connections, id, coordinates);
+        updatedStart = connections[0][4][0];
+        updatedEnd = connections[0][4][1];
+      });
+      it("then updatedStart[0] equals coordinates.start.x", () => {
+        expect(updatedStart[0]).toEqual(coordinates.start.x);
+      });
+      it("then updatedEnd[0] equals coordinates.end.x", () => {
+        expect(updatedEnd[0]).toEqual(coordinates.end.x);
+      });
+      it("then updatedStart[1] equals coordinates.start.y", () => {
+        expect(updatedStart[1]).toEqual(coordinates.start.y);
+      });
+      it("then updatedEnd[1] equals coordinates.end.y", () => {
+        expect(updatedEnd[1]).toEqual(coordinates.end.y);
+      });
+    });
+    describe("When connections = graph.updateConnection(connections, id, update)", () => {
+      let update;
+      beforeEach(() => {
+        update = {
+          name: "New Node",
+          source: "",
+          target: "",
+          coordinates: {
+            start: { x: 0, y: 0 },
+            end: { x: 10, y: 10 }
+          },
+        };
+        connections = graph.updateConnection(connections, id, update);
+      });
+      it("then connections[0] equals update", () => {
+        expect(connections[0]).toEqual(update);
+      });
+    });
+  });
+
   describe("when nodes = graph.removeNodeById(existingNodes, id)", () => {
     let existingNodes;
     let id;
