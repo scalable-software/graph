@@ -81,10 +81,11 @@ describe("Given Graph imported", () => {
 });
 
 import { ObjectNode } from "../../src/ObjectNode.js";
+import { ObjectConnection } from "../../src/ObjectConnection.js";
 describe("Given graph = new Graph(Object)", () => {
   let graph;
   beforeEach(() => {
-    graph = new Graph(ObjectNode);
+    graph = new Graph(ObjectNode, ObjectConnection);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -94,6 +95,9 @@ describe("Given graph = new Graph(Object)", () => {
   });
   it("then graph.node equals ObjectType", () => {
     expect(graph.node).toBe(ObjectNode);
+  });
+  it("then graph.connection equals Object", () => {
+    expect(graph.connection).toBe(ObjectConnection);
   });
   describe("when nodes = graph.createNodes(1, details)", () => {
     let nodes;
@@ -120,12 +124,10 @@ describe("Given graph = new Graph(Object)", () => {
         name: "Node",
         source: "Node 1",
         target: "Node 2",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: {
           start: { x: 0, y: 0 },
           end: { x: 10, y: 10 }
         },
-        icon: "./icon.svg",
       };
       connections = graph.createConnections(1, details);
     });
@@ -161,12 +163,10 @@ describe("Given graph = new Graph(Object)", () => {
         name: "Node",
         source: "Node 1",
         target: "Node 2",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: {
           start: { x: 0, y: 0 },
           end: { x: 10, y: 10 }
-        },
-        icon: "./icon.svg",
+        }
       };
       connections = graph.addConnection([], details);
     });
@@ -201,6 +201,38 @@ describe("Given graph = new Graph(Object)", () => {
     });
     it("then nodes.length equals 4", () => {
       expect(nodes.length).toBe(4);
+    });
+  });
+  describe("when connections = graph.addConnections(existingConnections, newConnections)", () => {
+    let existingConnections;
+    let newConnections;
+    let connections;
+    beforeEach(() => {
+      existingConnections = graph.createConnections(2, {
+        name: "Node",
+        source: "Node 1",
+        target: "Node 2",
+        coordinates: {
+          start: { x: 0, y: 0 },
+          end: { x: 10, y: 10 }
+        },
+      });
+      newConnections = graph.createConnections(2, {
+        name: "Node2",
+        source: "Node 10",
+        target: "Node 20",
+        coordinates: {
+          start: { x: 10, y: 10 },
+          end: { x: 100, y: 100 }
+        },
+      });
+      connections = graph.addConnections(existingConnections, newConnections);
+    });
+    it("then connections exist", () => {
+      expect(connections).toBeDefined();
+    });
+    it("then connections.length equals 4", () => {
+      expect(connections.length).toBe(4);
     });
   });
   describe("when nodes = graph.addNodeMetadata(existingNodes, id, metadata)", () => {
@@ -255,6 +287,7 @@ describe("Given graph = new Graph(Object)", () => {
       expect(node).toEqual(existingNodes[1]);
     });
   });
+
   describe("when nodes = graph.findNodesByType(existingNodes, type)", () => {
     let existingNodes;
     let type;
@@ -429,15 +462,14 @@ describe("Given graph = new Graph(Object)", () => {
       expect(nodes.length).toBe(1);
     });
   });
-
-
 });
 
 import { TupleNode } from "../../src/TupleNode.js";
+import { TupleConnection } from "../../src/TupleConnection.js";
 describe("Given graph = new Graph(Tuple)", () => {
   let graph;
   beforeEach(() => {
-    graph = new Graph(TupleNode);
+    graph = new Graph(TupleNode, TupleConnection);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -447,6 +479,9 @@ describe("Given graph = new Graph(Tuple)", () => {
   });
   it("then graph.node equals Tuple", () => {
     expect(graph.node).toBe(TupleNode);
+  });
+  it("then graph.connection equals Tuple", () => {
+    expect(graph.connection).toBe(TupleConnection);
   });
   describe("when nodes = graph.createNodes(1, details)", () => {
     let nodes;
@@ -473,12 +508,10 @@ describe("Given graph = new Graph(Tuple)", () => {
         name: "Node",
         source: "Node 1",
         target: "Node 2",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: {
           start: { x: 0, y: 0 },
           end: { x: 10, y: 10 }
-        },
-        icon: "./icon.svg",
+        }
       };
       connections = graph.createConnections(1, details);
     });
@@ -514,12 +547,10 @@ describe("Given graph = new Graph(Tuple)", () => {
         name: "Node",
         source: "Node 1",
         target: "Node 2",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: {
           start: { x: 0, y: 0 },
           end: { x: 10, y: 10 }
-        },
-        icon: "./icon.svg",
+        }
       };
       connections = graph.addConnection([], details);
     });
@@ -556,7 +587,7 @@ describe("Given graph = new Graph(Tuple)", () => {
       expect(nodes.length).toBe(4);
     });
   });
-  describe("when connections = graph.addConnection(existingConnections, newConnections)", () => {
+  describe("when connections = graph.addConnections(existingConnections, newConnections)", () => {
     let existingConnections;
     let newConnections;
     let connections;
@@ -565,23 +596,19 @@ describe("Given graph = new Graph(Tuple)", () => {
         name: "Node",
         source: "Node 1",
         target: "Node 2",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: {
           start: { x: 0, y: 0 },
           end: { x: 10, y: 10 }
         },
-        icon: "./icon.svg",
       });
       newConnections = graph.createConnections(2, {
         name: "Node2",
         source: "Node 10",
         target: "Node 20",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: {
           start: { x: 10, y: 10 },
           end: { x: 100, y: 100 }
         },
-        icon: "./icon.svg",
       });
       connections = graph.addConnections(existingConnections, newConnections);
     });
@@ -604,6 +631,7 @@ describe("Given graph = new Graph(Tuple)", () => {
         icon: "./icon.svg",
       });
       id = existingNodes[1][0];
+      console.log(existingNodes[1])
       node = graph.findNodeById(existingNodes, id);
     });
     it("then node exist", () => {
