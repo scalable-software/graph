@@ -12,6 +12,9 @@ export class TupleNode {
     icon,
   ];
 
+  public static getStartNode = (nodes: TupleNodeType[]): TupleNodeType =>
+    nodes.find((node) => node[2] === "start");
+
   public static addMetadata = (
     node: TupleNodeType,
     metadata: Metadata
