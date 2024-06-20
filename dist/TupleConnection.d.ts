@@ -20,4 +20,5 @@ export declare class TupleConnection {
         };
     }) => TupleConnectionType;
     static translate: (connection: TupleConnectionType, offset: any) => TupleConnectionType;
+    static getConnectionBySource: (connections: TupleConnectionType[], nodeId: string) => TupleConnectionType[];
 }

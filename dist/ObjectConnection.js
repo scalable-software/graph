@@ -26,4 +26,5 @@ export class ObjectConnection {
         };
         return connection;
     };
+    static getConnectionBySource = (connections, nodeId) => connections.filter(connection => connection.source === nodeId);
 }

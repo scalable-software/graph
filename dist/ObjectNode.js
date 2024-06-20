@@ -8,6 +8,7 @@ export class ObjectNode {
         coordinates,
         icon,
     });
+    static getStartNode = (nodes) => nodes.find((node) => node.type === "start");
     static addMetadata = (node, metadata) => ({
         ...node,
         metadata: node.metadata ? [...node.metadata, metadata] : [metadata],

@@ -8,6 +8,7 @@ export class TupleNode {
         [coordinates.x, coordinates.y],
         icon,
     ];
+    static getStartNode = (nodes) => nodes.find((node) => node[2] === "start");
     static addMetadata = (node, metadata) => {
         node[5] = Array.isArray(node[5]) ? [...node[5], metadata] : [metadata];
         return node;

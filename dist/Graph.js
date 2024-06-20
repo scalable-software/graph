@@ -115,4 +115,16 @@ export class Graph {
             ? connections.map((connection) => connection.id === id ? translate(connection, offset) : connection)
             : connections.map((connection) => connection[0] === id ? translate(connection, offset) : connection);
     };
+    getConnectionBySource = (connections, nodeId) => {
+        let _getConnectionBySource = (connections, nodeId) => this.connection.getConnectionBySource(connections, nodeId);
+        return this.connection.structure === "object"
+            ? _getConnectionBySource(connections, nodeId)
+            : _getConnectionBySource(connections, nodeId);
+    };
+    getStartNode = (nodes) => {
+        let _getStartNode = (nodes) => this.node.getStartNode(nodes);
+        return this.node.structure === "object"
+            ? _getStartNode(nodes)
+            : _getStartNode(nodes);
+    };
 }

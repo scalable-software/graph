@@ -31,4 +31,6 @@ export declare class Graph {
     removeConnectionById: (connections: Connections, id: string) => Connections;
     translateNode: (nodes: Nodes, id: string, offset: any) => (ObjectNodeType | TupleNodeType)[];
     translateConnection: (connections: Connections, id: string, offset: any) => (ObjectConnectionType | TupleConnectionType)[];
+    getConnectionBySource: (connections: Connections, nodeId: string) => ObjectConnectionType[] | TupleConnectionType[];
+    getStartNode: (nodes: Nodes) => ObjectNodeType | TupleNodeType;
 }

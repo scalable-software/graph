@@ -8,6 +8,7 @@ export declare class TupleNode {
         coordinates: any;
         icon: any;
     }) => TupleNodeType;
+    static getStartNode: (nodes: TupleNodeType[]) => TupleNodeType;
     static addMetadata: (node: TupleNodeType, metadata: Metadata) => TupleNodeType;
     static updateMetadata: (node: TupleNodeType, metadata: Metadata) => TupleNodeType;
     static updateCoordinates: (node: TupleNodeType, coordinates: any) => TupleNodeType;

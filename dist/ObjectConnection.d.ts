@@ -14,4 +14,5 @@ export declare class ObjectConnection {
         end: ObjectCoordinates;
     }) => ObjectConnectionType;
     static translate: (connection: ObjectConnectionType, offset: any) => ObjectConnectionType;
+    static getConnectionBySource: (connections: ObjectConnectionType[], nodeId: string) => ObjectConnectionType[];
 }

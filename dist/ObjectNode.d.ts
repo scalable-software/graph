@@ -8,6 +8,7 @@ export declare class ObjectNode {
         coordinates: any;
         icon: any;
     }) => ObjectNodeType;
+    static getStartNode: (nodes: ObjectNodeType[]) => ObjectNodeType;
     static addMetadata: (node: ObjectNodeType, metadata: Metadata) => ObjectNodeType;
     static update: (node: ObjectNodeType, update: ObjectNodeType) => ObjectNodeType;
     static updateMetadata: (node: ObjectNodeType, metadata: Metadata) => ObjectNodeType;

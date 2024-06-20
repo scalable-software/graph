@@ -26,4 +26,5 @@ export class TupleConnection {
         ];
         return connection;
     };
+    static getConnectionBySource = (connections, nodeId) => connections.filter(connection => connection[2] === nodeId);
 }
