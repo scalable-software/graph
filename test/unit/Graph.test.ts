@@ -113,7 +113,7 @@ describe("Given graph = new Graph(Object)", () => {
       expect(nodes.length).toBe(1);
     });
   });
-  describe("when nodes = graph.createConnections(1, details)", () => {
+  describe("when connections = graph.createConnections(1, details)", () => {
     let connections;
     beforeEach(() => {
       let details = {
@@ -154,7 +154,7 @@ describe("Given graph = new Graph(Object)", () => {
       expect(nodes.length).toBe(1);
     });
   });
-  describe("when nodes = graph.addConnection([], details)", () => {
+  describe("when connections = graph.addConnection([], details)", () => {
     let connections;
     beforeEach(() => {
       let details = {
@@ -466,7 +466,7 @@ describe("Given graph = new Graph(Tuple)", () => {
       expect(nodes.length).toBe(1);
     });
   });
-  describe("when nodes = graph.createConnections(1, details)", () => {
+  describe("when connections = graph.createConnections(1, details)", () => {
     let connections;
     beforeEach(() => {
       let details = {
@@ -507,7 +507,7 @@ describe("Given graph = new Graph(Tuple)", () => {
       expect(nodes.length).toBe(1);
     });
   });
-  describe("when nodes = graph.addConnection([], details)", () => {
+  describe("when connections = graph.addConnection([], details)", () => {
     let connections;
     beforeEach(() => {
       let details = {
@@ -554,6 +554,42 @@ describe("Given graph = new Graph(Tuple)", () => {
     });
     it("then nodes.length equals 4", () => {
       expect(nodes.length).toBe(4);
+    });
+  });
+  describe("when connections = graph.addConnection(existingConnections, newConnections)", () => {
+    let existingConnections;
+    let newConnections;
+    let connections;
+    beforeEach(() => {
+      existingConnections = graph.createConnections(2, {
+        name: "Node",
+        source: "Node 1",
+        target: "Node 2",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: {
+          start: { x: 0, y: 0 },
+          end: { x: 10, y: 10 }
+        },
+        icon: "./icon.svg",
+      });
+      newConnections = graph.createConnections(2, {
+        name: "Node2",
+        source: "Node 10",
+        target: "Node 20",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: {
+          start: { x: 10, y: 10 },
+          end: { x: 100, y: 100 }
+        },
+        icon: "./icon.svg",
+      });
+      connections = graph.addConnections(existingConnections, newConnections);
+    });
+    it("then connections exist", () => {
+      expect(connections).toBeDefined();
+    });
+    it("then connections.length equals 4", () => {
+      expect(connections.length).toBe(4);
     });
   });
   describe("when node = graph.findNodeById(existingNodes, id)", () => {
