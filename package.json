@@ -17,6 +17,7 @@
     "pretest": "npm run clean.test && tsc --project tsconfig.test.json",
     "test": "karma start",
     "posttest": "npm run clean.test",
+    "clean.build": "node ./tasks/clean.build.mjs",
     "prebuild": "node ./tasks/clean.build.mjs",
     "build": "tsc --project tsconfig.build.json",
     "preserve": "npm run build",
