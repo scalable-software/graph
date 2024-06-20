@@ -50,4 +50,11 @@ export class TupleConnection {
     ];
     return connection;
   };
+
+  public static getConnectionBySource = (
+    connections: TupleConnectionType[], 
+    nodeId: string
+  ): TupleConnectionType[] => 
+    connections.filter(connection => connection[2] === nodeId);
+  
 }
