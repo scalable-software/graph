@@ -287,7 +287,30 @@ describe("Given graph = new Graph(Object)", () => {
       expect(node).toEqual(existingNodes[1]);
     });
   });
-
+  describe("when connection = graph.findConnectionById(existingConnections, id)", () => {
+    let existingConnections;
+    let id;
+    let connection;
+    beforeEach(() => {
+      existingConnections = graph.createConnections(2, {
+        name: "Node",
+        source: "Node 1",
+        target: "Node 2",
+        coordinates: {
+          start: { x: 0, y: 0 },
+          end: { x: 10, y: 10 }
+        },
+      });
+      id = existingConnections[1].id;
+      connection = graph.findConnectionById(existingConnections, id);
+    });
+    it("then connection exist", () => {
+      expect(connection).toBeDefined();
+    });
+    it("then connection equals existingConnections[1]", () => {
+      expect(connection).toEqual(existingConnections[1]);
+    });
+  });
   describe("when nodes = graph.findNodesByType(existingNodes, type)", () => {
     let existingNodes;
     let type;
@@ -639,6 +662,30 @@ describe("Given graph = new Graph(Tuple)", () => {
     });
     it("then node equals existingNodes[1]", () => {
       expect(node).toEqual(existingNodes[1]);
+    });
+  });
+  describe("when connection = graph.findConnectionById(existingConnections, id)", () => {
+    let existingConnections;
+    let id;
+    let connection;
+    beforeEach(() => {
+      existingConnections = graph.createConnections(2, {
+        name: "Node",
+        source: "Node 1",
+        target: "Node 2",
+        coordinates: {
+          start: { x: 0, y: 0 },
+          end: { x: 10, y: 10 }
+        },
+      });
+      id = existingConnections[1][0];
+      connection = graph.findConnectionById(existingConnections, id);
+    });
+    it("then connection exist", () => {
+      expect(connection).toBeDefined();
+    });
+    it("then connection equals existingConnections[1]", () => {
+      expect(connection).toEqual(existingConnections[1]);
     });
   });
   describe("when nodes = graph.findNodesByType(existingNodes, type)", () => {
