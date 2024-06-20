@@ -96,6 +96,9 @@ describe("Given graph = new Graph(Object)", () => {
   it("then graph.node equals ObjectType", () => {
     expect(graph.node).toBe(ObjectNode);
   });
+  it("then graph.connection exist", () => {
+    expect(graph.connection).toBeDefined();
+  });
   it("then graph.connection equals Object", () => {
     expect(graph.connection).toBe(ObjectConnection);
   });
@@ -532,7 +535,6 @@ describe("Given graph = new Graph(Object)", () => {
       });
     });
   });
-
   describe("when nodes = graph.removeNodeById(existingNodes, id)", () => {
     let existingNodes;
     let id;
@@ -595,6 +597,9 @@ describe("Given graph = new Graph(Tuple)", () => {
   });
   it("then graph.node equals Tuple", () => {
     expect(graph.node).toBe(TupleNode);
+  });
+  it("then graph.connection exist", () => {
+    expect(graph.connection).toBeDefined();
   });
   it("then graph.connection equals Tuple", () => {
     expect(graph.connection).toBe(TupleConnection);
