@@ -24,6 +24,9 @@ describe("Given TupleConnection imported", () => {
   it("then TupleConnection.translate static method is defined", () => {
     expect(TupleConnection.translate).toBeDefined();
   });
+  it("then TupleConnection.getConnectionBySource static method is defined", () => {
+    expect(TupleConnection.getConnectionBySource).toBeDefined();
+  });
 });
 
 describe("Given TupleConnection.structure static property exist", () => {
@@ -202,6 +205,64 @@ describe("Given ObjectType.translate static method exist", () => {
           [coordinates[1][0] + offset.x, coordinates[1][1] + offset.y],
         ];
         expect(connection[4]).toEqual(updateCoordinates);
+      });
+    });
+  });
+});
+
+describe("Given TupleConnection.getConnectionBySource static method exist", () => {
+  describe("and connections exist", () => {
+    let connections: TupleConnectionType[];
+    beforeEach(() => {
+      connections = [
+        TupleConnection.create({
+          name: "",
+          source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+          target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: {
+            start: { x: 1, y: 500 },
+            end: { x: 500, y: 500 },
+          },
+        }),
+        TupleConnection.create({
+          name: "",
+          source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          target: "5a3e4a90-b266-4be3-b04d-abb627d78749",
+          coordinates: {
+            start: { x: 100, y: 400 },
+            end: { x: 200, y: 400 }
+          }
+        }),
+        TupleConnection.create({
+          name: "",
+          source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+          target: "5a3e4a90-b266-4be3-b04d-abb627d78749",
+          coordinates: {
+            start: { x: 200, y: 400 },
+            end: { x: 1, y: 500 }
+          }
+        })
+      ];
+    });
+
+    describe("when connections = ObjectType.getConnectionBySource(connections, nodeId)", () => {
+      let nodeId;
+      let result: TupleConnectionType[];
+      beforeEach(() => {
+        nodeId = "35c6779a-fd9d-4089-d1ab-af0b932fc912";
+        result = TupleConnection.getConnectionBySource(connections, nodeId);
+      });
+      it("then result is exist", () => {
+        expect(result).toBeDefined();
+      });
+      it("then result is an array", () => {
+        expect(result).toBeInstanceOf(Array);
+      });
+      it("then result length is 2", () => {
+        expect(result.length).toBe(2);
+      });
+      it("then result[0].source equals nodeId", () => {
+        expect(result[0][2]).toBe(nodeId);
       });
     });
   });
