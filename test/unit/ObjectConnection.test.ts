@@ -200,3 +200,57 @@ describe("Given ObjectType.translate static method exist", () => {
     });
   });
 });
+
+describe("Given ObjectType.getConnectionBySource static method exist", () => {
+  describe("and connections exist", () => {
+    let connections: ObjectConnectionType[];
+    beforeEach(() => {
+      connections = [
+        ObjectConnection.create({
+          name: "",
+          source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+          target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: {
+            start: { x: 1, y: 500 },
+            end: { x: 500, y: 500 },
+          },
+        }),
+        ObjectConnection.create({
+          name: "",
+          source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+          target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: {
+            start: { x: 1, y: 500 },
+            end: { x: 500, y: 500 },
+          },
+        }),
+        ObjectConnection.create({
+          name: "",
+          source: "35c6779a-fd9d-4089-d1ab-chiefkeef420",
+          target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: {
+            start: { x: 1, y: 500 },
+            end: { x: 500, y: 500 },
+          },
+        }),
+      ];
+    });
+    describe("when connections = ObjectType.getConnectionBySource(connections, nodeId)", () => {
+      let nodeId;
+      let result;
+      beforeEach(() => {
+        nodeId = "35c6779a-fd9d-4089-d1ab-af0b932fc912";
+        result = ObjectConnection.getConnectionBySource(connections, nodeId);
+      });
+      it("then result is exist", () => {
+        expect(result).toBeDefined();
+      });
+      it("then result is an array", () => {
+        expect(result).toBeInstanceOf(Array);
+      });
+      it("then connection length is 2", () => {
+        expect(result.length).toBe(2);
+      });
+    });
+  });
+});
