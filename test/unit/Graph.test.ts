@@ -113,6 +113,31 @@ describe("Given graph = new Graph(Object)", () => {
       expect(nodes.length).toBe(1);
     });
   });
+
+  describe("when nodes = graph.createConnections(1, details)", () => {
+    let connections;
+    beforeEach(() => {
+      let details = {
+        name: "Node",
+        source: "Node1",
+        target: "Node 2",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: {
+          start: { x: 0, y: 0 },
+          end: { x: 10, y: 10 }
+        },
+        icon: "./icon.svg",
+      };
+      connections = graph.createConnections(1, details);
+    });
+    it("then connections exist", () => {
+      expect(connections).toBeDefined();
+    });
+    it("then connections.length equals 1", () => {
+      expect(connections.length).toBe(1);
+    });
+  });
+  
   describe("when nodes = graph.addNode([], details)", () => {
     let nodes;
     beforeEach(() => {
@@ -383,6 +408,8 @@ describe("Given graph = new Graph(Object)", () => {
       expect(nodes.length).toBe(1);
     });
   });
+
+
 });
 
 import { TupleNode } from "../../src/TupleNode.js";
