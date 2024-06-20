@@ -1,22 +1,34 @@
 import { Node, Nodes, Metadata } from "./Node.js";
+import { Connection, Connections } from "./Connection.js";
 import { ObjectNodeType } from "./ObjectNode.meta.js";
 import { TupleNodeType } from "./TupleNode.meta.js";
-import { NodeFactory } from "./Graph.meta.js";
+import { ObjectConnectionType } from "./ObjectConnection.meta.js";
+import { TupleConnectionType } from "./TupleConnection.meta.js";
+import { NodeFactory, ConnectionFactory } from "./Graph.meta.js";
 export declare class Graph {
     node: NodeFactory;
-    constructor(nodeFactory?: NodeFactory);
+    connection: ConnectionFactory;
+    constructor(nodeFactory?: NodeFactory, connectionFactory?: ConnectionFactory);
     createNodes: (qty: number, details: any) => Nodes;
+    createConnections: (qty: number, details: any) => Connections;
     addNode: (nodes: Nodes, details: any) => Nodes;
+    addConnection: (connections: Connections, details: any) => Connections;
     addNodes: (nodes: Nodes, newNodes: Nodes) => Nodes;
+    addConnections: (connections: Connections, newConnections: Connections) => Connections;
     addNodeMetadata: (nodes: Nodes, id: string, metadata: Metadata) => Nodes;
     updateNodeMetadata: (nodes: Nodes, id: string, metadata: Metadata) => Nodes;
     updateNodeCoordinates: (nodes: Nodes, id: string, coordinates: any) => (ObjectNodeType | TupleNodeType)[];
+    updateConnectionCoordinates: (connections: Connections, id: string, coordinates: any) => (ObjectConnectionType | TupleConnectionType)[];
     updateNodeIcon: (nodes: Nodes, id: string, icon: any) => (ObjectNodeType | TupleNodeType)[];
     updateNode: (nodes: Nodes, id: string, update: any) => (ObjectNodeType | TupleNodeType)[];
+    updateConnection: (connections: Connections, id: string, update: any) => (ObjectConnectionType | TupleConnectionType)[];
     findNodeById: (nodes: Nodes, id: string) => Node;
+    findConnectionById: (connections: Connections, id: string) => Connection;
     findNodesByType: (nodes: Nodes, type: string) => Nodes;
     findNodeByCoordinates: (nodes: Nodes, coordinates: any) => Node;
     removeNodeMetadata: (nodes: Nodes, id: string, type: string) => (ObjectNodeType | TupleNodeType)[];
     removeNodeById: (nodes: Nodes, id: string) => Nodes;
+    removeConnectionById: (connections: Connections, id: string) => Connections;
     translateNode: (nodes: Nodes, id: string, offset: any) => (ObjectNodeType | TupleNodeType)[];
+    translateConnection: (connections: Connections, id: string, offset: any) => (ObjectConnectionType | TupleConnectionType)[];
 }
