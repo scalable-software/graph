@@ -556,7 +556,7 @@ describe("Given graph = new Graph(Object)", () => {
       expect(nodes.length).toBe(1);
     });
   });
-  describe("when connections = graph.removeNodeById(existingConnections, id)", () => {
+  describe("when connections = graph.removeConnectionById(existingConnections, id)", () => {
     let existingConnections;
     let id;
     let connections;
@@ -1056,7 +1056,6 @@ describe("Given graph = new Graph(Tuple)", () => {
       });
     });
   });
-
   describe("when nodes = graph.removeNodeById(existingNodes, id)", () => {
     let existingNodes;
     let id;
@@ -1078,7 +1077,7 @@ describe("Given graph = new Graph(Tuple)", () => {
       expect(nodes.length).toBe(1);
     });
   });
-  describe("when connections = graph.removeNodeById(existingConnections, id)", () => {
+  describe("when connections = graph.removeConnectionById(existingConnections, id)", () => {
     let existingConnections;
     let id;
     let connections;
