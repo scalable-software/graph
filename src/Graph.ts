@@ -239,4 +239,12 @@ export class Graph {
           connection[0] === id ? translate(connection, offset) : connection
         );
   };
+
+  public getConnectionBySource = (connections: Connections, nodeId: string) => {
+      let _getConnectionBySource = (connections, nodeId) =>
+        this.connection.getConnectionBySource(connections, nodeId);
+      return this.connection.structure === "object"
+        ? _getConnectionBySource(connections, nodeId)
+        : _getConnectionBySource(connections, nodeId);
+    }
 }
