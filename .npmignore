@@ -1,3 +1,7 @@
 package-lock.json
 docs
 coverage
+node_modules
+docs
+specifications
+output
