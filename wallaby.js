@@ -1,8 +1,6 @@
 module.exports = function (wallaby) {
   return {
     files: [
-      "src/*.css",
-      "src/*.html",
       "importmap/inject.js",
       "importmap/importmap.test.js",
       "src/**/*.ts",

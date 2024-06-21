@@ -8,8 +8,6 @@ module.exports = function (config) {
       "/test/": "/base/test/unit/",
     },
     files: [
-      { pattern: "./src/*.css" },
-      { pattern: "./src/*.html" },
       { pattern: "./importmap/inject.js" },
       { pattern: "./importmap/importmap.test.js" },
       { pattern: "./src/**/*.js", type: "module" },
@@ -18,7 +16,12 @@ module.exports = function (config) {
     preprocessors: {
       "src/**/!(*.test).js": ["karma-coverage-istanbul-instrumenter"],
     },
-    reporters: ["spec", "coverage-istanbul"],
+    plugins: ["karma-*", require("./tasks/benchmarkReporter.js")],
+    reporters: ["spec", "coverage-istanbul", "benchmark"],
+    benchmarkReporter: {
+      dir: "./output",
+      filename: "benchmark.report.json",
+    },
     coverageIstanbulInstrumenter: {
       esModules: true,
     },

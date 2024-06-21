@@ -1,14 +1,14 @@
 {
   "name": "@scalable-software/graph.structure",
-  "version": "1.0.7",
-  "description": "ESM based Simple Calculator",
+  "version": "1.0.8",
+  "description": "ESM based Graph with Utility Functions",
   "exports": {
     ".": {
-      "import": "./dist/Calculator.js"
+      "import": "./dist/Index.js"
     }
   },
-  "types": "dist/Calculator.d.ts",
-  "module": "dist/Calculator.js",
+  "types": "dist/Index.d.ts",
+  "module": "dist/Index.js",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
