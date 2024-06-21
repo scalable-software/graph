@@ -9,6 +9,7 @@ import { NodeFactory, Node, Nodes, Metadata } from "./NodeFactory.js";
 // Once performance testing is done, we can refactor to use a class instance
 // Also operations can return this to enable fluent interface
 export class Graph {
+  public nodes: Nodes = [];
   constructor() {}
 
   public createNodes = (qty: number, details): Nodes =>
