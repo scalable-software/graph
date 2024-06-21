@@ -1,6 +1,6 @@
 {
   "name": "@scalable-software/graph.structure",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "ESM based Graph with Utility Functions",
   "exports": {
     ".": {
