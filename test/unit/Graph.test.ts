@@ -1,15 +1,16 @@
-import { UUID, Utilities } from "../../src/Utilities/Utilities.js";
 import {
+  Graph,
+  NodeTypes,
+  Utilities,
+  Connection,
   Coordinates,
   Icon,
   Metadata,
   Node,
   NodeType,
-  NodeTypes,
   Nodes,
-} from "../../src/Graph.js";
-
-import { Graph, Connection } from "../../src/Graph.js";
+  UUID,
+} from "graph";
 
 describe("Given Graph imported", () => {
   it("then Graph exist", () => {
