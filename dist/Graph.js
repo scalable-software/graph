@@ -1,77 +1,106 @@
-import { ObjectNode } from "./ObjectNode.js";
+import { Utilities } from "./Utilities/Utilities.js";
+export const NodeTypes = [
+    "start",
+    "workflow",
+    "delay",
+    "end",
+    "decision",
+];
 // Operations on Graph takes nodes as first argument to enable performance testing
 // Once performance testing is done, we can refactor to use a class instance
 // Also operations can return this to enable fluent interface
 export class Graph {
-    node;
-    constructor(nodeFactory = ObjectNode) {
-        this.node = nodeFactory;
-    }
-    createNodes = (qty, details) => Array.from({ length: qty }, () => this.node.create(details));
-    addNode = (nodes, details) => [
-        ...nodes,
-        this.node.create(details),
-    ];
-    addNodes = (nodes, newNodes) => [
-        ...nodes,
-        ...newNodes,
-    ];
-    addNodeMetadata = (nodes, id, metadata) => {
-        let addMetadata = (node, metadata) => this.node.addMetadata(node, metadata);
-        return this.node.structure === "object"
-            ? nodes.map((node) => node.id === id ? addMetadata(node, metadata) : node)
-            : nodes.map((node) => node[0] === id ? addMetadata(node, metadata) : node);
+    static createNode = ({ name, type, coordinates, icon }) => ({
+        id: Utilities.uuid,
+        name,
+        type,
+        coordinates,
+        icon,
+    });
+    static createConnection = ({ name, source, target, coordinates, }) => ({
+        id: Utilities.uuid,
+        name,
+        source,
+        target,
+        coordinates,
+    });
+    static addNodeMetadata = (node, metadata) => ({
+        ...node,
+        metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
+    });
+    static updateNode = (node, update) => update;
+    static updateConnection = (connection, update) => update;
+    static updateNodeMetadata = (node, metadata) => {
+        let key = Object.keys(metadata)[0];
+        node.metadata = node.metadata.map((node) => (node[key] ? metadata : node));
+        return node;
     };
-    updateNodeMetadata = (nodes, id, metadata) => {
-        let updateMetadata = (node, metadata) => this.node.updateMetadata(node, metadata);
-        return this.node.structure === "object"
-            ? nodes.map((node) => node.id === id ? updateMetadata(node, metadata) : node)
-            : nodes.map((node) => node[0] === id ? updateMetadata(node, metadata) : node);
+    static updateNodeIcon = (node, icon) => ({
+        ...node,
+        icon,
+    });
+    static removeNodeMetadata = (node, type) => {
+        node.metadata = node.metadata.filter((metadata) => metadata[type] === undefined);
+        return node;
     };
-    updateNodeCoordinates = (nodes, id, coordinates) => {
-        let updateCoordinates = (node, coordinates) => this.node.updateCoordinates(node, coordinates);
-        return this.node.structure === "object"
-            ? nodes.map((node) => node.id === id ? updateCoordinates(node, coordinates) : node)
-            : nodes.map((node) => node[0] === id ? updateCoordinates(node, coordinates) : node);
+    static updateNodeCoordinates = (node, coordinates) => ({
+        ...node,
+        coordinates,
+    });
+    static updateConnectionCoordinates = (connection, coordinates) => ({
+        ...connection,
+        coordinates,
+    });
+    static translateNode = (node, offset) => {
+        node.coordinates = {
+            x: node.coordinates.x + offset.x,
+            y: node.coordinates.y + offset.y,
+        };
+        return node;
     };
-    updateNodeIcon = (nodes, id, icon) => {
-        let updateIcon = (node, icon) => this.node.updateIcon(node, icon);
-        return this.node.structure === "object"
-            ? nodes.map((node) => node.id === id ? updateIcon(node, icon) : node)
-            : nodes.map((node) => node[0] === id ? updateIcon(node, icon) : node);
+    static translateConnection = (connection, offset) => {
+        connection.coordinates = {
+            start: {
+                x: connection.coordinates.start.x + offset.x,
+                y: connection.coordinates.start.y + offset.y,
+            },
+            end: {
+                x: connection.coordinates.end.x + offset.x,
+                y: connection.coordinates.end.y + offset.y,
+            },
+        };
+        return connection;
     };
-    updateNode = (nodes, id, update) => {
-        let updateNode = (node, update) => this.node.update(node, update);
-        return this.node.structure === "object"
-            ? nodes.map((node) => node.id === id ? updateNode(node, update) : node)
-            : nodes.map((node) => node[0] === id ? updateNode(node, update) : node);
-    };
-    findNodeById = (nodes, id) => this.node.structure === "object"
-        ? nodes.find((node) => node.id === id)
-        : nodes.find((node) => node[0] === id);
-    findNodesByType = (nodes, type) => this.node.structure === "object"
-        ? nodes.filter((node) => node.type === type)
-        : nodes.filter((node) => node[2] === type);
-    findNodeByCoordinates = (nodes, coordinates) => {
-        let x = coordinates.x;
-        let y = coordinates.y;
-        return this.node.structure === "object"
-            ? nodes.find((node) => node.coordinates.x === x && node.coordinates.y === y)
-            : nodes.find((node) => node[3][0] === x && node[3][1] === y);
-    };
-    removeNodeMetadata = (nodes, id, type) => {
-        let removeMetadata = (node, type) => this.node.removeMetadata(node, type);
-        return this.node.structure === "object"
-            ? nodes.map((node) => node.id === id ? removeMetadata(node, type) : node)
-            : nodes.map((node) => node[0] === id ? removeMetadata(node, type) : node);
-    };
-    removeNodeById = (nodes, id) => this.node.structure === "object"
-        ? nodes.filter((node) => node.id !== id)
-        : nodes.filter((node) => node[0] !== id);
-    translateNode = (nodes, id, offset) => {
-        let translate = (node, offset) => this.node.translate(node, offset);
-        return this.node.structure === "object"
-            ? nodes.map((node) => node.id === id ? translate(node, offset) : node)
-            : nodes.map((node) => node[0] === id ? translate(node, offset) : node);
-    };
+    nodes = [];
+    connections = [];
+    constructor() { }
+    createNodes = (qty, details) => Array.from({ length: qty }, () => Graph.createNode(details));
+    createConnections = (qty, details) => Array.from({ length: qty }, () => Graph.createConnection(details));
+    addNode = (details) => (this.nodes = [...this.nodes, Graph.createNode(details)]);
+    addConnection = (details) => (this.connections = [...this.connections, Graph.createConnection(details)]);
+    addNodes = (newNodes) => (this.nodes = [...this.nodes, ...newNodes]);
+    addConnections = (newConnections) => (this.connections = [...this.connections, ...newConnections]);
+    addNodeMetadata = (id, metadata) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.addNodeMetadata(node, metadata) : node));
+    updateNodeMetadata = (id, metadata) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.updateNodeMetadata(node, metadata) : node));
+    updateNodeCoordinates = (id, coordinates) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.updateNodeCoordinates(node, coordinates) : node));
+    updateConnectionCoordinates = (id, coordinates) => (this.connections = this.connections.map((connection) => connection.id === id
+        ? Graph.updateConnectionCoordinates(connection, coordinates)
+        : connection));
+    updateNodeIcon = (id, icon) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.updateNodeIcon(node, icon) : node));
+    updateNode = (id, update) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.updateNode(node, update) : node));
+    updateConnection = (id, update) => (this.connections = this.connections.map((connection) => connection.id === id
+        ? Graph.updateConnection(connection, update)
+        : connection));
+    findNodeById = (id) => this.nodes.find((node) => node.id === id);
+    findConnectionById = (id) => this.connections.find((connection) => connection.id === id);
+    findNodesByType = (type) => this.nodes.filter((node) => node.type === type);
+    findNodeByCoordinates = (coordinates) => this.nodes.find((node) => node.coordinates.x === coordinates.x &&
+        node.coordinates.y === coordinates.y);
+    removeNodeMetadata = (id, type) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.removeNodeMetadata(node, type) : node));
+    removeNodeById = (id) => (this.nodes = this.nodes.filter((node) => node.id !== id));
+    removeConnectionById = (id) => (this.connections = this.connections.filter((connection) => connection.id !== id));
+    translateNode = (id, offset) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.translateNode(node, offset) : node));
+    translateConnection = (id, offset) => (this.connections = this.connections.map((connection) => connection.id === id
+        ? Graph.translateConnection(connection, offset)
+        : connection));
 }
