@@ -10,6 +10,7 @@ import { NodeFactory, Node, Nodes, Metadata } from "./NodeFactory.js";
 // Also operations can return this to enable fluent interface
 export class Graph {
   public nodes: Nodes = [];
+  public connections: Connections = [];
   constructor() {}
 
   public createNodes = (qty: number, details): Nodes =>
