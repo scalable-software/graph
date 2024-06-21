@@ -23,6 +23,9 @@ describe("Given Graph imported", () => {
     it("then graph.nodes exists", () => {
       expect(graph.nodes).toBeDefined();
     });
+    it("then graph.connections exists", () => {
+      expect(graph.connections).toBeDefined();
+    });
     it("then graph.createNodes exist", () => {
       expect(graph.createNodes).toBeDefined();
     });
