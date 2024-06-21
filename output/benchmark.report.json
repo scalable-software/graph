@@ -1,1 +1,530 @@
-[]
+[
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], details) then adding 1 node to an existing set of 10 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10,
+        "time": 0.10000000149011612
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], details) then adding 1 node to an existing set of 10 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10,
+        "size": 1556
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], details) then adding 1 node to an existing set of 100 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100,
+        "time": 0
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], details) then adding 1 node to an existing set of 100 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100,
+        "size": 1212
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], details) then adding 1 node to an existing set of 1000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 1000,
+        "time": 0
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], details) then adding 1 node to an existing set of 1000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 1000,
+        "size": 10204
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], details) then adding 1 node to an existing set of 10000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10000,
+        "time": 0.19999999925494194
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], details) then adding 1 node to an existing set of 10000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10000,
+        "size": 100220
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], details) then adding 1 node to an existing set of 100000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100000,
+        "time": 1.2999999970197678
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], details) then adding 1 node to an existing set of 100000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100000,
+        "size": 1000228
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], details) then adding 1 connection to an existing set of 10 connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 10,
+        "time": 0.19999999925494194
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], details) then adding 1 connection to an existing set of 10 connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 10,
+        "size": 312
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], details) then adding 1 connection to an existing set of 100 connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 100,
+        "time": 0
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], details) then adding 1 connection to an existing set of 100 connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 100,
+        "size": 128696
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], details) then adding 1 connection to an existing set of 1000 connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 1000,
+        "time": 0.10000000149011612
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], details) then adding 1 connection to an existing set of 1000 connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 1000,
+        "size": 10204
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], details) then adding 1 connection to an existing set of 10000 connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 10000,
+        "time": 0.10000000149011612
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], details) then adding 1 connection to an existing set of 10000 connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 10000,
+        "size": 100204
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], details) then adding 1 connection to an existing set of 100000 connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 100000,
+        "time": 1.300000000745058
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], details) then adding 1 connection to an existing set of 100000 connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 100000,
+        "size": 1000412
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 10 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10,
+        "time": 0.09999999776482582
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 10 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10,
+        "size": 100544
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 100 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100,
+        "time": 0.09999999776482582
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 100 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100,
+        "size": 102160
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 1000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 1000,
+        "time": 0.30000000074505806
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 1000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 1000,
+        "size": 120160
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 10000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10000,
+        "time": 0.5
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 10000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10000,
+        "size": 407948
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 100000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100000,
+        "time": 4.199999999254942
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 100000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100000,
+        "size": 3357240
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 10 connection has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 10,
+        "time": 0.10000000149011612
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 10 connection takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 10,
+        "size": 116268
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 100 connection has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 100,
+        "time": 0
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 100 connection takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 100,
+        "size": 118716
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 1000 connection has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 1000,
+        "time": 0.19999999925494194
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 1000 connection takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 1000,
+        "size": 128896
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 10000 connection has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 10000,
+        "time": 0.30000000074505806
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 10000 connection takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 10000,
+        "size": 390344
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 100000 connection has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 100000,
+        "time": 3.800000000745058
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 100000 connection takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 100000,
+        "size": 3356840
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 10th position of an exisiting set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 10000,
+        "time": 4.600000001490116
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 10th position of an exisiting set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 10000,
+        "size": 43108
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 100th position of an exisiting set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 10000,
+        "time": 0.6999999992549419
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 100th position of an exisiting set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 10000,
+        "size": 40200
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 1000th position of an exisiting set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 10000,
+        "time": 0.6000000014901161
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 1000th position of an exisiting set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 10000,
+        "size": 40200
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 10000th position of an exisiting set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 10000,
+        "time": 0.7000000029802322
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 10000th position of an exisiting set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 10000,
+        "size": 40200
+      }
+    }
+  }
+]

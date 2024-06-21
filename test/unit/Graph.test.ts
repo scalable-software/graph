@@ -1,6 +1,7 @@
 import { Utilities } from "../../src/Utilities/Utilities.js";
 import { NodeTypes, NodeType } from "../../src/Node.js";
 import { Graph } from "../../src/Graph.js";
+import { Benchmark } from "./Benchmark.js"
 
 describe("Given Graph imported", () => {
   it("then Graph exist", () => {
@@ -141,29 +142,48 @@ describe("Given graph = new Graph(Object)", () => {
       expect(connections.length).toBe(1);
     });
   });
+
+  // TODO: Benchmark
+
   describe("when nodes = graph.addNode([], details)", () => {
-    let nodes;
+    let details;
     beforeEach(() => {
-      let details = {
+      details = {
         name: "Node1",
         type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
-      nodes = graph.addNode([], details);
     });
-    it("then nodes exist", () => {
-      expect(nodes).toBeDefined();
-    });
-    it("then nodes.length equals 1", () => {
-      expect(nodes.length).toBe(1);
-    });
+    // For powers of 10 
+    for (const i of [10, 100, 1000, 10000, 100000]) {
+      const baseSpecMessage = `then adding 1 node to an existing set of ${i} nodes`;
+      const performanceSpecMessage = `${baseSpecMessage} has a performance time of`;
+      const memorySpecMessage = `${baseSpecMessage} takes up a certain amount of memory`;
+      it(performanceSpecMessage, () => {
+        let nodes = graph.createNodes(i, details);
+        let meta = { structure: "Object", action: "addNode", after: i };
+        nodes = structuredClone(nodes);
+        let results = Benchmark.Performance(meta, graph.addNode, nodes, details);
+        expect(results).toBeDefined();
+        expect(results.length).toEqual(1 + i);
+      });
+      it(memorySpecMessage, () => {
+        let nodes = graph.createNodes(i, details);
+        let meta = { structure: "Object", action: "addNode", after: i };
+        nodes = structuredClone(nodes);
+        let results = Benchmark.Memory(meta, graph.addNode, nodes, details);
+        expect(results).toBeDefined();
+        expect(results.length).toEqual(1 + i);
+      });
+    }
   });
+  
   describe("when connections = graph.addConnection([], details)", () => {
-    let connections;
+    let details;
     beforeEach(() => {
-      let details = {
-        name: "Node",
+      details = {
+        name: "",
         source: "Node 1",
         target: "Node 2",
         coordinates: {
@@ -171,15 +191,32 @@ describe("Given graph = new Graph(Object)", () => {
           end: { x: 10, y: 10 }
         }
       };
-      connections = graph.addConnection([], details);
     });
-    it("then connections exist", () => {
-      expect(connections).toBeDefined();
-    });
-    it("then connections.length equals 1", () => {
-      expect(connections.length).toBe(1);
-    });
+    // For powers of 10 
+    for (const i of [10, 100, 1000, 10000, 100000]) {
+      const baseSpecMessage = `then adding 1 connection to an existing set of ${i} connections`;
+      const performanceSpecMessage = `${baseSpecMessage} has a performance time of`;
+      const memorySpecMessage = `${baseSpecMessage} takes up a certain amount of memory`;
+      it(performanceSpecMessage, () => {
+        let connections = graph.createConnections(i, details);
+        let meta = { structure: "Object", action: "addConnection", after: i };
+        connections = structuredClone(connections);
+        let results = Benchmark.Performance(meta, graph.addConnection, connections, details);
+        expect(results).toBeDefined();
+        expect(results.length).toEqual(1 + i);
+      });
+      it(memorySpecMessage, () => {
+        let connections = graph.createConnections(i, details);
+        let meta = { structure: "Object", action: "addConnection", after: i };
+        connections = structuredClone(connections);
+        let results = Benchmark.Memory(meta, graph.addConnection, connections, details);
+        expect(results).toBeDefined();
+        expect(results.length).toEqual(1 + i);
+      });
+    }
   });
+
+  // TODO: Benchmark
   describe("when nodes = graph.addNodes(existingNodes, newNodes)", () => {
     let existingNodes;
     let newNodes;
@@ -206,12 +243,50 @@ describe("Given graph = new Graph(Object)", () => {
       expect(nodes.length).toBe(4);
     });
   });
-  describe("when connections = graph.addConnections(existingConnections, newConnections)", () => {
-    let existingConnections;
-    let newConnections;
-    let connections;
+
+  describe("when nodes = graph.addNodes(existingNodes, newNodes)", () => {
+    let details;
+    let existingNodes;
     beforeEach(() => {
-      existingConnections = graph.createConnections(2, {
+      details = {
+        name: "Node1",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+
+      existingNodes = graph.createNodes(10000, details)
+    });
+    // For powers of 10 
+    for (const i of [10, 100, 1000, 10000, 100000]) {
+      const baseSpecMessage = `then adding 1 node to an existing set of ${i} nodes`;
+      const performanceSpecMessage = `${baseSpecMessage} has a performance time of`;
+      const memorySpecMessage = `${baseSpecMessage} takes up a certain amount of memory`;
+      it(performanceSpecMessage, () => {
+        let nodes = graph.createNodes(i, details);
+        let meta = { structure: "Object", action: "addNode", after: i };
+        nodes = structuredClone(nodes);
+        let results = Benchmark.Performance(meta, graph.addNodes, existingNodes, nodes);
+        expect(results).toBeDefined();
+        expect(results.length).toEqual(existingNodes.length + i);
+      });
+      it(memorySpecMessage, () => {
+        let nodes = graph.createNodes(i, details);
+        let meta = { structure: "Object", action: "addNode", after: i };
+        nodes = structuredClone(nodes);
+        let results = Benchmark.Memory(meta, graph.addNodes, existingNodes, nodes);
+        expect(results).toBeDefined();
+        expect(results.length).toEqual(existingNodes.length + i);
+      });
+    }
+  });
+
+  // TODO: Benchmark
+  describe("when connections = graph.addConnections(existingConnections, newConnections)", () => {
+    let details;
+    let existingConnections;
+    beforeEach(() => {
+      details = {
         name: "Node",
         source: "Node 1",
         target: "Node 2",
@@ -219,25 +294,75 @@ describe("Given graph = new Graph(Object)", () => {
           start: { x: 0, y: 0 },
           end: { x: 10, y: 10 }
         },
+      };
+
+      existingConnections = graph.createConnections(10000, details)
+    });
+    // For powers of 10 
+    for (const i of [10, 100, 1000, 10000, 100000]) {
+      const baseSpecMessage = `then adding 1 connection to an existing set of ${i} connection`;
+      const performanceSpecMessage = `${baseSpecMessage} has a performance time of`;
+      const memorySpecMessage = `${baseSpecMessage} takes up a certain amount of memory`;
+      it(performanceSpecMessage, () => {
+        let connections = graph.createConnections(i, details);
+        let meta = { structure: "Object", action: "addConnections", after: i };
+        connections = structuredClone(connections);
+        let results = Benchmark.Performance(meta, graph.addConnections, existingConnections, connections);
+        expect(results).toBeDefined();
+        expect(results.length).toEqual(existingConnections.length + i);
       });
-      newConnections = graph.createConnections(2, {
-        name: "Node2",
-        source: "Node 10",
-        target: "Node 20",
-        coordinates: {
-          start: { x: 10, y: 10 },
-          end: { x: 100, y: 100 }
-        },
+      it(memorySpecMessage, () => {
+        let connections = graph.createConnections(i, details);
+        let meta = { structure: "Object", action: "addConnections", after: i };
+        connections = structuredClone(connections);
+        let results = Benchmark.Memory(meta, graph.addConnections, existingConnections, connections);
+        expect(results).toBeDefined();
+        expect(results.length).toEqual(existingConnections.length + i);
       });
-      connections = graph.addConnections(existingConnections, newConnections);
-    });
-    it("then connections exist", () => {
-      expect(connections).toBeDefined();
-    });
-    it("then connections.length equals 4", () => {
-      expect(connections.length).toBe(4);
-    });
+    }
   });
+
+  describe("when nodes = graph.addNodeMetadata(existingNodes, id, metadata)", () => {
+    let details;
+    let existingNodes;
+    let newMetaData;
+    beforeEach(() => {
+      details = {
+        name: "Node1",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      newMetaData = { test: "test", test2: "test2" };
+      existingNodes = graph.createNodes(10000, details)
+    });
+    // For powers of 10 
+    for (const i of [10, 100, 1000, 10000, 100000]) {
+      const baseSpecMessage = `then adding metadata to the node at the ${i}th position of an exisiting set of nodes`;
+      const performanceSpecMessage = `${baseSpecMessage} has a performance time of`;
+      const memorySpecMessage = `${baseSpecMessage} takes up a certain amount of memory`;
+      it(performanceSpecMessage, () => {
+        let node = existingNodes[i-1];
+        let meta = { structure: "Object", action: "addNodeMetadata", after: existingNodes.length };
+        existingNodes = structuredClone(existingNodes);
+        let results = Benchmark.Performance(meta, graph.addNodeMetadata, existingNodes, node.id, newMetaData);
+        expect(results).toBeDefined();
+        expect(results.length).toEqual(existingNodes.length);
+        expect(results[i-1].metadata).toEqual([newMetaData]);
+      });
+      it(memorySpecMessage, () => {
+        let node = existingNodes[i-1];
+        let meta = { structure: "Object", action: "addNodeMetadata", after: existingNodes.length };
+        existingNodes = structuredClone(existingNodes);
+        let results = Benchmark.Memory(meta, graph.addNodeMetadata, existingNodes, node.id, newMetaData);
+        expect(results).toBeDefined();
+        expect(results.length).toEqual(existingNodes.length);
+        expect(results[i-1].metadata).toEqual([newMetaData]);
+      });
+    }
+  });
+
+  // TODO: Benchmark
   describe("when nodes = graph.addNodeMetadata(existingNodes, id, metadata)", () => {
     let existingNodes;
     let id;
@@ -269,6 +394,7 @@ describe("Given graph = new Graph(Object)", () => {
       expect(nodes[1].metadata[0]).toEqual(metadata);
     });
   });
+  // TODO: Benchmark
   describe("when node = graph.findNodeById(existingNodes, id)", () => {
     let existingNodes;
     let id;
@@ -290,6 +416,7 @@ describe("Given graph = new Graph(Object)", () => {
       expect(node).toEqual(existingNodes[1]);
     });
   });
+  // TODO: Benchmark
   describe("when connection = graph.findConnectionById(existingConnections, id)", () => {
     let existingConnections;
     let id;
@@ -360,6 +487,8 @@ describe("Given graph = new Graph(Object)", () => {
       };
       nodes = graph.addNodeMetadata(existingNodes, id, metadata);
     });
+
+    // TODO: Benchmark
     describe("when nodes = graph.updateNodeMetadata(nodes, id, metadata)", () => {
       let metadata;
       beforeEach(() => {
@@ -405,6 +534,7 @@ describe("Given graph = new Graph(Object)", () => {
       nodes = graph.createNodes(1, details);
       id = nodes[0].id;
     });
+    // TODO: Benchmark
     describe("when nodes = graph.translateNode(nodes, id, offset)", () => {
       let offset;
       let coordinates;
@@ -440,6 +570,7 @@ describe("Given graph = new Graph(Object)", () => {
         expect(nodes[0].icon).toEqual(icon);
       });
     });
+    // TODO: Benchmark
     describe("When nodes = graph.updateNode(nodes, id, update)", () => {
       let update;
       beforeEach(() => {
@@ -483,6 +614,8 @@ describe("Given graph = new Graph(Object)", () => {
       connections = graph.createConnections(1, details);
       id = connections[0].id;
     });
+
+    // TODO: Benchmark
     describe("when connections = graph.translateConnection(connections, id, offset)", () => {
       let offset;
       let coordinates;
@@ -490,8 +623,6 @@ describe("Given graph = new Graph(Object)", () => {
         coordinates = connections[0].coordinates;
         offset = { x: 10, y: 10 };
         connections = graph.translateConnection(connections, id, offset);
-
-        console.log(connections)
       });
       it("then connections[0].coordinates.start.x equals coordinates.start.x + offset.x", () => {
         expect(connections[0].coordinates.start.x).toEqual(coordinates.start.x + offset.x);
@@ -516,6 +647,8 @@ describe("Given graph = new Graph(Object)", () => {
         expect(connections[0].coordinates).toEqual(coordinates);
       });
     });
+
+    // TODO: Benchmark
     describe("When connections = graph.updateConnection(connections, id, update)", () => {
       let update;
       beforeEach(() => {
@@ -535,6 +668,8 @@ describe("Given graph = new Graph(Object)", () => {
       });
     });
   });
+
+  // TODO: Benchmark
   describe("when nodes = graph.removeNodeById(existingNodes, id)", () => {
     let existingNodes;
     let id;
@@ -556,6 +691,8 @@ describe("Given graph = new Graph(Object)", () => {
       expect(nodes.length).toBe(1);
     });
   });
+
+  // TODO: Benchmark
   describe("when connections = graph.removeConnectionById(existingConnections, id)", () => {
     let existingConnections;
     let id;
@@ -752,7 +889,6 @@ describe("Given graph = new Graph(Tuple)", () => {
         icon: "./icon.svg",
       });
       id = existingNodes[1][0];
-      console.log(existingNodes[1])
       node = graph.findNodeById(existingNodes, id);
     });
     it("then node exist", () => {
@@ -1102,3 +1238,4 @@ describe("Given graph = new Graph(Tuple)", () => {
     });
   });
 });
+
