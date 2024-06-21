@@ -20,6 +20,9 @@ describe("Given Graph imported", () => {
     beforeEach(() => {
       graph = new Graph();
     });
+    it("then graph.nodes exists", () => {
+      expect(graph.nodes).toBeDefined();
+    });
     it("then graph.createNodes exist", () => {
       expect(graph.createNodes).toBeDefined();
     });
