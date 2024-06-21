@@ -1,26 +1,117 @@
+import { Utilities, UUID } from "./Utilities/Utilities.js";
 import {
   ConnectionFactory,
   Connection,
   Connections,
 } from "./ConnectionFactory.js";
-import { NodeFactory, Node, Nodes, Metadata } from "./NodeFactory.js";
+
+export const NodeTypes = [
+  "start",
+  "workflow",
+  "delay",
+  "end",
+  "decision",
+] as const;
+export type NodeType = (typeof NodeTypes)[number];
+
+export type Icon = string;
+
+export type Arrival = {
+  distribution: string;
+  parameters: { rate: number }[];
+};
+export type Duration = {
+  distribution: string;
+  parameters: { meanlog: number; sdlog?: number }[];
+};
+export type Prevalence = { target: string; probability: number }[];
+
+export type Metadata = {
+  arrival?: Arrival;
+  duration?: Duration;
+  prevalence?: Prevalence;
+};
+
+export type Coordinates = {
+  x: number;
+  y: number;
+};
+
+export type Node = {
+  id: UUID;
+  name: string;
+  type: NodeType;
+  coordinates: Coordinates;
+  icon?: Icon;
+  metadata?: Metadata[];
+};
+export type Nodes = Node[];
 
 // Operations on Graph takes nodes as first argument to enable performance testing
 // Once performance testing is done, we can refactor to use a class instance
 // Also operations can return this to enable fluent interface
 export class Graph {
+  public static createNode = ({ name, type, coordinates, icon }): Node => ({
+    id: Utilities.uuid,
+    name,
+    type,
+    coordinates,
+    icon,
+  });
+
+  public static addNodeMetadata = (node: Node, metadata: Metadata): Node => ({
+    ...node,
+    metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
+  });
+
+  public static updateNode = (node: Node, update: Node): Node => update;
+
+  public static updateNodeMetadata = (node: Node, metadata: Metadata): Node => {
+    let key = Object.keys(metadata)[0];
+    node.metadata = node.metadata.map((node) => (node[key] ? metadata : node));
+    return node;
+  };
+
+  public static updateNodeIcon = (node: Node, icon: Icon): Node => ({
+    ...node,
+    icon,
+  });
+
+  public static removeNodeMetadata = (node: Node, type: string): Node => {
+    node.metadata = node.metadata.filter(
+      (metadata) => metadata[type] === undefined
+    );
+    return node;
+  };
+
+  public static updateNodeCoordinates = (
+    node: Node,
+    coordinates: Coordinates
+  ): Node => ({
+    ...node,
+    coordinates,
+  });
+
+  public static translate = (node: Node, offset: any) => {
+    node.coordinates = {
+      x: node.coordinates.x + offset.x,
+      y: node.coordinates.y + offset.y,
+    };
+    return node;
+  };
+
   public nodes: Nodes = [];
   public connections: Connections = [];
   constructor() {}
 
   public createNodes = (qty: number, details): Nodes =>
-    Array.from({ length: qty }, () => NodeFactory.create(details));
+    Array.from({ length: qty }, () => Graph.createNode(details));
 
   public createConnections = (qty: number, details): Connections =>
     Array.from({ length: qty }, () => ConnectionFactory.create(details));
 
   public addNode = (details): Nodes =>
-    (this.nodes = [...this.nodes, NodeFactory.create(details)]);
+    (this.nodes = [...this.nodes, Graph.createNode(details)]);
 
   public addConnection = (details): Connections =>
     (this.connections = [
@@ -36,17 +127,17 @@ export class Graph {
 
   public addNodeMetadata = (id: string, metadata: Metadata): Nodes =>
     (this.nodes = this.nodes.map((node: Node) =>
-      node.id === id ? NodeFactory.addMetadata(node, metadata) : node
+      node.id === id ? Graph.addNodeMetadata(node, metadata) : node
     ));
 
   public updateNodeMetadata = (id: string, metadata: Metadata): Nodes =>
     (this.nodes = this.nodes.map((node: Node) =>
-      node.id === id ? NodeFactory.updateMetadata(node, metadata) : node
+      node.id === id ? Graph.updateNodeMetadata(node, metadata) : node
     ));
 
   public updateNodeCoordinates = (id: string, coordinates) =>
     (this.nodes = this.nodes.map((node: Node) =>
-      node.id === id ? NodeFactory.updateCoordinates(node, coordinates) : node
+      node.id === id ? Graph.updateNodeCoordinates(node, coordinates) : node
     ));
 
   public updateConnectionCoordinates = (id: string, coordinates) =>
@@ -58,12 +149,12 @@ export class Graph {
 
   public updateNodeIcon = (id: string, icon) =>
     (this.nodes = this.nodes.map((node: Node) =>
-      node.id === id ? NodeFactory.updateIcon(node, icon) : node
+      node.id === id ? Graph.updateNodeIcon(node, icon) : node
     ));
 
   public updateNode = (id: string, update) =>
     (this.nodes = this.nodes.map((node: Node) =>
-      node.id === id ? NodeFactory.update(node, update) : node
+      node.id === id ? Graph.updateNode(node, update) : node
     ));
 
   public updateConnection = (id: string, update) =>
@@ -91,7 +182,7 @@ export class Graph {
 
   public removeNodeMetadata = (id: string, type: string) =>
     (this.nodes = this.nodes.map((node: Node) =>
-      node.id === id ? NodeFactory.removeMetadata(node, type) : node
+      node.id === id ? Graph.removeNodeMetadata(node, type) : node
     ));
 
   public removeNodeById = (id: string): Nodes =>
@@ -104,7 +195,7 @@ export class Graph {
 
   public translateNode = (id: string, offset) =>
     (this.nodes = this.nodes.map((node: Node) =>
-      node.id === id ? NodeFactory.translate(node, offset) : node
+      node.id === id ? Graph.translate(node, offset) : node
     ));
 
   public translateConnection = (id: string, offset) =>

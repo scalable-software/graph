@@ -7,13 +7,37 @@ import {
   NodeType,
   NodeTypes,
   Nodes,
-} from "../../src/NodeFactory.js";
+} from "../../src/Graph.js";
 
 import { Graph } from "../../src/Graph.js";
 
 describe("Given Graph imported", () => {
   it("then Graph exist", () => {
     expect(Graph).toBeDefined();
+  });
+  it("then Graph.createNode exist", () => {
+    expect(Graph.createNode).toBeDefined();
+  });
+  it("then Graph.addNodeMetadata exist", () => {
+    expect(Graph.addNodeMetadata).toBeDefined();
+  });
+  it("then Graph.updateNode exist", () => {
+    expect(Graph.updateNode).toBeDefined();
+  });
+  it("then Graph.updateNodeMetadata exist", () => {
+    expect(Graph.updateNodeMetadata).toBeDefined();
+  });
+  it("then Graph.updateNodeIcon exist", () => {
+    expect(Graph.updateNodeIcon).toBeDefined();
+  });
+  it("then Graph.removeNodeMetadata exist", () => {
+    expect(Graph.removeNodeMetadata).toBeDefined();
+  });
+  it("then Graph.translate exist", () => {
+    expect(Graph.translate).toBeDefined();
+  });
+  it("then Graph.updateNodeCoordinates exist", () => {
+    expect(Graph.updateNodeCoordinates).toBeDefined();
   });
   describe("when graph = new Graph()", () => {
     let graph: Graph;
@@ -91,6 +115,368 @@ describe("Given Graph imported", () => {
     });
     it("then graph.translateConnection exist", () => {
       expect(graph.translateConnection).toBeDefined();
+    });
+  });
+});
+
+describe("Given Graph.createNode static method exist", () => {
+  describe("when node = Graph.createNode(details)", () => {
+    let details;
+    let node: Node;
+    beforeEach(() => {
+      details = {
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      node = Graph.createNode(details);
+    });
+    it("then node is exist", () => {
+      expect(node).toBeDefined();
+    });
+    it("then node.id exist", () => {
+      expect(node.id).toBeDefined();
+    });
+    it("then node.name exist", () => {
+      expect(node.name).toBeDefined();
+    });
+    it("then node.type exist", () => {
+      expect(node.type).toBeDefined();
+    });
+    it("then node.coordinates exist", () => {
+      expect(node.coordinates).toBeDefined();
+    });
+    it("then node.icon exist", () => {
+      expect(node.icon).toBeDefined();
+    });
+    it("then node.name equals details.name", () => {
+      expect(node.name).toBe(details.name);
+    });
+    it("then node.type equals details.type", () => {
+      expect(node.type).toEqual(details.type);
+    });
+    it("then node.coordinates equals details.coordinates", () => {
+      expect(node.coordinates).toEqual(details.coordinates);
+    });
+    it("then node.icon equals details.icon", () => {
+      expect(node.icon).toEqual(details.icon);
+    });
+  });
+});
+
+describe("Given Graph.addNodeMetadata static method exist", () => {
+  describe("when extendedNode = Graph.extend(node, metadata)", () => {
+    let node: Node;
+    let metadata: Metadata;
+    let extendedNode: Node;
+    beforeEach(() => {
+      node = Graph.createNode({
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      metadata = {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 1 }],
+        },
+      };
+      extendedNode = Graph.addNodeMetadata(node, metadata);
+    });
+    it("then extendedNode exist", () => {
+      expect(extendedNode).toBeDefined();
+    });
+    it("then extendedNode.id exist", () => {
+      expect(extendedNode.id).toBeDefined();
+    });
+    it("then extendedNode.name exist", () => {
+      expect(extendedNode.name).toBeDefined();
+    });
+    it("then extendedNode.type exist", () => {
+      expect(extendedNode.type).toBeDefined();
+    });
+    it("then extendedNode.coordinates exist", () => {
+      expect(extendedNode.coordinates).toBeDefined();
+    });
+    it("then extendedNode.icon exist", () => {
+      expect(extendedNode.icon).toBeDefined();
+    });
+    it("then extendedNode.metadata exist", () => {
+      expect(extendedNode.metadata).toBeDefined();
+    });
+    it("then extendedNode.id equals node.id", () => {
+      expect(extendedNode.id).toEqual(node.id);
+    });
+    it("then extendedNode.name equals node.name", () => {
+      expect(extendedNode.name).toEqual(node.name);
+    });
+    it("then extendedNode.type equals node.type", () => {
+      expect(extendedNode.type).toEqual(node.type);
+    });
+    it("then extendedNode.coordinates equals node.coordinates", () => {
+      expect(extendedNode.coordinates).toEqual(node.coordinates);
+    });
+    it("then extendedNode.icon equals node.icon", () => {
+      expect(extendedNode.icon).toEqual(node.icon);
+    });
+    it("then result.metadata equals metadata", () => {
+      expect(extendedNode.metadata[0]).toEqual(metadata);
+    });
+  });
+});
+
+describe("Given Graph.updateNode exist", () => {
+  describe("and node exist", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = Graph.createNode({
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+    });
+    describe("when updatedNode = Graph.updateNode(node, update)", () => {
+      let details;
+      beforeEach(() => {
+        details = {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          name: "Triage",
+          type: "workflow",
+          coordinates: { x: 100, y: 400 },
+          icon: "icon.svg",
+          metadata: [
+            {
+              duration: {
+                distribution: "log normal",
+                parameters: [{ meanlog: 0.1640238 }, { sdlog: 0.4169375 }],
+              },
+            },
+          ],
+        };
+        node = Graph.updateNode(node, details);
+      });
+      it("then node icon is updated", () => {
+        expect(node).toEqual(details);
+      });
+    });
+  });
+});
+
+describe("Given Graph.updateNodeMetadata static method exist", () => {
+  describe("and node with metadata exist", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = Graph.createNode({
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      let metadata = {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 1 }],
+        },
+      };
+      node = Graph.addNodeMetadata(node, metadata);
+    });
+    describe("when updatedNode = Graph.updateMetadata(node, metadata)", () => {
+      let metadata: Metadata;
+      let updatedNode: Node;
+      beforeEach(() => {
+        metadata = {
+          arrival: {
+            distribution: "exponential",
+            parameters: [{ rate: 10 }],
+          },
+        };
+        updatedNode = Graph.updateNodeMetadata(node, metadata);
+      });
+      it("then updatedNode exist", () => {
+        expect(updatedNode).toBeDefined();
+      });
+      it("then updatedNode.id exist", () => {
+        expect(updatedNode.id).toBeDefined();
+      });
+      it("then updatedNode.name exist", () => {
+        expect(updatedNode.name).toBeDefined();
+      });
+      it("then updatedNode.type exist", () => {
+        expect(updatedNode.type).toBeDefined();
+      });
+      it("then updatedNode.coordinates exist", () => {
+        expect(updatedNode.coordinates).toBeDefined();
+      });
+      it("then updatedNode.icon exist", () => {
+        expect(updatedNode.icon).toBeDefined();
+      });
+      it("then updatedNode.metadata exist", () => {
+        expect(updatedNode.metadata).toBeDefined();
+      });
+      it("then updatedNode.id equals node.id", () => {
+        expect(updatedNode.id).toEqual(node.id);
+      });
+      it("then updatedNode.name equals node.name", () => {
+        expect(updatedNode.name).toEqual(node.name);
+      });
+      it("then extendedNode.type equals node.type", () => {
+        expect(updatedNode.type).toEqual(node.type);
+      });
+      it("then extendedNode.coordinates equals node.coordinates", () => {
+        expect(updatedNode.coordinates).toEqual(node.coordinates);
+      });
+      it("then updatedNode.icon equals node.icon", () => {
+        expect(updatedNode.icon).toEqual(node.icon);
+      });
+      it("then updatedNode.metadata equals metadata", () => {
+        expect(updatedNode.metadata[0]).toEqual(metadata);
+      });
+    });
+  });
+});
+
+describe("Given Graph.updateNodeIcon exist", () => {
+  describe("and node exist", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = Graph.createNode({
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+    });
+    describe("when updatedNode = Graph.updateNodeIcon(node, icon)", () => {
+      let icon: string;
+      let newIcon: string;
+      beforeEach(() => {
+        icon = node.icon;
+        newIcon = "./newIcon.svg";
+        node = Graph.updateNodeIcon(node, newIcon);
+      });
+      it("then node icon is updated", () => {
+        expect(node.icon).toEqual(newIcon);
+      });
+    });
+  });
+});
+
+describe("Given Graph.removeNodeMetadata exist", () => {
+  describe("Given node with metadata exist in nodes", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = Graph.createNode({
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      node = Graph.addNodeMetadata(node, {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 1 }],
+        },
+      });
+    });
+    describe("When Graph.removeNodeMetadata(node, type)", () => {
+      let type: string;
+      beforeEach(() => {
+        type = "arrival";
+        node = Graph.removeNodeMetadata(node, type);
+      });
+      it("then node does not contain metadata of type", () => {
+        expect(node.metadata).toEqual([]);
+      });
+    });
+  });
+});
+
+describe("Given Graph.translate static method exist", () => {
+  describe("and node exist", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = Graph.createNode({
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+    });
+    describe("when node = Graph.translate(node, offset)", () => {
+      let coordinates;
+      let offset;
+      beforeEach(() => {
+        coordinates = node.coordinates;
+        offset = {
+          x: 10,
+          y: 10,
+        };
+        node = Graph.translate(node, offset);
+      });
+      it("then node coordinates is original coordinates plus offset ", () => {
+        let updateCoordinates = {
+          x: coordinates.x + offset.x,
+          y: coordinates.y + offset.y,
+        };
+        expect(node.coordinates).toEqual(updateCoordinates);
+      });
+    });
+  });
+});
+
+describe("Given Graph.updateNodeCoordinates static method exist", () => {
+  describe("when updateNode = Graph.updateNodeCoordinates(node, coordinates)", () => {
+    let node: Node;
+    let coordinates: Coordinates;
+    let updatedNode: Node;
+    beforeEach(() => {
+      node = Graph.createNode({
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      coordinates = { x: 1, y: 1 };
+      updatedNode = Graph.updateNodeCoordinates(node, coordinates);
+    });
+    it("then updatedNode exist", () => {
+      expect(updatedNode).toBeDefined();
+    });
+    it("then updatedNode.id exist", () => {
+      expect(updatedNode.id).toBeDefined();
+    });
+    it("then updatedNode.name exist", () => {
+      expect(updatedNode.name).toBeDefined();
+    });
+    it("then updatedNode.type exist", () => {
+      expect(updatedNode.type).toBeDefined();
+    });
+    it("then updatedNode.coordinates exist", () => {
+      expect(updatedNode.coordinates).toBeDefined();
+    });
+    it("then updatedNode.icon exist", () => {
+      expect(updatedNode.icon).toBeDefined();
+    });
+    it("then updatedNode.id equals node.id", () => {
+      expect(updatedNode.id).toEqual(node.id);
+    });
+    it("then updatedNode.name equals node.name", () => {
+      expect(updatedNode.name).toEqual(node.name);
+    });
+    it("then updatedNode.type equals node.type", () => {
+      expect(updatedNode.type).toEqual(node.type);
+    });
+    it("then result.coordinates equals coordinates", () => {
+      expect(updatedNode.coordinates).toEqual(coordinates);
+    });
+    it("then result.coordinates is not equal to node.coordinates", () => {
+      expect(updatedNode.coordinates).not.toEqual(node.coordinates);
+    });
+    it("then updatedNode.icon equals node.icon", () => {
+      expect(updatedNode.icon).toEqual(node.icon);
     });
   });
 });
