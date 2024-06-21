@@ -1,6 +1,13 @@
-import { Utilities } from "../../src/Utilities/Utilities.js";
-import { Node as iNode, NodeType, NodeTypes } from "../../src/Node.meta.js";
-import { Node } from "../../src/Node.js";
+import { UUID, Utilities } from "../../src/Utilities/Utilities.js";
+import {
+  Coordinates,
+  Icon,
+  Metadata,
+  Node,
+  NodeType,
+  NodeTypes,
+  Nodes,
+} from "../../src/NodeFactory.js";
 
 import { Graph } from "../../src/Graph.js";
 
@@ -9,7 +16,7 @@ describe("Given Graph imported", () => {
     expect(Graph).toBeDefined();
   });
   describe("when graph = new Graph()", () => {
-    let graph;
+    let graph: Graph;
     beforeEach(() => {
       graph = new Graph();
     });
@@ -83,18 +90,15 @@ describe("Given Graph imported", () => {
 });
 
 describe("Given graph = new Graph()", () => {
-  let graph;
+  let graph: Graph;
   beforeEach(() => {
     graph = new Graph();
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
   });
-  it("then graph.nodeFactory exist", () => {
-    expect(graph.nodeFactory).toBeDefined();
-  });
   describe("when nodes = graph.createNodes(1, details)", () => {
-    let nodes;
+    let nodes: Nodes;
     beforeEach(() => {
       let details = {
         name: "Node",
@@ -112,7 +116,7 @@ describe("Given graph = new Graph()", () => {
     });
   });
   describe("when nodes = graph.addNode([], details)", () => {
-    let nodes;
+    let nodes: Nodes;
     beforeEach(() => {
       let details = {
         name: "Node1",
@@ -130,9 +134,9 @@ describe("Given graph = new Graph()", () => {
     });
   });
   describe("when nodes = graph.addNodes(existingNodes, newNodes)", () => {
-    let existingNodes;
-    let newNodes;
-    let nodes;
+    let existingNodes: Nodes;
+    let newNodes: Nodes;
+    let nodes: Nodes;
     beforeEach(() => {
       existingNodes = graph.createNodes(2, {
         name: "Node1",
@@ -156,10 +160,10 @@ describe("Given graph = new Graph()", () => {
     });
   });
   describe("when nodes = graph.addNodeMetadata(existingNodes, id, metadata)", () => {
-    let existingNodes;
-    let id;
-    let metadata;
-    let nodes;
+    let existingNodes: Nodes;
+    let id: UUID;
+    let metadata: Metadata;
+    let nodes: Nodes;
     beforeEach(() => {
       existingNodes = graph.createNodes(2, {
         name: "Node1",
@@ -187,9 +191,9 @@ describe("Given graph = new Graph()", () => {
     });
   });
   describe("when node = graph.findNodeById(existingNodes, id)", () => {
-    let existingNodes;
-    let id;
-    let node;
+    let existingNodes: Nodes;
+    let id: UUID;
+    let node: Node;
     beforeEach(() => {
       existingNodes = graph.createNodes(2, {
         name: "Node1",
@@ -208,9 +212,9 @@ describe("Given graph = new Graph()", () => {
     });
   });
   describe("when nodes = graph.findNodesByType(existingNodes, type)", () => {
-    let existingNodes;
-    let type;
-    let nodes;
+    let existingNodes: Nodes;
+    let type: NodeType;
+    let nodes: Nodes;
     beforeEach(() => {
       existingNodes = graph.createNodes(2, {
         name: "Node1",
@@ -235,8 +239,8 @@ describe("Given graph = new Graph()", () => {
     });
   });
   describe("when node with metadata exist in nodes", () => {
-    let id;
-    let nodes;
+    let id: UUID;
+    let nodes: Nodes;
     beforeEach(() => {
       let existingNodes = graph.createNodes(2, {
         name: "Node1",
@@ -254,7 +258,7 @@ describe("Given graph = new Graph()", () => {
       nodes = graph.addNodeMetadata(existingNodes, id, metadata);
     });
     describe("when nodes = graph.updateNodeMetadata(nodes, id, metadata)", () => {
-      let metadata;
+      let metadata: Metadata;
       beforeEach(() => {
         metadata = {
           arrival: {
@@ -275,7 +279,7 @@ describe("Given graph = new Graph()", () => {
       });
     });
     describe("when nodes = graph.removeNodeMetadata(nodes, id, type)", () => {
-      let type;
+      let type: string;
       beforeEach(() => {
         type = "arrival";
         nodes = graph.removeNodeMetadata(nodes, id, type);
@@ -286,8 +290,8 @@ describe("Given graph = new Graph()", () => {
     });
   });
   describe("When node exists in nodes", () => {
-    let id;
-    let nodes;
+    let id: UUID;
+    let nodes: Nodes;
     beforeEach(() => {
       let details = {
         name: "Node",
@@ -300,7 +304,7 @@ describe("Given graph = new Graph()", () => {
     });
     describe("when nodes = graph.translateNode(nodes, id, offset)", () => {
       let offset;
-      let coordinates;
+      let coordinates: Coordinates;
       beforeEach(() => {
         coordinates = nodes[0].coordinates;
         offset = { x: 10, y: 10 };
@@ -314,7 +318,7 @@ describe("Given graph = new Graph()", () => {
       });
     });
     describe("when nodes = graph.updateNodeCoordinates(nodes, id, coordinates)", () => {
-      let coordinates;
+      let coordinates: Coordinates;
       beforeEach(() => {
         coordinates = { x: 10, y: 10 };
         nodes = graph.updateNodeCoordinates(nodes, id, coordinates);
@@ -324,7 +328,7 @@ describe("Given graph = new Graph()", () => {
       });
     });
     describe("When nodes = graph.updateNodeIcon(nodes, id, icon)", () => {
-      let icon;
+      let icon: Icon;
       beforeEach(() => {
         icon = "./new-icon.svg";
         nodes = graph.updateNodeIcon(nodes, id, icon);
@@ -349,8 +353,8 @@ describe("Given graph = new Graph()", () => {
       });
     });
     describe("When node = graph.findNodeByCoordinates(nodes, coordinates)", () => {
-      let coordinates;
-      let node;
+      let coordinates: Coordinates;
+      let node: Node;
       beforeEach(() => {
         coordinates = { x: 10, y: 10 };
         node = graph.findNodeByCoordinates(nodes, coordinates);
@@ -361,9 +365,9 @@ describe("Given graph = new Graph()", () => {
     });
   });
   describe("when nodes = graph.removeNodeById(existingNodes, id)", () => {
-    let existingNodes;
-    let id;
-    let nodes;
+    let existingNodes: Nodes;
+    let id: UUID;
+    let nodes: Nodes;
     beforeEach(() => {
       existingNodes = graph.createNodes(2, {
         name: "Node1",

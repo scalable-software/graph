@@ -1,35 +1,30 @@
-import { Node as iNode, Nodes, Metadata } from "./Node.meta.js";
-import { Connection as iConnection, Connections } from "./Connection.meta.js";
-import { Connection } from "./Connection.js";
-import { Node } from "./Node.js";
-
-import { NodeFactory, ConnectionFactory } from "./Graph.meta.js";
+import {
+  ConnectionFactory,
+  Connection,
+  Connections,
+} from "./ConnectionFactory.js";
+import { NodeFactory, Node, Nodes, Metadata } from "./NodeFactory.js";
 
 // Operations on Graph takes nodes as first argument to enable performance testing
 // Once performance testing is done, we can refactor to use a class instance
 // Also operations can return this to enable fluent interface
 export class Graph {
-  public nodeFactory: NodeFactory;
-  public connectionFactory: ConnectionFactory;
-  constructor() {
-    this.nodeFactory = Node;
-    this.connectionFactory = Connection;
-  }
+  constructor() {}
 
   public createNodes = (qty: number, details): Nodes =>
-    Array.from({ length: qty }, () => this.nodeFactory.create(details));
+    Array.from({ length: qty }, () => NodeFactory.create(details));
 
   public createConnections = (qty: number, details): Connections =>
-    Array.from({ length: qty }, () => this.connectionFactory.create(details));
+    Array.from({ length: qty }, () => ConnectionFactory.create(details));
 
   public addNode = (nodes: Nodes, details): Nodes => [
     ...nodes,
-    this.nodeFactory.create(details),
+    NodeFactory.create(details),
   ];
 
   public addConnection = (connections: Connections, details): Connections => [
     ...connections,
-    this.connectionFactory.create(details),
+    ConnectionFactory.create(details),
   ];
 
   public addNodes = (nodes: Nodes, newNodes: Nodes): Nodes => [
@@ -47,8 +42,8 @@ export class Graph {
     id: string,
     metadata: Metadata
   ): Nodes =>
-    nodes.map((node: iNode) =>
-      node.id === id ? this.nodeFactory.addMetadata(node, metadata) : node
+    nodes.map((node: Node) =>
+      node.id === id ? NodeFactory.addMetadata(node, metadata) : node
     );
 
   public updateNodeMetadata = (
@@ -56,15 +51,13 @@ export class Graph {
     id: string,
     metadata: Metadata
   ): Nodes =>
-    nodes.map((node: iNode) =>
-      node.id === id ? this.nodeFactory.updateMetadata(node, metadata) : node
+    nodes.map((node: Node) =>
+      node.id === id ? NodeFactory.updateMetadata(node, metadata) : node
     );
 
   public updateNodeCoordinates = (nodes: Nodes, id: string, coordinates) =>
-    nodes.map((node: iNode) =>
-      node.id === id
-        ? this.nodeFactory.updateCoordinates(node, coordinates)
-        : node
+    nodes.map((node: Node) =>
+      node.id === id ? NodeFactory.updateCoordinates(node, coordinates) : node
     );
 
   public updateConnectionCoordinates = (
@@ -72,71 +65,71 @@ export class Graph {
     id: string,
     coordinates
   ) =>
-    connections.map((connection: iConnection) =>
+    connections.map((connection: Connection) =>
       connection.id === id
-        ? this.connectionFactory.updateCoordinates(connection, coordinates)
+        ? ConnectionFactory.updateCoordinates(connection, coordinates)
         : connection
     );
 
   public updateNodeIcon = (nodes: Nodes, id: string, icon) =>
-    nodes.map((node: iNode) =>
-      node.id === id ? this.nodeFactory.updateIcon(node, icon) : node
+    nodes.map((node: Node) =>
+      node.id === id ? NodeFactory.updateIcon(node, icon) : node
     );
 
   public updateNode = (nodes: Nodes, id: string, update) =>
-    nodes.map((node: iNode) =>
-      node.id === id ? this.nodeFactory.update(node, update) : node
+    nodes.map((node: Node) =>
+      node.id === id ? NodeFactory.update(node, update) : node
     );
 
   public updateConnection = (connections: Connections, id: string, update) =>
-    connections.map((connection: iConnection) =>
+    connections.map((connection: Connection) =>
       connection.id === id
-        ? this.connectionFactory.update(connection, update)
+        ? ConnectionFactory.update(connection, update)
         : connection
     );
 
-  public findNodeById = (nodes: Nodes, id: string): iNode =>
-    nodes.find((node: iNode) => node.id === id);
+  public findNodeById = (nodes: Nodes, id: string): Node =>
+    nodes.find((node: Node) => node.id === id);
 
   public findConnectionById = (
     connections: Connections,
     id: string
-  ): Connection =>
-    connections.find((connection: iConnection) => connection.id === id);
+  ): ConnectionFactory =>
+    connections.find((connection: Connection) => connection.id === id);
 
   public findNodesByType = (nodes: Nodes, type: string): Nodes =>
-    nodes.filter((node: iNode) => node.type === type);
+    nodes.filter((node: Node) => node.type === type);
 
-  public findNodeByCoordinates = (nodes: Nodes, coordinates): iNode =>
+  public findNodeByCoordinates = (nodes: Nodes, coordinates): Node =>
     nodes.find(
-      (node: iNode) =>
+      (node: Node) =>
         node.coordinates.x === coordinates.x &&
         node.coordinates.y === coordinates.y
     );
 
   public removeNodeMetadata = (nodes: Nodes, id: string, type: string) =>
-    nodes.map((node: iNode) =>
-      node.id === id ? this.nodeFactory.removeMetadata(node, type) : node
+    nodes.map((node: Node) =>
+      node.id === id ? NodeFactory.removeMetadata(node, type) : node
     );
 
   public removeNodeById = (nodes: Nodes, id: string): Nodes =>
-    nodes.filter((node: iNode) => node.id !== id);
+    nodes.filter((node: Node) => node.id !== id);
 
   public removeConnectionById = (
     connections: Connections,
     id: string
   ): Connections =>
-    connections.filter((connection: iConnection) => connection.id !== id);
+    connections.filter((connection: Connection) => connection.id !== id);
 
   public translateNode = (nodes: Nodes, id: string, offset) =>
-    nodes.map((node: iNode) =>
-      node.id === id ? this.nodeFactory.translate(node, offset) : node
+    nodes.map((node: Node) =>
+      node.id === id ? NodeFactory.translate(node, offset) : node
     );
 
   public translateConnection = (connections: Connections, id: string, offset) =>
-    connections.map((connection: iConnection) =>
+    connections.map((connection: Connection) =>
       connection.id === id
-        ? this.connectionFactory.translate(connection, offset)
+        ? ConnectionFactory.translate(connection, offset)
         : connection
     );
 }

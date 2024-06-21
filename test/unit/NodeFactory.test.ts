@@ -1,44 +1,44 @@
 import { Utilities } from "../../src/Utilities/Utilities.js";
-import { Node } from "../../src/Node.js";
+import { NodeFactory } from "../../src/NodeFactory.js";
 import {
   NodeType,
   NodeTypes,
   Metadata,
   Coordinates,
-  Node as iNode,
-} from "../../src/Node.meta.js";
+  Node,
+} from "../../src/NodeFactory.js";
 
-describe("Given Node imported", () => {
-  it("then Node is defined", () => {
-    expect(Node).toBeDefined();
+describe("Given NodeFactory imported", () => {
+  it("then NodeFactory is defined", () => {
+    expect(NodeFactory).toBeDefined();
   });
-  it("then Node.create static method is defined", () => {
-    expect(Node.create).toBeDefined();
+  it("then NodeFactory.create static method is defined", () => {
+    expect(NodeFactory.create).toBeDefined();
   });
-  it("then Node.addMetadata static method is defined", () => {
-    expect(Node.addMetadata).toBeDefined();
+  it("then NodeFactory.addMetadata static method is defined", () => {
+    expect(NodeFactory.addMetadata).toBeDefined();
   });
-  it("then Node.updateCoordinates static method is defined", () => {
-    expect(Node.updateCoordinates).toBeDefined();
+  it("then NodeFactory.updateCoordinates static method is defined", () => {
+    expect(NodeFactory.updateCoordinates).toBeDefined();
   });
-  it("then Node.updateIcon static method is defined", () => {
-    expect(Node.updateIcon).toBeDefined();
+  it("then NodeFactory.updateIcon static method is defined", () => {
+    expect(NodeFactory.updateIcon).toBeDefined();
   });
-  it("then Node.update static method is defined", () => {
-    expect(Node.update).toBeDefined();
+  it("then NodeFactory.update static method is defined", () => {
+    expect(NodeFactory.update).toBeDefined();
   });
-  it("then Node.removeMetadata static method is defined", () => {
-    expect(Node.removeMetadata).toBeDefined();
+  it("then NodeFactory.removeMetadata static method is defined", () => {
+    expect(NodeFactory.removeMetadata).toBeDefined();
   });
-  it("then Node.translate static method is defined", () => {
-    expect(Node.translate).toBeDefined();
+  it("then NodeFactory.translate static method is defined", () => {
+    expect(NodeFactory.translate).toBeDefined();
   });
 });
 
-describe("Given Node.create static method exist", () => {
+describe("Given NodeFactory.create static method exist", () => {
   describe("when node = Object.create(details)", () => {
     let details;
-    let node: iNode;
+    let node: Node;
     beforeEach(() => {
       details = {
         name: "Node",
@@ -46,7 +46,7 @@ describe("Given Node.create static method exist", () => {
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
-      node = Node.create(details);
+      node = NodeFactory.create(details);
     });
     it("then node is exist", () => {
       expect(node).toBeDefined();
@@ -81,15 +81,15 @@ describe("Given Node.create static method exist", () => {
   });
 });
 
-describe("Given Node.addMetadata static method exist", () => {
+describe("Given NodeFactory.addMetadata static method exist", () => {
   describe("when extendedNode = Node.extend(node, metadata)", () => {
-    let node: iNode;
+    let node: Node;
     let metadata: Metadata;
-    let extendedNode: iNode;
+    let extendedNode: Node;
     beforeEach(() => {
-      node = Node.create({
+      node = NodeFactory.create({
         name: "Node",
-        type: Utilities.getRandomElement<Node>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -99,7 +99,7 @@ describe("Given Node.addMetadata static method exist", () => {
           parameters: [{ rate: 1 }],
         },
       };
-      extendedNode = Node.addMetadata(node, metadata);
+      extendedNode = NodeFactory.addMetadata(node, metadata);
     });
     it("then extendedNode exist", () => {
       expect(extendedNode).toBeDefined();
@@ -143,13 +143,13 @@ describe("Given Node.addMetadata static method exist", () => {
   });
 });
 
-describe("Given Node.updateMetadata static method exist", () => {
+describe("Given NodeFactory.updateMetadata static method exist", () => {
   describe("and node with metadata exist", () => {
-    let node: iNode;
+    let node: Node;
     beforeEach(() => {
-      node = Node.create({
+      node = NodeFactory.create({
         name: "Node",
-        type: Utilities.getRandomElement<Node>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -159,11 +159,11 @@ describe("Given Node.updateMetadata static method exist", () => {
           parameters: [{ rate: 1 }],
         },
       };
-      node = Node.addMetadata(node, metadata);
+      node = NodeFactory.addMetadata(node, metadata);
     });
-    describe("when updatedNode = Node.updateMetadata(node, metadata)", () => {
+    describe("when updatedNode = NodeFactory.updateMetadata(node, metadata)", () => {
       let metadata: Metadata;
-      let updatedNode: iNode;
+      let updatedNode: Node;
       beforeEach(() => {
         metadata = {
           arrival: {
@@ -171,7 +171,7 @@ describe("Given Node.updateMetadata static method exist", () => {
             parameters: [{ rate: 10 }],
           },
         };
-        updatedNode = Node.updateMetadata(node, metadata);
+        updatedNode = NodeFactory.updateMetadata(node, metadata);
       });
       it("then updatedNode exist", () => {
         expect(updatedNode).toBeDefined();
@@ -216,20 +216,20 @@ describe("Given Node.updateMetadata static method exist", () => {
   });
 });
 
-describe("Given Node.updateCoordinates static method exist", () => {
-  describe("when updateNode = Node.updateCoordinates(node, coordinates)", () => {
-    let node: iNode;
+describe("Given NodeFactory.updateCoordinates static method exist", () => {
+  describe("when updateNode = NodeFactory.updateCoordinates(node, coordinates)", () => {
+    let node: Node;
     let coordinates: Coordinates;
-    let updatedNode: iNode;
+    let updatedNode: Node;
     beforeEach(() => {
-      node = Node.create({
+      node = NodeFactory.create({
         name: "Node",
-        type: Utilities.getRandomElement<Node>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
       coordinates = { x: 1, y: 1 };
-      updatedNode = Node.updateCoordinates(node, coordinates);
+      updatedNode = NodeFactory.updateCoordinates(node, coordinates);
     });
     it("then updatedNode exist", () => {
       expect(updatedNode).toBeDefined();
@@ -270,24 +270,24 @@ describe("Given Node.updateCoordinates static method exist", () => {
   });
 });
 
-describe("Given Node.updateNodeIcon exist", () => {
+describe("Given NodeFactory.updateNodeIcon exist", () => {
   describe("and node exist", () => {
-    let node: iNode;
+    let node: Node;
     beforeEach(() => {
-      node = Node.create({
+      node = NodeFactory.create({
         name: "Node",
-        type: Utilities.getRandomElement<Node>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
     });
-    describe("when updatedNode = Node.updateNodeIcon(node, icon)", () => {
+    describe("when updatedNode = NodeFactory.updateNodeIcon(node, icon)", () => {
       let icon: string;
       let newIcon: string;
       beforeEach(() => {
         icon = node.icon;
         newIcon = "./newIcon.svg";
-        node = Node.updateIcon(node, newIcon);
+        node = NodeFactory.updateIcon(node, newIcon);
       });
       it("then node icon is updated", () => {
         expect(node.icon).toEqual(newIcon);
@@ -296,18 +296,18 @@ describe("Given Node.updateNodeIcon exist", () => {
   });
 });
 
-describe("Given Node.update exist", () => {
+describe("Given NodeFactory.update exist", () => {
   describe("and node exist", () => {
-    let node: iNode;
+    let node: Node;
     beforeEach(() => {
-      node = Node.create({
+      node = NodeFactory.create({
         name: "Node",
-        type: Utilities.getRandomElement<Node>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
     });
-    describe("when updatedNode = Node.update(node, update)", () => {
+    describe("when updatedNode = NodeFactory.update(node, update)", () => {
       let details;
       beforeEach(() => {
         details = {
@@ -325,7 +325,7 @@ describe("Given Node.update exist", () => {
             },
           ],
         };
-        node = Node.update(node, details);
+        node = NodeFactory.update(node, details);
       });
       it("then node icon is updated", () => {
         expect(node).toEqual(details);
@@ -334,28 +334,28 @@ describe("Given Node.update exist", () => {
   });
 });
 
-describe("Given Node.removeMetadata exist", () => {
+describe("Given NodeFactory.removeMetadata exist", () => {
   describe("Given node with metadata exist in nodes", () => {
-    let node: iNode;
+    let node: Node;
     beforeEach(() => {
-      node = Node.create({
+      node = NodeFactory.create({
         name: "Node",
-        type: Utilities.getRandomElement<Node>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
-      node = Node.addMetadata(node, {
+      node = NodeFactory.addMetadata(node, {
         arrival: {
           distribution: "exponential",
           parameters: [{ rate: 1 }],
         },
       });
     });
-    describe("When Node.removeMetadata(node, type)", () => {
+    describe("When NodeFactory.removeMetadata(node, type)", () => {
       let type: string;
       beforeEach(() => {
         type = "arrival";
-        node = Node.removeMetadata(node, type);
+        node = NodeFactory.removeMetadata(node, type);
       });
       it("then node does not contain metadata of type", () => {
         expect(node.metadata).toEqual([]);
@@ -364,18 +364,18 @@ describe("Given Node.removeMetadata exist", () => {
   });
 });
 
-describe("Given Node.translate static method exist", () => {
+describe("Given NodeFactory.translate static method exist", () => {
   describe("and node exist", () => {
-    let node: iNode;
+    let node: Node;
     beforeEach(() => {
-      node = Node.create({
+      node = NodeFactory.create({
         name: "Node",
-        type: Utilities.getRandomElement<Node>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
     });
-    describe("when node = Node.translate(node, offset)", () => {
+    describe("when node = NodeFactory.translate(node, offset)", () => {
       let coordinates;
       let offset;
       beforeEach(() => {
@@ -384,7 +384,7 @@ describe("Given Node.translate static method exist", () => {
           x: 10,
           y: 10,
         };
-        node = Node.translate(node, offset);
+        node = NodeFactory.translate(node, offset);
       });
       it("then node coordinates is original coordinates plus offset ", () => {
         let updateCoordinates = {

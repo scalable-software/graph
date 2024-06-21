@@ -1,31 +1,31 @@
-import { Connection } from "../../src/Connection.js";
 import {
-  Connection as iConnection,
+  ConnectionFactory,
+  Connection,
   Coordinates,
-} from "../../src/Connection.meta.js";
+} from "../../src/ConnectionFactory.js";
 
-describe("Given Connection imported", () => {
-  it("then Connection is defined", () => {
-    expect(Connection).toBeDefined();
+describe("Given ConnectionFactory imported", () => {
+  it("then ConnectionFactory is defined", () => {
+    expect(ConnectionFactory).toBeDefined();
   });
-  it("then Connection.create static method is defined", () => {
-    expect(Connection.create).toBeDefined();
+  it("then ConnectionFactory.create static method is defined", () => {
+    expect(ConnectionFactory.create).toBeDefined();
   });
-  it("then Connection.updateCoordinates static method is defined", () => {
-    expect(Connection.updateCoordinates).toBeDefined();
+  it("then ConnectionFactory.updateCoordinates static method is defined", () => {
+    expect(ConnectionFactory.updateCoordinates).toBeDefined();
   });
-  it("then Connection.update static method is defined", () => {
-    expect(Connection.update).toBeDefined();
+  it("then ConnectionFactory.update static method is defined", () => {
+    expect(ConnectionFactory.update).toBeDefined();
   });
-  it("then Connection.translate static method is defined", () => {
-    expect(Connection.translate).toBeDefined();
+  it("then ConnectionFactory.translate static method is defined", () => {
+    expect(ConnectionFactory.translate).toBeDefined();
   });
 });
 
-describe("Given Connection.create static method exist", () => {
+describe("Given ConnectionFactory.create static method exist", () => {
   describe("when connection = Object.create(details)", () => {
     let details;
-    let connection: iConnection;
+    let connection: Connection;
     beforeEach(() => {
       details = {
         name: "",
@@ -36,7 +36,7 @@ describe("Given Connection.create static method exist", () => {
           end: { x: 100, y: 400 },
         },
       };
-      connection = Connection.create(details);
+      connection = ConnectionFactory.create(details);
     });
     it("then connection is exist", () => {
       expect(connection).toBeDefined();
@@ -65,13 +65,13 @@ describe("Given Connection.create static method exist", () => {
   });
 });
 
-describe("Given Connection.updateCoordinates static method exist", () => {
-  describe("when updateNode = Connection.updateCoordinates(connection, coordinates)", () => {
-    let connection: iConnection;
+describe("Given ConnectionFactory.updateCoordinates static method exist", () => {
+  describe("when updateNode = ConnectionFactory.updateCoordinates(connection, coordinates)", () => {
+    let connection: Connection;
     let coordinates: { start: Coordinates; end: Coordinates };
-    let updatedNode: iConnection;
+    let updatedNode: Connection;
     beforeEach(() => {
-      connection = Connection.create({
+      connection = ConnectionFactory.create({
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -84,7 +84,10 @@ describe("Given Connection.updateCoordinates static method exist", () => {
         start: { x: 1, y: 500 },
         end: { x: 200, y: 500 },
       };
-      updatedNode = Connection.updateCoordinates(connection, coordinates);
+      updatedNode = ConnectionFactory.updateCoordinates(
+        connection,
+        coordinates
+      );
     });
     it("then updatedNode exist", () => {
       expect(updatedNode).toBeDefined();
@@ -113,11 +116,11 @@ describe("Given Connection.updateCoordinates static method exist", () => {
   });
 });
 
-describe("Given Connection.update exist", () => {
+describe("Given ConnectionFactory.update exist", () => {
   describe("and connection exist", () => {
-    let connection: iConnection;
+    let connection: Connection;
     beforeEach(() => {
-      connection = Connection.create({
+      connection = ConnectionFactory.create({
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -127,7 +130,7 @@ describe("Given Connection.update exist", () => {
         },
       });
     });
-    describe("when updatedNode = Object.update(connection, update)", () => {
+    describe("when updatedNode = ConnectionFactory.update(connection, update)", () => {
       let details;
       beforeEach(() => {
         details = {
@@ -140,7 +143,7 @@ describe("Given Connection.update exist", () => {
             end: { x: 500, y: 500 },
           },
         };
-        connection = Connection.update(connection, details);
+        connection = ConnectionFactory.update(connection, details);
       });
       it("then connection icon is updated", () => {
         expect(connection).toEqual(details);
@@ -149,11 +152,11 @@ describe("Given Connection.update exist", () => {
   });
 });
 
-describe("Given Connection.translate static method exist", () => {
+describe("Given ConnectionFactory.translate static method exist", () => {
   describe("and connection exist", () => {
-    let connection: iConnection;
+    let connection: Connection;
     beforeEach(() => {
-      connection = Connection.create({
+      connection = ConnectionFactory.create({
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -163,7 +166,7 @@ describe("Given Connection.translate static method exist", () => {
         },
       });
     });
-    describe("when connection = Connection.translate(connection, offset)", () => {
+    describe("when connection = ConnectionFactory.translate(connection, offset)", () => {
       let coordinates;
       let offset;
       beforeEach(() => {
@@ -172,7 +175,7 @@ describe("Given Connection.translate static method exist", () => {
           x: 10,
           y: 10,
         };
-        connection = Connection.translate(connection, offset);
+        connection = ConnectionFactory.translate(connection, offset);
       });
       it("then connection coordinates is original coordinates plus offset ", () => {
         let updateCoordinates = {

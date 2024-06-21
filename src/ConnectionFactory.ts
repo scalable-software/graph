@@ -1,15 +1,30 @@
-import { Utilities } from "./Utilities/Utilities.js";
-import { StructureType } from "./Node.meta.js";
+import { Utilities, UUID } from "./Utilities/Utilities.js";
 
-import { Connection as iConnection, Coordinates } from "./Connection.meta.js";
+export type Coordinates = {
+  x: number;
+  y: number;
+};
 
-export class Connection {
+export type Connection = {
+  id: UUID;
+  name: string;
+  source: UUID;
+  target: UUID;
+  coordinates: {
+    start: Coordinates;
+    end: Coordinates;
+  };
+};
+
+export type Connections = Connection[];
+
+export class ConnectionFactory {
   public static create = ({
     name,
     source,
     target,
     coordinates,
-  }): iConnection => ({
+  }): Connection => ({
     id: Utilities.uuid,
     name,
     source,
@@ -18,22 +33,22 @@ export class Connection {
   });
 
   public static update = (
-    connection: iConnection,
-    update: iConnection
-  ): iConnection => update;
+    connection: Connection,
+    update: Connection
+  ): Connection => update;
 
   public static updateCoordinates = (
-    connection: iConnection,
+    connection: Connection,
     coordinates: {
       start: Coordinates;
       end: Coordinates;
     }
-  ): iConnection => ({
+  ): Connection => ({
     ...connection,
     coordinates,
   });
 
-  public static translate = (connection: iConnection, offset: any) => {
+  public static translate = (connection: Connection, offset: any) => {
     connection.coordinates = {
       start: {
         x: connection.coordinates.start.x + offset.x,
