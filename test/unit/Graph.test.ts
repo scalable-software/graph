@@ -10,7 +10,7 @@ import {
   NodeType,
   Nodes,
   UUID,
-} from "graph";
+} from "@scalable-software/graph.structure";
 
 describe("Given Graph imported", () => {
   it("then Graph exist", () => {

@@ -15,7 +15,7 @@ module.exports = function (wallaby) {
         inlineSources: true,
         baseUrl: "./",
         paths: {
-          graph: ["./src/*.js"],
+          "@scalable-software/graph.structure": ["./src/*.js"],
         },
       }),
     },

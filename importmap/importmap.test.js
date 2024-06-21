@@ -6,7 +6,7 @@
 inject(
   {
     imports: {
-      graph: "./src/Index.js",
+      "@scalable-software/graph.structure": "./src/Index.js",
     },
   },
   "importmap"

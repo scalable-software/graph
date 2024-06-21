@@ -1,4 +1,4 @@
-import { Graph } from "graph";
+import { Graph } from "@scalable-software/graph.structure";
 console.log(`Import module: Graph`);
 
 console.log(`Define node details`);

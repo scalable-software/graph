@@ -7,7 +7,7 @@
     "inlineSources": true,
     "baseUrl": "./",
     "paths": {
-      "graph": ["./src/Index.js"]
+      "@scalable-software/graph.structure": ["./src/Index.js"]
     },
     "declaration": false
   },
