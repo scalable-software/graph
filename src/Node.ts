@@ -1,35 +1,60 @@
-import { ObjectNodeType } from "./ObjectNode.meta.js";
-import { TupleNodeType } from "./TupleNode.meta.js";
+import { Utilities } from "./Utilities/Utilities.js";
 
-export const StructureTypes = ["object", "tuple"] as const;
-export type StructureType = (typeof StructureTypes)[number];
+import {
+  Icon,
+  StructureType,
+  Metadata,
+  Node as iNode,
+  Coordinates as Coordinates,
+} from "./Node.meta.js";
 
-export type Icon = string;
+export class Node {
+  public static create = ({ name, type, coordinates, icon }): iNode => ({
+    id: Utilities.uuid,
+    name,
+    type,
+    coordinates,
+    icon,
+  });
 
-export const NodeTypes = [
-  "start",
-  "workflow",
-  "delay",
-  "end",
-  "decision",
-] as const;
-export type NodeType = (typeof NodeTypes)[number];
+  public static addMetadata = (node: iNode, metadata: Metadata): iNode => ({
+    ...node,
+    metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
+  });
 
-export type Node = ObjectNodeType | TupleNodeType;
-export type Nodes = Node[];
+  public static update = (node: iNode, update: iNode): iNode => update;
 
-export type Arrival = {
-  distribution: string;
-  parameters: { rate: number }[];
-};
-export type Duration = {
-  distribution: string;
-  parameters: { meanlog: number; sdlog?: number }[];
-};
-export type Prevalence = { target: string; probability: number }[];
+  public static updateMetadata = (node: iNode, metadata: Metadata): iNode => {
+    let key = Object.keys(metadata)[0];
+    node.metadata = node.metadata.map((node) => (node[key] ? metadata : node));
+    return node;
+  };
 
-export type Metadata = {
-  arrival?: Arrival;
-  duration?: Duration;
-  prevalence?: Prevalence;
-};
+  public static updateCoordinates = (
+    node: iNode,
+    coordinates: Coordinates
+  ): iNode => ({
+    ...node,
+    coordinates,
+  });
+
+  public static updateIcon = (node: iNode, icon: Icon): iNode => ({
+    ...node,
+    icon,
+  });
+
+  public static removeMetadata = (node: iNode, type: string): iNode => {
+    node.metadata = node.metadata.filter(
+      (metadata) => metadata[type] === undefined
+    );
+    return node;
+  };
+
+  public static translate = (node: iNode, offset: any) => {
+    node.coordinates = {
+      x: node.coordinates.x + offset.x,
+      y: node.coordinates.y + offset.y,
+    };
+    return node;
+  };
+}

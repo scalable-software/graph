@@ -13,18 +13,20 @@ import { UUID } from "./Utilities/Utilities.js";
 }
 */
 
-export type ObjectCoordinates = {
+export type Coordinates = {
   x: number;
   y: number;
 };
 
-export type ObjectConnectionType = {
+export type Connection = {
   id: UUID;
   name: string;
   source: UUID;
   target: UUID;
   coordinates: {
-    start: ObjectCoordinates;
-    end: ObjectCoordinates;
+    start: Coordinates;
+    end: Coordinates;
   };
 };
+
+export type Connections = Connection[];

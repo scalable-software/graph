@@ -1,41 +1,31 @@
+import { Connection } from "../../src/Connection.js";
 import {
-  ObjectConnectionType,
-  ObjectCoordinates,
-} from "../../src/ObjectConnection.meta.js";
+  Connection as iConnection,
+  Coordinates,
+} from "../../src/Connection.meta.js";
 
-import { ObjectConnection } from "../../src/ObjectConnection.js";
-
-describe("Given ObjectConnection imported", () => {
-  it("then ObjectConnection is defined", () => {
-    expect(ObjectConnection).toBeDefined();
+describe("Given Connection imported", () => {
+  it("then Connection is defined", () => {
+    expect(Connection).toBeDefined();
   });
-  it("then ObjectConnection.structure static property is defined", () => {
-    expect(ObjectConnection.structure).toBeDefined();
+  it("then Connection.create static method is defined", () => {
+    expect(Connection.create).toBeDefined();
   });
-  it("then ObjectConnection.create static method is defined", () => {
-    expect(ObjectConnection.create).toBeDefined();
+  it("then Connection.updateCoordinates static method is defined", () => {
+    expect(Connection.updateCoordinates).toBeDefined();
   });
-  it("then ObjectConnection.updateCoordinates static method is defined", () => {
-    expect(ObjectConnection.updateCoordinates).toBeDefined();
+  it("then Connection.update static method is defined", () => {
+    expect(Connection.update).toBeDefined();
   });
-  it("then ObjectConnection.update static method is defined", () => {
-    expect(ObjectConnection.update).toBeDefined();
-  });
-  it("then ObjectConnection.translate static method is defined", () => {
-    expect(ObjectConnection.translate).toBeDefined();
+  it("then Connection.translate static method is defined", () => {
+    expect(Connection.translate).toBeDefined();
   });
 });
 
-describe("Given ObjectConnection.structure static property exist", () => {
-  it("then ObjectConnection.structure equals object", () => {
-    expect(ObjectConnection.structure).toEqual("object");
-  });
-});
-
-describe("Given ObjectType.create static method exist", () => {
+describe("Given Connection.create static method exist", () => {
   describe("when connection = Object.create(details)", () => {
     let details;
-    let connection: ObjectConnectionType;
+    let connection: iConnection;
     beforeEach(() => {
       details = {
         name: "",
@@ -46,7 +36,7 @@ describe("Given ObjectType.create static method exist", () => {
           end: { x: 100, y: 400 },
         },
       };
-      connection = ObjectConnection.create(details);
+      connection = Connection.create(details);
     });
     it("then connection is exist", () => {
       expect(connection).toBeDefined();
@@ -75,13 +65,13 @@ describe("Given ObjectType.create static method exist", () => {
   });
 });
 
-describe("Given ObjectType.updateCoordinates static method exist", () => {
-  describe("when updateNode = Object.updateCoordinates(connection, coordinates)", () => {
-    let connection: ObjectConnectionType;
-    let coordinates: { start: ObjectCoordinates; end: ObjectCoordinates };
-    let updatedNode: ObjectConnectionType;
+describe("Given Connection.updateCoordinates static method exist", () => {
+  describe("when updateNode = Connection.updateCoordinates(connection, coordinates)", () => {
+    let connection: iConnection;
+    let coordinates: { start: Coordinates; end: Coordinates };
+    let updatedNode: iConnection;
     beforeEach(() => {
-      connection = ObjectConnection.create({
+      connection = Connection.create({
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -94,7 +84,7 @@ describe("Given ObjectType.updateCoordinates static method exist", () => {
         start: { x: 1, y: 500 },
         end: { x: 200, y: 500 },
       };
-      updatedNode = ObjectConnection.updateCoordinates(connection, coordinates);
+      updatedNode = Connection.updateCoordinates(connection, coordinates);
     });
     it("then updatedNode exist", () => {
       expect(updatedNode).toBeDefined();
@@ -123,11 +113,11 @@ describe("Given ObjectType.updateCoordinates static method exist", () => {
   });
 });
 
-describe("Given ObjectType.update exist", () => {
+describe("Given Connection.update exist", () => {
   describe("and connection exist", () => {
-    let connection: ObjectConnectionType;
+    let connection: iConnection;
     beforeEach(() => {
-      connection = ObjectConnection.create({
+      connection = Connection.create({
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -150,7 +140,7 @@ describe("Given ObjectType.update exist", () => {
             end: { x: 500, y: 500 },
           },
         };
-        connection = ObjectConnection.update(connection, details);
+        connection = Connection.update(connection, details);
       });
       it("then connection icon is updated", () => {
         expect(connection).toEqual(details);
@@ -159,11 +149,11 @@ describe("Given ObjectType.update exist", () => {
   });
 });
 
-describe("Given ObjectType.translate static method exist", () => {
+describe("Given Connection.translate static method exist", () => {
   describe("and connection exist", () => {
-    let connection: ObjectConnectionType;
+    let connection: iConnection;
     beforeEach(() => {
-      connection = ObjectConnection.create({
+      connection = Connection.create({
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -173,7 +163,7 @@ describe("Given ObjectType.translate static method exist", () => {
         },
       });
     });
-    describe("when connection = ObjectType.translate(connection, offset)", () => {
+    describe("when connection = Connection.translate(connection, offset)", () => {
       let coordinates;
       let offset;
       beforeEach(() => {
@@ -182,7 +172,7 @@ describe("Given ObjectType.translate static method exist", () => {
           x: 10,
           y: 10,
         };
-        connection = ObjectConnection.translate(connection, offset);
+        connection = Connection.translate(connection, offset);
       });
       it("then connection coordinates is original coordinates plus offset ", () => {
         let updateCoordinates = {
