@@ -9,7 +9,7 @@ import {
   Nodes,
 } from "../../src/Graph.js";
 
-import { Graph } from "../../src/Graph.js";
+import { Graph, Connection } from "../../src/Graph.js";
 
 describe("Given Graph imported", () => {
   it("then Graph exist", () => {
@@ -18,11 +18,17 @@ describe("Given Graph imported", () => {
   it("then Graph.createNode exist", () => {
     expect(Graph.createNode).toBeDefined();
   });
+  it("then Graph.createConnection exist", () => {
+    expect(Graph.createConnection).toBeDefined();
+  });
   it("then Graph.addNodeMetadata exist", () => {
     expect(Graph.addNodeMetadata).toBeDefined();
   });
   it("then Graph.updateNode exist", () => {
     expect(Graph.updateNode).toBeDefined();
+  });
+  it("then Graph.updateConnection exist", () => {
+    expect(Graph.updateConnection).toBeDefined();
   });
   it("then Graph.updateNodeMetadata exist", () => {
     expect(Graph.updateNodeMetadata).toBeDefined();
@@ -33,11 +39,17 @@ describe("Given Graph imported", () => {
   it("then Graph.removeNodeMetadata exist", () => {
     expect(Graph.removeNodeMetadata).toBeDefined();
   });
-  it("then Graph.translate exist", () => {
-    expect(Graph.translate).toBeDefined();
+  it("then Graph.translateNode exist", () => {
+    expect(Graph.translateNode).toBeDefined();
+  });
+  it("then Graph.translateConnection exist", () => {
+    expect(Graph.translateConnection).toBeDefined();
   });
   it("then Graph.updateNodeCoordinates exist", () => {
     expect(Graph.updateNodeCoordinates).toBeDefined();
+  });
+  it("then Graph.updateConnectionCoordinates", () => {
+    expect(Graph.updateConnectionCoordinates).toBeDefined();
   });
   describe("when graph = new Graph()", () => {
     let graph: Graph;
@@ -165,6 +177,49 @@ describe("Given Graph.createNode static method exist", () => {
   });
 });
 
+describe("Given Graph.createConnection static method exist", () => {
+  describe("when connection = Graph.createConnection(details)", () => {
+    let details;
+    let connection: Connection;
+    beforeEach(() => {
+      details = {
+        name: "",
+        source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+        target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        coordinates: {
+          start: { x: 0, y: 400 },
+          end: { x: 100, y: 400 },
+        },
+      };
+      connection = Graph.createConnection(details);
+    });
+    it("then connection is exist", () => {
+      expect(connection).toBeDefined();
+    });
+    it("then connection.id exist", () => {
+      expect(connection.id).toBeDefined();
+    });
+    it("then connection.name exist", () => {
+      expect(connection.name).toBeDefined();
+    });
+    it("then connection.source exist", () => {
+      expect(connection.source).toBeDefined();
+    });
+    it("then connection.target exist", () => {
+      expect(connection.target).toBeDefined();
+    });
+    it("then connection.coordinates exist", () => {
+      expect(connection.coordinates).toBeDefined();
+    });
+    it("then connection.name equals details.name", () => {
+      expect(connection.name).toBe(details.name);
+    });
+    it("then connection.coordinates equals details.coordinates", () => {
+      expect(connection.coordinates).toEqual(details.coordinates);
+    });
+  });
+});
+
 describe("Given Graph.addNodeMetadata static method exist", () => {
   describe("when extendedNode = Graph.extend(node, metadata)", () => {
     let node: Node;
@@ -260,6 +315,42 @@ describe("Given Graph.updateNode exist", () => {
       });
       it("then node icon is updated", () => {
         expect(node).toEqual(details);
+      });
+    });
+  });
+});
+
+describe("Given Graph.updateConnection exist", () => {
+  describe("and connection exist", () => {
+    let connection: Connection;
+    beforeEach(() => {
+      connection = Graph.createConnection({
+        name: "",
+        source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+        target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        coordinates: {
+          start: { x: 0, y: 400 },
+          end: { x: 100, y: 400 },
+        },
+      });
+    });
+    describe("when updatedNode = Graph.updateConnection(connection, update)", () => {
+      let details;
+      beforeEach(() => {
+        details = {
+          id: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+          name: "",
+          source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+          target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: {
+            start: { x: 1, y: 500 },
+            end: { x: 500, y: 500 },
+          },
+        };
+        connection = Graph.updateConnection(connection, details);
+      });
+      it("then connection icon is updated", () => {
+        expect(connection).toEqual(details);
       });
     });
   });
@@ -414,7 +505,7 @@ describe("Given Graph.translate static method exist", () => {
           x: 10,
           y: 10,
         };
-        node = Graph.translate(node, offset);
+        node = Graph.translateNode(node, offset);
       });
       it("then node coordinates is original coordinates plus offset ", () => {
         let updateCoordinates = {
@@ -477,6 +568,96 @@ describe("Given Graph.updateNodeCoordinates static method exist", () => {
     });
     it("then updatedNode.icon equals node.icon", () => {
       expect(updatedNode.icon).toEqual(node.icon);
+    });
+  });
+});
+
+describe("Given Graph.updateNodeCoordinates static method exist", () => {
+  describe("when updateNode = Graph.updateNodeCoordinates(connection, coordinates)", () => {
+    let connection: Connection;
+    let coordinates: { start: Coordinates; end: Coordinates };
+    let updatedNode: Connection;
+    beforeEach(() => {
+      connection = Graph.createConnection({
+        name: "",
+        source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+        target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        coordinates: {
+          start: { x: 0, y: 400 },
+          end: { x: 100, y: 400 },
+        },
+      });
+      coordinates = {
+        start: { x: 1, y: 500 },
+        end: { x: 200, y: 500 },
+      };
+      updatedNode = Graph.updateConnectionCoordinates(connection, coordinates);
+    });
+    it("then updatedNode exist", () => {
+      expect(updatedNode).toBeDefined();
+    });
+    it("then updatedNode.id exist", () => {
+      expect(updatedNode.id).toBeDefined();
+    });
+    it("then updatedNode.name exist", () => {
+      expect(updatedNode.name).toBeDefined();
+    });
+    it("then updatedNode.coordinates exist", () => {
+      expect(updatedNode.coordinates).toBeDefined();
+    });
+    it("then updatedNode.id equals connection.id", () => {
+      expect(updatedNode.id).toEqual(connection.id);
+    });
+    it("then updatedNode.name equals connection.name", () => {
+      expect(updatedNode.name).toEqual(connection.name);
+    });
+    it("then result.coordinates equals coordinates", () => {
+      expect(updatedNode.coordinates).toEqual(coordinates);
+    });
+    it("then result.coordinates is not equal to connection.coordinates", () => {
+      expect(updatedNode.coordinates).not.toEqual(connection.coordinates);
+    });
+  });
+});
+
+describe("Given Graph.translateConnection static method exist", () => {
+  describe("and connection exist", () => {
+    let connection: Connection;
+    beforeEach(() => {
+      connection = Graph.createConnection({
+        name: "",
+        source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+        target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        coordinates: {
+          start: { x: 1, y: 500 },
+          end: { x: 500, y: 500 },
+        },
+      });
+    });
+    describe("when connection = Graph.translateConnection(connection, offset)", () => {
+      let coordinates;
+      let offset;
+      beforeEach(() => {
+        coordinates = connection.coordinates;
+        offset = {
+          x: 10,
+          y: 10,
+        };
+        connection = Graph.translateConnection(connection, offset);
+      });
+      it("then connection coordinates is original coordinates plus offset ", () => {
+        let updateCoordinates = {
+          start: {
+            x: coordinates.start.x + offset.x,
+            y: coordinates.start.y + offset.y,
+          },
+          end: {
+            x: coordinates.end.x + offset.x,
+            y: coordinates.end.y + offset.y,
+          },
+        };
+        expect(connection.coordinates).toEqual(updateCoordinates);
+      });
     });
   });
 });

@@ -1,9 +1,4 @@
 import { Utilities, UUID } from "./Utilities/Utilities.js";
-import {
-  ConnectionFactory,
-  Connection,
-  Connections,
-} from "./ConnectionFactory.js";
 
 export const NodeTypes = [
   "start",
@@ -47,6 +42,19 @@ export type Node = {
 };
 export type Nodes = Node[];
 
+export type Connection = {
+  id: UUID;
+  name: string;
+  source: UUID;
+  target: UUID;
+  coordinates: {
+    start: Coordinates;
+    end: Coordinates;
+  };
+};
+
+export type Connections = Connection[];
+
 // Operations on Graph takes nodes as first argument to enable performance testing
 // Once performance testing is done, we can refactor to use a class instance
 // Also operations can return this to enable fluent interface
@@ -59,12 +67,30 @@ export class Graph {
     icon,
   });
 
+  public static createConnection = ({
+    name,
+    source,
+    target,
+    coordinates,
+  }): Connection => ({
+    id: Utilities.uuid,
+    name,
+    source,
+    target,
+    coordinates,
+  });
+
   public static addNodeMetadata = (node: Node, metadata: Metadata): Node => ({
     ...node,
     metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
   });
 
   public static updateNode = (node: Node, update: Node): Node => update;
+
+  public static updateConnection = (
+    connection: Connection,
+    update: Connection
+  ): Connection => update;
 
   public static updateNodeMetadata = (node: Node, metadata: Metadata): Node => {
     let key = Object.keys(metadata)[0];
@@ -92,12 +118,37 @@ export class Graph {
     coordinates,
   });
 
-  public static translate = (node: Node, offset: any) => {
+  public static updateConnectionCoordinates = (
+    connection: Connection,
+    coordinates: {
+      start: Coordinates;
+      end: Coordinates;
+    }
+  ): Connection => ({
+    ...connection,
+    coordinates,
+  });
+
+  public static translateNode = (node: Node, offset: any) => {
     node.coordinates = {
       x: node.coordinates.x + offset.x,
       y: node.coordinates.y + offset.y,
     };
     return node;
+  };
+
+  public static translateConnection = (connection: Connection, offset: any) => {
+    connection.coordinates = {
+      start: {
+        x: connection.coordinates.start.x + offset.x,
+        y: connection.coordinates.start.y + offset.y,
+      },
+      end: {
+        x: connection.coordinates.end.x + offset.x,
+        y: connection.coordinates.end.y + offset.y,
+      },
+    };
+    return connection;
   };
 
   public nodes: Nodes = [];
@@ -108,16 +159,13 @@ export class Graph {
     Array.from({ length: qty }, () => Graph.createNode(details));
 
   public createConnections = (qty: number, details): Connections =>
-    Array.from({ length: qty }, () => ConnectionFactory.create(details));
+    Array.from({ length: qty }, () => Graph.createConnection(details));
 
   public addNode = (details): Nodes =>
     (this.nodes = [...this.nodes, Graph.createNode(details)]);
 
   public addConnection = (details): Connections =>
-    (this.connections = [
-      ...this.connections,
-      ConnectionFactory.create(details),
-    ]);
+    (this.connections = [...this.connections, Graph.createConnection(details)]);
 
   public addNodes = (newNodes: Nodes): Nodes =>
     (this.nodes = [...this.nodes, ...newNodes]);
@@ -143,7 +191,7 @@ export class Graph {
   public updateConnectionCoordinates = (id: string, coordinates) =>
     (this.connections = this.connections.map((connection: Connection) =>
       connection.id === id
-        ? ConnectionFactory.updateCoordinates(connection, coordinates)
+        ? Graph.updateConnectionCoordinates(connection, coordinates)
         : connection
     ));
 
@@ -160,14 +208,14 @@ export class Graph {
   public updateConnection = (id: string, update) =>
     (this.connections = this.connections.map((connection: Connection) =>
       connection.id === id
-        ? ConnectionFactory.update(connection, update)
+        ? Graph.updateConnection(connection, update)
         : connection
     ));
 
   public findNodeById = (id: string): Node =>
     this.nodes.find((node: Node) => node.id === id);
 
-  public findConnectionById = (id: string): ConnectionFactory =>
+  public findConnectionById = (id: string): Connection =>
     this.connections.find((connection: Connection) => connection.id === id);
 
   public findNodesByType = (type: string): Nodes =>
@@ -195,13 +243,13 @@ export class Graph {
 
   public translateNode = (id: string, offset) =>
     (this.nodes = this.nodes.map((node: Node) =>
-      node.id === id ? Graph.translate(node, offset) : node
+      node.id === id ? Graph.translateNode(node, offset) : node
     ));
 
   public translateConnection = (id: string, offset) =>
     (this.connections = this.connections.map((connection: Connection) =>
       connection.id === id
-        ? ConnectionFactory.translate(connection, offset)
+        ? Graph.translateConnection(connection, offset)
         : connection
     ));
 }
