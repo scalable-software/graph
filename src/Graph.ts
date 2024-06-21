@@ -19,119 +19,98 @@ export class Graph {
   public createConnections = (qty: number, details): Connections =>
     Array.from({ length: qty }, () => ConnectionFactory.create(details));
 
-  public addNode = (nodes: Nodes, details): Nodes => [
-    ...nodes,
-    NodeFactory.create(details),
-  ];
+  public addNode = (details): Nodes =>
+    (this.nodes = [...this.nodes, NodeFactory.create(details)]);
 
-  public addConnection = (connections: Connections, details): Connections => [
-    ...connections,
-    ConnectionFactory.create(details),
-  ];
+  public addConnection = (details): Connections =>
+    (this.connections = [
+      ...this.connections,
+      ConnectionFactory.create(details),
+    ]);
 
-  public addNodes = (nodes: Nodes, newNodes: Nodes): Nodes => [
-    ...nodes,
-    ...newNodes,
-  ];
+  public addNodes = (newNodes: Nodes): Nodes =>
+    (this.nodes = [...this.nodes, ...newNodes]);
 
-  public addConnections = (
-    connections: Connections,
-    newConnections: Connections
-  ): Connections => [...connections, ...newConnections];
+  public addConnections = (newConnections: Connections): Connections =>
+    (this.connections = [...this.connections, ...newConnections]);
 
-  public addNodeMetadata = (
-    nodes: Nodes,
-    id: string,
-    metadata: Metadata
-  ): Nodes =>
-    nodes.map((node: Node) =>
+  public addNodeMetadata = (id: string, metadata: Metadata): Nodes =>
+    (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? NodeFactory.addMetadata(node, metadata) : node
-    );
+    ));
 
-  public updateNodeMetadata = (
-    nodes: Nodes,
-    id: string,
-    metadata: Metadata
-  ): Nodes =>
-    nodes.map((node: Node) =>
+  public updateNodeMetadata = (id: string, metadata: Metadata): Nodes =>
+    (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? NodeFactory.updateMetadata(node, metadata) : node
-    );
+    ));
 
-  public updateNodeCoordinates = (nodes: Nodes, id: string, coordinates) =>
-    nodes.map((node: Node) =>
+  public updateNodeCoordinates = (id: string, coordinates) =>
+    (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? NodeFactory.updateCoordinates(node, coordinates) : node
-    );
+    ));
 
-  public updateConnectionCoordinates = (
-    connections: Connections,
-    id: string,
-    coordinates
-  ) =>
-    connections.map((connection: Connection) =>
+  public updateConnectionCoordinates = (id: string, coordinates) =>
+    (this.connections = this.connections.map((connection: Connection) =>
       connection.id === id
         ? ConnectionFactory.updateCoordinates(connection, coordinates)
         : connection
-    );
+    ));
 
-  public updateNodeIcon = (nodes: Nodes, id: string, icon) =>
-    nodes.map((node: Node) =>
+  public updateNodeIcon = (id: string, icon) =>
+    (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? NodeFactory.updateIcon(node, icon) : node
-    );
+    ));
 
-  public updateNode = (nodes: Nodes, id: string, update) =>
-    nodes.map((node: Node) =>
+  public updateNode = (id: string, update) =>
+    (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? NodeFactory.update(node, update) : node
-    );
+    ));
 
-  public updateConnection = (connections: Connections, id: string, update) =>
-    connections.map((connection: Connection) =>
+  public updateConnection = (id: string, update) =>
+    (this.connections = this.connections.map((connection: Connection) =>
       connection.id === id
         ? ConnectionFactory.update(connection, update)
         : connection
-    );
+    ));
 
-  public findNodeById = (nodes: Nodes, id: string): Node =>
-    nodes.find((node: Node) => node.id === id);
+  public findNodeById = (id: string): Node =>
+    this.nodes.find((node: Node) => node.id === id);
 
-  public findConnectionById = (
-    connections: Connections,
-    id: string
-  ): ConnectionFactory =>
-    connections.find((connection: Connection) => connection.id === id);
+  public findConnectionById = (id: string): ConnectionFactory =>
+    this.connections.find((connection: Connection) => connection.id === id);
 
-  public findNodesByType = (nodes: Nodes, type: string): Nodes =>
-    nodes.filter((node: Node) => node.type === type);
+  public findNodesByType = (type: string): Nodes =>
+    this.nodes.filter((node: Node) => node.type === type);
 
-  public findNodeByCoordinates = (nodes: Nodes, coordinates): Node =>
-    nodes.find(
+  public findNodeByCoordinates = (coordinates): Node =>
+    this.nodes.find(
       (node: Node) =>
         node.coordinates.x === coordinates.x &&
         node.coordinates.y === coordinates.y
     );
 
-  public removeNodeMetadata = (nodes: Nodes, id: string, type: string) =>
-    nodes.map((node: Node) =>
+  public removeNodeMetadata = (id: string, type: string) =>
+    (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? NodeFactory.removeMetadata(node, type) : node
-    );
+    ));
 
-  public removeNodeById = (nodes: Nodes, id: string): Nodes =>
-    nodes.filter((node: Node) => node.id !== id);
+  public removeNodeById = (id: string): Nodes =>
+    (this.nodes = this.nodes.filter((node: Node) => node.id !== id));
 
-  public removeConnectionById = (
-    connections: Connections,
-    id: string
-  ): Connections =>
-    connections.filter((connection: Connection) => connection.id !== id);
+  public removeConnectionById = (id: string): Connections =>
+    (this.connections = this.connections.filter(
+      (connection: Connection) => connection.id !== id
+    ));
 
-  public translateNode = (nodes: Nodes, id: string, offset) =>
-    nodes.map((node: Node) =>
+  public translateNode = (id: string, offset) =>
+    (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? NodeFactory.translate(node, offset) : node
-    );
+    ));
 
-  public translateConnection = (connections: Connections, id: string, offset) =>
-    connections.map((connection: Connection) =>
+  public translateConnection = (id: string, offset) =>
+    (this.connections = this.connections.map((connection: Connection) =>
       connection.id === id
         ? ConnectionFactory.translate(connection, offset)
         : connection
-    );
+    ));
 }
