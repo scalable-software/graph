@@ -30,13 +30,7 @@ module.exports = function (config) {
       dir: path.join(__dirname, "coverage"),
       skipFilesWithNoCoverage: true,
     },
-    customLaunchers: {
-      Chrome_with_memory: {
-        base: "Chrome",
-        flags: ["--enable-precise-memory-info"],
-      },
-    },
-    browsers: ["Chrome_with_memory"],
+    browsers: ["ChromeHeadless"],
     singleRun: true,
     logLevel: config.LOG_DISABLED,
   });
