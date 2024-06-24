@@ -1,0 +1,1822 @@
+[
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], detail) then adding 1 node to an existing set of 10 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10,
+        "time": 0,
+        "start": 76.40000000037253,
+        "end": 76.40000000037253
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], detail) then adding 1 node to an existing set of 10 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10,
+        "size": 1556,
+        "start": 5167151,
+        "end": 5168707
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], detail) then adding 1 node to an existing set of 100 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100,
+        "time": 0,
+        "start": 77.5,
+        "end": 77.5
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], detail) then adding 1 node to an existing set of 100 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100,
+        "size": 1212,
+        "start": 5317439,
+        "end": 5318651
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], detail) then adding 1 node to an existing set of 1000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 1000,
+        "time": 0.09999999962747097,
+        "start": 80.09999999962747,
+        "end": 80.19999999925494
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], detail) then adding 1 node to an existing set of 1000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 1000,
+        "size": 10204,
+        "start": 6488747,
+        "end": 6498951
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], detail) then adding 1 node to an existing set of 10000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10000,
+        "time": 0.09999999962747097,
+        "start": 110.09999999962747,
+        "end": 110.19999999925494
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], detail) then adding 1 node to an existing set of 10000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 10000,
+        "size": 100220,
+        "start": 13158303,
+        "end": 13258523
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], detail) then adding 1 node to an existing set of 100000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100000,
+        "time": 0.30000000074505806,
+        "start": 436.59999999962747,
+        "end": 436.90000000037253
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNode([], detail) then adding 1 node to an existing set of 100000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNode",
+        "after": 100000,
+        "size": 1000244,
+        "start": 65431666,
+        "end": 66431910
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], detail) then adding 1 connection to an existing set of 10 connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 10,
+        "time": 0,
+        "start": 684.6999999992549,
+        "end": 684.6999999992549
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], detail) then adding 1 connection to an existing set of 10 connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 10,
+        "size": 312,
+        "start": 66489838,
+        "end": 66490150
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], detail) then adding 1 connection to an existing set of 100 connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 100,
+        "time": 0,
+        "start": 685.3000000007451,
+        "end": 685.3000000007451
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], detail) then adding 1 connection to an existing set of 100 connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 100,
+        "size": 1212,
+        "start": 66589854,
+        "end": 66591066
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], detail) then adding 1 connection to an existing set of 1000 connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 1000,
+        "time": 0,
+        "start": 687.3000000007451,
+        "end": 687.3000000007451
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], detail) then adding 1 connection to an existing set of 1000 connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 1000,
+        "size": 10204,
+        "start": 65252066,
+        "end": 65262270
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], detail) then adding 1 connection to an existing set of 10000 connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 10000,
+        "time": 0.09999999962747097,
+        "start": 705.0999999996275,
+        "end": 705.1999999992549
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], detail) then adding 1 connection to an existing set of 10000 connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 10000,
+        "size": 115488,
+        "start": 71968138,
+        "end": 72083626
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], detail) then adding 1 connection to an existing set of 100000 connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 100000,
+        "time": 0.5,
+        "start": 897.6999999992549,
+        "end": 898.1999999992549
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnection([], detail) then adding 1 connection to an existing set of 100000 connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnection",
+        "after": 100000,
+        "size": 1000428,
+        "start": 18552166,
+        "end": 19552594
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 10 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodes",
+        "after": 10,
+        "time": 0.5,
+        "start": 1271.699999999255,
+        "end": 1272.199999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 10 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodes",
+        "after": 10,
+        "size": 1000544,
+        "start": 39024866,
+        "end": 40025410
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 100 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodes",
+        "after": 100,
+        "time": 0.3999999985098839,
+        "start": 1476.800000000745,
+        "end": 1477.199999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 100 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodes",
+        "after": 100,
+        "size": 1002160,
+        "start": 51904202,
+        "end": 52906362
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 1000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodes",
+        "after": 1000,
+        "time": 0.40000000037252903,
+        "start": 1676.9000000003725,
+        "end": 1677.300000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 1000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodes",
+        "after": 1000,
+        "size": 1020160,
+        "start": 70642662,
+        "end": 71662822
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 10000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodes",
+        "after": 10000,
+        "time": 0.5,
+        "start": 1919.4000000003725,
+        "end": 1919.9000000003725
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 10000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodes",
+        "after": 10000,
+        "size": 1200176,
+        "start": 92809474,
+        "end": 94009650
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 100000 nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodes",
+        "after": 100000,
+        "time": 1.5,
+        "start": 2495.0999999996275,
+        "end": 2496.5999999996275
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodes(existingNodes, newNodes) then adding 1 node to an existing set of 100000 nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodes",
+        "after": 100000,
+        "size": 3904440,
+        "start": 66259978,
+        "end": 70164418
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 10 connection has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 10,
+        "time": 0.40000000037252903,
+        "start": 2880.699999999255,
+        "end": 2881.0999999996275
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 10 connection takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 10,
+        "size": 1000544,
+        "start": 85461282,
+        "end": 86461826
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 100 connection has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 100,
+        "time": 0.30000000074505806,
+        "start": 3095.0999999996275,
+        "end": 3095.4000000003725
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 100 connection takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 100,
+        "size": 1002160,
+        "start": 102796494,
+        "end": 103798654
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 1000 connection has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 1000,
+        "time": 0.40000000037252903,
+        "start": 3301.0999999996275,
+        "end": 3301.5
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 1000 connection takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 1000,
+        "size": 1020160,
+        "start": 121577854,
+        "end": 122598014
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 10000 connection has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 10000,
+        "time": 0.40000000037252903,
+        "start": 3522.9000000003725,
+        "end": 3523.300000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 10000 connection takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 10000,
+        "size": 1200164,
+        "start": 140106162,
+        "end": 141306326
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 100000 connection has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 100000,
+        "time": 1.400000000372529,
+        "start": 4258.5999999996275,
+        "end": 4260
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.addConnections(existingConnections, newConnections) then adding 1 connection to an existing set of 100000 connection takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addConnections",
+        "after": 100000,
+        "size": 3904452,
+        "start": 64518850,
+        "end": 68423302
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 10th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 100000,
+        "time": 2.100000001490116,
+        "start": 4701.699999999255,
+        "end": 4703.800000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 10th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 100000,
+        "size": 408668,
+        "start": 117378866,
+        "end": 117787534
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 100th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 100000,
+        "time": 1.8999999985098839,
+        "start": 5185.300000000745,
+        "end": 5187.199999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 100th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 100000,
+        "size": 400200,
+        "start": 56515299,
+        "end": 56915499
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 1000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 100000,
+        "time": 1.599999999627471,
+        "start": 5544.4000000003725,
+        "end": 5546
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 1000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 100000,
+        "size": 400200,
+        "start": 109799251,
+        "end": 110199451
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 10000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 100000,
+        "time": 1.900000000372529,
+        "start": 5897.4000000003725,
+        "end": 5899.300000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 10000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 100000,
+        "size": 400200,
+        "start": 56919172,
+        "end": 57319372
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 100000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 100000,
+        "time": 1.3999999985098839,
+        "start": 6323.800000000745,
+        "end": 6325.199999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.addNodeMetadata(existingNodes, id, metadata) then adding metadata to the node at the 100000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "addNodeMetadata",
+        "after": 100000,
+        "size": 400404,
+        "start": 110219300,
+        "end": 110619704
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node = graph.findNodeById(existingNodes, id) then finding the ID of the node at the 10th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "time": 0.09999999962747097,
+        "start": 6664.9000000003725,
+        "end": 6665
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node = graph.findNodeById(existingNodes, id) then finding the ID of the node at the 10th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "size": 64,
+        "start": 47705916,
+        "end": 47705980
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node = graph.findNodeById(existingNodes, id) then finding the ID of the node at the 100th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "time": 0,
+        "start": 7101.300000000745,
+        "end": 7101.300000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node = graph.findNodeById(existingNodes, id) then finding the ID of the node at the 100th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "size": 64,
+        "start": 48108056,
+        "end": 48108120
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node = graph.findNodeById(existingNodes, id) then finding the ID of the node at the 1000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "time": 0,
+        "start": 7486.9000000003725,
+        "end": 7486.9000000003725
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node = graph.findNodeById(existingNodes, id) then finding the ID of the node at the 1000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "size": 64,
+        "start": 29513000,
+        "end": 29513064
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node = graph.findNodeById(existingNodes, id) then finding the ID of the node at the 10000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "time": 0.599999999627471,
+        "start": 7892.5,
+        "end": 7893.0999999996275
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node = graph.findNodeById(existingNodes, id) then finding the ID of the node at the 10000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "size": 64,
+        "start": 83050516,
+        "end": 83050580
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node = graph.findNodeById(existingNodes, id) then finding the ID of the node at the 100000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "time": 1.5,
+        "start": 8329.800000000745,
+        "end": 8331.300000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node = graph.findNodeById(existingNodes, id) then finding the ID of the node at the 100000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "size": 116,
+        "start": 56145020,
+        "end": 56145136
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connection = graph.findConnectionById(existingConnections, id) then finding the ID of the connection at the 10th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findConnectionById",
+        "after": 100000,
+        "time": 0.09999999962747097,
+        "start": 8678.400000000373,
+        "end": 8678.5
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connection = graph.findConnectionById(existingConnections, id) then finding the ID of the connection at the 10th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findConnectionById",
+        "after": 100000,
+        "size": 64,
+        "start": 25310132,
+        "end": 25310196
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connection = graph.findConnectionById(existingConnections, id) then finding the ID of the connection at the 100th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findConnectionById",
+        "after": 100000,
+        "time": 0,
+        "start": 9076.400000000373,
+        "end": 9076.400000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connection = graph.findConnectionById(existingConnections, id) then finding the ID of the connection at the 100th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findConnectionById",
+        "after": 100000,
+        "size": 64,
+        "start": 69369500,
+        "end": 69369564
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connection = graph.findConnectionById(existingConnections, id) then finding the ID of the connection at the 1000th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findConnectionById",
+        "after": 100000,
+        "time": 0.09999999962747097,
+        "start": 9493.099999999627,
+        "end": 9493.199999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connection = graph.findConnectionById(existingConnections, id) then finding the ID of the connection at the 1000th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findConnectionById",
+        "after": 100000,
+        "size": 64,
+        "start": 46868844,
+        "end": 46868908
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connection = graph.findConnectionById(existingConnections, id) then finding the ID of the connection at the 10000th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findConnectionById",
+        "after": 100000,
+        "time": 0,
+        "start": 9832.199999999255,
+        "end": 9832.199999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connection = graph.findConnectionById(existingConnections, id) then finding the ID of the connection at the 10000th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findConnectionById",
+        "after": 100000,
+        "size": 1796,
+        "start": 25122556,
+        "end": 25124352
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connection = graph.findConnectionById(existingConnections, id) then finding the ID of the connection at the 100000th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findConnectionById",
+        "after": 100000,
+        "time": 1.099999999627471,
+        "start": 10247.300000000745,
+        "end": 10248.400000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connection = graph.findConnectionById(existingConnections, id) then finding the ID of the connection at the 100000th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findConnectionById",
+        "after": 100000,
+        "size": 116,
+        "start": 69170356,
+        "end": 69170472
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node with metadata exist in nodes when nodes = graph.updateNodeMetadata(nodes, id, metadata) then updating the metadata of the node at the 10th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateNodeMetadata",
+        "after": 100000,
+        "time": 1.8999999985098839,
+        "start": 10684.300000000745,
+        "end": 10686.199999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node with metadata exist in nodes when nodes = graph.updateNodeMetadata(nodes, id, metadata) then updating the metadata of the node at the 10th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateNodeMetadata",
+        "after": 100000,
+        "size": 405804,
+        "start": 56539812,
+        "end": 56945616
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node with metadata exist in nodes when nodes = graph.updateNodeMetadata(nodes, id, metadata) then updating the metadata of the node at the 100th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateNodeMetadata",
+        "after": 100000,
+        "time": 1.5,
+        "start": 11057.800000000745,
+        "end": 11059.300000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node with metadata exist in nodes when nodes = graph.updateNodeMetadata(nodes, id, metadata) then updating the metadata of the node at the 100th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateNodeMetadata",
+        "after": 100000,
+        "size": 405804,
+        "start": 29938620,
+        "end": 30344424
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node with metadata exist in nodes when nodes = graph.updateNodeMetadata(nodes, id, metadata) then updating the metadata of the node at the 1000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateNodeMetadata",
+        "after": 100000,
+        "time": 1.599999999627471,
+        "start": 11499.400000000373,
+        "end": 11501
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node with metadata exist in nodes when nodes = graph.updateNodeMetadata(nodes, id, metadata) then updating the metadata of the node at the 1000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateNodeMetadata",
+        "after": 100000,
+        "size": 400232,
+        "start": 83441904,
+        "end": 83842136
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node with metadata exist in nodes when nodes = graph.updateNodeMetadata(nodes, id, metadata) then updating the metadata of the node at the 10000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateNodeMetadata",
+        "after": 100000,
+        "time": 2,
+        "start": 11986.599999999627,
+        "end": 11988.599999999627
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node with metadata exist in nodes when nodes = graph.updateNodeMetadata(nodes, id, metadata) then updating the metadata of the node at the 10000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateNodeMetadata",
+        "after": 100000,
+        "size": 400232,
+        "start": 56506100,
+        "end": 56906332
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node with metadata exist in nodes when nodes = graph.updateNodeMetadata(nodes, id, metadata) then updating the metadata of the node at the 100000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateNodeMetadata",
+        "after": 100000,
+        "time": 1.799999998882413,
+        "start": 12368.300000000745,
+        "end": 12370.099999999627
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when node with metadata exist in nodes when nodes = graph.updateNodeMetadata(nodes, id, metadata) then updating the metadata of the node at the 100000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateNodeMetadata",
+        "after": 100000,
+        "size": 406160,
+        "start": 29948596,
+        "end": 30354756
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes when nodes = graph.translateNode(nodes, id, offset) then translating the node at the 10th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "translateNode",
+        "after": 10,
+        "time": 0.2000000011175871,
+        "start": 12762.099999999627,
+        "end": 12762.300000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes when nodes = graph.translateNode(nodes, id, offset) then translating the node at the 10th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "translateNode",
+        "after": 10,
+        "size": 196,
+        "start": 42089116,
+        "end": 42089312
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes when nodes = graph.translateNode(nodes, id, offset) then translating the node at the 100th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "translateNode",
+        "after": 100,
+        "time": 0,
+        "start": 12762.800000000745,
+        "end": 12762.800000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes when nodes = graph.translateNode(nodes, id, offset) then translating the node at the 100th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "translateNode",
+        "after": 100,
+        "size": 544,
+        "start": 42195488,
+        "end": 42196032
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes when nodes = graph.translateNode(nodes, id, offset) then translating the node at the 1000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "translateNode",
+        "after": 1000,
+        "time": 0.09999999962747097,
+        "start": 12765,
+        "end": 12765.099999999627
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes when nodes = graph.translateNode(nodes, id, offset) then translating the node at the 1000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "translateNode",
+        "after": 1000,
+        "size": 4144,
+        "start": 42919296,
+        "end": 42923440
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes when nodes = graph.translateNode(nodes, id, offset) then translating the node at the 10000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "translateNode",
+        "after": 10000,
+        "time": 0.19999999925494194,
+        "start": 12794.5,
+        "end": 12794.699999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes when nodes = graph.translateNode(nodes, id, offset) then translating the node at the 10000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "translateNode",
+        "after": 10000,
+        "size": 40144,
+        "start": 43491552,
+        "end": 43531696
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes when nodes = graph.translateNode(nodes, id, offset) then translating the node at the 100000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "translateNode",
+        "after": 100000,
+        "time": 1.3999999985098839,
+        "start": 12992.300000000745,
+        "end": 12993.699999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes when nodes = graph.translateNode(nodes, id, offset) then translating the node at the 100000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "translateNode",
+        "after": 100000,
+        "size": 400268,
+        "start": 93181460,
+        "end": 93581728
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes When nodes = graph.updateNode(nodes, id, update) then updating the node at the 10th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateNode",
+        "after": 10,
+        "time": 0,
+        "start": 13265.400000000373,
+        "end": 13265.400000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes When nodes = graph.updateNode(nodes, id, update) then updating the node at the 10th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateNode",
+        "after": 10,
+        "size": 243756,
+        "start": 4299628,
+        "end": 4543384
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes When nodes = graph.updateNode(nodes, id, update) then updating the node at the 100th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateNode",
+        "after": 100,
+        "time": 0,
+        "start": 13265.900000000373,
+        "end": 13265.900000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes When nodes = graph.updateNode(nodes, id, update) then updating the node at the 100th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateNode",
+        "after": 100,
+        "size": 524,
+        "start": 4404824,
+        "end": 4405348
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes When nodes = graph.updateNode(nodes, id, update) then updating the node at the 1000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateNode",
+        "after": 1000,
+        "time": 0.09999999962747097,
+        "start": 13267.800000000745,
+        "end": 13267.900000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes When nodes = graph.updateNode(nodes, id, update) then updating the node at the 1000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateNode",
+        "after": 1000,
+        "size": 4124,
+        "start": 5138468,
+        "end": 5142592
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes When nodes = graph.updateNode(nodes, id, update) then updating the node at the 10000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateNode",
+        "after": 10000,
+        "time": 0.2000000011175871,
+        "start": 13285.199999999255,
+        "end": 13285.400000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes When nodes = graph.updateNode(nodes, id, update) then updating the node at the 10000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateNode",
+        "after": 10000,
+        "size": 40124,
+        "start": 12071812,
+        "end": 12111936
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes When nodes = graph.updateNode(nodes, id, update) then updating the node at the 100000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateNode",
+        "after": 100000,
+        "time": 1.900000000372529,
+        "start": 13518.400000000373,
+        "end": 13520.300000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When node exists in nodes When nodes = graph.updateNode(nodes, id, update) then updating the node at the 100000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateNode",
+        "after": 100000,
+        "size": 400124,
+        "start": 47271608,
+        "end": 47671732
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections when connections = graph.translateConnection(connections, id, offset) then translating the connection at the 10th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "translateConnection",
+        "after": 10,
+        "time": 0,
+        "start": 13695.699999999255,
+        "end": 13695.699999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections when connections = graph.translateConnection(connections, id, offset) then translating the connection at the 10th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "translateConnection",
+        "after": 10,
+        "size": 224,
+        "start": 45630412,
+        "end": 45630636
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections when connections = graph.translateConnection(connections, id, offset) then translating the connection at the 100th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "translateConnection",
+        "after": 100,
+        "time": 0,
+        "start": 13696.199999999255,
+        "end": 13696.199999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections when connections = graph.translateConnection(connections, id, offset) then translating the connection at the 100th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "translateConnection",
+        "after": 100,
+        "size": 584,
+        "start": 45776404,
+        "end": 45776988
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections when connections = graph.translateConnection(connections, id, offset) then translating the connection at the 1000th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "translateConnection",
+        "after": 1000,
+        "time": 0.09999999962747097,
+        "start": 13698.800000000745,
+        "end": 13698.900000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections when connections = graph.translateConnection(connections, id, offset) then translating the connection at the 1000th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "translateConnection",
+        "after": 1000,
+        "size": 4208,
+        "start": 46829124,
+        "end": 46833332
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections when connections = graph.translateConnection(connections, id, offset) then translating the connection at the 10000th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "translateConnection",
+        "after": 10000,
+        "time": 0.2000000011175871,
+        "start": 13725.199999999255,
+        "end": 13725.400000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections when connections = graph.translateConnection(connections, id, offset) then translating the connection at the 10000th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "translateConnection",
+        "after": 10000,
+        "size": 40208,
+        "start": 54637964,
+        "end": 54678172
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections when connections = graph.translateConnection(connections, id, offset) then translating the connection at the 100000th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "translateConnection",
+        "after": 100000,
+        "time": 2.099999999627471,
+        "start": 14060.099999999627,
+        "end": 14062.199999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections when connections = graph.translateConnection(connections, id, offset) then translating the connection at the 100000th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "translateConnection",
+        "after": 100000,
+        "size": 400208,
+        "start": 63037972,
+        "end": 63438180
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections When connections = graph.updateConnection(connections, id, update) then updating the connection at the 10th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateConnection",
+        "after": 10,
+        "time": 0.09999999962747097,
+        "start": 14317.5,
+        "end": 14317.599999999627
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections When connections = graph.updateConnection(connections, id, update) then updating the connection at the 10th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateConnection",
+        "after": 10,
+        "size": 164,
+        "start": 61778896,
+        "end": 61779060
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections When connections = graph.updateConnection(connections, id, update) then updating the connection at the 100th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateConnection",
+        "after": 100,
+        "time": 0,
+        "start": 14318,
+        "end": 14318
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections When connections = graph.updateConnection(connections, id, update) then updating the connection at the 100th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateConnection",
+        "after": 100,
+        "size": 524,
+        "start": 61938948,
+        "end": 61939472
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections When connections = graph.updateConnection(connections, id, update) then updating the connection at the 1000th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateConnection",
+        "after": 1000,
+        "time": 0.09999999962747097,
+        "start": 14320.800000000745,
+        "end": 14320.900000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections When connections = graph.updateConnection(connections, id, update) then updating the connection at the 1000th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateConnection",
+        "after": 1000,
+        "size": 4124,
+        "start": 63176968,
+        "end": 63181092
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections When connections = graph.updateConnection(connections, id, update) then updating the connection at the 10000th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateConnection",
+        "after": 10000,
+        "time": 0.19999999925494194,
+        "start": 14348.300000000745,
+        "end": 14348.5
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections When connections = graph.updateConnection(connections, id, update) then updating the connection at the 10000th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateConnection",
+        "after": 10000,
+        "size": 40124,
+        "start": 66892332,
+        "end": 66932456
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections When connections = graph.updateConnection(connections, id, update) then updating the connection at the 100000th position of an existing set of connections has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "updateConnection",
+        "after": 100000,
+        "time": 2,
+        "start": 14700.599999999627,
+        "end": 14702.599999999627
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) When connection exists in connections When connections = graph.updateConnection(connections, id, update) then updating the connection at the 100000th position of an existing set of connections takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "updateConnection",
+        "after": 100000,
+        "size": 400124,
+        "start": 63149700,
+        "end": 63549824
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.removeNodeById(existingNodes, id) then removing the node with a specific ID at the 10th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "removeNodeById",
+        "after": 100000,
+        "time": 2.300000000745058,
+        "start": 15166.5,
+        "end": 15168.800000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.removeNodeById(existingNodes, id) then removing the node with a specific ID at the 10th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "removeNodeById",
+        "after": 100000,
+        "size": 1403092,
+        "start": 48131452,
+        "end": 49534544
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.removeNodeById(existingNodes, id) then removing the node with a specific ID at the 100th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "removeNodeById",
+        "after": 100000,
+        "time": 1.800000000745058,
+        "start": 15551.099999999627,
+        "end": 15552.900000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.removeNodeById(existingNodes, id) then removing the node with a specific ID at the 100th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "removeNodeById",
+        "after": 100000,
+        "size": 1458012,
+        "start": 29854024,
+        "end": 31312036
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.removeNodeById(existingNodes, id) then removing the node with a specific ID at the 1000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "removeNodeById",
+        "after": 100000,
+        "time": 1.900000000372529,
+        "start": 15971.599999999627,
+        "end": 15973.5
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.removeNodeById(existingNodes, id) then removing the node with a specific ID at the 1000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "removeNodeById",
+        "after": 100000,
+        "size": 1428172,
+        "start": 83983104,
+        "end": 85411276
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.removeNodeById(existingNodes, id) then removing the node with a specific ID at the 10000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "removeNodeById",
+        "after": 100000,
+        "time": 2.200000001117587,
+        "start": 16405.599999999627,
+        "end": 16407.800000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.removeNodeById(existingNodes, id) then removing the node with a specific ID at the 10000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "removeNodeById",
+        "after": 100000,
+        "size": 1419956,
+        "start": 56491216,
+        "end": 57911172
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.removeNodeById(existingNodes, id) then removing the node with a specific ID at the 100000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "removeNodeById",
+        "after": 100000,
+        "time": 2.5,
+        "start": 16769.199999999255,
+        "end": 16771.699999999255
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when nodes = graph.removeNodeById(existingNodes, id) then removing the node with a specific ID at the 100000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "removeNodeById",
+        "after": 100000,
+        "size": 1458064,
+        "start": 29856932,
+        "end": 31314996
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.removeConnectionById(existingConnections, id) then removing the node with a specific ID at the 10th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "removeConnectionById",
+        "after": 100000,
+        "time": 2.300000000745058,
+        "start": 17208,
+        "end": 17210.300000000745
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.removeConnectionById(existingConnections, id) then removing the node with a specific ID at the 10th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "removeConnectionById",
+        "after": 100000,
+        "size": 1460968,
+        "start": 83960544,
+        "end": 85421512
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.removeConnectionById(existingConnections, id) then removing the node with a specific ID at the 100th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "removeConnectionById",
+        "after": 100000,
+        "time": 2,
+        "start": 17634.400000000373,
+        "end": 17636.400000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.removeConnectionById(existingConnections, id) then removing the node with a specific ID at the 100th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "removeConnectionById",
+        "after": 100000,
+        "size": 1376172,
+        "start": 56041968,
+        "end": 57418140
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.removeConnectionById(existingConnections, id) then removing the node with a specific ID at the 1000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "removeConnectionById",
+        "after": 100000,
+        "time": 1.900000000372529,
+        "start": 17989,
+        "end": 17990.900000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.removeConnectionById(existingConnections, id) then removing the node with a specific ID at the 1000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "removeConnectionById",
+        "after": 100000,
+        "size": 1458012,
+        "start": 29865920,
+        "end": 31323932
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.removeConnectionById(existingConnections, id) then removing the node with a specific ID at the 10000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "removeConnectionById",
+        "after": 100000,
+        "time": 2,
+        "start": 18417,
+        "end": 18419
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.removeConnectionById(existingConnections, id) then removing the node with a specific ID at the 10000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "removeConnectionById",
+        "after": 100000,
+        "size": 1427708,
+        "start": 83988056,
+        "end": 85415764
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.removeConnectionById(existingConnections, id) then removing the node with a specific ID at the 100000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "removeConnectionById",
+        "after": 100000,
+        "time": 2.099999999627471,
+        "start": 18851.800000000745,
+        "end": 18853.900000000373
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when connections = graph.removeConnectionById(existingConnections, id) then removing the node with a specific ID at the 100000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "removeConnectionById",
+        "after": 100000,
+        "size": 1446224,
+        "start": 56503856,
+        "end": 57950080
+      }
+    }
+  }
+]
