@@ -50,7 +50,7 @@
         "structure": "Object",
         "action": "addNode",
         "after": 1000,
-        "time": 0
+        "time": 0.09999996423721313
       }
     }
   },
@@ -72,7 +72,7 @@
         "structure": "Object",
         "action": "addNode",
         "after": 10000,
-        "time": 0
+        "time": 2.399999976158142
       }
     }
   },
@@ -94,7 +94,7 @@
         "structure": "Object",
         "action": "addNode",
         "after": 100000,
-        "time": 0.5
+        "time": 1.2000000476837158
       }
     }
   },
@@ -160,7 +160,7 @@
         "structure": "Object",
         "action": "addConnection",
         "after": 1000,
-        "time": 0
+        "time": 0.09999996423721313
       }
     }
   },
@@ -182,7 +182,7 @@
         "structure": "Object",
         "action": "addConnection",
         "after": 10000,
-        "time": 0.09999996423721313
+        "time": 0.10000002384185791
       }
     }
   },
@@ -204,7 +204,7 @@
         "structure": "Object",
         "action": "addConnection",
         "after": 100000,
-        "time": 0.3999999761581421
+        "time": 1
       }
     }
   },
@@ -226,7 +226,7 @@
         "structure": "Object",
         "action": "addNodes",
         "after": 10,
-        "time": 0.40000003576278687
+        "time": 0.800000011920929
       }
     }
   },
@@ -248,7 +248,7 @@
         "structure": "Object",
         "action": "addNodes",
         "after": 100,
-        "time": 0.40000003576278687
+        "time": 0.800000011920929
       }
     }
   },
@@ -270,7 +270,7 @@
         "structure": "Object",
         "action": "addNodes",
         "after": 1000,
-        "time": 0.30000001192092896
+        "time": 0.9000000357627869
       }
     }
   },
@@ -292,7 +292,7 @@
         "structure": "Object",
         "action": "addNodes",
         "after": 10000,
-        "time": 0.7000000476837158
+        "time": 0.9000000357627869
       }
     }
   },
@@ -314,7 +314,7 @@
         "structure": "Object",
         "action": "addNodes",
         "after": 100000,
-        "time": 1.5
+        "time": 3.300000011920929
       }
     }
   },
@@ -325,7 +325,7 @@
         "structure": "Object",
         "action": "addNodes",
         "after": 100000,
-        "size": 2129424
+        "size": 2466528
       }
     }
   },
@@ -336,7 +336,7 @@
         "structure": "Object",
         "action": "addConnections",
         "after": 10,
-        "time": 0.3999999761581421
+        "time": 0.800000011920929
       }
     }
   },
@@ -358,7 +358,7 @@
         "structure": "Object",
         "action": "addConnections",
         "after": 100,
-        "time": 0.5
+        "time": 0.8999999761581421
       }
     }
   },
@@ -380,7 +380,7 @@
         "structure": "Object",
         "action": "addConnections",
         "after": 1000,
-        "time": 0.30000001192092896
+        "time": 0.9000000357627869
       }
     }
   },
@@ -402,7 +402,7 @@
         "structure": "Object",
         "action": "addConnections",
         "after": 10000,
-        "time": 0.5
+        "time": 1.2000000476837158
       }
     }
   },
@@ -413,7 +413,7 @@
         "structure": "Object",
         "action": "addConnections",
         "after": 10000,
-        "size": 1200160
+        "size": 1200168
       }
     }
   },
@@ -424,7 +424,7 @@
         "structure": "Object",
         "action": "addConnections",
         "after": 100000,
-        "time": 2.899999976158142
+        "time": 3.899999976158142
       }
     }
   },
@@ -435,7 +435,7 @@
         "structure": "Object",
         "action": "addConnections",
         "after": 100000,
-        "size": 3900408
+        "size": 1769848
       }
     }
   },
@@ -446,7 +446,7 @@
         "structure": "Object",
         "action": "addNodeMetadata",
         "after": 100000,
-        "time": 3.300000011920929
+        "time": 5.199999988079071
       }
     }
   },
@@ -457,7 +457,7 @@
         "structure": "Object",
         "action": "addNodeMetadata",
         "after": 100000,
-        "size": 400844
+        "size": 405900
       }
     }
   },
@@ -468,7 +468,7 @@
         "structure": "Object",
         "action": "addNodeMetadata",
         "after": 100000,
-        "time": 2.5
+        "time": 4
       }
     }
   },
@@ -479,7 +479,7 @@
         "structure": "Object",
         "action": "addNodeMetadata",
         "after": 100000,
-        "size": 400208
+        "size": 405900
       }
     }
   },
@@ -490,7 +490,7 @@
         "structure": "Object",
         "action": "addNodeMetadata",
         "after": 100000,
-        "time": 1.9000000357627869
+        "time": 3.800000011920929
       }
     }
   },
@@ -501,7 +501,7 @@
         "structure": "Object",
         "action": "addNodeMetadata",
         "after": 100000,
-        "size": 400208
+        "size": 400200
       }
     }
   },
@@ -512,7 +512,7 @@
         "structure": "Object",
         "action": "addNodeMetadata",
         "after": 100000,
-        "time": 2.399999976158142
+        "time": 5.600000023841858
       }
     }
   },
@@ -523,7 +523,7 @@
         "structure": "Object",
         "action": "addNodeMetadata",
         "after": 100000,
-        "size": 406060
+        "size": 400200
       }
     }
   },
@@ -534,7 +534,7 @@
         "structure": "Object",
         "action": "addNodeMetadata",
         "after": 100000,
-        "time": 1.899999976158142
+        "time": 3.699999988079071
       }
     }
   },
@@ -545,7 +545,117 @@
         "structure": "Object",
         "action": "addNodeMetadata",
         "after": 100000,
-        "size": 406060
+        "size": 406256
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when benchmarking graph.findNodeById(existingNodes, id) then finding the ID of the node at the 10th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "time": 0.19999998807907104
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when benchmarking graph.findNodeById(existingNodes, id) then finding the ID of the node at the 10th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "size": 64
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when benchmarking graph.findNodeById(existingNodes, id) then finding the ID of the node at the 100th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "time": 0.20000004768371582
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when benchmarking graph.findNodeById(existingNodes, id) then finding the ID of the node at the 100th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "size": 64
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when benchmarking graph.findNodeById(existingNodes, id) then finding the ID of the node at the 1000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "time": 0.19999998807907104
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when benchmarking graph.findNodeById(existingNodes, id) then finding the ID of the node at the 1000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "size": 64
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when benchmarking graph.findNodeById(existingNodes, id) then finding the ID of the node at the 10000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "time": 1.199999988079071
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when benchmarking graph.findNodeById(existingNodes, id) then finding the ID of the node at the 10000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "size": 64
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when benchmarking graph.findNodeById(existingNodes, id) then finding the ID of the node at the 100000th position of an existing set of nodes has a performance time of",
+    "measurement": {
+      "performance": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "time": 4.699999988079071
+      }
+    }
+  },
+  {
+    "spec": "Given graph = new Graph(Object) when benchmarking graph.findNodeById(existingNodes, id) then finding the ID of the node at the 100000th position of an existing set of nodes takes up a certain amount of memory",
+    "measurement": {
+      "memory": {
+        "structure": "Object",
+        "action": "findNodeById",
+        "after": 100000,
+        "size": 116
       }
     }
   },
@@ -556,7 +666,7 @@
         "structure": "Object",
         "action": "findConnectionById",
         "after": 100000,
-        "time": 0.10000002384185791
+        "time": 0.19999998807907104
       }
     }
   },
@@ -578,7 +688,7 @@
         "structure": "Object",
         "action": "findConnectionById",
         "after": 100000,
-        "time": 0
+        "time": 0.10000002384185791
       }
     }
   },
@@ -600,7 +710,7 @@
         "structure": "Object",
         "action": "findConnectionById",
         "after": 100000,
-        "time": 0.10000002384185791
+        "time": 0.19999998807907104
       }
     }
   },
@@ -622,7 +732,7 @@
         "structure": "Object",
         "action": "findConnectionById",
         "after": 100000,
-        "time": 0.5999999642372131
+        "time": 0.30000001192092896
       }
     }
   },
@@ -633,7 +743,7 @@
         "structure": "Object",
         "action": "findConnectionById",
         "after": 100000,
-        "size": 1796
+        "size": 64
       }
     }
   },
@@ -644,7 +754,7 @@
         "structure": "Object",
         "action": "findConnectionById",
         "after": 100000,
-        "time": 1.5
+        "time": 2.899999976158142
       }
     }
   },
@@ -666,7 +776,7 @@
         "structure": "Object",
         "action": "updateNodeMetadata",
         "after": 100000,
-        "time": 2.899999976158142
+        "time": 5
       }
     }
   },
@@ -688,7 +798,7 @@
         "structure": "Object",
         "action": "updateNodeMetadata",
         "after": 100000,
-        "time": 2.5
+        "time": 3.599999964237213
       }
     }
   },
@@ -710,7 +820,7 @@
         "structure": "Object",
         "action": "updateNodeMetadata",
         "after": 100000,
-        "time": 2.700000047683716
+        "time": 6.899999976158142
       }
     }
   },
@@ -732,7 +842,7 @@
         "structure": "Object",
         "action": "updateNodeMetadata",
         "after": 100000,
-        "time": 3.699999988079071
+        "time": 4.900000035762787
       }
     }
   },
@@ -754,7 +864,7 @@
         "structure": "Object",
         "action": "updateNodeMetadata",
         "after": 100000,
-        "time": 2.800000011920929
+        "time": 3.800000011920929
       }
     }
   },
@@ -776,7 +886,7 @@
         "structure": "Object",
         "action": "translateNode",
         "after": 10,
-        "time": 0.10000002384185791
+        "time": 0.30000001192092896
       }
     }
   },
@@ -787,7 +897,7 @@
         "structure": "Object",
         "action": "translateNode",
         "after": 10,
-        "size": 129648
+        "size": 196
       }
     }
   },
@@ -798,7 +908,7 @@
         "structure": "Object",
         "action": "translateNode",
         "after": 100,
-        "time": 0
+        "time": 0.10000002384185791
       }
     }
   },
@@ -820,7 +930,7 @@
         "structure": "Object",
         "action": "translateNode",
         "after": 1000,
-        "time": 0.19999998807907104
+        "time": 0.20000004768371582
       }
     }
   },
@@ -842,7 +952,7 @@
         "structure": "Object",
         "action": "translateNode",
         "after": 10000,
-        "time": 0.40000003576278687
+        "time": 0.5
       }
     }
   },
@@ -853,7 +963,7 @@
         "structure": "Object",
         "action": "translateNode",
         "after": 10000,
-        "size": 59024
+        "size": 40144
       }
     }
   },
@@ -864,7 +974,7 @@
         "structure": "Object",
         "action": "translateNode",
         "after": 100000,
-        "time": 2.800000011920929
+        "time": 3.699999988079071
       }
     }
   },
@@ -908,7 +1018,7 @@
         "structure": "Object",
         "action": "updateNode",
         "after": 100,
-        "time": 0.10000002384185791
+        "time": 0.09999996423721313
       }
     }
   },
@@ -930,7 +1040,7 @@
         "structure": "Object",
         "action": "updateNode",
         "after": 1000,
-        "time": 0.5
+        "time": 0.30000001192092896
       }
     }
   },
@@ -952,7 +1062,7 @@
         "structure": "Object",
         "action": "updateNode",
         "after": 10000,
-        "time": 0.3999999761581421
+        "time": 0.5
       }
     }
   },
@@ -974,7 +1084,7 @@
         "structure": "Object",
         "action": "updateNode",
         "after": 100000,
-        "time": 6.699999988079071
+        "time": 9.100000023841858
       }
     }
   },
@@ -1018,7 +1128,7 @@
         "structure": "Object",
         "action": "translateConnection",
         "after": 100,
-        "time": 0.09999996423721313
+        "time": 0.10000002384185791
       }
     }
   },
@@ -1040,7 +1150,7 @@
         "structure": "Object",
         "action": "translateConnection",
         "after": 1000,
-        "time": 0.3999999761581421
+        "time": 0.19999998807907104
       }
     }
   },
@@ -1084,7 +1194,7 @@
         "structure": "Object",
         "action": "translateConnection",
         "after": 100000,
-        "time": 6
+        "time": 5.100000023841858
       }
     }
   },
@@ -1106,7 +1216,7 @@
         "structure": "Object",
         "action": "updateConnection",
         "after": 10,
-        "time": 0.10000002384185791
+        "time": 0
       }
     }
   },
@@ -1128,7 +1238,7 @@
         "structure": "Object",
         "action": "updateConnection",
         "after": 100,
-        "time": 0
+        "time": 0.10000002384185791
       }
     }
   },
@@ -1150,7 +1260,7 @@
         "structure": "Object",
         "action": "updateConnection",
         "after": 1000,
-        "time": 0.40000003576278687
+        "time": 0.30000001192092896
       }
     }
   },
@@ -1172,7 +1282,7 @@
         "structure": "Object",
         "action": "updateConnection",
         "after": 10000,
-        "time": 0.5
+        "time": 0.3999999761581421
       }
     }
   },
@@ -1194,7 +1304,7 @@
         "structure": "Object",
         "action": "updateConnection",
         "after": 100000,
-        "time": 4.399999976158142
+        "time": 4.800000011920929
       }
     }
   },
@@ -1216,7 +1326,7 @@
         "structure": "Object",
         "action": "removeNodeById",
         "after": 100000,
-        "time": 5.5
+        "time": 7.899999976158142
       }
     }
   },
@@ -1238,7 +1348,7 @@
         "structure": "Object",
         "action": "removeNodeById",
         "after": 100000,
-        "time": 4.799999952316284
+        "time": 4.800000011920929
       }
     }
   },
@@ -1249,7 +1359,7 @@
         "structure": "Object",
         "action": "removeNodeById",
         "after": 100000,
-        "size": 1374260
+        "size": 1375216
       }
     }
   },
@@ -1260,7 +1370,7 @@
         "structure": "Object",
         "action": "removeNodeById",
         "after": 100000,
-        "time": 5
+        "time": 5.599999964237213
       }
     }
   },
@@ -1271,7 +1381,7 @@
         "structure": "Object",
         "action": "removeNodeById",
         "after": 100000,
-        "size": 1375368
+        "size": 1376404
       }
     }
   },
@@ -1282,7 +1392,7 @@
         "structure": "Object",
         "action": "removeNodeById",
         "after": 100000,
-        "time": 4.699999988079071
+        "time": 4.899999976158142
       }
     }
   },
@@ -1304,7 +1414,7 @@
         "structure": "Object",
         "action": "removeNodeById",
         "after": 100000,
-        "time": 4.5
+        "time": 7.399999976158142
       }
     }
   },
@@ -1315,7 +1425,7 @@
         "structure": "Object",
         "action": "removeNodeById",
         "after": 100000,
-        "size": 1384208
+        "size": 1422228
       }
     }
   },
@@ -1326,7 +1436,7 @@
         "structure": "Object",
         "action": "removeConnectionById",
         "after": 100000,
-        "time": 5.5
+        "time": 6.5
       }
     }
   },
@@ -1337,7 +1447,7 @@
         "structure": "Object",
         "action": "removeConnectionById",
         "after": 100000,
-        "size": 1436100
+        "size": 1374016
       }
     }
   },
@@ -1348,7 +1458,7 @@
         "structure": "Object",
         "action": "removeConnectionById",
         "after": 100000,
-        "time": 4.399999976158142
+        "time": 4.300000011920929
       }
     }
   },
@@ -1370,7 +1480,7 @@
         "structure": "Object",
         "action": "removeConnectionById",
         "after": 100000,
-        "time": 5.5
+        "time": 5.399999976158142
       }
     }
   },
@@ -1381,7 +1491,7 @@
         "structure": "Object",
         "action": "removeConnectionById",
         "after": 100000,
-        "size": 1399000
+        "size": 1377176
       }
     }
   },
@@ -1392,7 +1502,7 @@
         "structure": "Object",
         "action": "removeConnectionById",
         "after": 100000,
-        "time": 6
+        "time": 5.599999964237213
       }
     }
   },
@@ -1403,7 +1513,7 @@
         "structure": "Object",
         "action": "removeConnectionById",
         "after": 100000,
-        "size": 1390296
+        "size": 1397676
       }
     }
   },
@@ -1414,7 +1524,7 @@
         "structure": "Object",
         "action": "removeConnectionById",
         "after": 100000,
-        "time": 4.400000035762787
+        "time": 4.699999988079071
       }
     }
   },
@@ -1458,7 +1568,7 @@
         "structure": "Tuple",
         "action": "addNode",
         "after": 100,
-        "time": 0
+        "time": 0.10000002384185791
       }
     }
   },
@@ -1480,7 +1590,7 @@
         "structure": "Tuple",
         "action": "addNode",
         "after": 1000,
-        "time": 0
+        "time": 0.10000002384185791
       }
     }
   },
@@ -1502,7 +1612,7 @@
         "structure": "Tuple",
         "action": "addNode",
         "after": 10000,
-        "time": 0.10000002384185791
+        "time": 0.09999996423721313
       }
     }
   },
@@ -1513,7 +1623,7 @@
         "structure": "Tuple",
         "action": "addNode",
         "after": 10000,
-        "size": 73820
+        "size": 100248
       }
     }
   },
@@ -1524,7 +1634,7 @@
         "structure": "Tuple",
         "action": "addNode",
         "after": 100000,
-        "time": 1.199999988079071
+        "time": 1.0999999642372131
       }
     }
   },
@@ -1601,7 +1711,7 @@
         "structure": "Tuple",
         "action": "addConnection",
         "after": 1000,
-        "size": 11036
+        "size": 10312
       }
     }
   },
@@ -1612,7 +1722,7 @@
         "structure": "Tuple",
         "action": "addConnection",
         "after": 10000,
-        "time": 0
+        "time": 0.09999996423721313
       }
     }
   },
@@ -1623,7 +1733,7 @@
         "structure": "Tuple",
         "action": "addConnection",
         "after": 10000,
-        "size": 156196
+        "size": 118964
       }
     }
   },
@@ -1634,7 +1744,7 @@
         "structure": "Tuple",
         "action": "addConnection",
         "after": 100000,
-        "time": 1.7999999523162842
+        "time": 1
       }
     }
   },
@@ -1656,7 +1766,7 @@
         "structure": "Tuple",
         "action": "addNodes",
         "after": 10,
-        "time": 0.9000000357627869
+        "time": 0.699999988079071
       }
     }
   },
@@ -1678,7 +1788,7 @@
         "structure": "Tuple",
         "action": "addNodes",
         "after": 100,
-        "time": 9.299999952316284
+        "time": 4.100000023841858
       }
     }
   },
@@ -1722,7 +1832,7 @@
         "structure": "Tuple",
         "action": "addNodes",
         "after": 10000,
-        "time": 1.0999999642372131
+        "time": 1.4000000357627869
       }
     }
   },
@@ -1733,7 +1843,7 @@
         "structure": "Tuple",
         "action": "addNodes",
         "after": 10000,
-        "size": 1200164
+        "size": 1200160
       }
     }
   },
@@ -1744,7 +1854,7 @@
         "structure": "Tuple",
         "action": "addNodes",
         "after": 100000,
-        "time": 4.099999964237213
+        "time": 4.899999976158142
       }
     }
   },
@@ -1755,7 +1865,7 @@
         "structure": "Tuple",
         "action": "addNodes",
         "after": 100000,
-        "size": 3900392
+        "size": 3900400
       }
     }
   },
@@ -1788,7 +1898,7 @@
         "structure": "Tuple",
         "action": "addConnections",
         "after": 100,
-        "time": 3.5
+        "time": 0.800000011920929
       }
     }
   },
@@ -1810,7 +1920,7 @@
         "structure": "Tuple",
         "action": "addConnections",
         "after": 1000,
-        "time": 1
+        "time": 0.9000000357627869
       }
     }
   },
@@ -1832,7 +1942,7 @@
         "structure": "Tuple",
         "action": "addConnections",
         "after": 10000,
-        "time": 1
+        "time": 1.9000000357627869
       }
     }
   },
@@ -1854,7 +1964,7 @@
         "structure": "Tuple",
         "action": "addConnections",
         "after": 100000,
-        "time": 3.899999976158142
+        "time": 4.400000035762787
       }
     }
   },
@@ -1876,7 +1986,7 @@
         "structure": "Tuple",
         "action": "addNodeMetadata",
         "after": 100000,
-        "time": 5.099999964237213
+        "time": 7.599999964237213
       }
     }
   },
@@ -1887,7 +1997,7 @@
         "structure": "Tuple",
         "action": "addNodeMetadata",
         "after": 100000,
-        "size": 406168
+        "size": 400260
       }
     }
   },
@@ -1920,7 +2030,7 @@
         "structure": "Tuple",
         "action": "addNodeMetadata",
         "after": 100000,
-        "time": 4.900000035762787
+        "time": 3.800000011920929
       }
     }
   },
@@ -1931,7 +2041,7 @@
         "structure": "Tuple",
         "action": "addNodeMetadata",
         "after": 100000,
-        "size": 400260
+        "size": 406168
       }
     }
   },
@@ -1942,7 +2052,7 @@
         "structure": "Tuple",
         "action": "addNodeMetadata",
         "after": 100000,
-        "time": 3.300000011920929
+        "time": 4
       }
     }
   },
@@ -1953,7 +2063,7 @@
         "structure": "Tuple",
         "action": "addNodeMetadata",
         "after": 100000,
-        "size": 400260
+        "size": 406096
       }
     }
   },
@@ -1964,7 +2074,7 @@
         "structure": "Tuple",
         "action": "addNodeMetadata",
         "after": 100000,
-        "time": 4.800000011920929
+        "time": 4.300000011920929
       }
     }
   },
@@ -1975,7 +2085,7 @@
         "structure": "Tuple",
         "action": "addNodeMetadata",
         "after": 100000,
-        "size": 400384
+        "size": 406220
       }
     }
   },
@@ -1986,7 +2096,7 @@
         "structure": "Tuple",
         "action": "findNodeById",
         "after": 100000,
-        "time": 0.19999998807907104
+        "time": 0.6000000238418579
       }
     }
   },
@@ -2030,7 +2140,7 @@
         "structure": "Tuple",
         "action": "findNodeById",
         "after": 100000,
-        "time": 0.20000004768371582
+        "time": 0.3999999761581421
       }
     }
   },
@@ -2052,7 +2162,7 @@
         "structure": "Tuple",
         "action": "findNodeById",
         "after": 100000,
-        "time": 0.3999999761581421
+        "time": 1.4000000357627869
       }
     }
   },
@@ -2063,7 +2173,7 @@
         "structure": "Tuple",
         "action": "findNodeById",
         "after": 100000,
-        "size": 1992
+        "size": 64
       }
     }
   },
@@ -2074,7 +2184,7 @@
         "structure": "Tuple",
         "action": "findNodeById",
         "after": 100000,
-        "time": 2.899999976158142
+        "time": 4.199999988079071
       }
     }
   },
@@ -2085,7 +2195,7 @@
         "structure": "Tuple",
         "action": "findNodeById",
         "after": 100000,
-        "size": 116
+        "size": 64
       }
     }
   },
@@ -2096,7 +2206,7 @@
         "structure": "Tuple",
         "action": "findConnectionById",
         "after": 100000,
-        "time": 0.10000002384185791
+        "time": 0.5
       }
     }
   },
@@ -2118,7 +2228,7 @@
         "structure": "Tuple",
         "action": "findConnectionById",
         "after": 100000,
-        "time": 0.09999996423721313
+        "time": 0
       }
     }
   },
@@ -2140,7 +2250,7 @@
         "structure": "Tuple",
         "action": "findConnectionById",
         "after": 100000,
-        "time": 0.19999998807907104
+        "time": 0.20000004768371582
       }
     }
   },
@@ -2162,7 +2272,7 @@
         "structure": "Tuple",
         "action": "findConnectionById",
         "after": 100000,
-        "time": 1.300000011920929
+        "time": 1.399999976158142
       }
     }
   },
@@ -2184,7 +2294,7 @@
         "structure": "Tuple",
         "action": "findConnectionById",
         "after": 100000,
-        "time": 5.300000011920929
+        "time": 3.5
       }
     }
   },
@@ -2206,7 +2316,7 @@
         "structure": "Tuple",
         "action": "updateNodeMetadata",
         "after": 100000,
-        "time": 4.699999988079071
+        "time": 5.5
       }
     }
   },
@@ -2217,7 +2327,7 @@
         "structure": "Tuple",
         "action": "updateNodeMetadata",
         "after": 100000,
-        "size": 406068
+        "size": 403132
       }
     }
   },
@@ -2228,7 +2338,7 @@
         "structure": "Tuple",
         "action": "updateNodeMetadata",
         "after": 100000,
-        "time": 4.899999976158142
+        "time": 5.5
       }
     }
   },
@@ -2250,7 +2360,7 @@
         "structure": "Tuple",
         "action": "updateNodeMetadata",
         "after": 100000,
-        "time": 4
+        "time": 6.900000035762787
       }
     }
   },
@@ -2272,7 +2382,7 @@
         "structure": "Tuple",
         "action": "updateNodeMetadata",
         "after": 100000,
-        "time": 3.800000011920929
+        "time": 3.900000035762787
       }
     }
   },
@@ -2294,7 +2404,7 @@
         "structure": "Tuple",
         "action": "updateNodeMetadata",
         "after": 100000,
-        "time": 9.299999952316284
+        "time": 9.799999952316284
       }
     }
   },
@@ -2360,7 +2470,7 @@
         "structure": "Tuple",
         "action": "translateConnection",
         "after": 1000,
-        "time": 0.30000001192092896
+        "time": 0.20000004768371582
       }
     }
   },
@@ -2393,7 +2503,7 @@
         "structure": "Tuple",
         "action": "translateConnection",
         "after": 10000,
-        "size": 40308
+        "size": 51884
       }
     }
   },
@@ -2404,7 +2514,7 @@
         "structure": "Tuple",
         "action": "translateConnection",
         "after": 100000,
-        "time": 6.300000011920929
+        "time": 5.599999964237213
       }
     }
   },
@@ -2426,7 +2536,7 @@
         "structure": "Tuple",
         "action": "updateConnection",
         "after": 10,
-        "time": 0.10000002384185791
+        "time": 0
       }
     }
   },
@@ -2470,7 +2580,7 @@
         "structure": "Tuple",
         "action": "updateConnection",
         "after": 1000,
-        "time": 0.19999998807907104
+        "time": 0.20000004768371582
       }
     }
   },
@@ -2492,7 +2602,7 @@
         "structure": "Tuple",
         "action": "updateConnection",
         "after": 10000,
-        "time": 0.3999999761581421
+        "time": 0.5
       }
     }
   },
@@ -2503,7 +2613,7 @@
         "structure": "Tuple",
         "action": "updateConnection",
         "after": 10000,
-        "size": 40124
+        "size": 58452
       }
     }
   },
@@ -2514,7 +2624,7 @@
         "structure": "Tuple",
         "action": "updateConnection",
         "after": 100000,
-        "time": 4
+        "time": 6.300000011920929
       }
     }
   },
@@ -2533,7 +2643,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes when benchmarking graph.translateNode(nodes, id, offset) then translating the node at the 10th position of an existing set of nodes has a performance time of",
     "measurement": {
       "performance": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "translateNode",
         "after": 10,
         "time": 0.30000001192092896
@@ -2544,7 +2654,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes when benchmarking graph.translateNode(nodes, id, offset) then translating the node at the 10th position of an existing set of nodes takes up a certain amount of memory",
     "measurement": {
       "memory": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "translateNode",
         "after": 10,
         "size": 256
@@ -2555,10 +2665,10 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes when benchmarking graph.translateNode(nodes, id, offset) then translating the node at the 100th position of an existing set of nodes has a performance time of",
     "measurement": {
       "performance": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "translateNode",
         "after": 100,
-        "time": 0
+        "time": 0.09999996423721313
       }
     }
   },
@@ -2566,7 +2676,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes when benchmarking graph.translateNode(nodes, id, offset) then translating the node at the 100th position of an existing set of nodes takes up a certain amount of memory",
     "measurement": {
       "memory": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "translateNode",
         "after": 100,
         "size": 604
@@ -2577,10 +2687,10 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes when benchmarking graph.translateNode(nodes, id, offset) then translating the node at the 1000th position of an existing set of nodes has a performance time of",
     "measurement": {
       "performance": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "translateNode",
         "after": 1000,
-        "time": 0.10000002384185791
+        "time": 0.30000001192092896
       }
     }
   },
@@ -2588,7 +2698,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes when benchmarking graph.translateNode(nodes, id, offset) then translating the node at the 1000th position of an existing set of nodes takes up a certain amount of memory",
     "measurement": {
       "memory": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "translateNode",
         "after": 1000,
         "size": 4204
@@ -2599,10 +2709,10 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes when benchmarking graph.translateNode(nodes, id, offset) then translating the node at the 10000th position of an existing set of nodes has a performance time of",
     "measurement": {
       "performance": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "translateNode",
         "after": 10000,
-        "time": 0.3999999761581421
+        "time": 0.5
       }
     }
   },
@@ -2610,7 +2720,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes when benchmarking graph.translateNode(nodes, id, offset) then translating the node at the 10000th position of an existing set of nodes takes up a certain amount of memory",
     "measurement": {
       "memory": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "translateNode",
         "after": 10000,
         "size": 40204
@@ -2621,10 +2731,10 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes when benchmarking graph.translateNode(nodes, id, offset) then translating the node at the 100000th position of an existing set of nodes has a performance time of",
     "measurement": {
       "performance": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "translateNode",
         "after": 100000,
-        "time": 3.599999964237213
+        "time": 3.800000011920929
       }
     }
   },
@@ -2632,7 +2742,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes when benchmarking graph.translateNode(nodes, id, offset) then translating the node at the 100000th position of an existing set of nodes takes up a certain amount of memory",
     "measurement": {
       "memory": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "translateNode",
         "after": 100000,
         "size": 400376
@@ -2643,7 +2753,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes When benchmarking graph.updateNode(nodes, id, update) then updating the node at the 10th position of an existing set of nodes has a performance time of",
     "measurement": {
       "performance": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "updateNode",
         "after": 10,
         "time": 0
@@ -2654,7 +2764,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes When benchmarking graph.updateNode(nodes, id, update) then updating the node at the 10th position of an existing set of nodes takes up a certain amount of memory",
     "measurement": {
       "memory": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "updateNode",
         "after": 10,
         "size": 164
@@ -2665,7 +2775,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes When benchmarking graph.updateNode(nodes, id, update) then updating the node at the 100th position of an existing set of nodes has a performance time of",
     "measurement": {
       "performance": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "updateNode",
         "after": 100,
         "time": 0
@@ -2676,7 +2786,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes When benchmarking graph.updateNode(nodes, id, update) then updating the node at the 100th position of an existing set of nodes takes up a certain amount of memory",
     "measurement": {
       "memory": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "updateNode",
         "after": 100,
         "size": 524
@@ -2687,10 +2797,10 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes When benchmarking graph.updateNode(nodes, id, update) then updating the node at the 1000th position of an existing set of nodes has a performance time of",
     "measurement": {
       "performance": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "updateNode",
         "after": 1000,
-        "time": 0.30000001192092896
+        "time": 0.19999998807907104
       }
     }
   },
@@ -2698,7 +2808,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes When benchmarking graph.updateNode(nodes, id, update) then updating the node at the 1000th position of an existing set of nodes takes up a certain amount of memory",
     "measurement": {
       "memory": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "updateNode",
         "after": 1000,
         "size": 4124
@@ -2709,10 +2819,10 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes When benchmarking graph.updateNode(nodes, id, update) then updating the node at the 10000th position of an existing set of nodes has a performance time of",
     "measurement": {
       "performance": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "updateNode",
         "after": 10000,
-        "time": 0.699999988079071
+        "time": 0.5
       }
     }
   },
@@ -2720,10 +2830,10 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes When benchmarking graph.updateNode(nodes, id, update) then updating the node at the 10000th position of an existing set of nodes takes up a certain amount of memory",
     "measurement": {
       "memory": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "updateNode",
         "after": 10000,
-        "size": 40124
+        "size": -3993908
       }
     }
   },
@@ -2731,10 +2841,10 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes When benchmarking graph.updateNode(nodes, id, update) then updating the node at the 100000th position of an existing set of nodes has a performance time of",
     "measurement": {
       "performance": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "updateNode",
         "after": 100000,
-        "time": 5.599999964237213
+        "time": 5.700000047683716
       }
     }
   },
@@ -2742,7 +2852,7 @@
     "spec": "Given graph = new Graph(Tuple) When benchmarking operations where node exists in nodes When benchmarking graph.updateNode(nodes, id, update) then updating the node at the 100000th position of an existing set of nodes takes up a certain amount of memory",
     "measurement": {
       "memory": {
-        "structure": "Object",
+        "structure": "Tuple",
         "action": "updateNode",
         "after": 100000,
         "size": 400124
@@ -2756,7 +2866,7 @@
         "structure": "Tuple",
         "action": "removeNodeById",
         "after": 100000,
-        "time": 5.199999988079071
+        "time": 132.0999999642372
       }
     }
   },
@@ -2767,7 +2877,7 @@
         "structure": "Tuple",
         "action": "removeNodeById",
         "after": 100000,
-        "size": 1378948
+        "size": 1375960
       }
     }
   },
@@ -2778,7 +2888,7 @@
         "structure": "Tuple",
         "action": "removeNodeById",
         "after": 100000,
-        "time": 3.599999964237213
+        "time": 5.199999988079071
       }
     }
   },
@@ -2789,7 +2899,7 @@
         "structure": "Tuple",
         "action": "removeNodeById",
         "after": 100000,
-        "size": 1372744
+        "size": 1400404
       }
     }
   },
@@ -2800,7 +2910,7 @@
         "structure": "Tuple",
         "action": "removeNodeById",
         "after": 100000,
-        "time": 3.600000023841858
+        "time": 6.100000023841858
       }
     }
   },
@@ -2811,7 +2921,7 @@
         "structure": "Tuple",
         "action": "removeNodeById",
         "after": 100000,
-        "size": 1376372
+        "size": 1458076
       }
     }
   },
@@ -2822,7 +2932,7 @@
         "structure": "Tuple",
         "action": "removeNodeById",
         "after": 100000,
-        "time": 4
+        "time": 5.400000035762787
       }
     }
   },
@@ -2833,7 +2943,7 @@
         "structure": "Tuple",
         "action": "removeNodeById",
         "after": 100000,
-        "size": 1415216
+        "size": 1400908
       }
     }
   },
@@ -2844,7 +2954,7 @@
         "structure": "Tuple",
         "action": "removeNodeById",
         "after": 100000,
-        "time": 5.5
+        "time": 5.600000023841858
       }
     }
   },
@@ -2855,7 +2965,7 @@
         "structure": "Tuple",
         "action": "removeNodeById",
         "after": 100000,
-        "size": 1372768
+        "size": 1386444
       }
     }
   },
@@ -2866,7 +2976,7 @@
         "structure": "Tuple",
         "action": "removeConnectionById",
         "after": 100000,
-        "time": 3.899999976158142
+        "time": 8.600000023841858
       }
     }
   },
@@ -2877,7 +2987,7 @@
         "structure": "Tuple",
         "action": "removeConnectionById",
         "after": 100000,
-        "size": 1385420
+        "size": 1397812
       }
     }
   },
@@ -2888,7 +2998,7 @@
         "structure": "Tuple",
         "action": "removeConnectionById",
         "after": 100000,
-        "time": 3.399999976158142
+        "time": 5.100000023841858
       }
     }
   },
@@ -2899,7 +3009,7 @@
         "structure": "Tuple",
         "action": "removeConnectionById",
         "after": 100000,
-        "size": 1458076
+        "size": 1458644
       }
     }
   },
@@ -2910,7 +3020,7 @@
         "structure": "Tuple",
         "action": "removeConnectionById",
         "after": 100000,
-        "time": 5.399999976158142
+        "time": 5.5
       }
     }
   },
@@ -2921,7 +3031,7 @@
         "structure": "Tuple",
         "action": "removeConnectionById",
         "after": 100000,
-        "size": 1383292
+        "size": 1400492
       }
     }
   },
@@ -2932,7 +3042,7 @@
         "structure": "Tuple",
         "action": "removeConnectionById",
         "after": 100000,
-        "time": 3
+        "time": 4.600000023841858
       }
     }
   },
@@ -2943,7 +3053,7 @@
         "structure": "Tuple",
         "action": "removeConnectionById",
         "after": 100000,
-        "size": 1381504
+        "size": 1458076
       }
     }
   },
@@ -2954,7 +3064,7 @@
         "structure": "Tuple",
         "action": "removeConnectionById",
         "after": 100000,
-        "time": 3.800000011920929
+        "time": 4.400000035762787
       }
     }
   },
@@ -2965,7 +3075,7 @@
         "structure": "Tuple",
         "action": "removeConnectionById",
         "after": 100000,
-        "size": 1426848
+        "size": 1410436
       }
     }
   }
