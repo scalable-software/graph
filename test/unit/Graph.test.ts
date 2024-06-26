@@ -747,6 +747,39 @@ describe("Given graph = new Graph(Object)", () => {
       runBenchmark(memorySpecMessage, i);
     }
   });
+  describe("when benchmarking graph.findNodeById(existingNodes, id)", () => {
+    let detail;
+    let existingNodes;
+    beforeEach(() => {
+      detail = {
+        name: "Node1",
+        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        coordinates: [0, 0],
+        icon: "./icon.svg",
+      };
+      existingNodes = graph.createNodes(100000, detail);
+    });
+    const runBenchmark = (specMsg, i) => {
+      const benchmarkFunction = specMsg.toLowerCase().includes("performance") ?
+        Benchmark.Performance : Benchmark.Memory;
+      it(specMsg, () => {
+        let node = existingNodes[i-1];
+        let meta = { structure: "Object", action: "findNodeById", after: existingNodes.length };
+        existingNodes = structuredClone(existingNodes);
+        let results = benchmarkFunction(meta, graph.findNodeById, existingNodes, node.id);
+        expect(results).toBeDefined();
+        expect(results.id).toEqual(node.id);
+      });
+    }
+    // For powers of 10 
+    for (const i of [10, 100, 1000, 10000, 100000]) {
+      const baseSpecMessage = `then finding the ID of the node at the ${i}th position of an existing set of nodes`;
+      const performanceSpecMessage = `${baseSpecMessage} has a performance time of`;
+      const memorySpecMessage = `${baseSpecMessage} takes up a certain amount of memory`;
+      runBenchmark(performanceSpecMessage, i);
+      runBenchmark(memorySpecMessage, i);
+    }
+  });
   describe("when benchmarking graph.findConnectionById(existingConnections, id)", () => {
     let detail;
     let existingConnections;
