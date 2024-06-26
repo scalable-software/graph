@@ -2062,7 +2062,7 @@ describe("Given graph = new Graph(Tuple)", () => {
           Benchmark.Performance : Benchmark.Memory;
         it(specMsg, () => {
           let existingNodes = structuredClone(graph.createNodes(i, detail))
-          let meta = { structure: "Object", action: "translateNode", after: existingNodes.length };
+          let meta = { structure: "Tuple", action: "translateNode", after: existingNodes.length };
           let node = existingNodes[i-1];
           coordinates = node[3];
           let results = benchmarkFunction(meta, graph.translateNode, existingNodes, node[0], offset);
@@ -2097,7 +2097,7 @@ describe("Given graph = new Graph(Tuple)", () => {
           Benchmark.Performance : Benchmark.Memory;
         it(specMsg, () => {
           let existingNodes = structuredClone(graph.createNodes(i, detail))
-          let meta = { structure: "Object", action: "updateNode", after: existingNodes.length };
+          let meta = { structure: "Tuple", action: "updateNode", after: existingNodes.length };
           let node = existingNodes[i-1];
           let results = benchmarkFunction(meta, graph.updateNode, existingNodes, node[0], update);
           expect(results).toBeDefined();
