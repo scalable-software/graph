@@ -49,6 +49,12 @@ export type Node = {
     metadata?: NodeMetadata[];
 };
 export type Nodes = Node[];
+export type NodeDetails = {
+    name: string;
+    type: NodeType;
+    coordinates: Coordinates;
+    icon?: Icon;
+};
 export type Connection = {
     id: UUID;
     name: string;
@@ -60,6 +66,15 @@ export type Connection = {
     };
 };
 export type Connections = Connection[];
+export type ConnectionDetails = {
+    name: string;
+    source: UUID;
+    target: UUID;
+    coordinates: {
+        start: Coordinates;
+        end: Coordinates;
+    };
+};
 export declare const GraphType: {
     readonly PIPELINE: "pipeline";
     readonly PATHWAY: "pathway";
@@ -71,19 +86,13 @@ export type GraphMetadata = {
     name: string;
     type: GraphType;
 };
+export type GraphDetails = {
+    name: string;
+    type: GraphType;
+};
 export declare class Graph {
-    static createNode: ({ name, type, coordinates, icon }: {
-        name: any;
-        type: any;
-        coordinates: any;
-        icon: any;
-    }) => Node;
-    static createConnection: ({ name, source, target, coordinates, }: {
-        name: any;
-        source: any;
-        target: any;
-        coordinates: any;
-    }) => Connection;
+    static createNode: ({ name, type, coordinates, icon, }: NodeDetails) => Node;
+    static createConnection: ({ name, source, target, coordinates, }: ConnectionDetails) => Connection;
     static addNodeMetadata: (node: Node, metadata: NodeMetadata) => Node;
     static updateNode: (node: Node, update: Node) => Node;
     static updateConnection: (connection: Connection, update: Connection) => Connection;
@@ -100,10 +109,7 @@ export declare class Graph {
     metadata: GraphMetadata;
     nodes: Nodes;
     connections: Connections;
-    constructor(metadata: {
-        name: string;
-        type: GraphType;
-    });
+    constructor(metadata: GraphDetails);
     createNodes: (qty: number, details: any) => Nodes;
     createConnections: (qty: number, details: any) => Connections;
     addNode: (details: any) => Nodes;

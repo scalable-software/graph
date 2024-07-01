@@ -20,7 +20,7 @@ export const GraphType = {
 // Once performance testing is done, we can refactor to use a class instance
 // Also operations can return this to enable fluent interface
 export class Graph {
-    static createNode = ({ name, type, coordinates, icon }) => ({
+    static createNode = ({ name, type, coordinates, icon, }) => ({
         id: Utilities.uuid,
         name,
         type,
