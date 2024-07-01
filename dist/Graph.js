@@ -6,6 +6,11 @@ export const NodeType = {
     END: "end",
     DECISION: "decision",
 };
+export const NodeMetadataType = {
+    ARRIVAL: "arrival",
+    DURATION: "duration",
+    PREVALENCE: "prevalence",
+};
 export const GraphType = {
     PIPELINE: "pipeline",
     PATHWAY: "pathway",
@@ -81,8 +86,12 @@ export class Graph {
     metadata;
     nodes = [];
     connections = [];
-    constructor({ name, type }) {
-        this.metadata = { id: Utilities.uuid, name, type };
+    constructor(metadata) {
+        this.metadata = {
+            id: Utilities.uuid,
+            name: metadata.name,
+            type: metadata.type,
+        };
     }
     createNodes = (qty, details) => Array.from({ length: qty }, () => Graph.createNode(details));
     createConnections = (qty, details) => Array.from({ length: qty }, () => Graph.createConnection(details));
@@ -104,8 +113,7 @@ export class Graph {
     findNodeById = (id) => this.nodes.find((node) => node.id === id);
     findConnectionById = (id) => this.connections.find((connection) => connection.id === id);
     findNodesByType = (type) => this.nodes.filter((node) => node.type === type);
-    findNodeByCoordinates = (coordinates) => this.nodes.find((node) => node.coordinates.x === coordinates.x &&
-        node.coordinates.y === coordinates.y);
+    findNodeByCoordinates = ({ x, y }) => this.nodes.find(({ coordinates }) => coordinates.x === x && coordinates.y === y);
     translateNode = (id, offset) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.translateNode(node, offset) : node));
     translateConnection = (id, offset) => (this.connections = this.connections.map((connection) => connection.id === id
         ? Graph.translateConnection(connection, offset)

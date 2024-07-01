@@ -25,6 +25,12 @@ export type Prevalence = {
     target: string;
     probability: number;
 }[];
+export declare const NodeMetadataType: {
+    readonly ARRIVAL: "arrival";
+    readonly DURATION: "duration";
+    readonly PREVALENCE: "prevalence";
+};
+export type NodeMetadataType = (typeof NodeMetadataType)[keyof typeof NodeMetadataType];
 export type NodeMetadata = {
     arrival?: Arrival;
     duration?: Duration;
@@ -90,13 +96,13 @@ export declare class Graph {
     }) => Connection;
     static translateNode: (node: Node, offset: any) => Node;
     static translateConnection: (connection: Connection, offset: any) => Connection;
-    static removeNodeMetadata: (node: Node, type: string) => Node;
+    static removeNodeMetadata: (node: Node, type: NodeMetadataType) => Node;
     metadata: GraphMetadata;
     nodes: Nodes;
     connections: Connections;
-    constructor({ name, type }: {
-        name: any;
-        type: any;
+    constructor(metadata: {
+        name: string;
+        type: GraphType;
     });
     createNodes: (qty: number, details: any) => Nodes;
     createConnections: (qty: number, details: any) => Connections;
@@ -113,11 +119,14 @@ export declare class Graph {
     updateConnection: (id: string, update: any) => Connection[];
     findNodeById: (id: string) => Node;
     findConnectionById: (id: string) => Connection;
-    findNodesByType: (type: string) => Nodes;
-    findNodeByCoordinates: (coordinates: any) => Node;
+    findNodesByType: (type: NodeType) => Nodes;
+    findNodeByCoordinates: ({ x, y }: {
+        x: any;
+        y: any;
+    }) => Node;
     translateNode: (id: string, offset: any) => Node[];
     translateConnection: (id: string, offset: any) => Connection[];
-    removeNodeMetadata: (id: string, type: string) => Node[];
+    removeNodeMetadata: (id: string, type: NodeMetadataType) => Node[];
     removeNodeById: (id: string) => Nodes;
     removeConnectionById: (id: string) => Connections;
 }
