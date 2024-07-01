@@ -88,8 +88,10 @@ export class Graph {
     metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
   });
 
+  // Potential refactor to retain the same Id
   public static updateNode = (node: Node, update: Node): Node => update;
 
+  // Potential refactor to retain the same Id
   public static updateConnection = (
     connection: Connection,
     update: Connection
