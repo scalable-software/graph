@@ -46,10 +46,6 @@ export class Graph {
         ...node,
         icon,
     });
-    static removeNodeMetadata = (node, type) => {
-        node.metadata = node.metadata.filter((metadata) => metadata[type] === undefined);
-        return node;
-    };
     static updateNodeCoordinates = (node, coordinates) => ({
         ...node,
         coordinates,
@@ -77,6 +73,10 @@ export class Graph {
             },
         };
         return connection;
+    };
+    static removeNodeMetadata = (node, type) => {
+        node.metadata = node.metadata.filter((metadata) => metadata[type] === undefined);
+        return node;
     };
     metadata;
     nodes = [];
@@ -106,11 +106,11 @@ export class Graph {
     findNodesByType = (type) => this.nodes.filter((node) => node.type === type);
     findNodeByCoordinates = (coordinates) => this.nodes.find((node) => node.coordinates.x === coordinates.x &&
         node.coordinates.y === coordinates.y);
-    removeNodeMetadata = (id, type) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.removeNodeMetadata(node, type) : node));
-    removeNodeById = (id) => (this.nodes = this.nodes.filter((node) => node.id !== id));
-    removeConnectionById = (id) => (this.connections = this.connections.filter((connection) => connection.id !== id));
     translateNode = (id, offset) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.translateNode(node, offset) : node));
     translateConnection = (id, offset) => (this.connections = this.connections.map((connection) => connection.id === id
         ? Graph.translateConnection(connection, offset)
         : connection));
+    removeNodeMetadata = (id, type) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.removeNodeMetadata(node, type) : node));
+    removeNodeById = (id) => (this.nodes = this.nodes.filter((node) => node.id !== id));
+    removeConnectionById = (id) => (this.connections = this.connections.filter((connection) => connection.id !== id));
 }

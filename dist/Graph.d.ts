@@ -83,7 +83,6 @@ export declare class Graph {
     static updateConnection: (connection: Connection, update: Connection) => Connection;
     static updateNodeMetadata: (node: Node, metadata: NodeMetadata) => Node;
     static updateNodeIcon: (node: Node, icon: Icon) => Node;
-    static removeNodeMetadata: (node: Node, type: string) => Node;
     static updateNodeCoordinates: (node: Node, coordinates: Coordinates) => Node;
     static updateConnectionCoordinates: (connection: Connection, coordinates: {
         start: Coordinates;
@@ -91,6 +90,7 @@ export declare class Graph {
     }) => Connection;
     static translateNode: (node: Node, offset: any) => Node;
     static translateConnection: (connection: Connection, offset: any) => Connection;
+    static removeNodeMetadata: (node: Node, type: string) => Node;
     metadata: GraphMetadata;
     nodes: Nodes;
     connections: Connections;
@@ -115,9 +115,9 @@ export declare class Graph {
     findConnectionById: (id: string) => Connection;
     findNodesByType: (type: string) => Nodes;
     findNodeByCoordinates: (coordinates: any) => Node;
+    translateNode: (id: string, offset: any) => Node[];
+    translateConnection: (id: string, offset: any) => Connection[];
     removeNodeMetadata: (id: string, type: string) => Node[];
     removeNodeById: (id: string) => Nodes;
     removeConnectionById: (id: string) => Connections;
-    translateNode: (id: string, offset: any) => Node[];
-    translateConnection: (id: string, offset: any) => Connection[];
 }
