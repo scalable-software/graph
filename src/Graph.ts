@@ -50,6 +50,13 @@ export type Node = {
 };
 export type Nodes = Node[];
 
+export type NodeDetails = {
+  name: string;
+  type: NodeType;
+  coordinates: Coordinates;
+  icon?: Icon;
+};
+
 export type Connection = {
   id: UUID;
   name: string;
@@ -62,6 +69,16 @@ export type Connection = {
 };
 
 export type Connections = Connection[];
+
+export type ConnectionDetails = {
+  name: string;
+  source: UUID;
+  target: UUID;
+  coordinates: {
+    start: Coordinates;
+    end: Coordinates;
+  };
+};
 
 export const GraphType = {
   PIPELINE: "pipeline",
@@ -76,11 +93,21 @@ export type GraphMetadata = {
   type: GraphType;
 };
 
+export type GraphDetails = {
+  name: string;
+  type: GraphType;
+};
+
 // Operations on Graph takes nodes as first argument to enable performance testing
 // Once performance testing is done, we can refactor to use a class instance
 // Also operations can return this to enable fluent interface
 export class Graph {
-  public static createNode = ({ name, type, coordinates, icon }): Node => ({
+  public static createNode = ({
+    name,
+    type,
+    coordinates,
+    icon,
+  }: NodeDetails): Node => ({
     id: Utilities.uuid,
     name,
     type,
@@ -93,7 +120,7 @@ export class Graph {
     source,
     target,
     coordinates,
-  }): Connection => ({
+  }: ConnectionDetails): Connection => ({
     id: Utilities.uuid,
     name,
     source,
@@ -186,7 +213,7 @@ export class Graph {
   public metadata: GraphMetadata;
   public nodes: Nodes = [];
   public connections: Connections = [];
-  constructor(metadata: { name: string; type: GraphType }) {
+  constructor(metadata: GraphDetails) {
     this.metadata = {
       id: Utilities.uuid,
       name: metadata.name,
