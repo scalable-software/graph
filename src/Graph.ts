@@ -60,12 +60,12 @@ export const GraphType = {
   PATHWAY: "pathway",
   WORKFLOW: "workflow",
 } as const;
-export type GraphTypes = (typeof GraphType)[keyof typeof GraphType];
+export type GraphType = (typeof GraphType)[keyof typeof GraphType];
 
 export type Metadata = {
   id: UUID;
   name: string;
-  type: GraphTypes;
+  type: GraphType;
 };
 
 // Operations on Graph takes nodes as first argument to enable performance testing

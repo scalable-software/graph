@@ -1,7 +1,6 @@
 import {
   Graph,
   GraphType,
-  GraphTypes,
   NodeTypes,
   Utilities,
   Connection,
@@ -688,7 +687,7 @@ describe("Given graph.metadata public property exist", () => {
     expect(graph.metadata.name).toBe("ACS Diagnostic");
   });
   it("then graph.metadata.type equals GraphType.PATHWAY", () => {
-    expect(graph.metadata.type).toBe(GraphType.PATHWAY as GraphTypes);
+    expect(graph.metadata.type).toBe(GraphType.PATHWAY as GraphType);
   });
 });
 
