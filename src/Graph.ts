@@ -186,8 +186,12 @@ export class Graph {
   public metadata: GraphMetadata;
   public nodes: Nodes = [];
   public connections: Connections = [];
-  constructor({ name, type }) {
-    this.metadata = { id: Utilities.uuid, name, type };
+  constructor(metadata: { name: string; type: GraphType }) {
+    this.metadata = {
+      id: Utilities.uuid,
+      name: metadata.name,
+      type: metadata.type,
+    };
   }
 
   public createNodes = (qty: number, details): Nodes =>
