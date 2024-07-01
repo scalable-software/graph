@@ -1,5 +1,7 @@
 import {
   Graph,
+  GraphType,
+  GraphTypes,
   NodeTypes,
   Utilities,
   Connection,
@@ -55,7 +57,14 @@ describe("Given Graph imported", () => {
   describe("when graph = new Graph()", () => {
     let graph: Graph;
     beforeEach(() => {
-      graph = new Graph();
+      const metadata = {
+        name: "ACS Diagnostic",
+        type: GraphType.PATHWAY,
+      };
+      graph = new Graph(metadata);
+    });
+    it("then graph.metadata exist", () => {
+      expect(graph.metadata).toBeDefined();
     });
     it("then graph.nodes exists", () => {
       expect(graph.nodes).toBeDefined();
@@ -663,10 +672,34 @@ describe("Given Graph.translateConnection static method exist", () => {
   });
 });
 
+describe("Given graph.metadata public property exist", () => {
+  let graph: Graph;
+  beforeEach(() => {
+    const metadata = {
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    };
+    graph = new Graph(metadata);
+  });
+  it("then graph.metadata.id exist", () => {
+    expect(graph.metadata.id).toBeDefined();
+  });
+  it("then graph.metadata.name equals 'ACS Diagnostic'", () => {
+    expect(graph.metadata.name).toBe("ACS Diagnostic");
+  });
+  it("then graph.metadata.type equals GraphType.PATHWAY", () => {
+    expect(graph.metadata.type).toBe(GraphType.PATHWAY as GraphTypes);
+  });
+});
+
 describe("Given graph.createNodes exist", () => {
   let graph: Graph;
   beforeEach(() => {
-    graph = new Graph();
+    const metadata = {
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    };
+    graph = new Graph(metadata);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -697,7 +730,11 @@ describe("Given graph.createNodes exist", () => {
 describe("Given graph.addNodes exist", () => {
   let graph: Graph;
   beforeEach(() => {
-    graph = new Graph();
+    const metadata = {
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    };
+    graph = new Graph(metadata);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -727,7 +764,11 @@ describe("Given graph.addNodes exist", () => {
 describe("Given graph.addNodes exist", () => {
   let graph: Graph;
   beforeEach(() => {
-    graph = new Graph();
+    const metadata = {
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    };
+    graph = new Graph(metadata);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -764,7 +805,11 @@ describe("Given graph.addNodes exist", () => {
 describe("Given graph.addNodeMetadata exist", () => {
   let graph: Graph;
   beforeEach(() => {
-    graph = new Graph();
+    const metadata = {
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    };
+    graph = new Graph(metadata);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -806,7 +851,11 @@ describe("Given graph.addNodeMetadata exist", () => {
 describe("Given graph.findNodeById exist", () => {
   let graph: Graph;
   beforeEach(() => {
-    graph = new Graph();
+    const metadata = {
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    };
+    graph = new Graph(metadata);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -839,7 +888,11 @@ describe("Given graph.findNodeById exist", () => {
 describe("Given graph.findNodesByType exist", () => {
   let graph: Graph;
   beforeEach(() => {
-    graph = new Graph();
+    const metadata = {
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    };
+    graph = new Graph(metadata);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -878,7 +931,11 @@ describe("Given graph.findNodesByType exist", () => {
 describe("Given graph.updateNodeMetadata exist", () => {
   let graph: Graph;
   beforeEach(() => {
-    graph = new Graph();
+    const metadata = {
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    };
+    graph = new Graph(metadata);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -941,7 +998,11 @@ describe("Given graph.updateNodeMetadata exist", () => {
 describe("Given graph.translateNode exist", () => {
   let graph: Graph;
   beforeEach(() => {
-    graph = new Graph();
+    const metadata = {
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    };
+    graph = new Graph(metadata);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
@@ -1029,7 +1090,11 @@ describe("Given graph.translateNode exist", () => {
 describe("Given graph.removeNodeById exist", () => {
   let graph: Graph;
   beforeEach(() => {
-    graph = new Graph();
+    const metadata = {
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    };
+    graph = new Graph(metadata);
   });
   it("then graph exist", () => {
     expect(graph).toBeDefined();
