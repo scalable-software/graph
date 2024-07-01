@@ -1,6 +1,12 @@
 import { UUID } from "./Utilities/Utilities.js";
-export declare const NodeTypes: readonly ["start", "workflow", "delay", "end", "decision"];
-export type NodeType = (typeof NodeTypes)[number];
+export declare const NodeType: {
+    readonly START: "start";
+    readonly WORKFLOW: "workflow";
+    readonly DELAY: "delay";
+    readonly END: "end";
+    readonly DECISION: "decision";
+};
+export type NodeType = (typeof NodeType)[keyof typeof NodeType];
 export type Icon = string;
 export type Arrival = {
     distribution: string;
@@ -19,7 +25,7 @@ export type Prevalence = {
     target: string;
     probability: number;
 }[];
-export type Metadata = {
+export type NodeMetadata = {
     arrival?: Arrival;
     duration?: Duration;
     prevalence?: Prevalence;
@@ -34,7 +40,7 @@ export type Node = {
     type: NodeType;
     coordinates: Coordinates;
     icon?: Icon;
-    metadata?: Metadata[];
+    metadata?: NodeMetadata[];
 };
 export type Nodes = Node[];
 export type Connection = {
@@ -48,6 +54,17 @@ export type Connection = {
     };
 };
 export type Connections = Connection[];
+export declare const GraphType: {
+    readonly PIPELINE: "pipeline";
+    readonly PATHWAY: "pathway";
+    readonly WORKFLOW: "workflow";
+};
+export type GraphType = (typeof GraphType)[keyof typeof GraphType];
+export type GraphMetadata = {
+    id: UUID;
+    name: string;
+    type: GraphType;
+};
 export declare class Graph {
     static createNode: ({ name, type, coordinates, icon }: {
         name: any;
@@ -61,10 +78,10 @@ export declare class Graph {
         target: any;
         coordinates: any;
     }) => Connection;
-    static addNodeMetadata: (node: Node, metadata: Metadata) => Node;
+    static addNodeMetadata: (node: Node, metadata: NodeMetadata) => Node;
     static updateNode: (node: Node, update: Node) => Node;
     static updateConnection: (connection: Connection, update: Connection) => Connection;
-    static updateNodeMetadata: (node: Node, metadata: Metadata) => Node;
+    static updateNodeMetadata: (node: Node, metadata: NodeMetadata) => Node;
     static updateNodeIcon: (node: Node, icon: Icon) => Node;
     static removeNodeMetadata: (node: Node, type: string) => Node;
     static updateNodeCoordinates: (node: Node, coordinates: Coordinates) => Node;
@@ -74,17 +91,21 @@ export declare class Graph {
     }) => Connection;
     static translateNode: (node: Node, offset: any) => Node;
     static translateConnection: (connection: Connection, offset: any) => Connection;
+    metadata: GraphMetadata;
     nodes: Nodes;
     connections: Connections;
-    constructor();
+    constructor({ name, type }: {
+        name: any;
+        type: any;
+    });
     createNodes: (qty: number, details: any) => Nodes;
     createConnections: (qty: number, details: any) => Connections;
     addNode: (details: any) => Nodes;
     addConnection: (details: any) => Connections;
     addNodes: (newNodes: Nodes) => Nodes;
     addConnections: (newConnections: Connections) => Connections;
-    addNodeMetadata: (id: string, metadata: Metadata) => Nodes;
-    updateNodeMetadata: (id: string, metadata: Metadata) => Nodes;
+    addNodeMetadata: (id: string, metadata: NodeMetadata) => Nodes;
+    updateNodeMetadata: (id: string, metadata: NodeMetadata) => Nodes;
     updateNodeCoordinates: (id: string, coordinates: any) => Node[];
     updateConnectionCoordinates: (id: string, coordinates: any) => Connection[];
     updateNodeIcon: (id: string, icon: any) => Node[];

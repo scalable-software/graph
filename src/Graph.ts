@@ -1,13 +1,13 @@
 import { Utilities, UUID } from "./Utilities/Utilities.js";
 
-export const NodeTypes = [
-  "start",
-  "workflow",
-  "delay",
-  "end",
-  "decision",
-] as const;
-export type NodeType = (typeof NodeTypes)[number];
+export const NodeType = {
+  START: "start",
+  WORKFLOW: "workflow",
+  DELAY: "delay",
+  END: "end",
+  DECISION: "decision",
+} as const;
+export type NodeType = (typeof NodeType)[keyof typeof NodeType];
 
 export type Icon = string;
 
@@ -62,7 +62,7 @@ export const GraphType = {
 } as const;
 export type GraphType = (typeof GraphType)[keyof typeof GraphType];
 
-export type Metadata = {
+export type GraphMetadata = {
   id: UUID;
   name: string;
   type: GraphType;
@@ -172,7 +172,7 @@ export class Graph {
     return connection;
   };
 
-  public metadata: Metadata;
+  public metadata: GraphMetadata;
   public nodes: Nodes = [];
   public connections: Connections = [];
   constructor({ name, type }) {

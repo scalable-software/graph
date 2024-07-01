@@ -1,11 +1,16 @@
 import { Utilities } from "./Utilities/Utilities.js";
-export const NodeTypes = [
-    "start",
-    "workflow",
-    "delay",
-    "end",
-    "decision",
-];
+export const NodeType = {
+    START: "start",
+    WORKFLOW: "workflow",
+    DELAY: "delay",
+    END: "end",
+    DECISION: "decision",
+};
+export const GraphType = {
+    PIPELINE: "pipeline",
+    PATHWAY: "pathway",
+    WORKFLOW: "workflow",
+};
 // Operations on Graph takes nodes as first argument to enable performance testing
 // Once performance testing is done, we can refactor to use a class instance
 // Also operations can return this to enable fluent interface
@@ -28,7 +33,9 @@ export class Graph {
         ...node,
         metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
     });
+    // Potential refactor to retain the same Id
     static updateNode = (node, update) => update;
+    // Potential refactor to retain the same Id
     static updateConnection = (connection, update) => update;
     static updateNodeMetadata = (node, metadata) => {
         let key = Object.keys(metadata)[0];
@@ -71,9 +78,12 @@ export class Graph {
         };
         return connection;
     };
+    metadata;
     nodes = [];
     connections = [];
-    constructor() { }
+    constructor({ name, type }) {
+        this.metadata = { id: Utilities.uuid, name, type };
+    }
     createNodes = (qty, details) => Array.from({ length: qty }, () => Graph.createNode(details));
     createConnections = (qty, details) => Array.from({ length: qty }, () => Graph.createConnection(details));
     addNode = (details) => (this.nodes = [...this.nodes, Graph.createNode(details)]);

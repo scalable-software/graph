@@ -12,6 +12,6 @@ export class Utilities {
       uuid
     );
 
-  public static getRandomElement = <T>(array: readonly T[]): T =>
-    array[Math.floor(Math.random() * array.length)] as T;
+  public static getRandomElement = <T>(obj: { [key: string]: T }): T =>
+    Object.values(obj)[Math.floor(Math.random() * Object.values(obj).length)];
 }

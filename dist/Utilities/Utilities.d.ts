@@ -5,5 +5,7 @@ export type UUID = string;
 export declare class Utilities {
     static get uuid(): `${string}-${string}-${string}-${string}-${string}`;
     static isUUID: (uuid: string) => uuid is string;
-    static getRandomElement: <T>(array: readonly T[]) => T;
+    static getRandomElement: <T>(obj: {
+        [key: string]: T;
+    }) => T;
 }

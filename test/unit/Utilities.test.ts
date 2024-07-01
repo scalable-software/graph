@@ -32,11 +32,11 @@ describe("Given Utilities imported", () => {
     it("then Utilities has a getRandomElement method", () => {
       expect(Utilities.getRandomElement).toBeDefined();
     });
-    describe("when Utilities.getRandomElement() is called with an array", () => {
-      it("then it returns a random element from the array", () => {
-        const array = ["start", "workflow", "delay", "end", "decision"];
-        const randomElement = Utilities.getRandomElement(array);
-        expect(array).toContain(randomElement);
+    describe("when Utilities.getRandomElement() is called with an object", () => {
+      it("then it returns a random values from the object", () => {
+        const obj = { a: 1, b: 2, c: 3 };
+        const value = Utilities.getRandomElement(obj);
+        expect(Object.values(obj)).toContain(value);
       });
     });
   });

@@ -1,14 +1,13 @@
 import {
   Graph,
   GraphType,
-  NodeTypes,
+  NodeType,
   Utilities,
   Connection,
   Coordinates,
   Icon,
   NodeMetadata,
   Node,
-  NodeType,
   Nodes,
   UUID,
 } from "@scalable-software/graph.structure";
@@ -147,7 +146,7 @@ describe("Given Graph.createNode static method exist", () => {
     beforeEach(() => {
       details = {
         name: "Node",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
@@ -237,7 +236,7 @@ describe("Given Graph.addNodeMetadata static method exist", () => {
     beforeEach(() => {
       node = Graph.createNode({
         name: "Node",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -297,7 +296,7 @@ describe("Given Graph.updateNode exist", () => {
     beforeEach(() => {
       node = Graph.createNode({
         name: "Node",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -371,7 +370,7 @@ describe("Given Graph.updateNodeMetadata static method exist", () => {
     beforeEach(() => {
       node = Graph.createNode({
         name: "Node",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -444,7 +443,7 @@ describe("Given Graph.updateNodeIcon exist", () => {
     beforeEach(() => {
       node = Graph.createNode({
         name: "Node",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -470,7 +469,7 @@ describe("Given Graph.removeNodeMetadata exist", () => {
     beforeEach(() => {
       node = Graph.createNode({
         name: "Node",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -500,7 +499,7 @@ describe("Given Graph.translate static method exist", () => {
     beforeEach(() => {
       node = Graph.createNode({
         name: "Node",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -535,7 +534,7 @@ describe("Given Graph.updateNodeCoordinates static method exist", () => {
     beforeEach(() => {
       node = Graph.createNode({
         name: "Node",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -711,7 +710,7 @@ describe("Given graph.createNodes exist", () => {
     beforeEach(() => {
       let details = {
         name: "Node",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
@@ -745,7 +744,7 @@ describe("Given graph.addNodes exist", () => {
     beforeEach(() => {
       let details = {
         name: "Node1",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
@@ -780,13 +779,13 @@ describe("Given graph.addNodes exist", () => {
     beforeEach(() => {
       graph.nodes = graph.createNodes(2, {
         name: "Node1",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
       newNodes = graph.createNodes(2, {
         name: "Node2",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -822,7 +821,7 @@ describe("Given graph.addNodeMetadata exist", () => {
     beforeEach(() => {
       graph.nodes = graph.createNodes(2, {
         name: "Node1",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -868,7 +867,7 @@ describe("Given graph.findNodeById exist", () => {
     beforeEach(() => {
       graph.nodes = graph.createNodes(2, {
         name: "Node1",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -947,7 +946,7 @@ describe("Given graph.updateNodeMetadata exist", () => {
     beforeEach(() => {
       graph.nodes = graph.createNodes(2, {
         name: "Node1",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
@@ -1015,7 +1014,7 @@ describe("Given graph.translateNode exist", () => {
     beforeEach(() => {
       let details = {
         name: "Node",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 10, y: 10 },
         icon: "./icon.svg",
       };
@@ -1106,7 +1105,7 @@ describe("Given graph.removeNodeById exist", () => {
     beforeEach(() => {
       graph.nodes = graph.createNodes(2, {
         name: "Node1",
-        type: Utilities.getRandomElement<NodeType>(NodeTypes),
+        type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });

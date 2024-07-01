@@ -6,5 +6,5 @@ export class Utilities {
         return crypto.randomUUID();
     }
     static isUUID = (uuid) => /^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(uuid);
-    static getRandomElement = (array) => array[Math.floor(Math.random() * array.length)];
+    static getRandomElement = (obj) => Object.values(obj)[Math.floor(Math.random() * Object.values(obj).length)];
 }

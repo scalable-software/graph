@@ -1,14 +1,13 @@
 export {
   Graph,
-  NodeTypes,
   GraphType,
-  type Metadata,
+  NodeType,
+  type GraphMetadata,
   type Connection,
   type Coordinates,
   type Icon,
   type NodeMetadata,
   type Node,
-  type NodeType,
   type Nodes,
 } from "./Graph.js";
 
