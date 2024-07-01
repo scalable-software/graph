@@ -2,6 +2,7 @@ import {
   Graph,
   GraphType,
   NodeType,
+  NodeMetadataType,
   Utilities,
   Connection,
   Coordinates,
@@ -564,7 +565,7 @@ describe("Given Graph.removeNodeMetadata static method exist", () => {
       });
     });
     describe("When Graph.removeNodeMetadata(node, type)", () => {
-      let type: string;
+      let type: NodeMetadataType;
       beforeEach(() => {
         type = "arrival";
         node = Graph.removeNodeMetadata(node, type);
@@ -1315,7 +1316,7 @@ describe("Given graph.findNodesByType method exist", () => {
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
-      type = "workflow";
+      type = NodeType.WORKFLOW;
       nodes = graph.findNodesByType(type);
     });
     it("then nodes exist", () => {

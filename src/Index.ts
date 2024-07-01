@@ -2,6 +2,7 @@ export {
   Graph,
   GraphType,
   NodeType,
+  NodeMetadataType,
   type GraphMetadata,
   type Connection,
   type Coordinates,

@@ -21,6 +21,14 @@ export type Duration = {
 };
 export type Prevalence = { target: string; probability: number }[];
 
+export const NodeMetadataType = {
+  ARRIVAL: "arrival",
+  DURATION: "duration",
+  PREVALENCE: "prevalence",
+} as const;
+export type NodeMetadataType =
+  (typeof NodeMetadataType)[keyof typeof NodeMetadataType];
+
 export type NodeMetadata = {
   arrival?: Arrival;
   duration?: Duration;
@@ -165,7 +173,10 @@ export class Graph {
     return connection;
   };
 
-  public static removeNodeMetadata = (node: Node, type: string): Node => {
+  public static removeNodeMetadata = (
+    node: Node,
+    type: NodeMetadataType
+  ): Node => {
     node.metadata = node.metadata.filter(
       (metadata) => metadata[type] === undefined
     );
@@ -242,14 +253,12 @@ export class Graph {
   public findConnectionById = (id: string): Connection =>
     this.connections.find((connection: Connection) => connection.id === id);
 
-  public findNodesByType = (type: string): Nodes =>
+  public findNodesByType = (type: NodeType): Nodes =>
     this.nodes.filter((node: Node) => node.type === type);
 
-  public findNodeByCoordinates = (coordinates): Node =>
+  public findNodeByCoordinates = ({ x, y }): Node =>
     this.nodes.find(
-      (node: Node) =>
-        node.coordinates.x === coordinates.x &&
-        node.coordinates.y === coordinates.y
+      ({ coordinates }: Node) => coordinates.x === x && coordinates.y === y
     );
 
   public translateNode = (id: string, offset) =>
@@ -264,7 +273,7 @@ export class Graph {
         : connection
     ));
 
-  public removeNodeMetadata = (id: string, type: string) =>
+  public removeNodeMetadata = (id: string, type: NodeMetadataType) =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.removeNodeMetadata(node, type) : node
     ));
