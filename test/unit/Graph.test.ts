@@ -5,7 +5,7 @@ import {
   Connection,
   Coordinates,
   Icon,
-  Metadata,
+  NodeMetadata,
   Node,
   NodeType,
   Nodes,
@@ -224,7 +224,7 @@ describe("Given Graph.createConnection static method exist", () => {
 describe("Given Graph.addNodeMetadata static method exist", () => {
   describe("when extendedNode = Graph.extend(node, metadata)", () => {
     let node: Node;
-    let metadata: Metadata;
+    let metadata: NodeMetadata;
     let extendedNode: Node;
     beforeEach(() => {
       node = Graph.createNode({
@@ -376,7 +376,7 @@ describe("Given Graph.updateNodeMetadata static method exist", () => {
       node = Graph.addNodeMetadata(node, metadata);
     });
     describe("when updatedNode = Graph.updateMetadata(node, metadata)", () => {
-      let metadata: Metadata;
+      let metadata: NodeMetadata;
       let updatedNode: Node;
       beforeEach(() => {
         metadata = {
@@ -774,7 +774,7 @@ describe("Given graph.addNodeMetadata exist", () => {
   });
   describe("when graph.addNodeMetadata(existingNodes, id, metadata)", () => {
     let id: UUID;
-    let metadata: Metadata;
+    let metadata: NodeMetadata;
     beforeEach(() => {
       graph.nodes = graph.createNodes(2, {
         name: "Node1",
@@ -905,7 +905,7 @@ describe("Given graph.updateNodeMetadata exist", () => {
       graph.addNodeMetadata(id, metadata);
     });
     describe("when graph.updateNodeMetadata(id, metadata)", () => {
-      let metadata: Metadata;
+      let metadata: NodeMetadata;
       beforeEach(() => {
         metadata = {
           arrival: {

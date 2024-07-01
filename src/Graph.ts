@@ -21,7 +21,7 @@ export type Duration = {
 };
 export type Prevalence = { target: string; probability: number }[];
 
-export type Metadata = {
+export type NodeMetadata = {
   arrival?: Arrival;
   duration?: Duration;
   prevalence?: Prevalence;
@@ -38,7 +38,7 @@ export type Node = {
   type: NodeType;
   coordinates: Coordinates;
   icon?: Icon;
-  metadata?: Metadata[];
+  metadata?: NodeMetadata[];
 };
 export type Nodes = Node[];
 
@@ -80,7 +80,10 @@ export class Graph {
     coordinates,
   });
 
-  public static addNodeMetadata = (node: Node, metadata: Metadata): Node => ({
+  public static addNodeMetadata = (
+    node: Node,
+    metadata: NodeMetadata
+  ): Node => ({
     ...node,
     metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
   });
@@ -92,7 +95,10 @@ export class Graph {
     update: Connection
   ): Connection => update;
 
-  public static updateNodeMetadata = (node: Node, metadata: Metadata): Node => {
+  public static updateNodeMetadata = (
+    node: Node,
+    metadata: NodeMetadata
+  ): Node => {
     let key = Object.keys(metadata)[0];
     node.metadata = node.metadata.map((node) => (node[key] ? metadata : node));
     return node;
@@ -151,6 +157,8 @@ export class Graph {
     return connection;
   };
 
+  public meta;
+
   public nodes: Nodes = [];
   public connections: Connections = [];
   constructor() {}
@@ -173,12 +181,12 @@ export class Graph {
   public addConnections = (newConnections: Connections): Connections =>
     (this.connections = [...this.connections, ...newConnections]);
 
-  public addNodeMetadata = (id: string, metadata: Metadata): Nodes =>
+  public addNodeMetadata = (id: string, metadata: NodeMetadata): Nodes =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.addNodeMetadata(node, metadata) : node
     ));
 
-  public updateNodeMetadata = (id: string, metadata: Metadata): Nodes =>
+  public updateNodeMetadata = (id: string, metadata: NodeMetadata): Nodes =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.updateNodeMetadata(node, metadata) : node
     ));

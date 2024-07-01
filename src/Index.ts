@@ -4,7 +4,7 @@ export {
   type Connection,
   type Coordinates,
   type Icon,
-  type Metadata,
+  type NodeMetadata,
   type Node,
   type NodeType,
   type Nodes,
