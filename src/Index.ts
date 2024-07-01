@@ -1,6 +1,9 @@
 export {
   Graph,
   NodeTypes,
+  GraphType,
+  type GraphTypes,
+  type Metadata,
   type Connection,
   type Coordinates,
   type Icon,

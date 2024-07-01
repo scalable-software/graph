@@ -55,6 +55,19 @@ export type Connection = {
 
 export type Connections = Connection[];
 
+export const GraphType = {
+  PIPELINE: "pipeline",
+  PATHWAY: "pathway",
+  WORKFLOW: "workflow",
+} as const;
+export type GraphTypes = (typeof GraphType)[keyof typeof GraphType];
+
+export type Metadata = {
+  id: UUID;
+  name: string;
+  type: GraphTypes;
+};
+
 // Operations on Graph takes nodes as first argument to enable performance testing
 // Once performance testing is done, we can refactor to use a class instance
 // Also operations can return this to enable fluent interface
@@ -159,11 +172,12 @@ export class Graph {
     return connection;
   };
 
-  public meta;
-
+  public metadata: Metadata;
   public nodes: Nodes = [];
   public connections: Connections = [];
-  constructor() {}
+  constructor({ name, type }) {
+    this.metadata = { id: Utilities.uuid, name, type };
+  }
 
   public createNodes = (qty: number, details): Nodes =>
     Array.from({ length: qty }, () => Graph.createNode(details));
