@@ -167,7 +167,10 @@ export class Graph {
     return node;
   };
 
-  public static translateConnection = (connection: Connection, offset: any) => {
+  public static translateConnection = (
+    connection: Connection,
+    offset: Offset
+  ) => {
     connection.coordinates = {
       start: {
         x: connection.coordinates.start.x + offset.x,
@@ -202,67 +205,73 @@ export class Graph {
     };
   }
 
-  public createNodes = (qty: number, details): Nodes =>
+  public createNodes = (qty: number, details: Omit<Node, "id">): Nodes =>
     Array.from({ length: qty }, () => Graph.createNode(details));
 
-  public createConnections = (qty: number, details): Connections =>
+  public createConnections = (
+    qty: number,
+    details: Omit<Connection, "id">
+  ): Connections =>
     Array.from({ length: qty }, () => Graph.createConnection(details));
 
-  public addNode = (details): Nodes =>
+  public addNode = (details: Omit<Node, "id">): Nodes =>
     (this.nodes = [...this.nodes, Graph.createNode(details)]);
 
-  public addConnection = (details): Connections =>
+  public addConnection = (details: Omit<Connection, "id">): Connections =>
     (this.connections = [...this.connections, Graph.createConnection(details)]);
 
-  public addNodes = (newNodes: Nodes): Nodes =>
-    (this.nodes = [...this.nodes, ...newNodes]);
+  public addNodes = (nodes: Nodes): Nodes =>
+    (this.nodes = [...this.nodes, ...nodes]);
 
   public addConnections = (connections: Connections): Connections =>
     (this.connections = [...this.connections, ...connections]);
 
-  public addNodeMetadata = (id: string, metadata: NodeMetadata): Nodes =>
+  public addNodeMetadata = (id: UUID, metadata: NodeMetadata): Nodes =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.addNodeMetadata(node, metadata) : node
     ));
 
-  public updateNodeMetadata = (id: string, metadata: NodeMetadata): Nodes =>
+  public updateNodeMetadata = (id: UUID, metadata: NodeMetadata): Nodes =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.updateNodeMetadata(node, metadata) : node
     ));
 
-  public updateNodeCoordinates = (id: string, coordinates) =>
+  public updateNodeCoordinates = (id: UUID, coordinates: Coordinates) =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.updateNodeCoordinates(node, coordinates) : node
     ));
 
-  public updateConnectionCoordinates = (id: string, coordinates) =>
+  public updateConnectionCoordinates = (
+    id: UUID,
+    coordinates: { start: Coordinates; end: Coordinates }
+  ) =>
     (this.connections = this.connections.map((connection: Connection) =>
       connection.id === id
         ? Graph.updateConnectionCoordinates(connection, coordinates)
         : connection
     ));
 
-  public updateNodeIcon = (id: string, icon: Icon) =>
+  public updateNodeIcon = (id: UUID, icon: Icon) =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.updateNodeIcon(node, icon) : node
     ));
 
-  public updateNode = (id: string, update: Node) =>
+  public updateNode = (id: UUID, update: Node) =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.updateNode(node, update) : node
     ));
 
-  public updateConnection = (id: string, update: Connection) =>
+  public updateConnection = (id: UUID, update: Connection) =>
     (this.connections = this.connections.map((connection: Connection) =>
       connection.id === id
         ? Graph.updateConnection(connection, update)
         : connection
     ));
 
-  public findNodeById = (id: string): Node =>
+  public findNodeById = (id: UUID): Node =>
     this.nodes.find((node: Node) => node.id === id);
 
-  public findConnectionById = (id: string): Connection =>
+  public findConnectionById = (id: UUID): Connection =>
     this.connections.find((connection: Connection) => connection.id === id);
 
   public findNodesByType = (type: NodeType): Nodes =>
@@ -275,27 +284,27 @@ export class Graph {
         node.coordinates.y === coordinates.y
     );
 
-  public translateNode = (id: string, offset: Offset) =>
+  public translateNode = (id: UUID, offset: Offset) =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.translateNode(node, offset) : node
     ));
 
-  public translateConnection = (id: string, offset: Offset) =>
+  public translateConnection = (id: UUID, offset: Offset) =>
     (this.connections = this.connections.map((connection: Connection) =>
       connection.id === id
         ? Graph.translateConnection(connection, offset)
         : connection
     ));
 
-  public removeNodeMetadata = (id: string, type: NodeMetadataType) =>
+  public removeNodeMetadata = (id: UUID, type: NodeMetadataType) =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.removeNodeMetadata(node, type) : node
     ));
 
-  public removeNodeById = (id: string): Nodes =>
+  public removeNodeById = (id: UUID): Nodes =>
     (this.nodes = this.nodes.filter((node: Node) => node.id !== id));
 
-  public removeConnectionById = (id: string): Connections =>
+  public removeConnectionById = (id: UUID): Connections =>
     (this.connections = this.connections.filter(
       (connection: Connection) => connection.id !== id
     ));
