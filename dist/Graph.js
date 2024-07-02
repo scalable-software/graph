@@ -17,19 +17,19 @@ export const GraphType = {
     WORKFLOW: "workflow",
 };
 export class Graph {
-    static createNode = ({ name, type, coordinates, icon, }) => ({
+    static createNode = (details) => ({
         id: Utilities.uuid,
-        name,
-        type,
-        coordinates,
-        icon,
+        name: details.name,
+        type: details.type,
+        coordinates: details.coordinates,
+        icon: details.icon,
     });
-    static createConnection = ({ name, source, target, coordinates, }) => ({
+    static createConnection = (details) => ({
         id: Utilities.uuid,
-        name,
-        source,
-        target,
-        coordinates,
+        name: details.name,
+        source: details.source,
+        target: details.target,
+        coordinates: details.coordinates,
     });
     static addNodeMetadata = (node, metadata) => ({
         ...node,
@@ -114,7 +114,8 @@ export class Graph {
     findNodeById = (id) => this.nodes.find((node) => node.id === id);
     findConnectionById = (id) => this.connections.find((connection) => connection.id === id);
     findNodesByType = (type) => this.nodes.filter((node) => node.type === type);
-    findNodeByCoordinates = ({ x, y }) => this.nodes.find(({ coordinates }) => coordinates.x === x && coordinates.y === y);
+    findNodeByCoordinates = (coordinates) => this.nodes.find((node) => node.coordinates.x === coordinates.x &&
+        node.coordinates.y === coordinates.y);
     translateNode = (id, offset) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.translateNode(node, offset) : node));
     translateConnection = (id, offset) => (this.connections = this.connections.map((connection) => connection.id === id
         ? Graph.translateConnection(connection, offset)

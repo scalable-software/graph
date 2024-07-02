@@ -80,8 +80,8 @@ export type GraphDetails = {
     type: GraphType;
 };
 export declare class Graph {
-    static createNode: ({ name, type, coordinates, icon, }: Omit<Node, "id">) => Node;
-    static createConnection: ({ name, source, target, coordinates, }: Omit<Connection, "id">) => Connection;
+    static createNode: (details: Omit<Node, "id">) => Node;
+    static createConnection: (details: Omit<Connection, "id">) => Connection;
     static addNodeMetadata: (node: Node, metadata: NodeMetadata) => Node;
     static updateNode: (node: Node, update: Node) => Node;
     static updateConnection: (connection: Connection, update: Connection) => Connection;
@@ -115,7 +115,7 @@ export declare class Graph {
     findNodeById: (id: string) => Node;
     findConnectionById: (id: string) => Connection;
     findNodesByType: (type: NodeType) => Nodes;
-    findNodeByCoordinates: ({ x, y }: Coordinates) => Node;
+    findNodeByCoordinates: (coordinates: Coordinates) => Node;
     translateNode: (id: string, offset: Offset) => Node[];
     translateConnection: (id: string, offset: Offset) => Connection[];
     removeNodeMetadata: (id: string, type: NodeMetadataType) => Node[];
