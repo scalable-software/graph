@@ -87,30 +87,22 @@ export type GraphDetails = {
 };
 
 export class Graph {
-  public static createNode = ({
-    name,
-    type,
-    coordinates,
-    icon,
-  }: Omit<Node, "id">): Node => ({
+  public static createNode = (details: Omit<Node, "id">): Node => ({
     id: Utilities.uuid,
-    name,
-    type,
-    coordinates,
-    icon,
+    name: details.name,
+    type: details.type,
+    coordinates: details.coordinates,
+    icon: details.icon,
   });
 
-  public static createConnection = ({
-    name,
-    source,
-    target,
-    coordinates,
-  }: Omit<Connection, "id">): Connection => ({
+  public static createConnection = (
+    details: Omit<Connection, "id">
+  ): Connection => ({
     id: Utilities.uuid,
-    name,
-    source,
-    target,
-    coordinates,
+    name: details.name,
+    source: details.source,
+    target: details.target,
+    coordinates: details.coordinates,
   });
 
   public static addNodeMetadata = (
@@ -276,9 +268,11 @@ export class Graph {
   public findNodesByType = (type: NodeType): Nodes =>
     this.nodes.filter((node: Node) => node.type === type);
 
-  public findNodeByCoordinates = ({ x, y }: Coordinates): Node =>
+  public findNodeByCoordinates = (coordinates: Coordinates): Node =>
     this.nodes.find(
-      ({ coordinates }: Node) => coordinates.x === x && coordinates.y === y
+      (node: Node) =>
+        node.coordinates.x === coordinates.x &&
+        node.coordinates.y === coordinates.y
     );
 
   public translateNode = (id: string, offset: Offset) =>
