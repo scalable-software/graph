@@ -237,6 +237,7 @@ describe("Given Graph.updateNode static method exist", () => {
         node = Graph.updateNode(node, details);
       });
       it("then node icon is updated", () => {
+        details.id = node.id;
         expect(node).toEqual(details);
       });
     });
@@ -272,6 +273,7 @@ describe("Given Graph.updateConnection static method exist", () => {
         connection = Graph.updateConnection(connection, details);
       });
       it("then connection icon is updated", () => {
+        details.id = connection.id;
         expect(connection).toEqual(details);
       });
     });
@@ -1206,7 +1208,7 @@ describe("Given graph.updateConnection method exist", () => {
       });
       connection = graph.connections[1];
       update = {
-        id: connection.id,
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -1224,6 +1226,7 @@ describe("Given graph.updateConnection method exist", () => {
       expect(graph.connections.length).toBe(2);
     });
     it("then graph.connections[1] equals update", () => {
+      update.id = connection.id;
       expect(graph.connections[1]).toEqual(update);
     });
   });
@@ -1415,18 +1418,21 @@ describe("Given graph.translateNode method exist", () => {
       });
     });
     describe("When graph.updateNode(id, update)", () => {
-      let update;
+      let details;
+      let node;
       beforeEach(() => {
-        update = {
+        details = {
           name: "New Node",
           type: "workflow",
           coordinates: { x: 10, y: 10 },
           icon: "./new-icon.svg",
         };
-        graph.updateNode(id, update);
+        node = Graph.createNode(details);
+        graph.updateNode(id, node);
       });
       it("then graph.nodes[0] equals update", () => {
-        expect(graph.nodes[0]).toEqual(update);
+        node.id = graph.nodes[0].id;
+        expect(graph.nodes[0]).toEqual(node);
       });
     });
     describe("When graph.findNodeByCoordinates(coordinates)", () => {

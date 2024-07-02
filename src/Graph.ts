@@ -40,6 +40,11 @@ export type Coordinates = {
   y: number;
 };
 
+export type Offset = {
+  x: number;
+  y: number;
+};
+
 export type Node = {
   id: UUID;
   name: string;
@@ -50,15 +55,8 @@ export type Node = {
 };
 export type Nodes = Node[];
 
-export type NodeDetails = {
-  name: string;
-  type: NodeType;
-  coordinates: Coordinates;
-  icon?: Icon;
-};
-
 export type Connection = {
-  id: UUID;
+  id?: UUID;
   name: string;
   source: UUID;
   target: UUID;
@@ -69,16 +67,6 @@ export type Connection = {
 };
 
 export type Connections = Connection[];
-
-export type ConnectionDetails = {
-  name: string;
-  source: UUID;
-  target: UUID;
-  coordinates: {
-    start: Coordinates;
-    end: Coordinates;
-  };
-};
 
 export const GraphType = {
   PIPELINE: "pipeline",
@@ -98,16 +86,13 @@ export type GraphDetails = {
   type: GraphType;
 };
 
-// Operations on Graph takes nodes as first argument to enable performance testing
-// Once performance testing is done, we can refactor to use a class instance
-// Also operations can return this to enable fluent interface
 export class Graph {
   public static createNode = ({
     name,
     type,
     coordinates,
     icon,
-  }: NodeDetails): Node => ({
+  }: Omit<Node, "id">): Node => ({
     id: Utilities.uuid,
     name,
     type,
@@ -120,7 +105,7 @@ export class Graph {
     source,
     target,
     coordinates,
-  }: ConnectionDetails): Connection => ({
+  }: Omit<Connection, "id">): Connection => ({
     id: Utilities.uuid,
     name,
     source,
@@ -136,14 +121,18 @@ export class Graph {
     metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
   });
 
-  // Potential refactor to retain the same Id
-  public static updateNode = (node: Node, update: Node): Node => update;
+  public static updateNode = (node: Node, update: Node): Node => ({
+    ...update,
+    id: node.id,
+  });
 
-  // Potential refactor to retain the same Id
   public static updateConnection = (
     connection: Connection,
     update: Connection
-  ): Connection => update;
+  ): Connection => ({
+    ...update,
+    id: connection.id,
+  });
 
   public static updateNodeMetadata = (
     node: Node,
@@ -261,17 +250,17 @@ export class Graph {
         : connection
     ));
 
-  public updateNodeIcon = (id: string, icon) =>
+  public updateNodeIcon = (id: string, icon: Icon) =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.updateNodeIcon(node, icon) : node
     ));
 
-  public updateNode = (id: string, update) =>
+  public updateNode = (id: string, update: Node) =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.updateNode(node, update) : node
     ));
 
-  public updateConnection = (id: string, update) =>
+  public updateConnection = (id: string, update: Connection) =>
     (this.connections = this.connections.map((connection: Connection) =>
       connection.id === id
         ? Graph.updateConnection(connection, update)
@@ -287,17 +276,17 @@ export class Graph {
   public findNodesByType = (type: NodeType): Nodes =>
     this.nodes.filter((node: Node) => node.type === type);
 
-  public findNodeByCoordinates = ({ x, y }): Node =>
+  public findNodeByCoordinates = ({ x, y }: Coordinates): Node =>
     this.nodes.find(
       ({ coordinates }: Node) => coordinates.x === x && coordinates.y === y
     );
 
-  public translateNode = (id: string, offset) =>
+  public translateNode = (id: string, offset: Offset) =>
     (this.nodes = this.nodes.map((node: Node) =>
       node.id === id ? Graph.translateNode(node, offset) : node
     ));
 
-  public translateConnection = (id: string, offset) =>
+  public translateConnection = (id: string, offset: Offset) =>
     (this.connections = this.connections.map((connection: Connection) =>
       connection.id === id
         ? Graph.translateConnection(connection, offset)

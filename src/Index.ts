@@ -8,10 +8,8 @@ export {
   type NodeMetadata,
   type Node,
   type Nodes,
-  type NodeDetails,
   type Connection,
   type Connections,
-  type ConnectionDetails,
   type Coordinates,
   type Icon,
 } from "./Graph.js";
