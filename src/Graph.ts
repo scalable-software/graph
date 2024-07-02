@@ -217,8 +217,8 @@ export class Graph {
   public addNodes = (newNodes: Nodes): Nodes =>
     (this.nodes = [...this.nodes, ...newNodes]);
 
-  public addConnections = (newConnections: Connections): Connections =>
-    (this.connections = [...this.connections, ...newConnections]);
+  public addConnections = (connections: Connections): Connections =>
+    (this.connections = [...this.connections, ...connections]);
 
   public addNodeMetadata = (id: string, metadata: NodeMetadata): Nodes =>
     (this.nodes = this.nodes.map((node: Node) =>
