@@ -16,9 +16,6 @@ export const GraphType = {
     PATHWAY: "pathway",
     WORKFLOW: "workflow",
 };
-// Operations on Graph takes nodes as first argument to enable performance testing
-// Once performance testing is done, we can refactor to use a class instance
-// Also operations can return this to enable fluent interface
 export class Graph {
     static createNode = ({ name, type, coordinates, icon, }) => ({
         id: Utilities.uuid,
@@ -38,10 +35,14 @@ export class Graph {
         ...node,
         metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
     });
-    // Potential refactor to retain the same Id
-    static updateNode = (node, update) => update;
-    // Potential refactor to retain the same Id
-    static updateConnection = (connection, update) => update;
+    static updateNode = (node, update) => ({
+        ...update,
+        id: node.id,
+    });
+    static updateConnection = (connection, update) => ({
+        ...update,
+        id: connection.id,
+    });
     static updateNodeMetadata = (node, metadata) => {
         let key = Object.keys(metadata)[0];
         node.metadata = node.metadata.map((node) => (node[key] ? metadata : node));

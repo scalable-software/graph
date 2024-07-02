@@ -40,6 +40,10 @@ export type Coordinates = {
     x: number;
     y: number;
 };
+export type Offset = {
+    x: number;
+    y: number;
+};
 export type Node = {
     id: UUID;
     name: string;
@@ -49,14 +53,8 @@ export type Node = {
     metadata?: NodeMetadata[];
 };
 export type Nodes = Node[];
-export type NodeDetails = {
-    name: string;
-    type: NodeType;
-    coordinates: Coordinates;
-    icon?: Icon;
-};
 export type Connection = {
-    id: UUID;
+    id?: UUID;
     name: string;
     source: UUID;
     target: UUID;
@@ -66,15 +64,6 @@ export type Connection = {
     };
 };
 export type Connections = Connection[];
-export type ConnectionDetails = {
-    name: string;
-    source: UUID;
-    target: UUID;
-    coordinates: {
-        start: Coordinates;
-        end: Coordinates;
-    };
-};
 export declare const GraphType: {
     readonly PIPELINE: "pipeline";
     readonly PATHWAY: "pathway";
@@ -91,8 +80,8 @@ export type GraphDetails = {
     type: GraphType;
 };
 export declare class Graph {
-    static createNode: ({ name, type, coordinates, icon, }: NodeDetails) => Node;
-    static createConnection: ({ name, source, target, coordinates, }: ConnectionDetails) => Connection;
+    static createNode: ({ name, type, coordinates, icon, }: Omit<Node, "id">) => Node;
+    static createConnection: ({ name, source, target, coordinates, }: Omit<Connection, "id">) => Connection;
     static addNodeMetadata: (node: Node, metadata: NodeMetadata) => Node;
     static updateNode: (node: Node, update: Node) => Node;
     static updateConnection: (connection: Connection, update: Connection) => Connection;
@@ -120,18 +109,15 @@ export declare class Graph {
     updateNodeMetadata: (id: string, metadata: NodeMetadata) => Nodes;
     updateNodeCoordinates: (id: string, coordinates: any) => Node[];
     updateConnectionCoordinates: (id: string, coordinates: any) => Connection[];
-    updateNodeIcon: (id: string, icon: any) => Node[];
-    updateNode: (id: string, update: any) => Node[];
-    updateConnection: (id: string, update: any) => Connection[];
+    updateNodeIcon: (id: string, icon: Icon) => Node[];
+    updateNode: (id: string, update: Node) => Node[];
+    updateConnection: (id: string, update: Connection) => Connection[];
     findNodeById: (id: string) => Node;
     findConnectionById: (id: string) => Connection;
     findNodesByType: (type: NodeType) => Nodes;
-    findNodeByCoordinates: ({ x, y }: {
-        x: any;
-        y: any;
-    }) => Node;
-    translateNode: (id: string, offset: any) => Node[];
-    translateConnection: (id: string, offset: any) => Connection[];
+    findNodeByCoordinates: ({ x, y }: Coordinates) => Node;
+    translateNode: (id: string, offset: Offset) => Node[];
+    translateConnection: (id: string, offset: Offset) => Connection[];
     removeNodeMetadata: (id: string, type: NodeMetadataType) => Node[];
     removeNodeById: (id: string) => Nodes;
     removeConnectionById: (id: string) => Connections;
