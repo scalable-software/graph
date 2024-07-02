@@ -98,7 +98,7 @@ export class Graph {
     createConnections = (qty, details) => Array.from({ length: qty }, () => Graph.createConnection(details));
     addNode = (details) => (this.nodes = [...this.nodes, Graph.createNode(details)]);
     addConnection = (details) => (this.connections = [...this.connections, Graph.createConnection(details)]);
-    addNodes = (newNodes) => (this.nodes = [...this.nodes, ...newNodes]);
+    addNodes = (nodes) => (this.nodes = [...this.nodes, ...nodes]);
     addConnections = (connections) => (this.connections = [...this.connections, ...connections]);
     addNodeMetadata = (id, metadata) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.addNodeMetadata(node, metadata) : node));
     updateNodeMetadata = (id, metadata) => (this.nodes = this.nodes.map((node) => node.id === id ? Graph.updateNodeMetadata(node, metadata) : node));
