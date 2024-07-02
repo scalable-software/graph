@@ -104,7 +104,7 @@ export declare class Graph {
     addNode: (details: any) => Nodes;
     addConnection: (details: any) => Connections;
     addNodes: (newNodes: Nodes) => Nodes;
-    addConnections: (newConnections: Connections) => Connections;
+    addConnections: (connections: Connections) => Connections;
     addNodeMetadata: (id: string, metadata: NodeMetadata) => Nodes;
     updateNodeMetadata: (id: string, metadata: NodeMetadata) => Nodes;
     updateNodeCoordinates: (id: string, coordinates: any) => Node[];
