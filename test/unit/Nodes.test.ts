@@ -39,3 +39,21 @@ describe("Given Nodes instance", () => {
     expect(nodes["_createProxy"]).toBeDefined();
   });
 });
+
+// Instance Methods Behavior
+describe("Given Nodes instance", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
+  describe("when proxy = nodes._createProxy(array)", () => {
+    let proxy;
+    let array = [];
+    beforeEach(() => {
+      proxy = nodes["_createProxy"](array);
+    });
+    it("then proxy is equal to array", () => {
+      expect(proxy).toEqual(array);
+    });
+  });
+});
