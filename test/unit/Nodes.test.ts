@@ -23,7 +23,18 @@ describe("Given Nodes.init() static method exist", () => {
   });
 });
 
-// Instance Members Availability
+// Instance Properties Availability
+describe("Given nodes instance", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
+  it("then nodes._proxy private property exists", () => {
+    expect(nodes["_proxy"]).toBeDefined();
+  });
+});
+
+// Instance Methods Availability
 describe("Given Nodes instance", () => {
   let nodes;
   beforeEach(() => {
