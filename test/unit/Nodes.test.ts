@@ -35,4 +35,7 @@ describe("Given Nodes instance", () => {
   it("then nodes._set exists", () => {
     expect(nodes["_set"]).toBeDefined();
   });
+  it("then nodes._createProxy exists", () => {
+    expect(nodes["_createProxy"]).toBeDefined();
+  });
 });
