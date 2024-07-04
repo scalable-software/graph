@@ -13,4 +13,6 @@ export class Nodes extends EventTarget {
     Reflect.get(target, property, receiver);
   private _set = (target, property, value, receiver) =>
     Reflect.set(target, property, value, receiver);
+
+  private _createProxy = (target) => {};
 }
