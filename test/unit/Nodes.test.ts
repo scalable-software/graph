@@ -34,6 +34,18 @@ describe("Given nodes instance", () => {
   });
 });
 
+// Instance Properties Value
+describe("Given nodes instance", () => {
+  let nodes;
+  let array = [];
+  beforeEach(() => {
+    nodes = Nodes.init(array);
+  });
+  it("then nodes._proxy is an empty array", () => {
+    expect(nodes["_proxy"]).toEqual(array);
+  });
+});
+
 // Instance Methods Availability
 describe("Given nodes instance", () => {
   let nodes;
@@ -63,7 +75,7 @@ describe("Given nodes instance", () => {
     beforeEach(() => {
       proxy = nodes["_createProxy"](array);
     });
-    it("then proxy is equal to array", () => {
+    it("then proxy is equal to an empty array", () => {
       expect(proxy).toEqual(array);
     });
   });
