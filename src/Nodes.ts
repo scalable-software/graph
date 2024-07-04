@@ -1,3 +1,7 @@
 export class Nodes extends EventTarget {
-  public static init = (nodes = []) => new Nodes();
+  public static init = (nodes = []) => new Nodes(nodes);
+
+  constructor(private nodes) {
+    super();
+  }
 }
