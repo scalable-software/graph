@@ -32,4 +32,7 @@ describe("Given Nodes instance", () => {
   it("then nodes._get exists", () => {
     expect(nodes["_get"]).toBeDefined();
   });
+  it("then nodes._set exists", () => {
+    expect(nodes["_set"]).toBeDefined();
+  });
 });
