@@ -9,6 +9,7 @@ export class Nodes extends EventTarget {
    */
   constructor(private nodes) {
     super();
+    this._proxy = this._createProxy(nodes);
   }
 
   private _get = (target, property, receiver) =>
