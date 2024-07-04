@@ -9,3 +9,16 @@ describe("Given Nodes imported", () => {
     expect(Nodes.init).toBeDefined();
   });
 });
+
+// Static Methods Behavior
+describe("Given Nodes.init() static method exist", () => {
+  describe("when nodes = Nodes.init()", () => {
+    let nodes;
+    beforeEach(() => {
+      nodes = Nodes.init();
+    });
+    it("then nodes is an instance of Nodes", () => {
+      expect(nodes instanceof Nodes).toBe(true);
+    });
+  });
+});
