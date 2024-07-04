@@ -22,3 +22,14 @@ describe("Given Nodes.init() static method exist", () => {
     });
   });
 });
+
+// Instance Members Availability
+describe("Given Nodes instance", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
+  it("then nodes._get exists", () => {
+    expect(nodes["_get"]).toBeDefined();
+  });
+});
