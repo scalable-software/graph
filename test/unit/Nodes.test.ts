@@ -35,7 +35,7 @@ describe("Given nodes instance", () => {
 });
 
 // Instance Methods Availability
-describe("Given Nodes instance", () => {
+describe("Given nodes instance", () => {
   let nodes;
   beforeEach(() => {
     nodes = Nodes.init();
@@ -52,7 +52,7 @@ describe("Given Nodes instance", () => {
 });
 
 // Instance Methods Behavior
-describe("Given Nodes instance", () => {
+describe("Given nodes instance", () => {
   let nodes;
   beforeEach(() => {
     nodes = Nodes.init();
