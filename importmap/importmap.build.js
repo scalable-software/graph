@@ -7,6 +7,7 @@ inject(
   {
     imports: {
       "@scalable-software/graph.structure": "../dist/Index.js",
+      "@scalable-software/graph.structure/Nodes": "../dist/Nodes.js",
     },
   },
   "importmap"
