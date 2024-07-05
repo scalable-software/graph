@@ -61,6 +61,9 @@ describe("Given nodes instance", () => {
   it("then nodes._createProxy exists", () => {
     expect(nodes["_createProxy"]).toBeDefined();
   });
+  it("then nodes._getSymbol private method exists", () => {
+    expect(nodes["_getSymbol"]).toBeDefined();
+  });
 });
 
 // Instance Methods Behavior
