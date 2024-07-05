@@ -38,4 +38,6 @@ export class Nodes extends EventTarget {
 
   private _createProxy = (target) =>
     new Proxy(target, { get: this._get, set: this._set });
+
+  private _getSymbol = (target, property, receiver) => {};
 }
