@@ -1,5 +1,5 @@
 export class Nodes extends EventTarget {
-  public static init = (nodes = []) => new Nodes(nodes);
+  public static init = (nodes = []) => new Nodes(nodes)._proxy;
 
   private _proxy = [];
 
@@ -7,7 +7,7 @@ export class Nodes extends EventTarget {
    * The private constructor is used by the static init method: no direct instantiation is allowed.
    * This is done so that a different return value, other than an instance of the class can be returned.
    */
-  constructor(private nodes) {
+  constructor(private nodes = []) {
     super();
     this._proxy = this._createProxy(nodes);
   }
