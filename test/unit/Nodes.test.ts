@@ -18,7 +18,7 @@ describe("Given Nodes.init() static method exist", () => {
       nodes = Nodes.init();
     });
     it("then nodes is an instance of Nodes", () => {
-      expect(nodes instanceof Nodes).toBe(true);
+      expect(nodes instanceof Array).toBe(true);
     });
   });
 });
@@ -27,7 +27,7 @@ describe("Given Nodes.init() static method exist", () => {
 describe("Given nodes instance", () => {
   let nodes;
   beforeEach(() => {
-    nodes = Nodes.init();
+    nodes = new Nodes();
   });
   it("then nodes._proxy private property exists", () => {
     expect(nodes["_proxy"]).toBeDefined();
@@ -37,12 +37,12 @@ describe("Given nodes instance", () => {
 // Instance Properties Value
 describe("Given nodes instance", () => {
   let nodes;
-  let array = [];
+  let data = ["test"];
   beforeEach(() => {
-    nodes = Nodes.init(array);
+    nodes = Nodes.init(data);
   });
-  it("then nodes._proxy is an empty array", () => {
-    expect(nodes["_proxy"]).toEqual(array);
+  it("then nodes is an data", () => {
+    expect(nodes).toEqual(data);
   });
 });
 
@@ -50,7 +50,7 @@ describe("Given nodes instance", () => {
 describe("Given nodes instance", () => {
   let nodes;
   beforeEach(() => {
-    nodes = Nodes.init();
+    nodes = new Nodes();
   });
   it("then nodes._get exists", () => {
     expect(nodes["_get"]).toBeDefined();
@@ -67,7 +67,7 @@ describe("Given nodes instance", () => {
 describe("Given nodes instance", () => {
   let nodes;
   beforeEach(() => {
-    nodes = Nodes.init();
+    nodes = new Nodes();
   });
   describe("when proxy = nodes._createProxy(array)", () => {
     let proxy;
