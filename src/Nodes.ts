@@ -41,4 +41,6 @@ export class Nodes extends EventTarget {
 
   private _getSymbol = (target, property, receiver) =>
     Reflect.get(target, property, receiver);
+
+  private _getIndex = (target, property, receiver) => {};
 }
