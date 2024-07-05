@@ -18,7 +18,7 @@ export class Nodes extends EventTarget {
 
     const index = Number(property);
     const isIndex = Number.isInteger(index);
-    if (isIndex) return Reflect.get(target, property, receiver);
+    if (isIndex) return this._getIndex(target, index, receiver);
 
     const isLength = property === "length";
     if (isLength) return Reflect.get(target, property, receiver);
@@ -42,5 +42,6 @@ export class Nodes extends EventTarget {
   private _getSymbol = (target, property, receiver) =>
     Reflect.get(target, property, receiver);
 
-  private _getIndex = (target, property, receiver) => {};
+  private _getIndex = (target, property, receiver) =>
+    Reflect.get(target, property, receiver);
 }
