@@ -14,6 +14,9 @@ describe("Given Nodes imported", () => {
   it("then Nodes.init exists", () => {
     expect(Nodes.init).toBeDefined();
   });
+  it("then Nodes.addMetadata exists", () => {
+    expect(Nodes.addMetadata).toBeDefined();
+  });
 });
 
 // Static Methods Behavior
