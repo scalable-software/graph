@@ -187,4 +187,7 @@ describe("Given nodes proxy instance", () => {
   it("then nodes.length is equal to 1", () => {
     expect(nodes.length).toEqual(1);
   });
+  it("then nodes[0] is equal to 'test'", () => {
+    expect(nodes[0]).toEqual("test");
+  });
 });
