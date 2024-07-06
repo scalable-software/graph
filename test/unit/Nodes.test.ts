@@ -61,6 +61,9 @@ describe("Given nodes instance", () => {
   it("then nodes._createProxy exists", () => {
     expect(nodes["_createProxy"]).toBeDefined();
   });
+  it("then nodes._getPropertyType exists", () => {
+    expect(nodes["_getPropertyType"]).toBeDefined();
+  });
 });
 
 // Instance Getters Availability
