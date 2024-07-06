@@ -80,6 +80,9 @@ describe("Given nodes instance", () => {
   it("then nodes.create exists", () => {
     expect(nodes.create).toBeDefined();
   });
+  it("then nodes.addMetadata exists", () => {
+    expect(nodes.addMetadata).toBeDefined();
+  });
 });
 
 // Instance Getters Availability
