@@ -468,13 +468,13 @@ describe("Given nodes instance", () => {
     expect(nodes["_getPropertyType"]).toBeDefined();
   });
   it("then nodes.add exists", () => {
-    expect(nodes.add).toBeDefined();
+    expect(nodes["add"]).toBeDefined();
   });
   it("then nodes.addMetadata exists", () => {
-    expect(nodes.addMetadata).toBeDefined();
+    expect(nodes["addMetadata"]).toBeDefined();
   });
   it("then nodes.update exists", () => {
-    expect(nodes.update).toBeDefined();
+    expect(nodes["update"]).toBeDefined();
   });
 });
 
