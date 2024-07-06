@@ -201,4 +201,6 @@ export class Nodes extends EventTarget {
     this.nodes.push(Nodes.create(details)) && this._proxy;
 
   private addMetadata = (id, metadata) => {};
+
+  private update = (id, update) => {};
 }
