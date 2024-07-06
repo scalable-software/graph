@@ -68,10 +68,13 @@ export class Nodes extends EventTarget {
     ...node,
     icon,
   });
-  public static updateCoordinate = (
-    node: Nodes,
+  public static updateCoordinates = (
+    node: Node,
     coordinates: Coordinates
-  ) => {};
+  ): Node => ({
+    ...node,
+    coordinates,
+  });
 
   private _proxy: Node[] = [];
   private _result: boolean = false;
