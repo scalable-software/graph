@@ -318,10 +318,9 @@ describe("Given nodes instance", () => {
     });
   });
   describe("when nodes.add(node)", () => {
-    let node: Node;
+    let node: Omit<Node, "id">;
     beforeEach(() => {
       node = {
-        id: "1",
         name: "Node1",
         type: NodeType.START,
         coordinates: { x: 0, y: 0 },
@@ -330,6 +329,7 @@ describe("Given nodes instance", () => {
       nodes.add(node);
     });
     it("then nodes.nodes is equal to [node]", () => {
+      (node as Node).id = nodes["nodes"][0].id;
       expect(nodes["nodes"]).toEqual([node]);
     });
   });
