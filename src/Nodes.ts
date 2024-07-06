@@ -19,7 +19,7 @@ export class Nodes extends EventTarget {
 
   private _get = (target, property, receiver) => {
     const isSymbol = typeof property === "symbol";
-    if (isSymbol) return this._getSymbol(target, property, receiver);
+    if (isSymbol) return this.symbol(target, property, receiver);
 
     const index = Number(property);
     const isIndex = Number.isInteger(index);
@@ -44,9 +44,6 @@ export class Nodes extends EventTarget {
 
   private _createProxy = (target) =>
     new Proxy(target, { get: this._get, set: this._set });
-
-  private _getSymbol = (target, property, receiver) =>
-    Reflect.get(target, property, receiver);
 
   private _getIndex = (target, property, receiver) =>
     Reflect.get(target, property, receiver);
