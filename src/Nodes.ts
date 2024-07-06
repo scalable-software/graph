@@ -64,23 +64,28 @@ export class Nodes extends EventTarget {
     coordinates: details.coordinates,
     icon: details.icon,
   });
+
   public static addMetadata = (node: Node, metadata: NodeMetadata): Node => ({
     ...node,
     metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
   });
+
   public static update = (node: Node, update: Node): Node => ({
     ...update,
     id: node.id,
   });
+
   public static updateMetadata = (node: Node, metadata: NodeMetadata): Node => {
     let key = Object.keys(metadata)[0];
     node.metadata = node.metadata.map((node) => (node[key] ? metadata : node));
     return node;
   };
+
   public static updateIcon = (node: Node, icon: Icon): Node => ({
     ...node,
     icon,
   });
+
   public static updateCoordinates = (
     node: Node,
     coordinates: Coordinates
@@ -88,6 +93,7 @@ export class Nodes extends EventTarget {
     ...node,
     coordinates,
   });
+
   public static translate = (node: Node, offset: any) => {
     node.coordinates = {
       x: node.coordinates.x + offset.x,
@@ -95,6 +101,7 @@ export class Nodes extends EventTarget {
     };
     return node;
   };
+
   public static removeMetadata = (node: Node, type: NodeMetadataType): Node => {
     node.metadata = node.metadata.filter(
       (metadata) => metadata[type] === undefined
