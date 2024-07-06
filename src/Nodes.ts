@@ -211,4 +211,6 @@ export class Nodes extends EventTarget {
   private updateCoordinates = (id, coordinates) => {};
 
   private findById = (id) => {};
+
+  private findByType = (type) => {};
 }
