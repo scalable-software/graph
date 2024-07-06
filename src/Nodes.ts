@@ -22,6 +22,11 @@ export class Nodes extends EventTarget {
       Reflect.get(target, property, receiver);
   }
 
+  private get length() {
+    return (target, property, receiver) =>
+      Reflect.get(target, property, receiver);
+  }
+
   private _get = (target, property, receiver) => {
     const isSymbol = typeof property === "symbol";
     if (isSymbol) return this.symbol(target, property, receiver);
