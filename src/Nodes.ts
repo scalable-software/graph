@@ -1,5 +1,10 @@
 import { type UUID, Utilities } from "./Utilities/Utilities.js";
 
+export type Offset = {
+  x: number;
+  y: number;
+};
+
 export const NodeType = {
   START: "start",
   WORKFLOW: "workflow",
@@ -75,6 +80,7 @@ export class Nodes extends EventTarget {
     ...node,
     coordinates,
   });
+  public static translate = (node: Node, offset: Offset) => {};
 
   private _proxy: Node[] = [];
   private _result: boolean = false;
