@@ -46,6 +46,14 @@ export type Node = {
   metadata?: NodeMetadata[];
 };
 
+export const NodeMetadataType = {
+  ARRIVAL: "arrival",
+  DURATION: "duration",
+  PREVALENCE: "prevalence",
+} as const;
+export type NodeMetadataType =
+  (typeof NodeMetadataType)[keyof typeof NodeMetadataType];
+
 export class Nodes extends EventTarget {
   public static init = (nodes: Node[] = []): Node[] => new Nodes(nodes)._proxy;
 
@@ -87,6 +95,7 @@ export class Nodes extends EventTarget {
     };
     return node;
   };
+  public static removeMetadata = (node: Node, type: NodeMetadataType) => {};
 
   private _proxy: Node[] = [];
   private _result: boolean = false;
