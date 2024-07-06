@@ -84,6 +84,9 @@ describe("Given nodes instance", () => {
   it("then nodes.index private getter exists", () => {
     expect(nodes["index"]).toBeDefined();
   });
+  it("then nodes.length private getter exists", () => {
+    expect(nodes["length"]).toBeDefined();
+  });
 });
 
 // Instance Methods Behavior
