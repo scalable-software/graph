@@ -173,3 +173,15 @@ describe("Given nodes proxy instance", () => {
     expect(nodes.length).toBeDefined();
   });
 });
+
+// Proxy Property Value
+describe("Given nodes proxy instance", () => {
+  let nodes;
+  let data = ["test"];
+  beforeEach(() => {
+    nodes = Nodes.init(data);
+  });
+  it("then nodes.length is equal to 1", () => {
+    expect(nodes.length).toEqual(1);
+  });
+});
