@@ -64,6 +64,7 @@ export class Nodes extends EventTarget {
     node.metadata = node.metadata.map((node) => (node[key] ? metadata : node));
     return node;
   };
+  public static updateIcon = (node: Node, icon: Icon) => {};
 
   private _proxy: Node[] = [];
   private _result: boolean = false;
