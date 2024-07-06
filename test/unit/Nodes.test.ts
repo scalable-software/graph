@@ -167,10 +167,13 @@ describe("Given nodes instance", () => {
 describe("Given nodes proxy instance", () => {
   let nodes;
   beforeEach(() => {
-    nodes = Nodes.init();
+    nodes = Nodes.init(["test"]);
   });
   it("then nodes.length exists", () => {
     expect(nodes.length).toBeDefined();
+  });
+  it("then nodes[0] exists", () => {
+    expect(nodes[0]).toBeDefined();
   });
 });
 
