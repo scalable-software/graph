@@ -166,8 +166,9 @@ describe("Given nodes instance", () => {
 // Proxy Property Availability
 describe("Given nodes proxy instance", () => {
   let nodes;
+  const symbol = Symbol("test");
   beforeEach(() => {
-    nodes = Nodes.init(["test"]);
+    nodes = Nodes.init([symbol]);
   });
   it("then nodes.length exists", () => {
     expect(nodes.length).toBeDefined();
@@ -175,19 +176,77 @@ describe("Given nodes proxy instance", () => {
   it("then nodes[0] exists", () => {
     expect(nodes[0]).toBeDefined();
   });
+  it("then nodes[0]  is typeof symbol", () => {
+    expect(typeof nodes[0]).toEqual("symbol");
+  });
 });
 
 // Proxy Property Value
 describe("Given nodes proxy instance", () => {
   let nodes;
-  let data = ["test"];
   beforeEach(() => {
-    nodes = Nodes.init(data);
+    nodes = Nodes.init();
   });
   it("then nodes.length is equal to 1", () => {
-    expect(nodes.length).toEqual(1);
+    expect(nodes.length).toEqual(0);
   });
-  it("then nodes[0] is equal to 'test'", () => {
-    expect(nodes[0]).toEqual("test");
+});
+describe("Given element of type symbol", () => {
+  const symbol = Symbol("test");
+  const value = "value";
+  describe("when nodes proxy instance", () => {
+    let nodes;
+    beforeEach(() => {
+      nodes = Nodes.init();
+      nodes[symbol] = value;
+    });
+    it("then nodes[symbol] is equal to value", () => {
+      expect(nodes[symbol]).toEqual(value);
+    });
+  });
+});
+describe("Given element of type index", () => {
+  const index = 0;
+  const value = "value";
+  describe("when nodes proxy instance", () => {
+    let nodes;
+    beforeEach(() => {
+      nodes = Nodes.init();
+      nodes[index] = value;
+    });
+    it("then nodes[index] is equal to value", () => {
+      expect(nodes[index]).toEqual(value);
+    });
+  });
+});
+describe("Given element of type function", () => {
+  const property = "method";
+  const value = () => {};
+  describe("when nodes proxy instance", () => {
+    let nodes;
+    beforeEach(() => {
+      nodes = Nodes.init();
+      nodes[property] = value;
+    });
+    it("then nodes[property] is equal to value", () => {
+      expect(nodes[property]).toEqual(value);
+    });
+    it("then nodes[property] is a function", () => {
+      expect(typeof nodes[property]).toEqual("function");
+    });
+  });
+});
+describe("Given element of type property", () => {
+  const property = "property";
+  const value = "value";
+  describe("when nodes proxy instance", () => {
+    let nodes;
+    beforeEach(() => {
+      nodes = Nodes.init();
+      nodes[property] = value;
+    });
+    it("then nodes[property] is equal to value", () => {
+      expect(nodes[property]).toEqual(value);
+    });
   });
 });
