@@ -193,8 +193,8 @@ describe("Given nodes instance", () => {
   it("then nodes._getPropertyType exists", () => {
     expect(nodes["_getPropertyType"]).toBeDefined();
   });
-  it("then nodes.create exists", () => {
-    expect(nodes.create).toBeDefined();
+  it("then nodes.add exists", () => {
+    expect(nodes.add).toBeDefined();
   });
   it("then nodes.addMetadata exists", () => {
     expect(nodes.addMetadata).toBeDefined();
@@ -317,7 +317,7 @@ describe("Given nodes instance", () => {
       });
     });
   });
-  describe("when nodes.create(node)", () => {
+  describe("when nodes.add(node)", () => {
     let node: Node;
     beforeEach(() => {
       node = {
@@ -327,7 +327,7 @@ describe("Given nodes instance", () => {
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
-      nodes.create(node);
+      nodes.add(node);
     });
     it("then nodes.nodes is equal to [node]", () => {
       expect(nodes["nodes"]).toEqual([node]);
@@ -411,8 +411,8 @@ describe("Given nodes proxy instance", () => {
   beforeEach(() => {
     nodes = Nodes.init();
   });
-  it("then nodes.create exists", () => {
-    expect(nodes.create).toBeDefined();
+  it("then nodes.add exists", () => {
+    expect(nodes.add).toBeDefined();
   });
 });
 
@@ -422,7 +422,7 @@ describe("Given nodes proxy instance", () => {
   beforeEach(() => {
     nodes = Nodes.init();
   });
-  describe("when nodes.create(node)", () => {
+  describe("when nodes.add(node)", () => {
     let node: Omit<Node, "id">;
     beforeEach(() => {
       node = {
@@ -431,7 +431,7 @@ describe("Given nodes proxy instance", () => {
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
-      nodes.create(node);
+      nodes.add(node);
     });
     it("then node is added to nodes", () => {
       delete nodes[0].id;
