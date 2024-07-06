@@ -80,7 +80,13 @@ export class Nodes extends EventTarget {
     ...node,
     coordinates,
   });
-  public static translate = (node: Node, offset: Offset) => {};
+  public static translate = (node: Node, offset: any) => {
+    node.coordinates = {
+      x: node.coordinates.x + offset.x,
+      y: node.coordinates.y + offset.y,
+    };
+    return node;
+  };
 
   private _proxy: Node[] = [];
   private _result: boolean = false;
