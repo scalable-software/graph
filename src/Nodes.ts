@@ -49,7 +49,7 @@ export class Nodes extends EventTarget {
     if (isLength) return this.length(target, property, receiver);
 
     const isMethod = typeof target[property] === "function";
-    if (isMethod) return this._getMethod(target, property, receiver);
+    if (isMethod) return this.method(target, property, receiver);
 
     const isProperty =
       typeof property === "string" && !(typeof target[property] === "function");
@@ -64,7 +64,4 @@ export class Nodes extends EventTarget {
 
   private _createProxy = (target) =>
     new Proxy(target, { get: this._get, set: this._set });
-
-  private _getMethod = (target, property, receiver) =>
-    Reflect.get(target, property, receiver);
 }
