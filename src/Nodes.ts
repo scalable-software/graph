@@ -203,4 +203,6 @@ export class Nodes extends EventTarget {
   private addMetadata = (id, metadata) => {};
 
   private update = (id, update) => {};
+
+  private updateMetadata = (id, metadata) => {};
 }
