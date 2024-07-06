@@ -1,4 +1,8 @@
-import { Nodes } from "@scalable-software/graph.structure/Nodes";
+import {
+  Nodes,
+  NodeType,
+  Node,
+} from "@scalable-software/graph.structure/Nodes";
 
 import { Utilities } from "./Utilities.js";
 
@@ -39,12 +43,19 @@ describe("Given nodes instance", () => {
 // Instance Properties Value
 describe("Given nodes instance", () => {
   let nodes;
-  let data = ["test"];
+  let node: Node;
   beforeEach(() => {
-    nodes = Nodes.init(data);
+    node = {
+      id: "1",
+      name: "Node1",
+      type: NodeType.START,
+      coordinates: { x: 0, y: 0 },
+      icon: "./icon.svg",
+    };
+    nodes = Nodes.init([node]);
   });
   it("then nodes is an data", () => {
-    expect(nodes).toEqual(data);
+    expect(nodes).toEqual([node]);
   });
 });
 
@@ -182,24 +193,6 @@ describe("Given nodes instance", () => {
     it("then property is equal to 'method'", () => {
       expect(property).toEqual("method");
     });
-  });
-});
-
-// Proxy Property Availability
-describe("Given nodes proxy instance", () => {
-  let nodes;
-  const symbol = Symbol("test");
-  beforeEach(() => {
-    nodes = Nodes.init([symbol]);
-  });
-  it("then nodes.length exists", () => {
-    expect(nodes.length).toBeDefined();
-  });
-  it("then nodes[0] exists", () => {
-    expect(nodes[0]).toBeDefined();
-  });
-  it("then nodes[0]  is typeof symbol", () => {
-    expect(typeof nodes[0]).toEqual("symbol");
   });
 });
 

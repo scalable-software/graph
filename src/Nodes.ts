@@ -41,17 +41,17 @@ export type Node = {
   metadata?: NodeMetadata[];
 };
 
-export class Nodes extends EventTarget {
-  public static init = (nodes = []) => new Nodes(nodes)._proxy;
+export class Nodes<T> extends EventTarget {
+  public static init = (nodes: Node[] = []): Node[] => new Nodes(nodes)._proxy;
 
-  private _proxy = [];
+  private _proxy: T[] = [];
   private _result: boolean = false;
 
   /**
    * The private constructor is used by the static init method: no direct instantiation is allowed.
    * This is done so that a different return value, other than an instance of the class can be returned.
    */
-  constructor(private nodes = []) {
+  constructor(private nodes: T[] = []) {
     super();
     this._proxy = this._createProxy(nodes);
   }
@@ -115,7 +115,7 @@ export class Nodes extends EventTarget {
       receiver,
     }) && this._result;
 
-  private _createProxy = (target) =>
+  private _createProxy = (target: T[]): T[] =>
     new Proxy(target, { get: this._get, set: this._set });
 
   private _getPropertyType = (property, target) =>
