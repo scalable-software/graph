@@ -265,7 +265,7 @@ describe("Given Nodes.updateMetadata() static method exist", () => {
     });
   });
 });
-describe("Given Graph.updateIcon() static method exist", () => {
+describe("Given Nodes.updateIcon() static method exist", () => {
   describe("and node exist", () => {
     let node: Node;
     beforeEach(() => {
