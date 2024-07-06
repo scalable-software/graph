@@ -207,4 +207,6 @@ export class Nodes extends EventTarget {
   private updateMetadata = (id, metadata) => {};
 
   private updateIcon = (id, icon) => {};
+
+  private updateCoordinates = (id, coordinates) => {};
 }
