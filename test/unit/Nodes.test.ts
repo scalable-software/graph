@@ -482,6 +482,9 @@ describe("Given nodes instance", () => {
   it("then nodes.updateIcon exists", () => {
     expect(nodes["updateIcon"]).toBeDefined();
   });
+  it("then nodes.updateCoordinates exists", () => {
+    expect(nodes["updateCoordinates"]).toBeDefined();
+  });
 });
 
 // Instance Getters Availability
