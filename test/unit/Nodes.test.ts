@@ -144,57 +144,58 @@ describe("Given nodes instance", () => {
       expect(proxy).toEqual(array);
     });
   });
-  describe("when property = nodes._getPropertyType(symbol, target)", () => {
-    let property;
-    let symbol = Symbol("test");
-    let target = [];
+  describe("when property = nodes._getPropertyType(property, target)", () => {
+    let target;
     beforeEach(() => {
-      property = nodes["_getPropertyType"](symbol, target);
+      target = [];
     });
-    it("then property is equal to 'symbol'", () => {
-      expect(property).toEqual("symbol");
+    describe("and property is a symbol", () => {
+      let property;
+      let symbol = Symbol("test");
+      beforeEach(() => {
+        property = nodes["_getPropertyType"](symbol, target);
+      });
+      it("then property is equal to 'symbol'", () => {
+        expect(property).toEqual("symbol");
+      });
     });
-  });
-  describe("when property = nodes._getPropertyType(index, target)", () => {
-    let property;
-    let index = 0;
-    let target = [];
-    beforeEach(() => {
-      property = nodes["_getPropertyType"](index, target);
+    describe("and property is an index", () => {
+      let property;
+      let index = 0;
+      beforeEach(() => {
+        property = nodes["_getPropertyType"](index, target);
+      });
+      it("then property is equal to 'index'", () => {
+        expect(property).toEqual("index");
+      });
     });
-    it("then property is equal to 'index'", () => {
-      expect(property).toEqual("index");
+    describe("and property is length", () => {
+      let property;
+      beforeEach(() => {
+        property = nodes["_getPropertyType"]("length", target);
+      });
+      it("then property is equal to 'length'", () => {
+        expect(property).toEqual("length");
+      });
     });
-  });
-  describe("when property = nodes._getPropertyType('length', target)", () => {
-    let property;
-    let target = [];
-    beforeEach(() => {
-      property = nodes["_getPropertyType"]("length", target);
+    describe("and property is property", () => {
+      let property;
+      beforeEach(() => {
+        property = nodes["_getPropertyType"]("property", target);
+      });
+      it("then property is equal to 'property'", () => {
+        expect(property).toEqual("property");
+      });
     });
-    it("then property is equal to 'length'", () => {
-      expect(property).toEqual("length");
-    });
-  });
-  describe("when property = nodes._getPropertyType('property', target)", () => {
-    let property;
-    let target = [];
-    beforeEach(() => {
-      property = nodes["_getPropertyType"]("property", target);
-    });
-    it("then property is equal to 'property'", () => {
-      expect(property).toEqual("property");
-    });
-  });
-  describe("when property = nodes._getPropertyType('method', target)", () => {
-    let property;
-    let target = [];
-    beforeEach(() => {
-      target["method"] = () => {};
-      property = nodes["_getPropertyType"]("method", target);
-    });
-    it("then property is equal to 'method'", () => {
-      expect(property).toEqual("method");
+    describe("and property is method", () => {
+      let property;
+      beforeEach(() => {
+        target["method"] = () => {};
+        property = nodes["_getPropertyType"]("method", target);
+      });
+      it("then property is equal to 'method'", () => {
+        expect(property).toEqual("method");
+      });
     });
   });
 });
