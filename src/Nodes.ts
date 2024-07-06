@@ -131,4 +131,6 @@ export class Nodes<T> extends EventTarget {
         !(typeof target[property] === "function")
       ? "property"
       : "default";
+
+  private create = (details: Omit<T, "id">) => {};
 }
