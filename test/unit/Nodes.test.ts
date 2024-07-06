@@ -198,6 +198,22 @@ describe("Given nodes instance", () => {
       });
     });
   });
+  describe("when nodes.create(node)", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.create(node);
+    });
+    it("then nodes.nodes is equal to [node]", () => {
+      expect(nodes["nodes"]).toEqual([node]);
+    });
+  });
 });
 
 // Proxy Property Value
