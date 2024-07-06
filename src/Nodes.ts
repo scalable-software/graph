@@ -219,4 +219,6 @@ export class Nodes extends EventTarget {
   private translate = (id, offset) => {};
 
   private removeMetadata = (id, type) => {};
+
+  private remove = (id) => {};
 }
