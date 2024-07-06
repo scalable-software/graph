@@ -476,7 +476,7 @@ describe("Given Graph.updateNodeCoordinates static method exist", () => {
     });
   });
 });
-describe("Given Graph.translate static method exist", () => {
+describe("Given Graph.translateNode static method exist", () => {
   describe("and node exist", () => {
     let node: Node;
     beforeEach(() => {
