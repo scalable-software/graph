@@ -65,5 +65,17 @@ export class Nodes extends EventTarget {
   private _createProxy = (target) =>
     new Proxy(target, { get: this._get, set: this._set });
 
-  private _getPropertyType = (property) => {};
+  private _getPropertyType = (property, target) =>
+    typeof property === "symbol"
+      ? "symbol"
+      : Number.isInteger(Number(property))
+      ? "index"
+      : property === "length"
+      ? "length"
+      : typeof target[property] === "function"
+      ? "method"
+      : typeof property === "string" &&
+        !(typeof target[property] === "function")
+      ? "property"
+      : "unknown";
 }
