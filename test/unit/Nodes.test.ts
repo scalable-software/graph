@@ -1,5 +1,7 @@
 import { Nodes } from "@scalable-software/graph.structure/Nodes";
 
+import { Utilities } from "./Utilities.js";
+
 // Static Members Availability
 describe("Given Nodes imported", () => {
   it("then Nodes exist", () => {
@@ -89,6 +91,18 @@ describe("Given nodes instance", () => {
   });
   it("then nodes.default private getter exists", () => {
     expect(nodes["default"]).toBeDefined();
+  });
+});
+
+// Instance Setters Availability
+describe("Given nodes instance", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  it("then nodes.property private setter exists", () => {
+    Utilities.hasSetter(nodes, "property");
+    expect(Utilities.hasSetter(nodes, "property")).toEqual(true);
   });
 });
 
