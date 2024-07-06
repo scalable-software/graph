@@ -1,4 +1,4 @@
-export class Utilities {
+export class Helper {
   public static hasSetter = (obj, propName) => {
     while (obj) {
       let descriptor = Object.getOwnPropertyDescriptor(obj, propName);

@@ -4,7 +4,7 @@ import {
   Node,
 } from "@scalable-software/graph.structure/Nodes";
 
-import { Utilities } from "./Utilities.js";
+import { Helper } from "./Helper.js";
 
 // Static Members Availability
 describe("Given Nodes imported", () => {
@@ -115,16 +115,16 @@ describe("Given nodes instance", () => {
     nodes = new Nodes();
   });
   it("then nodes.property private setter exists", () => {
-    Utilities.hasSetter(nodes, "property");
-    expect(Utilities.hasSetter(nodes, "property")).toEqual(true);
+    Helper.hasSetter(nodes, "property");
+    expect(Helper.hasSetter(nodes, "property")).toEqual(true);
   });
   it("then nodes.symbol private setter exists", () => {
-    Utilities.hasSetter(nodes, "symbol");
-    expect(Utilities.hasSetter(nodes, "symbol")).toEqual(true);
+    Helper.hasSetter(nodes, "symbol");
+    expect(Helper.hasSetter(nodes, "symbol")).toEqual(true);
   });
   it("then nodes.index private setter exists", () => {
-    Utilities.hasSetter(nodes, "index");
-    expect(Utilities.hasSetter(nodes, "index")).toEqual(true);
+    Helper.hasSetter(nodes, "index");
+    expect(Helper.hasSetter(nodes, "index")).toEqual(true);
   });
 });
 
