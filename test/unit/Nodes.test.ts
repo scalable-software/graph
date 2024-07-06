@@ -491,6 +491,9 @@ describe("Given nodes instance", () => {
   it("then nodes.findByType exists", () => {
     expect(nodes["findByType"]).toBeDefined();
   });
+  it("then nodes.findByCoordinates exists", () => {
+    expect(nodes["findByCoordinates"]).toBeDefined();
+  });
 });
 
 // Instance Getters Availability
