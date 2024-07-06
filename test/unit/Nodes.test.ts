@@ -67,6 +67,9 @@ describe("Given nodes instance", () => {
   it("then nodes._getIndex private method exists", () => {
     expect(nodes["_getIndex"]).toBeDefined();
   });
+  it("then nodes._getLength private method exists", () => {
+    expect(nodes["_getLength"]).toBeDefined();
+  });
 });
 
 // Instance Methods Behavior
