@@ -2,7 +2,10 @@ import {
   Nodes,
   NodeType,
   Node,
+  NodeMetadata,
 } from "@scalable-software/graph.structure/Nodes";
+
+import { Utilities } from "@scalable-software/graph.structure";
 
 import { Helper } from "./Helper.js";
 
@@ -28,6 +31,68 @@ describe("Given Nodes.init() static method exist", () => {
     });
     it("then nodes is an instance of Nodes", () => {
       expect(nodes instanceof Array).toBe(true);
+    });
+  });
+});
+describe("Given Nodes.addMetadata() static method exist", () => {
+  describe("when extendedNode = Nodes.addMetadata(node, metadata)", () => {
+    let node: Node;
+    let metadata: NodeMetadata;
+    let extendedNode;
+    beforeEach(() => {
+      node = {
+        id: Utilities.uuid,
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeType),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      metadata = {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 1 }],
+        },
+      };
+      extendedNode = Nodes.addMetadata(node, metadata);
+    });
+    it("then extendedNode exist", () => {
+      expect(extendedNode).toBeDefined();
+    });
+    it("then extendedNode.id exist", () => {
+      expect(extendedNode.id).toBeDefined();
+    });
+    it("then extendedNode.name exist", () => {
+      expect(extendedNode.name).toBeDefined();
+    });
+    it("then extendedNode.type exist", () => {
+      expect(extendedNode.type).toBeDefined();
+    });
+    it("then extendedNode.coordinates exist", () => {
+      expect(extendedNode.coordinates).toBeDefined();
+    });
+    it("then extendedNode.icon exist", () => {
+      expect(extendedNode.icon).toBeDefined();
+    });
+    it("then extendedNode.metadata exist", () => {
+      expect(extendedNode.metadata).toBeDefined();
+    });
+    it("then extendedNode.id equals node.id", () => {
+      expect(extendedNode.id).toEqual(node.id);
+    });
+    it("then extendedNode.name equals node.name", () => {
+      expect(extendedNode.name).toEqual(node.name);
+    });
+    it("then extendedNode.type equals node.type", () => {
+      expect(extendedNode.type).toEqual(node.type);
+    });
+    it("then extendedNode.coordinates equals node.coordinates", () => {
+      expect(extendedNode.coordinates).toEqual(node.coordinates);
+    });
+    it("then extendedNode.icon equals node.icon", () => {
+      expect(extendedNode.icon).toEqual(node.icon);
+    });
+    it("then result.metadata equals metadata", () => {
+      expect(extendedNode.metadata[0]).toEqual(metadata);
     });
   });
 });
