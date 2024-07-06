@@ -285,3 +285,53 @@ describe("Given element of type property", () => {
     });
   });
 });
+
+// Proxy Method Availability
+describe("Given nodes proxy instance", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
+  it("then nodes.create exists", () => {
+    expect(nodes.create).toBeDefined();
+  });
+});
+
+// Proxy Method Behavior
+describe("Given nodes proxy instance", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
+  describe("when nodes.create(node)", () => {
+    let node: Omit<Node, "id">;
+    beforeEach(() => {
+      node = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.create(node);
+    });
+    it("then node is added to nodes", () => {
+      delete nodes[0].id;
+      expect(nodes).toEqual([node]);
+    });
+    it("then node in nodes has id", () => {
+      expect(nodes[0].id).toBeDefined();
+    });
+    it("then node in nodes has name", () => {
+      expect(nodes[0].name).toEqual(node.name);
+    });
+    it("then node in nodes has type", () => {
+      expect(nodes[0].type).toEqual(node.type);
+    });
+    it("then node in nodes has coordinates", () => {
+      expect(nodes[0].coordinates).toEqual(node.coordinates);
+    });
+    it("then node in nodes has icon", () => {
+      expect(nodes[0].icon).toEqual(node.icon);
+    });
+  });
+});
