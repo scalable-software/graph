@@ -147,6 +147,44 @@ describe("Given Nodes.addMetadata() static method exist", () => {
     });
   });
 });
+describe("Given Nodes.update static method exist", () => {
+  describe("and node exist", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        name: "Node",
+        type: "workflow",
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+    });
+    describe("when updatedNode = Node.update(node, update)", () => {
+      let update;
+      beforeEach(() => {
+        update = {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          name: "Triage",
+          type: "workflow",
+          coordinates: { x: 100, y: 400 },
+          icon: "icon.svg",
+          metadata: [
+            {
+              duration: {
+                distribution: "log normal",
+                parameters: [{ meanlog: 0.1640238 }, { sdlog: 0.4169375 }],
+              },
+            },
+          ],
+        };
+        node = Nodes.update(node, update);
+      });
+      it("then node icon is updated", () => {
+        expect(node).toEqual(update);
+      });
+    });
+  });
+});
 
 // Instance Properties Availability
 describe("Given nodes instance", () => {
