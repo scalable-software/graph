@@ -95,7 +95,12 @@ export class Nodes extends EventTarget {
     };
     return node;
   };
-  public static removeMetadata = (node: Node, type: NodeMetadataType) => {};
+  public static removeMetadata = (node: Node, type: NodeMetadataType): Node => {
+    node.metadata = node.metadata.filter(
+      (metadata) => metadata[type] === undefined
+    );
+    return node;
+  };
 
   private _proxy: Node[] = [];
   private _result: boolean = false;
