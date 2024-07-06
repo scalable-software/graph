@@ -145,7 +145,7 @@ describe("Given Graph.createConnection static method exist", () => {
   });
 });
 describe("Given Graph.addNodeMetadata static method exist", () => {
-  describe("when extendedNode = Graph.extend(node, metadata)", () => {
+  describe("when extendedNode = Graph.addNodeMetadata(node, metadata)", () => {
     let node: Node;
     let metadata: NodeMetadata;
     let extendedNode: Node;
