@@ -1,4 +1,4 @@
-import { UUID } from "./Utilities/Utilities.js";
+import { type UUID, Utilities } from "./Utilities/Utilities.js";
 
 export const NodeType = {
   START: "start",
