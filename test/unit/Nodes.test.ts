@@ -78,6 +78,17 @@ describe("Given nodes instance", () => {
   });
 });
 
+// Instance Getters Availability
+describe("Given nodes instance", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  it("then nodes.symbol private getter exists", () => {
+    expect(nodes["symbol"]).toBeDefined();
+  });
+});
+
 // Instance Methods Behavior
 describe("Given nodes instance", () => {
   let nodes;
