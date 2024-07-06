@@ -77,6 +77,9 @@ describe("Given nodes instance", () => {
   it("then nodes._getPropertyType exists", () => {
     expect(nodes["_getPropertyType"]).toBeDefined();
   });
+  it("then nodes.create exists", () => {
+    expect(nodes.create).toBeDefined();
+  });
 });
 
 // Instance Getters Availability
