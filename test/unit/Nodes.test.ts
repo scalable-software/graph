@@ -162,3 +162,14 @@ describe("Given nodes instance", () => {
     });
   });
 });
+
+// Proxy Property Availability
+describe("Given nodes proxy instance", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
+  it("then nodes.length exists", () => {
+    expect(nodes.length).toBeDefined();
+  });
+});
