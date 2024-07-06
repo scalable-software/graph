@@ -42,27 +42,8 @@ export class Nodes extends EventTarget {
       Reflect.get(target, property, receiver);
   }
 
-  private _get = (target, property, receiver) => {
-    const isSymbol = typeof property === "symbol";
-    if (isSymbol) return this.symbol(target, property, receiver);
-
-    const index = Number(property);
-    const isIndex = Number.isInteger(index);
-    if (isIndex) return this.index(target, property, receiver);
-
-    const isLength = property === "length";
-    if (isLength) return this.length(target, property, receiver);
-
-    const isMethod = typeof target[property] === "function";
-    if (isMethod) return this.method(target, property, receiver);
-
-    const isProperty =
-      typeof property === "string" && !(typeof target[property] === "function");
-
-    if (isProperty) return this.property(target, property, receiver);
-
-    return Reflect.get(target, property, receiver);
-  };
+  private _get = (target, property, receiver) =>
+    this[this._getPropertyType(property, target)](target, property, receiver);
 
   private _set = (target, property, value, receiver) =>
     Reflect.set(target, property, value, receiver);
