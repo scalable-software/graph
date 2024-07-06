@@ -27,6 +27,11 @@ export class Nodes extends EventTarget {
       Reflect.get(target, property, receiver);
   }
 
+  private get property() {
+    return (target, property, receiver) =>
+      Reflect.get(target, property, receiver);
+  }
+
   private _get = (target, property, receiver) => {
     const isSymbol = typeof property === "symbol";
     if (isSymbol) return this.symbol(target, property, receiver);
@@ -44,7 +49,7 @@ export class Nodes extends EventTarget {
     const isProperty =
       typeof property === "string" && !(typeof target[property] === "function");
 
-    if (isProperty) return this._getProperty(target, property, receiver);
+    if (isProperty) return this.property(target, property, receiver);
 
     return Reflect.get(target, property, receiver);
   };
@@ -54,9 +59,6 @@ export class Nodes extends EventTarget {
 
   private _createProxy = (target) =>
     new Proxy(target, { get: this._get, set: this._set });
-
-  private _getProperty = (target, property, receiver) =>
-    Reflect.get(target, property, receiver);
 
   private _getMethod = (target, property, receiver) =>
     Reflect.get(target, property, receiver);
