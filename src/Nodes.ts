@@ -12,6 +12,11 @@ export class Nodes extends EventTarget {
     this._proxy = this._createProxy(nodes);
   }
 
+  private get symbol() {
+    return (target, property, receiver) =>
+      Reflect.get(target, property, receiver);
+  }
+
   private _get = (target, property, receiver) => {
     const isSymbol = typeof property === "symbol";
     if (isSymbol) return this._getSymbol(target, property, receiver);
