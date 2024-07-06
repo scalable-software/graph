@@ -28,7 +28,7 @@ export class Nodes extends EventTarget {
 
     const index = Number(property);
     const isIndex = Number.isInteger(index);
-    if (isIndex) return this._getIndex(target, index, receiver);
+    if (isIndex) return this.index(target, property, receiver);
 
     const isLength = property === "length";
     if (isLength) return this._getLength(target, property, receiver);
