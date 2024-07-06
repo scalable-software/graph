@@ -31,6 +31,9 @@ export class Nodes extends EventTarget {
     return (target, property, receiver) =>
       Reflect.get(target, property, receiver);
   }
+  private set property({ target, property, value, receiver }: any) {
+    Reflect.set(target, property, value, receiver);
+  }
 
   private get method() {
     return (target, property, receiver) =>
@@ -45,8 +48,11 @@ export class Nodes extends EventTarget {
   private _get = (target, property, receiver) =>
     this[this._getPropertyType(property, target)](target, property, receiver);
 
-  private _set = (target, property, value, receiver) =>
-    Reflect.set(target, property, value, receiver);
+  private _set = (target, property, value, receiver) => {
+    const type = this._getPropertyType(property, target);
+    console.log(`${type}`);
+    return Reflect.set(target, property, value, receiver);
+  };
 
   private _createProxy = (target) =>
     new Proxy(target, { get: this._get, set: this._set });
