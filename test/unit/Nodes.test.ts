@@ -188,6 +188,80 @@ describe("Given Nodes.update() static method exist", () => {
     });
   });
 });
+describe("Given Nodes.updateMetadata() static method exist", () => {
+  describe("and node with metadata exist", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        name: "Node",
+        type: "workflow",
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+        metadata: [
+          {
+            arrival: {
+              distribution: "exponential",
+              parameters: [{ rate: 5 }],
+            },
+          },
+        ],
+      };
+    });
+    describe("when updatedNode = Node.updateMetadata(node, metadata)", () => {
+      let metadata: NodeMetadata;
+      let updatedNode: Node;
+      beforeEach(() => {
+        metadata = {
+          arrival: {
+            distribution: "exponential",
+            parameters: [{ rate: 10 }],
+          },
+        };
+        updatedNode = Nodes.updateMetadata(node, metadata);
+      });
+      it("then updatedNode exist", () => {
+        expect(updatedNode).toBeDefined();
+      });
+      it("then updatedNode.id exist", () => {
+        expect(updatedNode.id).toBeDefined();
+      });
+      it("then updatedNode.name exist", () => {
+        expect(updatedNode.name).toBeDefined();
+      });
+      it("then updatedNode.type exist", () => {
+        expect(updatedNode.type).toBeDefined();
+      });
+      it("then updatedNode.coordinates exist", () => {
+        expect(updatedNode.coordinates).toBeDefined();
+      });
+      it("then updatedNode.icon exist", () => {
+        expect(updatedNode.icon).toBeDefined();
+      });
+      it("then updatedNode.metadata exist", () => {
+        expect(updatedNode.metadata).toBeDefined();
+      });
+      it("then updatedNode.id equals node.id", () => {
+        expect(updatedNode.id).toEqual(node.id);
+      });
+      it("then updatedNode.name equals node.name", () => {
+        expect(updatedNode.name).toEqual(node.name);
+      });
+      it("then extendedNode.type equals node.type", () => {
+        expect(updatedNode.type).toEqual(node.type);
+      });
+      it("then extendedNode.coordinates equals node.coordinates", () => {
+        expect(updatedNode.coordinates).toEqual(node.coordinates);
+      });
+      it("then updatedNode.icon equals node.icon", () => {
+        expect(updatedNode.icon).toEqual(node.icon);
+      });
+      it("then updatedNode.metadata equals metadata", () => {
+        expect(updatedNode.metadata[0]).toEqual(metadata);
+      });
+    });
+  });
+});
 
 // Instance Properties Availability
 describe("Given nodes instance", () => {
