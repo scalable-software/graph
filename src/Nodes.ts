@@ -217,4 +217,6 @@ export class Nodes extends EventTarget {
   private findByCoordinates = (coordinates) => {};
 
   private translate = (id, offset) => {};
+
+  private removeMetadata = (id, type) => {};
 }
