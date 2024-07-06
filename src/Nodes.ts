@@ -46,4 +46,6 @@ export class Nodes extends EventTarget {
 
   private _getLength = (target, property, receiver) =>
     Reflect.get(target, property, receiver);
+
+  private _getProperty = (target, property, receiver) => {};
 }
