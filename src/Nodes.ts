@@ -44,6 +44,7 @@ export type Node = {
 export class Nodes<T> extends EventTarget {
   public static init = (nodes: Node[] = []): Node[] => new Nodes(nodes)._proxy;
 
+  public static create = (details: Omit<Node, "id">) => {};
   public static addMetadata = (node: Node, metadata: NodeMetadata): Node => ({
     ...node,
     metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
