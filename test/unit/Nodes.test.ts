@@ -104,6 +104,10 @@ describe("Given nodes instance", () => {
     Utilities.hasSetter(nodes, "property");
     expect(Utilities.hasSetter(nodes, "property")).toEqual(true);
   });
+  it("then nodes.symbol private setter exists", () => {
+    Utilities.hasSetter(nodes, "symbol");
+    expect(Utilities.hasSetter(nodes, "symbol")).toEqual(true);
+  });
 });
 
 // Instance Methods Behavior
