@@ -136,4 +136,6 @@ export class Nodes<T> extends EventTarget {
 
   private create = (details: Omit<T, "id">) =>
     this.nodes.push({ id: Utilities.uuid, ...details } as T) && this._proxy;
+
+  private addMetadata = (id, metadata) => {};
 }
