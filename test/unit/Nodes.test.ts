@@ -37,6 +37,51 @@ describe("Given Nodes.init() static method exist", () => {
     });
   });
 });
+describe("Given Nodes.create static method exist", () => {
+  describe("when node = Nodes.create(details)", () => {
+    let details;
+    let node: Node;
+    beforeEach(() => {
+      details = {
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeType),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      node = Nodes.create(details);
+    });
+    it("then node is exist", () => {
+      expect(node).toBeDefined();
+    });
+    it("then node.id exist", () => {
+      expect(node.id).toBeDefined();
+    });
+    it("then node.name exist", () => {
+      expect(node.name).toBeDefined();
+    });
+    it("then node.type exist", () => {
+      expect(node.type).toBeDefined();
+    });
+    it("then node.coordinates exist", () => {
+      expect(node.coordinates).toBeDefined();
+    });
+    it("then node.icon exist", () => {
+      expect(node.icon).toBeDefined();
+    });
+    it("then node.name equals details.name", () => {
+      expect(node.name).toBe(details.name);
+    });
+    it("then node.type equals details.type", () => {
+      expect(node.type).toEqual(details.type);
+    });
+    it("then node.coordinates equals details.coordinates", () => {
+      expect(node.coordinates).toEqual(details.coordinates);
+    });
+    it("then node.icon equals details.icon", () => {
+      expect(node.icon).toEqual(details.icon);
+    });
+  });
+});
 describe("Given Nodes.addMetadata() static method exist", () => {
   describe("when extendedNode = Nodes.addMetadata(node, metadata)", () => {
     let node: Node;
