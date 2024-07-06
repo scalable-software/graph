@@ -36,6 +36,9 @@ describe("Given Nodes imported", () => {
   it("then Nodes.updateCoordinates exists", () => {
     expect(Nodes.updateCoordinates).toBeDefined();
   });
+  it("then Nodes.translate exists", () => {
+    expect(Nodes.translate).toBeDefined();
+  });
 });
 
 // Static Methods Behavior
