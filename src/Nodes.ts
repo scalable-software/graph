@@ -24,6 +24,9 @@ export class Nodes extends EventTarget {
     return (target, property, receiver) =>
       Reflect.get(target, property, receiver);
   }
+  private set index({ target, property, value, receiver }: any) {
+    Reflect.set(target, property, value, receiver);
+  }
 
   private get length() {
     return (target, property, receiver) =>
