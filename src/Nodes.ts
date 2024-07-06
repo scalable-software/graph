@@ -1,3 +1,46 @@
+import { UUID } from "./Utilities/Utilities.js";
+
+export const NodeType = {
+  START: "start",
+  WORKFLOW: "workflow",
+  DELAY: "delay",
+  END: "end",
+  DECISION: "decision",
+} as const;
+export type NodeType = (typeof NodeType)[keyof typeof NodeType];
+
+export type Coordinates = {
+  x: number;
+  y: number;
+};
+
+export type Icon = string;
+
+export type Arrival = {
+  distribution: string;
+  parameters: { rate: number }[];
+};
+export type Duration = {
+  distribution: string;
+  parameters: { meanlog: number; sdlog?: number }[];
+};
+export type Prevalence = { target: string; probability: number }[];
+
+export type NodeMetadata = {
+  arrival?: Arrival;
+  duration?: Duration;
+  prevalence?: Prevalence;
+};
+
+export type Node = {
+  id: UUID;
+  name: string;
+  type: NodeType;
+  coordinates: Coordinates;
+  icon?: Icon;
+  metadata?: NodeMetadata[];
+};
+
 export class Nodes extends EventTarget {
   public static init = (nodes = []) => new Nodes(nodes)._proxy;
 
