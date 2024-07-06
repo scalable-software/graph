@@ -43,7 +43,7 @@ describe("Given Nodes.init() static method exist", () => {
     });
   });
 });
-describe("Given Nodes.create static method exist", () => {
+describe("Given Nodes.create() static method exist", () => {
   describe("when node = Nodes.create(details)", () => {
     let details;
     let node: Node;
@@ -150,7 +150,7 @@ describe("Given Nodes.addMetadata() static method exist", () => {
     });
   });
 });
-describe("Given Nodes.update static method exist", () => {
+describe("Given Nodes.update() static method exist", () => {
   describe("and node exist", () => {
     let node: Node;
     beforeEach(() => {
