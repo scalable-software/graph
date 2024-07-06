@@ -55,7 +55,10 @@ export class Nodes extends EventTarget {
     ...node,
     metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
   });
-  public static update = (node: Node, update: Node) => {};
+  public static update = (node: Node, update: Node): Node => ({
+    ...update,
+    id: node.id,
+  });
 
   private _proxy: Node[] = [];
   private _result: boolean = false;
