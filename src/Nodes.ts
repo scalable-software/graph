@@ -209,4 +209,6 @@ export class Nodes extends EventTarget {
   private updateIcon = (id, icon) => {};
 
   private updateCoordinates = (id, coordinates) => {};
+
+  private findById = (id) => {};
 }
