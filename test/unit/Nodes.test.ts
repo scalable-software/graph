@@ -17,6 +17,9 @@ describe("Given Nodes imported", () => {
   it("then Nodes.init exists", () => {
     expect(Nodes.init).toBeDefined();
   });
+  it("then Nodes.create exists", () => {
+    expect(Nodes.create).toBeDefined();
+  });
   it("then Nodes.addMetadata exists", () => {
     expect(Nodes.addMetadata).toBeDefined();
   });
