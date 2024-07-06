@@ -132,5 +132,9 @@ export class Nodes<T> extends EventTarget {
       ? "property"
       : "default";
 
-  private create = (details: Omit<T, "id">) => {};
+  private create = (details: Omit<T, "id">) => {
+    const node = { id: Utilities.uuid, ...details } as T;
+    this.nodes.push(node);
+    return this._proxy;
+  };
 }
