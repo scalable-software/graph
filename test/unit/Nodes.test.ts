@@ -476,6 +476,9 @@ describe("Given nodes instance", () => {
   it("then nodes.update exists", () => {
     expect(nodes["update"]).toBeDefined();
   });
+  it("then nodes.updateMetadata exists", () => {
+    expect(nodes["updateMetadata"]).toBeDefined();
+  });
 });
 
 // Instance Getters Availability
