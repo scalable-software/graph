@@ -59,6 +59,7 @@ export class Nodes extends EventTarget {
     ...update,
     id: node.id,
   });
+  public static updateMetadata = (node: Node, metadata: NodeMetadata) => {};
 
   private _proxy: Node[] = [];
   private _result: boolean = false;
