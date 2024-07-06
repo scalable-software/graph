@@ -215,4 +215,6 @@ export class Nodes extends EventTarget {
   private findByType = (type) => {};
 
   private findByCoordinates = (coordinates) => {};
+
+  private translate = (id, offset) => {};
 }
