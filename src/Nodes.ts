@@ -29,7 +29,6 @@ export class Nodes extends EventTarget {
     const isMethod = typeof target[property] === "function";
     if (isMethod) return Reflect.get(target, property, receiver);
 
-    console.log(property);
     return Reflect.get(target, property, receiver);
   };
 
