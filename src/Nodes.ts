@@ -24,7 +24,7 @@ export class Nodes extends EventTarget {
     if (isLength) return this._getLength(target, property, receiver);
 
     const isMethod = typeof target[property] === "function";
-    if (isMethod) return Reflect.get(target, property, receiver);
+    if (isMethod) return this._getMethod(target, property, receiver);
 
     const isProperty =
       typeof property === "string" && !(typeof target[property] === "function");
@@ -52,5 +52,6 @@ export class Nodes extends EventTarget {
   private _getProperty = (target, property, receiver) =>
     Reflect.get(target, property, receiver);
 
-  private _getMethod = (target, property, receiver) => {};
+  private _getMethod = (target, property, receiver) =>
+    Reflect.get(target, property, receiver);
 }
