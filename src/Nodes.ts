@@ -155,6 +155,8 @@ export class Nodes extends EventTarget {
         ? this.update
         : property === "updateMetadata"
         ? this.updateMetadata
+        : property === "updateIcon"
+        ? this.updateIcon
         : Reflect.get(target, property, receiver);
   }
   private set property({ target, property, value, receiver }: any) {
