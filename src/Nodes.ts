@@ -246,10 +246,16 @@ export class Nodes extends EventTarget {
       ? "property"
       : "default";
 
+  private _getIndex = (id: UUID) => {};
+
   private add = (details: Omit<Node, "id">) =>
     this.nodes.push(Nodes.create(details)) && this._proxy;
 
-  private addMetadata = (id: UUID, metadata: NodeMetadata) => {};
+  private addMetadata = (id: UUID, metadata: NodeMetadata) => {
+    let index = this.nodes.findIndex((node) => node.id === id);
+    this.nodes[index] = Nodes.addMetadata(this.nodes[index], metadata);
+    return this._proxy;
+  };
 
   private update = (id, update) => {};
 
