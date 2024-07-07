@@ -22,12 +22,14 @@ export type Arrival = {
         rate: number;
     }[];
 };
+export type DurationParameters = {
+    meanlog: number;
+} | {
+    sdlog: number;
+};
 export type Duration = {
     distribution: string;
-    parameters: {
-        meanlog: number;
-        sdlog?: number;
-    }[];
+    parameters: [DurationParameters, DurationParameters?];
 };
 export type Prevalence = {
     target: string;
@@ -56,6 +58,10 @@ export declare class Nodes extends EventTarget {
     private nodes;
     static init: (nodes?: Node[]) => Node[];
     static create: (details: Omit<Node, "id">) => Node;
+    static getMetadataType: (metadata: NodeMetadata) => NodeMetadataType;
+    static getMetadataTypes: (node: Node) => NodeMetadataType[];
+    static hasMetadata: (node: Node) => boolean;
+    static hasMetadataType: (node: Node, type: NodeMetadataType) => boolean;
     static addMetadata: (node: Node, metadata: NodeMetadata) => Node;
     static update: (node: Node, update: Node) => Node;
     static updateMetadata: (node: Node, metadata: NodeMetadata) => Node;
@@ -86,6 +92,7 @@ export declare class Nodes extends EventTarget {
     private _set;
     private _createProxy;
     private _getPropertyType;
+    private _getIndex;
     private add;
     private addMetadata;
     private update;
