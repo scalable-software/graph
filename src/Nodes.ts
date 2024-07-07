@@ -292,7 +292,9 @@ export class Nodes extends EventTarget {
     return this._proxy;
   };
 
-  private findById = (id) => {};
+  private findById = (id) => {
+    return this.nodes[this._getIndex(id)];
+  };
 
   private findByType = (type) => {};
 
