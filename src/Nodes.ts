@@ -161,6 +161,8 @@ export class Nodes extends EventTarget {
         ? this.updateCoordinates
         : property === "findById"
         ? this.findById
+        : property === "findByType"
+        ? this.findByType
         : Reflect.get(target, property, receiver);
   }
   private set property({ target, property, value, receiver }: any) {
