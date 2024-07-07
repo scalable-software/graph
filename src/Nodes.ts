@@ -276,7 +276,13 @@ export class Nodes extends EventTarget {
     return this._proxy;
   };
 
-  private updateIcon = (id, icon) => {};
+  private updateIcon = (id, icon) => {
+    this.nodes[this._getIndex(id)] = Nodes.updateIcon(
+      this.nodes[this._getIndex(id)],
+      icon
+    );
+    return this._proxy;
+  };
 
   private updateCoordinates = (id, coordinates) => {};
 
