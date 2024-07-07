@@ -107,6 +107,27 @@ describe("Given Nodes.create() static method exist", () => {
     });
   });
 });
+describe("Given Nodes.getMetadataType() static method exist", () => {
+  describe("when metadataType = Nodes.getMetadataType(metadata)", () => {
+    let metadata: NodeMetadata;
+    let metadataType: NodeMetadataType;
+    beforeEach(() => {
+      metadata = {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 1 }],
+        },
+      };
+      metadataType = Nodes.getMetadataType(metadata);
+    });
+    it("then metadataType is exist", () => {
+      expect(metadataType).toBeDefined();
+    });
+    it("then metadataType is equal to 'arrival'", () => {
+      expect(metadataType).toEqual("arrival");
+    });
+  });
+});
 describe("Given Nodes.addMetadata() static method exist", () => {
   describe("when extendedNode = Nodes.addMetadata(node, metadata)", () => {
     let node: Node;
