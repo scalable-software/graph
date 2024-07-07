@@ -1223,4 +1223,28 @@ describe("Given nodes proxy instance", () => {
       expect(nodes[0].metadata).toEqual([metadata]);
     });
   });
+  describe("when nodes.update(node, update)", () => {
+    let node: Omit<Node, "id">;
+    let update: Partial<Node>;
+    beforeEach(() => {
+      node = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(node);
+      update = {
+        name: "Node2",
+        type: NodeType.END,
+        coordinates: { x: 1, y: 1 },
+        icon: "./icon2.svg",
+      };
+      nodes.update(nodes[0].id, update);
+    });
+    it("then node in nodes is updated", () => {
+      (update as Node).id = nodes[0].id;
+      expect(nodes[0]).toEqual(update);
+    });
+  });
 });
