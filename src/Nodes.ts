@@ -253,8 +253,10 @@ export class Nodes extends EventTarget {
     this.nodes.push(Nodes.create(details)) && this._proxy;
 
   private addMetadata = (id: UUID, metadata: NodeMetadata) => {
-    let index = this.nodes.findIndex((node) => node.id === id);
-    this.nodes[index] = Nodes.addMetadata(this.nodes[index], metadata);
+    this.nodes[this._getIndex(id)] = Nodes.addMetadata(
+      this.nodes[this._getIndex(id)],
+      metadata
+    );
     return this._proxy;
   };
 
