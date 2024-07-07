@@ -75,6 +75,8 @@ export class Nodes extends EventTarget {
       ? node.metadata.map((metadata) => Nodes.getMetadataType(metadata))
       : [];
 
+  public static hasMetadata = (node: Node): boolean => !!node.metadata;
+
   public static hasMetadataType = (
     node: Node,
     type: NodeMetadataType
