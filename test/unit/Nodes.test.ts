@@ -27,6 +27,9 @@ describe("Given Nodes imported", () => {
   it("then Nodes.getMetadataType exists", () => {
     expect(Nodes.getMetadataType).toBeDefined();
   });
+  it("then Nodes.getMetadataTypes exists", () => {
+    expect(Nodes.getMetadataTypes).toBeDefined();
+  });
   it("then Nodes.addMetadata exists", () => {
     expect(Nodes.addMetadata).toBeDefined();
   });
