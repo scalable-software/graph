@@ -169,6 +169,8 @@ export class Nodes extends EventTarget {
         ? this.translate
         : property === "removeMetadata"
         ? this.removeMetadata
+        : property === "remove"
+        ? this.remove
         : Reflect.get(target, property, receiver);
   }
   private set property({ target, property, value, receiver }: any) {
