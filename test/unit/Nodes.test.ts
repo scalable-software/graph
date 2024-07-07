@@ -1294,4 +1294,22 @@ describe("Given nodes proxy instance", () => {
       expect(nodes[0].icon).toEqual(icon);
     });
   });
+  describe("when nodes.updateCoordinates(node, coordinates)", () => {
+    let node: Omit<Node, "id">;
+    let coordinates: Coordinates;
+    beforeEach(() => {
+      node = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(node);
+      coordinates = { x: 1, y: 1 };
+      nodes.updateCoordinates(nodes[0].id, coordinates);
+    });
+    it("then node in nodes has updated coordinates", () => {
+      expect(nodes[0].coordinates).toEqual(coordinates);
+    });
+  });
 });
