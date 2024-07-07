@@ -320,5 +320,8 @@ export class Nodes extends EventTarget {
     return this._proxy;
   };
 
-  private remove = (id) => {};
+  private remove = (id) => {
+    this.nodes.splice(this._getIndex(id), 1);
+    return this._proxy;
+  };
 }
