@@ -1366,4 +1366,26 @@ describe("Given nodes proxy instance", () => {
       expect(result).toEqual([nodes[0]]);
     });
   });
+  describe("when nodes.translate(offset)", () => {
+    let node: Omit<Node, "id">;
+    let offset: Coordinates;
+    beforeEach(() => {
+      node = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(node);
+      offset = { x: 1, y: 1 };
+      nodes.translate(nodes[0].id, offset);
+    });
+    it("then node in nodes has updated coordinates", () => {
+      const updatedCoordinates = {
+        x: node.coordinates.x + offset.x,
+        y: node.coordinates.y + offset.y,
+      };
+      expect(nodes[0].coordinates).toEqual(updatedCoordinates);
+    });
+  });
 });
