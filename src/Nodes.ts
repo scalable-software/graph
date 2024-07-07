@@ -246,7 +246,8 @@ export class Nodes extends EventTarget {
       ? "property"
       : "default";
 
-  private _getIndex = (id: UUID) => {};
+  private _getIndex = (id: UUID) =>
+    this.nodes.findIndex((node) => node.id === id);
 
   private add = (details: Omit<Node, "id">) =>
     this.nodes.push(Nodes.create(details)) && this._proxy;
