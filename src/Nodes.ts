@@ -297,7 +297,12 @@ export class Nodes extends EventTarget {
   private findByType = (type) =>
     this.nodes.filter((node) => node.type === type);
 
-  private findByCoordinates = (coordinates) => {};
+  private findByCoordinates = (coordinates) =>
+    this.nodes.filter(
+      (node) =>
+        node.coordinates.x === coordinates.x &&
+        node.coordinates.y === coordinates.y
+    );
 
   private translate = (id, offset) => {};
 
