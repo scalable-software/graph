@@ -1330,4 +1330,22 @@ describe("Given nodes proxy instance", () => {
       expect(result).toEqual(nodes[0]);
     });
   });
+  describe("when nodes.findByType(type)", () => {
+    let node: Omit<Node, "id">;
+    let result: Node[];
+    beforeEach(() => {
+      const type = NodeType.START;
+      node = {
+        name: "Node1",
+        type: type,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(node);
+      result = nodes.findByType(type);
+    });
+    it("then result is equal to [node]", () => {
+      expect(result).toEqual([nodes[0]]);
+    });
+  });
 });
