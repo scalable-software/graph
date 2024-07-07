@@ -284,7 +284,13 @@ export class Nodes extends EventTarget {
     return this._proxy;
   };
 
-  private updateCoordinates = (id, coordinates) => {};
+  private updateCoordinates = (id, coordinates) => {
+    this.nodes[this._getIndex(id)] = Nodes.updateCoordinates(
+      this.nodes[this._getIndex(id)],
+      coordinates
+    );
+    return this._proxy;
+  };
 
   private findById = (id) => {};
 
