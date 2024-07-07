@@ -1429,3 +1429,42 @@ describe("Given nodes proxy instance", () => {
     });
   });
 });
+
+// Workflow
+describe("Given nodes proxy instance", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
+  describe("when nodes.add(node) multiple times", () => {
+    let start: Omit<Node, "id">;
+    let workflow: Omit<Node, "id">;
+    let end: Omit<Node, "id">;
+    let metadata: NodeMetadata;
+    beforeEach(() => {
+      start = {
+        name: "Start",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      workflow = {
+        name: "Workflow",
+        type: NodeType.WORKFLOW,
+        coordinates: { x: 1, y: 1 },
+        icon: "./icon.svg",
+      };
+      end = {
+        name: "End",
+        type: NodeType.END,
+        coordinates: { x: 2, y: 2 },
+        icon: "./icon.svg",
+      };
+      nodes.add(start).add(workflow).add(end);
+    });
+    it("then nodes is equal to [Start, Workflow, End]", () => {
+      const types = nodes.map((node) => node.type);
+      expect(types).toEqual([NodeType.START, NodeType.WORKFLOW, NodeType.END]);
+    });
+  });
+});
