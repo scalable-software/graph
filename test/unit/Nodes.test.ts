@@ -1388,4 +1388,28 @@ describe("Given nodes proxy instance", () => {
       expect(nodes[0].coordinates).toEqual(updatedCoordinates);
     });
   });
+  describe("when nodes.removeMetadata(id, type)", () => {
+    let node: Omit<Node, "id">;
+    let metadata: NodeMetadata;
+    beforeEach(() => {
+      node = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(node);
+      metadata = {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 1 }],
+        },
+      };
+      nodes.addMetadata(nodes[0].id, metadata);
+      nodes.removeMetadata(nodes[0].id, "arrival");
+    });
+    it("then node in nodes does not contain metadata", () => {
+      expect(nodes[0].metadata).toEqual([]);
+    });
+  });
 });
