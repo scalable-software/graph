@@ -82,10 +82,18 @@ export class Nodes extends EventTarget {
     type: NodeMetadataType
   ): boolean => Nodes.getMetadataTypes(node).includes(type);
 
-  public static addMetadata = (node: Node, metadata: NodeMetadata): Node => ({
-    ...node,
-    metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
-  });
+  public static addMetadata = (node: Node, metadata: NodeMetadata): Node =>
+    Nodes.hasMetadataType(node, Nodes.getMetadataType(metadata))
+      ? {
+          ...node,
+          metadata: node.metadata.map((node) =>
+            node[Nodes.getMetadataType(metadata)] ? metadata : node
+          ),
+        }
+      : {
+          ...node,
+          metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
+        };
 
   public static update = (node: Node, update: Node): Node => ({
     ...update,
