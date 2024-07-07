@@ -854,6 +854,9 @@ describe("Given nodes instance", () => {
   it("then nodes._getPropertyType exists", () => {
     expect(nodes["_getPropertyType"]).toBeDefined();
   });
+  it("then nodes._getIndex exists", () => {
+    expect(nodes["_getIndex"]).toBeDefined();
+  });
   it("then nodes.add exists", () => {
     expect(nodes["add"]).toBeDefined();
   });
@@ -1175,6 +1178,31 @@ describe("Given nodes proxy instance", () => {
     });
     it("then node in nodes has icon", () => {
       expect(nodes[0].icon).toEqual(node.icon);
+    });
+  });
+  describe("when nodes.addMetadata(node, metadata)", () => {
+    let nodes;
+    let node: Omit<Node, "id">;
+    let metadata: NodeMetadata;
+    beforeEach(() => {
+      nodes = Nodes.init();
+      node = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(node);
+      metadata = {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 1 }],
+        },
+      };
+      nodes.addMetadata(nodes[0].id, metadata);
+    });
+    it("then node in nodes has metadata", () => {
+      expect(nodes[0].metadata).toEqual([metadata]);
     });
   });
 });
