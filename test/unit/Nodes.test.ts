@@ -727,6 +727,9 @@ describe("Given nodes proxy instance", () => {
   it("then nodes.updateMetadata exists", () => {
     expect(nodes.updateMetadata).toBeDefined();
   });
+  it("then nodes.updateIcon exists", () => {
+    expect(nodes.updateIcon).toBeDefined();
+  });
 });
 
 // Proxy Method Behavior
