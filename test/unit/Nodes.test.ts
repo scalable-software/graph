@@ -745,6 +745,9 @@ describe("Given nodes proxy instance", () => {
   it("then nodes.translate exists", () => {
     expect(nodes.translate).toBeDefined();
   });
+  it("then nodes.removeMetadata exists", () => {
+    expect(nodes.removeMetadata).toBeDefined();
+  });
 });
 
 // Proxy Method Behavior
