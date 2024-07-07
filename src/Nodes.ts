@@ -296,7 +296,9 @@ export class Nodes extends EventTarget {
     return this.nodes[this._getIndex(id)];
   };
 
-  private findByType = (type) => {};
+  private findByType = (type) => {
+    return this.nodes.filter((node) => node.type === type);
+  };
 
   private findByCoordinates = (coordinates) => {};
 
