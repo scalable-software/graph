@@ -147,7 +147,11 @@ export class Nodes extends EventTarget {
 
   private get property() {
     return (target, property, receiver) =>
-      property === "add" ? this.add : Reflect.get(target, property, receiver);
+      property === "add"
+        ? this.add
+        : property === "addMetadata"
+        ? this.addMetadata
+        : Reflect.get(target, property, receiver);
   }
   private set property({ target, property, value, receiver }: any) {
     this._result = Reflect.set(target, property, value, receiver);
@@ -200,7 +204,7 @@ export class Nodes extends EventTarget {
   private add = (details: Omit<Node, "id">) =>
     this.nodes.push(Nodes.create(details)) && this._proxy;
 
-  private addMetadata = (id, metadata) => {};
+  private addMetadata = (id: UUID, metadata: NodeMetadata) => {};
 
   private update = (id, update) => {};
 
