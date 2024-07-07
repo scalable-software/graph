@@ -25,9 +25,11 @@ export type Arrival = {
   distribution: string;
   parameters: { rate: number }[];
 };
+
+export type DurationParameters = { meanlog: number } | { sdlog: number };
 export type Duration = {
   distribution: string;
-  parameters: { meanlog: number; sdlog?: number }[];
+  parameters: [DurationParameters, DurationParameters?];
 };
 export type Prevalence = { target: string; probability: number }[];
 
@@ -68,7 +70,10 @@ export class Nodes extends EventTarget {
   public static getMetadataType = (metadata: NodeMetadata): NodeMetadataType =>
     Object.keys(metadata)[0] as NodeMetadataType;
 
-  public static getMetadataTypes = (node: Node) => {};
+  public static getMetadataTypes = (node: Node) =>
+    node.metadata
+      ? node.metadata.map((metadata) => Nodes.getMetadataType(metadata))
+      : [];
 
   public static addMetadata = (node: Node, metadata: NodeMetadata): Node => ({
     ...node,
