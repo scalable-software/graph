@@ -68,6 +68,8 @@ export class Nodes extends EventTarget {
   public static getMetadataType = (metadata: NodeMetadata): NodeMetadataType =>
     Object.keys(metadata)[0] as NodeMetadataType;
 
+  public static getMetadataTypes = (node: Node) => {};
+
   public static addMetadata = (node: Node, metadata: NodeMetadata): Node => ({
     ...node,
     metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
@@ -79,7 +81,7 @@ export class Nodes extends EventTarget {
   });
 
   public static updateMetadata = (node: Node, metadata: NodeMetadata): Node => {
-    let key = Object.keys(metadata)[0];
+    let key = Nodes.getMetadataType(metadata);
     node.metadata = node.metadata.map((node) => (node[key] ? metadata : node));
     return node;
   };
