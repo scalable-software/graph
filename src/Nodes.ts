@@ -304,7 +304,13 @@ export class Nodes extends EventTarget {
         node.coordinates.y === coordinates.y
     );
 
-  private translate = (id, offset) => {};
+  private translate = (id, offset) => {
+    this.nodes[this._getIndex(id)] = Nodes.translate(
+      this.nodes[this._getIndex(id)],
+      offset
+    );
+    return this._proxy;
+  };
 
   private removeMetadata = (id, type) => {};
 
