@@ -1348,4 +1348,22 @@ describe("Given nodes proxy instance", () => {
       expect(result).toEqual([nodes[0]]);
     });
   });
+  describe("when nodes.findByCoordinates(coordinates)", () => {
+    let node: Omit<Node, "id">;
+    let result: Node[];
+    beforeEach(() => {
+      const coordinates = { x: 0, y: 0 };
+      node = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: coordinates,
+        icon: "./icon.svg",
+      };
+      nodes.add(node);
+      result = nodes.findByCoordinates(coordinates);
+    });
+    it("then result is equal to [node]", () => {
+      expect(result).toEqual([nodes[0]]);
+    });
+  });
 });
