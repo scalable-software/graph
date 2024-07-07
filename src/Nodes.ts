@@ -65,7 +65,8 @@ export class Nodes extends EventTarget {
     icon: details.icon,
   });
 
-  public static getMetadataType = (metadata: NodeMetadata) => {};
+  public static getMetadataType = (metadata: NodeMetadata): NodeMetadataType =>
+    Object.keys(metadata)[0] as NodeMetadataType;
 
   public static addMetadata = (node: Node, metadata: NodeMetadata): Node => ({
     ...node,
