@@ -1412,4 +1412,20 @@ describe("Given nodes proxy instance", () => {
       expect(nodes[0].metadata).toEqual([]);
     });
   });
+  describe("when nodes.remove(id)", () => {
+    let node: Omit<Node, "id">;
+    beforeEach(() => {
+      node = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(node);
+      nodes.remove(nodes[0].id);
+    });
+    it("then nodes is empty", () => {
+      expect(nodes).toEqual([]);
+    });
+  });
 });
