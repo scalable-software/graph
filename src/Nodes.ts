@@ -268,7 +268,13 @@ export class Nodes extends EventTarget {
     return this._proxy;
   };
 
-  private updateMetadata = (id, metadata) => {};
+  private updateMetadata = (id, metadata) => {
+    this.nodes[this._getIndex(id)] = Nodes.updateMetadata(
+      this.nodes[this._getIndex(id)],
+      metadata
+    );
+    return this._proxy;
+  };
 
   private updateIcon = (id, icon) => {};
 
