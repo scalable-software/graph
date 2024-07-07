@@ -739,6 +739,9 @@ describe("Given nodes proxy instance", () => {
   it("then nodes.findByType exists", () => {
     expect(nodes.findByType).toBeDefined();
   });
+  it("then nodes.findByCoordinates exists", () => {
+    expect(nodes.findByCoordinates).toBeDefined();
+  });
 });
 
 // Proxy Method Behavior
