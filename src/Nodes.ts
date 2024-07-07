@@ -312,7 +312,13 @@ export class Nodes extends EventTarget {
     return this._proxy;
   };
 
-  private removeMetadata = (id, type) => {};
+  private removeMetadata = (id, type) => {
+    this.nodes[this._getIndex(id)] = Nodes.removeMetadata(
+      this.nodes[this._getIndex(id)],
+      type
+    );
+    return this._proxy;
+  };
 
   private remove = (id) => {};
 }
