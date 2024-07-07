@@ -292,13 +292,10 @@ export class Nodes extends EventTarget {
     return this._proxy;
   };
 
-  private findById = (id) => {
-    return this.nodes[this._getIndex(id)];
-  };
+  private findById = (id) => this.nodes[this._getIndex(id)];
 
-  private findByType = (type) => {
-    return this.nodes.filter((node) => node.type === type);
-  };
+  private findByType = (type) =>
+    this.nodes.filter((node) => node.type === type);
 
   private findByCoordinates = (coordinates) => {};
 
