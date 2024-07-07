@@ -1366,7 +1366,7 @@ describe("Given nodes proxy instance", () => {
       expect(result).toEqual([nodes[0]]);
     });
   });
-  describe("when nodes.translate(offset)", () => {
+  describe("when nodes.translate(id, offset)", () => {
     let node: Omit<Node, "id">;
     let offset: Coordinates;
     beforeEach(() => {
