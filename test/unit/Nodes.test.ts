@@ -1276,4 +1276,22 @@ describe("Given nodes proxy instance", () => {
       expect(nodes[0].metadata).toEqual([metadata]);
     });
   });
+  describe("when nodes.updateIcon(node, icon)", () => {
+    let node: Omit<Node, "id">;
+    let icon: string;
+    beforeEach(() => {
+      node = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(node);
+      icon = "./icon2.svg";
+      nodes.updateIcon(nodes[0].id, icon);
+    });
+    it("then node in nodes has updated icon", () => {
+      expect(nodes[0].icon).toEqual(icon);
+    });
+  });
 });
