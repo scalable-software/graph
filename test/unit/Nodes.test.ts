@@ -1011,6 +1011,24 @@ describe("Given nodes instance", () => {
       });
     });
   });
+  describe("when index = nodes._getIndex(id)", () => {
+    let node;
+    let index;
+    beforeEach(() => {
+      index = 0;
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes["nodes"][index] = node;
+    });
+    it("then index is equal to index", () => {
+      expect(nodes._getIndex(node.id)).toEqual(index);
+    });
+  });
   describe("when nodes.add(node)", () => {
     let node: Omit<Node, "id">;
     beforeEach(() => {
