@@ -742,6 +742,9 @@ describe("Given nodes proxy instance", () => {
   it("then nodes.findByCoordinates exists", () => {
     expect(nodes.findByCoordinates).toBeDefined();
   });
+  it("then nodes.translate exists", () => {
+    expect(nodes.translate).toBeDefined();
+  });
 });
 
 // Proxy Method Behavior
