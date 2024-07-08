@@ -219,4 +219,19 @@ describe("Given connections._createProxy() method", () => {
       expect(proxy).toBeInstanceOf(Array);
     });
   });
+  describe("when proxy = new Proxy(target, handler)", () => {
+    let proxy;
+    let target;
+    beforeEach(() => {
+      target = [1, 2, 3];
+      proxy = new Proxy(target, {
+        get: connections["_get"],
+        set: (target, property, value, receiver) =>
+          Reflect.set(target, property, value, receiver),
+      });
+    });
+    it("then proxy.length is equal to target.length", () => {
+      expect(proxy.length).toEqual(target.length);
+    });
+  });
 });
