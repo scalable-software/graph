@@ -75,4 +75,6 @@ export class Connections extends EventTarget {
       set: (target, property, value, receiver) =>
         Reflect.set(target, property, value, receiver),
     });
+
+  private _get = (target, property, receiver) => {};
 }
