@@ -66,4 +66,6 @@ export class Connections extends EventTarget {
   constructor(private connections: Connection[]) {
     super();
   }
+
+  private _createProxy = (target: Connection[]) => {};
 }
