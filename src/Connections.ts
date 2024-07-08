@@ -18,4 +18,8 @@ export type Connection = {
 
 export class Connections extends EventTarget {
   private _proxy: Connection[] = [];
+
+  constructor(private connections: Connection[]) {
+    super();
+  }
 }
