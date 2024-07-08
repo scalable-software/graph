@@ -16,4 +16,6 @@ export type Connection = {
   };
 };
 
-export class Connections extends EventTarget {}
+export class Connections extends EventTarget {
+  private _proxy: Connection[] = [];
+}
