@@ -244,3 +244,28 @@ describe("Given connections._get() method exist", () => {
     });
   });
 });
+describe("Given connections._set() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections([]);
+  });
+  describe("when proxy = new Proxy(target, handler)", () => {
+    let proxy;
+    let target;
+    beforeEach(() => {
+      target = [1, 2, 3];
+      proxy = new Proxy(target, {
+        get: (target, property, receiver) =>
+          Reflect.get(target, property, receiver),
+        set: connections["_set"],
+      });
+    });
+    it("then proxy.length is equal to target.length", () => {
+      expect(proxy.length).toEqual(target.length);
+    });
+    it("then proxy.push(4) adds 4 to the target", () => {
+      proxy.push(4);
+      expect(target).toEqual([1, 2, 3, 4]);
+    });
+  });
+});
