@@ -39,7 +39,10 @@ export class Connections extends EventTarget {
   public static updateCoordinates = (
     connection: Connection,
     coordinates: { start: Coordinates; end: Coordinates }
-  ) => {};
+  ): Connection => ({
+    ...connection,
+    coordinates,
+  });
 
   private _proxy: Connection[] = [];
 
