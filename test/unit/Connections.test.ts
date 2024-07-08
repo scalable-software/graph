@@ -1,4 +1,7 @@
-import { Connections } from "@scalable-software/graph.structure/Connections";
+import {
+  Connection,
+  Connections,
+} from "@scalable-software/graph.structure/Connections";
 
 describe("Given Connections imported", () => {
   it("then Connections exist", () => {
@@ -31,6 +34,45 @@ describe("Given Connections.init static method", () => {
     });
     it("then connections is an array", () => {
       expect(connections).toBeInstanceOf(Array);
+    });
+  });
+});
+describe("Given Connections.create() static method exist", () => {
+  describe("when connections = Connections.create(details)", () => {
+    let details;
+    let connection: Connection;
+    beforeEach(() => {
+      details = {
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connection = Connections.create(details);
+    });
+    it("then connection is exist", () => {
+      expect(connection).toBeDefined();
+    });
+    it("then connection.id exist", () => {
+      expect(connection.id).toBeDefined();
+    });
+    it("then connection.source exist", () => {
+      expect(connection.source).toBeDefined();
+    });
+    it("then connection.target exist", () => {
+      expect(connection.target).toBeDefined();
+    });
+    it("then connection.coordinates exist", () => {
+      expect(connection.coordinates).toBeDefined();
+    });
+    it("then connection.source equals details.source", () => {
+      expect(connection.source).toEqual(details.source);
+    });
+    it("then connection.target equals details.target", () => {
+      expect(connection.target).toBe(details.target);
+    });
+    it("then connection.coordinates equals details.coordinates", () => {
+      expect(connection.coordinates).toEqual(details.coordinates);
     });
   });
 });
