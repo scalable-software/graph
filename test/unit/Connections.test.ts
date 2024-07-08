@@ -197,3 +197,23 @@ describe("Given connections instance", () => {
     expect(connections["_createProxy"]).toBeDefined();
   });
 });
+
+// Instance Methods Behavior
+describe("Given connections._createProxy() method", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections([]);
+  });
+  describe("when proxy = connections._createProxy(target)", () => {
+    let proxy;
+    beforeEach(() => {
+      proxy = connections["_createProxy"]([]);
+    });
+    it("then proxy is defined", () => {
+      expect(proxy).toBeDefined();
+    });
+    it("then proxy is an array", () => {
+      expect(proxy).toBeInstanceOf(Array);
+    });
+  });
+});
