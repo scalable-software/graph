@@ -196,6 +196,9 @@ describe("Given connections instance", () => {
   it("then connections._createProxy() method exists", () => {
     expect(connections["_createProxy"]).toBeDefined();
   });
+  it("then connections._get() method exists", () => {
+    expect(connections["_get"]).toBeDefined();
+  });
 });
 
 // Instance Methods Behavior
