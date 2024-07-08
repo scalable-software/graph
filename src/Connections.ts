@@ -17,6 +17,8 @@ export type Connection = {
 };
 
 export class Connections extends EventTarget {
+  public static init = (connections: Connection[] = []) => {};
+
   private _proxy: Connection[] = [];
 
   constructor(private connections: Connection[]) {
