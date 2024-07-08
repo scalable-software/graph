@@ -79,6 +79,36 @@ describe("Given Connections.create() static method exist", () => {
     });
   });
 });
+describe("Given Connections.update() static method exist", () => {
+  describe("and connections exist", () => {
+    let connection: Connection;
+    beforeEach(() => {
+      connection = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        name: "Connection",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+    });
+    describe("when updatedConnection = Connections.update(connection, update)", () => {
+      let update;
+      beforeEach(() => {
+        update = {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          name: "Connection",
+          source: "source",
+          target: "target",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 10, y: 10 } },
+        };
+        connection = Connections.update(connection, update);
+      });
+      it("then connection icon is updated", () => {
+        expect(connection).toEqual(update);
+      });
+    });
+  });
+});
 
 // Instance Properties Availability
 describe("Given connections instance", () => {
