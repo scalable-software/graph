@@ -71,8 +71,7 @@ export class Connections extends EventTarget {
   private _createProxy = (target: Connection[]) =>
     new Proxy(target, {
       get: this._get,
-      set: (target, property, value, receiver) =>
-        Reflect.set(target, property, value, receiver),
+      set: this._set,
     });
 
   private _get = (target, property, receiver) =>
