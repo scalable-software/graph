@@ -112,6 +112,30 @@ describe("Given Connections.update() static method exist", () => {
     });
   });
 });
+describe("Given Connections.updateCoordinates() static method exist", () => {
+  describe("and connections exist", () => {
+    let connection: Connection;
+    beforeEach(() => {
+      connection = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        name: "Connection",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+    });
+    describe("when updatedConnection = Connections.updateCoordinates(connection, coordinates)", () => {
+      let coordinates;
+      beforeEach(() => {
+        coordinates = { start: { x: 0, y: 0 }, end: { x: 10, y: 10 } };
+        connection = Connections.updateCoordinates(connection, coordinates);
+      });
+      it("then connection.coordinates is equal to coordinates", () => {
+        expect(connection.coordinates).toEqual(coordinates);
+      });
+    });
+  });
+});
 
 // Instance Properties Availability
 describe("Given connections instance", () => {
