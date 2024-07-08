@@ -10,9 +10,12 @@ describe("Given Connections imported", () => {
 describe("Given connections instance", () => {
   let connections;
   beforeEach(() => {
-    connections = new Connections();
+    connections = new Connections([]);
   });
   it("then connections._proxy private property exists", () => {
     expect(connections["_proxy"]).toBeDefined();
+  });
+  it("then connections.connections private property exists", () => {
+    expect(connections["connections"]).toBeDefined();
   });
 });
