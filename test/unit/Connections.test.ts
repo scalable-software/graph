@@ -5,3 +5,14 @@ describe("Given Connections imported", () => {
     expect(Connections).toBeDefined();
   });
 });
+
+// Instance Properties Availability
+describe("Given connections instance", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections();
+  });
+  it("then connections._proxy private property exists", () => {
+    expect(connections["_proxy"]).toBeDefined();
+  });
+});
