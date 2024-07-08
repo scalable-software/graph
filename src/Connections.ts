@@ -28,7 +28,13 @@ export class Connections extends EventTarget {
     coordinates: details.coordinates,
   });
 
-  public static update = (connection: Connection, update: Connection) => {};
+  public static update = (
+    connection: Connection,
+    update: Connection
+  ): Connection => ({
+    ...update,
+    id: connection.id,
+  });
 
   private _proxy: Connection[] = [];
 
