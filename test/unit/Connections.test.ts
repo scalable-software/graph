@@ -20,6 +20,9 @@ describe("Given Connections static methods", () => {
   it("then Connections.create static method exists", () => {
     expect(Connections.create).toBeDefined();
   });
+  it("then Connections.update static method exists", () => {
+    expect(Connections.update).toBeDefined();
+  });
 });
 
 // Static Methods Behavior
