@@ -20,7 +20,13 @@ export class Connections extends EventTarget {
   public static init = (connections: Connection[] = []) =>
     new Connections(connections)._proxy;
 
-  public static create = (details: Omit<Connection, "id">) => {};
+  public static create = (details: Omit<Connection, "id">): Connection => ({
+    id: Utilities.uuid,
+    name: details.name,
+    source: details.source,
+    target: details.target,
+    coordinates: details.coordinates,
+  });
 
   private _proxy: Connection[] = [];
 
