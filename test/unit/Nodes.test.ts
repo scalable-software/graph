@@ -851,9 +851,6 @@ describe("Given nodes instance", () => {
   it("then nodes._createProxy exists", () => {
     expect(nodes["_createProxy"]).toBeDefined();
   });
-  it("then nodes._getPropertyType exists", () => {
-    expect(nodes["_getPropertyType"]).toBeDefined();
-  });
   it("then nodes._getIndex exists", () => {
     expect(nodes["_getIndex"]).toBeDefined();
   });
@@ -896,50 +893,8 @@ describe("Given nodes instance", () => {
 });
 
 // Instance Getters Availability
-describe("Given nodes instance", () => {
-  let nodes;
-  beforeEach(() => {
-    nodes = new Nodes();
-  });
-  it("then nodes.symbol private getter exists", () => {
-    expect(nodes["symbol"]).toBeDefined();
-  });
-  it("then nodes.index private getter exists", () => {
-    expect(nodes["index"]).toBeDefined();
-  });
-  it("then nodes.length private getter exists", () => {
-    expect(nodes["length"]).toBeDefined();
-  });
-  it("then nodes.property private getter exists", () => {
-    expect(nodes["property"]).toBeDefined();
-  });
-  it("then nodes.method private getter exists", () => {
-    expect(nodes["method"]).toBeDefined();
-  });
-  it("then nodes.default private getter exists", () => {
-    expect(nodes["default"]).toBeDefined();
-  });
-});
 
 // Instance Setters Availability
-describe("Given nodes instance", () => {
-  let nodes;
-  beforeEach(() => {
-    nodes = new Nodes();
-  });
-  it("then nodes.property private setter exists", () => {
-    Helper.hasSetter(nodes, "property");
-    expect(Helper.hasSetter(nodes, "property")).toEqual(true);
-  });
-  it("then nodes.symbol private setter exists", () => {
-    Helper.hasSetter(nodes, "symbol");
-    expect(Helper.hasSetter(nodes, "symbol")).toEqual(true);
-  });
-  it("then nodes.index private setter exists", () => {
-    Helper.hasSetter(nodes, "index");
-    expect(Helper.hasSetter(nodes, "index")).toEqual(true);
-  });
-});
 
 // Instance Methods Behavior
 describe("Given nodes instance", () => {
@@ -955,60 +910,6 @@ describe("Given nodes instance", () => {
     });
     it("then proxy is equal to an empty array", () => {
       expect(proxy).toEqual(array);
-    });
-  });
-  describe("when property = nodes._getPropertyType(property, target)", () => {
-    let target;
-    beforeEach(() => {
-      target = [];
-    });
-    describe("and property is a symbol", () => {
-      let property;
-      let symbol = Symbol("test");
-      beforeEach(() => {
-        property = nodes["_getPropertyType"](symbol, target);
-      });
-      it("then property is equal to 'symbol'", () => {
-        expect(property).toEqual("symbol");
-      });
-    });
-    describe("and property is an index", () => {
-      let property;
-      let index = 0;
-      beforeEach(() => {
-        property = nodes["_getPropertyType"](index, target);
-      });
-      it("then property is equal to 'index'", () => {
-        expect(property).toEqual("index");
-      });
-    });
-    describe("and property is length", () => {
-      let property;
-      beforeEach(() => {
-        property = nodes["_getPropertyType"]("length", target);
-      });
-      it("then property is equal to 'length'", () => {
-        expect(property).toEqual("length");
-      });
-    });
-    describe("and property is property", () => {
-      let property;
-      beforeEach(() => {
-        property = nodes["_getPropertyType"]("property", target);
-      });
-      it("then property is equal to 'property'", () => {
-        expect(property).toEqual("property");
-      });
-    });
-    describe("and property is method", () => {
-      let property;
-      beforeEach(() => {
-        target["method"] = () => {};
-        property = nodes["_getPropertyType"]("method", target);
-      });
-      it("then property is equal to 'method'", () => {
-        expect(property).toEqual("method");
-      });
     });
   });
   describe("when index = nodes._getIndex(id)", () => {

@@ -146,105 +146,38 @@ export class Nodes extends EventTarget {
     this._proxy = this._createProxy(nodes);
   }
 
-  private get symbol() {
-    return (target, property, receiver) =>
-      Reflect.get(target, property, receiver);
-  }
-  private set symbol({ target, property, value, receiver }: any) {
-    this._result = Reflect.set(target, property, value, receiver);
-  }
-
-  private get index() {
-    return (target, property, receiver) =>
-      Reflect.get(target, property, receiver);
-  }
-  private set index({ target, property, value, receiver }: any) {
-    this._result = Reflect.set(target, property, value, receiver);
-  }
-
-  private get length() {
-    return (target, property, receiver) =>
-      Reflect.get(target, property, receiver);
-  }
-  private set length({ target, property, value, receiver }: any) {
-    this._result = Reflect.set(target, property, value, receiver);
-  }
-
-  private get property() {
-    return (target, property, receiver) =>
-      property === "add"
-        ? this.add
-        : property === "addMetadata"
-        ? this.addMetadata
-        : property === "update"
-        ? this.update
-        : property === "updateMetadata"
-        ? this.updateMetadata
-        : property === "updateIcon"
-        ? this.updateIcon
-        : property === "updateCoordinates"
-        ? this.updateCoordinates
-        : property === "findById"
-        ? this.findById
-        : property === "findByType"
-        ? this.findByType
-        : property === "findByCoordinates"
-        ? this.findByCoordinates
-        : property === "translate"
-        ? this.translate
-        : property === "removeMetadata"
-        ? this.removeMetadata
-        : property === "remove"
-        ? this.remove
-        : Reflect.get(target, property, receiver);
-  }
-  private set property({ target, property, value, receiver }: any) {
-    this._result = Reflect.set(target, property, value, receiver);
-  }
-
-  private get method() {
-    return (target, property, receiver) =>
-      Reflect.get(target, property, receiver);
-  }
-  private set method({ target, property, value, receiver }: any) {
-    this._result = Reflect.set(target, property, value, receiver);
-  }
-
-  private get default() {
-    return (target, property, receiver) =>
-      Reflect.get(target, property, receiver);
-  }
-  private set default({ target, property, value, receiver }: any) {
-    this._result = Reflect.set(target, property, value, receiver);
-  }
-
   private _get = (target, property, receiver) =>
-    this[this._getPropertyType(property, target)](target, property, receiver);
+    property === "add"
+      ? this.add
+      : property === "addMetadata"
+      ? this.addMetadata
+      : property === "update"
+      ? this.update
+      : property === "updateMetadata"
+      ? this.updateMetadata
+      : property === "updateIcon"
+      ? this.updateIcon
+      : property === "updateCoordinates"
+      ? this.updateCoordinates
+      : property === "findById"
+      ? this.findById
+      : property === "findByType"
+      ? this.findByType
+      : property === "findByCoordinates"
+      ? this.findByCoordinates
+      : property === "translate"
+      ? this.translate
+      : property === "removeMetadata"
+      ? this.removeMetadata
+      : property === "remove"
+      ? this.remove
+      : Reflect.get(target, property, receiver);
 
   private _set = (target, property, value, receiver) =>
-    (this[this._getPropertyType(property, target)] = {
-      target,
-      property,
-      value,
-      receiver,
-    }) && this._result;
+    Reflect.set(target, property, value, receiver);
 
   private _createProxy = (target: Node[]): Node[] =>
     new Proxy(target, { get: this._get, set: this._set });
-
-  private _getPropertyType = (property, target) =>
-    typeof property === "symbol"
-      ? "symbol"
-      : Number.isInteger(Number(property))
-      ? "index"
-      : property === "length"
-      ? "length"
-      : typeof target[property] === "function"
-      ? "method"
-      : typeof property === "string" &&
-        !(typeof target[property] === "function")
-      ? "property"
-      : "default";
 
   private _getIndex = (id: UUID) =>
     this.nodes.findIndex((node) => node.id === id);
