@@ -44,7 +44,22 @@ export class Connections extends EventTarget {
     coordinates,
   });
 
-  public static translate = (connection: Connection, offset: Coordinates) => {};
+  public static translate = (
+    connection: Connection,
+    offset: Coordinates
+  ): Connection => {
+    connection.coordinates = {
+      start: {
+        x: connection.coordinates.start.x + offset.x,
+        y: connection.coordinates.start.y + offset.y,
+      },
+      end: {
+        x: connection.coordinates.end.x + offset.x,
+        y: connection.coordinates.end.y + offset.y,
+      },
+    };
+    return connection;
+  };
 
   private _proxy: Connection[] = [];
 
