@@ -86,5 +86,11 @@ export class Connections extends EventTarget {
   private add = (details: Omit<Connection, "id">) =>
     this.connections.push(Connections.create(details)) && this._proxy;
 
-  private update = (id, update) => {};
+  private update = (id, update) => {
+    this.connections[this._getIndex(id)] = Connections.update(
+      this.connections[this._getIndex(id)],
+      update
+    );
+    return this._proxy;
+  };
 }
