@@ -80,6 +80,8 @@ export class Connections extends EventTarget {
   private _set = (target, property, value, receiver) =>
     Reflect.set(target, property, value, receiver);
 
+  private _getIndex = (id: UUID) => {};
+
   private add = (details: Omit<Connection, "id">) =>
     this.connections.push(Connections.create(details)) && this._proxy;
 
