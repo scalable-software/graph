@@ -6,6 +6,16 @@ describe("Given Connections imported", () => {
   });
 });
 
+// Static Methods Availability
+describe("Given Connections static methods", () => {
+  it("then Connections exist", () => {
+    expect(Connections).toBeDefined();
+  });
+  it("then Connections.init static method exists", () => {
+    expect(Connections.init).toBeDefined();
+  });
+});
+
 // Instance Properties Availability
 describe("Given connections instance", () => {
   let connections;
