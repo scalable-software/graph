@@ -205,7 +205,7 @@ describe("Given connections instance", () => {
 });
 
 // Instance Methods Behavior
-describe("Given connections._createProxy() method", () => {
+describe("Given connections._createProxy() method exist", () => {
   let connections;
   beforeEach(() => {
     connections = new Connections([]);
@@ -221,6 +221,12 @@ describe("Given connections._createProxy() method", () => {
     it("then proxy is an array", () => {
       expect(proxy).toBeInstanceOf(Array);
     });
+  });
+});
+describe("Given connections._get() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections([]);
   });
   describe("when proxy = new Proxy(target, handler)", () => {
     let proxy;
