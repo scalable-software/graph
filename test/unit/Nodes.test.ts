@@ -1,15 +1,13 @@
 import {
   Nodes,
   NodeType,
+  NodeMetadataType,
   Node,
   NodeMetadata,
   Coordinates,
 } from "@scalable-software/graph.structure/Nodes";
 
-import {
-  NodeMetadataType,
-  Utilities,
-} from "@scalable-software/graph.structure";
+import { Utilities } from "@scalable-software/graph.structure";
 
 import { Helper } from "./Helper.js";
 
