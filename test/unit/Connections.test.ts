@@ -186,3 +186,14 @@ describe("Given connections instance", () => {
     expect(connections["connections"]).toBeDefined();
   });
 });
+
+// Instance Methods Availability
+describe("Given connections instance", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections([]);
+  });
+  it("then connections._createProxy() method exists", () => {
+    expect(connections["_createProxy"]).toBeDefined();
+  });
+});
