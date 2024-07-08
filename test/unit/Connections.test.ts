@@ -139,6 +139,39 @@ describe("Given Connections.updateCoordinates() static method exist", () => {
     });
   });
 });
+describe("Given Connections.translate() static method exist", () => {
+  describe("and connections exist", () => {
+    let connection: Connection;
+    beforeEach(() => {
+      connection = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        name: "Connection",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+    });
+    describe("when updatedConnection = Connections.translate(connection, offset)", () => {
+      let offset;
+      beforeEach(() => {
+        offset = { x: 10, y: 10 };
+        connection = Connections.translate(connection, offset);
+      });
+      it("then connection.coordinates.start.x is equal to offset.x", () => {
+        expect(connection.coordinates.start.x).toEqual(offset.x);
+      });
+      it("then connection.coordinates.start.y is equal to offset.y", () => {
+        expect(connection.coordinates.start.y).toEqual(offset.y);
+      });
+      it("then connection.coordinates.end.x is equal to offset.x", () => {
+        expect(connection.coordinates.end.x).toEqual(offset.x);
+      });
+      it("then connection.coordinates.end.y is equal to offset.y", () => {
+        expect(connection.coordinates.end.y).toEqual(offset.y);
+      });
+    });
+  });
+});
 
 // Instance Properties Availability
 describe("Given connections instance", () => {
