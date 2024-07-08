@@ -16,6 +16,22 @@ describe("Given Connections static methods", () => {
   });
 });
 
+// Static Methods Behavior
+describe("Given Connections.init static method", () => {
+  describe("when connections = Connections.init()", () => {
+    let connections;
+    beforeEach(() => {
+      connections = Connections.init();
+    });
+    it("then connections is defined", () => {
+      expect(connections).toBeDefined();
+    });
+    it("then connections is an array", () => {
+      expect(connections).toBeInstanceOf(Array);
+    });
+  });
+});
+
 // Instance Properties Availability
 describe("Given connections instance", () => {
   let connections;
