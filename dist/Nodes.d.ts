@@ -70,28 +70,14 @@ export declare class Nodes extends EventTarget {
     static translate: (node: Node, offset: any) => Node;
     static removeMetadata: (node: Node, type: NodeMetadataType) => Node;
     private _proxy;
-    private _result;
     /**
      * The private constructor is used by the static init method: no direct instantiation is allowed.
      * This is done so that a different return value, other than an instance of the class can be returned.
      */
     constructor(nodes?: Node[]);
-    private get symbol();
-    private set symbol(value);
-    private get index();
-    private set index(value);
-    private get length();
-    private set length(value);
-    private get property();
-    private set property(value);
-    private get method();
-    private set method(value);
-    private get default();
-    private set default(value);
     private _get;
     private _set;
     private _createProxy;
-    private _getPropertyType;
     private _getIndex;
     private add;
     private addMetadata;

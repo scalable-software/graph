@@ -65,7 +65,6 @@ export class Nodes extends EventTarget {
         return node;
     };
     _proxy = [];
-    _result = false;
     /**
      * The private constructor is used by the static init method: no direct instantiation is allowed.
      * This is done so that a different return value, other than an instance of the class can be returned.
@@ -75,86 +74,33 @@ export class Nodes extends EventTarget {
         this.nodes = nodes;
         this._proxy = this._createProxy(nodes);
     }
-    get symbol() {
-        return (target, property, receiver) => Reflect.get(target, property, receiver);
-    }
-    set symbol({ target, property, value, receiver }) {
-        this._result = Reflect.set(target, property, value, receiver);
-    }
-    get index() {
-        return (target, property, receiver) => Reflect.get(target, property, receiver);
-    }
-    set index({ target, property, value, receiver }) {
-        this._result = Reflect.set(target, property, value, receiver);
-    }
-    get length() {
-        return (target, property, receiver) => Reflect.get(target, property, receiver);
-    }
-    set length({ target, property, value, receiver }) {
-        this._result = Reflect.set(target, property, value, receiver);
-    }
-    get property() {
-        return (target, property, receiver) => property === "add"
-            ? this.add
-            : property === "addMetadata"
-                ? this.addMetadata
-                : property === "update"
-                    ? this.update
-                    : property === "updateMetadata"
-                        ? this.updateMetadata
-                        : property === "updateIcon"
-                            ? this.updateIcon
-                            : property === "updateCoordinates"
-                                ? this.updateCoordinates
-                                : property === "findById"
-                                    ? this.findById
-                                    : property === "findByType"
-                                        ? this.findByType
-                                        : property === "findByCoordinates"
-                                            ? this.findByCoordinates
-                                            : property === "translate"
-                                                ? this.translate
-                                                : property === "removeMetadata"
-                                                    ? this.removeMetadata
-                                                    : property === "remove"
-                                                        ? this.remove
-                                                        : Reflect.get(target, property, receiver);
-    }
-    set property({ target, property, value, receiver }) {
-        this._result = Reflect.set(target, property, value, receiver);
-    }
-    get method() {
-        return (target, property, receiver) => Reflect.get(target, property, receiver);
-    }
-    set method({ target, property, value, receiver }) {
-        this._result = Reflect.set(target, property, value, receiver);
-    }
-    get default() {
-        return (target, property, receiver) => Reflect.get(target, property, receiver);
-    }
-    set default({ target, property, value, receiver }) {
-        this._result = Reflect.set(target, property, value, receiver);
-    }
-    _get = (target, property, receiver) => this[this._getPropertyType(property, target)](target, property, receiver);
-    _set = (target, property, value, receiver) => (this[this._getPropertyType(property, target)] = {
-        target,
-        property,
-        value,
-        receiver,
-    }) && this._result;
+    _get = (target, property, receiver) => property === "add"
+        ? this.add
+        : property === "addMetadata"
+            ? this.addMetadata
+            : property === "update"
+                ? this.update
+                : property === "updateMetadata"
+                    ? this.updateMetadata
+                    : property === "updateIcon"
+                        ? this.updateIcon
+                        : property === "updateCoordinates"
+                            ? this.updateCoordinates
+                            : property === "findById"
+                                ? this.findById
+                                : property === "findByType"
+                                    ? this.findByType
+                                    : property === "findByCoordinates"
+                                        ? this.findByCoordinates
+                                        : property === "translate"
+                                            ? this.translate
+                                            : property === "removeMetadata"
+                                                ? this.removeMetadata
+                                                : property === "remove"
+                                                    ? this.remove
+                                                    : Reflect.get(target, property, receiver);
+    _set = (target, property, value, receiver) => Reflect.set(target, property, value, receiver);
     _createProxy = (target) => new Proxy(target, { get: this._get, set: this._set });
-    _getPropertyType = (property, target) => typeof property === "symbol"
-        ? "symbol"
-        : Number.isInteger(Number(property))
-            ? "index"
-            : property === "length"
-                ? "length"
-                : typeof target[property] === "function"
-                    ? "method"
-                    : typeof property === "string" &&
-                        !(typeof target[property] === "function")
-                        ? "property"
-                        : "default";
     _getIndex = (id) => this.nodes.findIndex((node) => node.id === id);
     add = (details) => this.nodes.push(Nodes.create(details)) && this._proxy;
     addMetadata = (id, metadata) => {
