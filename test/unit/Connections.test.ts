@@ -318,3 +318,38 @@ describe("Given connections.add() method exist", () => {
     });
   });
 });
+describe("Given connections.update() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections([]);
+  });
+  describe("when connections.update(id, update)", () => {
+    let id;
+    let connection;
+    let update;
+    beforeEach(() => {
+      connection = {
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add(connection);
+      update = {
+        id: connections["connections"][0].id,
+        name: "Updated Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      id = connections["connections"][0].id;
+      connections.update(id, update);
+    });
+    it("then connections.connections.length is 1", () => {
+      expect(connections["connections"].length).toEqual(1);
+    });
+    it("then connections.connections[0] is equal to update", () => {
+      expect(connections["connections"][0]).toEqual(update);
+    });
+  });
+});
