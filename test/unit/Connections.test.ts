@@ -202,6 +202,9 @@ describe("Given connections instance", () => {
   it("then connections._set() method exists", () => {
     expect(connections["_set"]).toBeDefined();
   });
+  it("then connections.add() method exists", () => {
+    expect(connections["add"]).toBeDefined();
+  });
 });
 
 // Instance Methods Behavior
