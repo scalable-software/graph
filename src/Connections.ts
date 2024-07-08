@@ -79,4 +79,6 @@ export class Connections extends EventTarget {
 
   private _set = (target, property, value, receiver) =>
     Reflect.set(target, property, value, receiver);
+
+  private add = (details: Omit<Connection, "id">) => {};
 }
