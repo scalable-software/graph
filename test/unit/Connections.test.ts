@@ -278,6 +278,21 @@ describe("Given connections._set() method exist", () => {
     });
   });
 });
+describe("Given connections._getIndex() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections([]);
+  });
+  describe("when connections._getIndex(id)", () => {
+    let id;
+    beforeEach(() => {
+      id = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+    });
+    it("then connections._getIndex(id) is -1", () => {
+      expect(connections["_getIndex"](id)).toEqual(-1);
+    });
+  });
+});
 describe("Given connections.add() method exist", () => {
   let connections;
   beforeEach(() => {
