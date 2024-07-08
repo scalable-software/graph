@@ -135,7 +135,6 @@ export class Nodes extends EventTarget {
   };
 
   private _proxy: Node[] = [];
-  private _result: boolean = false;
 
   /**
    * The private constructor is used by the static init method: no direct instantiation is allowed.
