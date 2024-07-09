@@ -94,5 +94,5 @@ export class Connections extends EventTarget {
     return this._proxy;
   };
 
-  private findById = (id: UUID) => {};
+  private findById = (id: UUID) => this.connections[this._getIndex(id)];
 }
