@@ -582,3 +582,13 @@ describe("Given method = connections.translate", () => {
     expect(method).toBeDefined();
   });
 });
+describe("Given method = connections.remove", () => {
+  let method;
+  beforeEach(() => {
+    const connections = Connections.init();
+    method = connections["remove"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
