@@ -103,4 +103,6 @@ export class Connections extends EventTarget {
     );
     return this._proxy;
   };
+
+  private remove = (id: UUID) => {};
 }
