@@ -83,6 +83,8 @@ export class Connections extends EventTarget {
       ? this.findById
       : property === "translate"
       ? this.translate
+      : property === "remove"
+      ? this.remove
       : Reflect.get(target, property, receiver);
 
   private _set = (target, property, value, receiver) =>
