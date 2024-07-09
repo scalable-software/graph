@@ -79,6 +79,8 @@ export class Connections extends EventTarget {
       ? this.add
       : property === "update"
       ? this.update
+      : property === "findById"
+      ? this.findById
       : Reflect.get(target, property, receiver);
 
   private _set = (target, property, value, receiver) =>
