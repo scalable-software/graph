@@ -562,3 +562,13 @@ describe("Given method = connections.update", () => {
     expect(method).toBeDefined();
   });
 });
+describe("Given method = connections.findById", () => {
+  let method;
+  beforeEach(() => {
+    const connections = Connections.init();
+    method = connections["findById"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
