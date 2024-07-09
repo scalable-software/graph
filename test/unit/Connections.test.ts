@@ -356,3 +356,27 @@ describe("Given connections.update() method exist", () => {
     });
   });
 });
+describe("Given connections.findById() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections([]);
+  });
+  describe("when connections.findById(id)", () => {
+    let id;
+    let connection;
+    beforeEach(() => {
+      connection = {
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add(connection);
+      id = connections["connections"][0].id;
+      connection.id = id;
+    });
+    it("then connections.findById(id) is equal to connection", () => {
+      expect(connections.findById(id)).toEqual(connection);
+    });
+  });
+});
