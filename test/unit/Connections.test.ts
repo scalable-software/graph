@@ -10,10 +10,7 @@ describe("Given Connections imported", () => {
 });
 
 // Static Methods Availability
-describe("Given Connections static methods", () => {
-  it("then Connections exist", () => {
-    expect(Connections).toBeDefined();
-  });
+describe("Given Connections has static methods", () => {
   it("then Connections.init static method exists", () => {
     expect(Connections.init).toBeDefined();
   });
@@ -32,7 +29,7 @@ describe("Given Connections static methods", () => {
 });
 
 // Static Methods Behavior
-describe("Given Connections.init static method", () => {
+describe("Given Connections.init() static method exist", () => {
   describe("when connections = Connections.init()", () => {
     let connections;
     beforeEach(() => {
@@ -291,7 +288,7 @@ describe("Given method = connections['remove']", () => {
 describe("Given connections._createProxy() private method exist", () => {
   let connections;
   beforeEach(() => {
-    connections = new Connections([]);
+    connections = new Connections();
   });
   describe("when proxy = connections._createProxy(target)", () => {
     let proxy;
@@ -309,7 +306,7 @@ describe("Given connections._createProxy() private method exist", () => {
 describe("Given connections._get() private method exist", () => {
   let connections;
   beforeEach(() => {
-    connections = new Connections([]);
+    connections = new Connections();
   });
   describe("when proxy = new Proxy(target, handler)", () => {
     let proxy;
@@ -330,7 +327,7 @@ describe("Given connections._get() private method exist", () => {
 describe("Given connections._set() private method exist", () => {
   let connections;
   beforeEach(() => {
-    connections = new Connections([]);
+    connections = new Connections();
   });
   describe("when proxy = new Proxy(target, handler)", () => {
     let proxy;
@@ -355,7 +352,7 @@ describe("Given connections._set() private method exist", () => {
 describe("Given connections._getIndex() private method exist", () => {
   let connections;
   beforeEach(() => {
-    connections = new Connections([]);
+    connections = new Connections();
   });
   describe("when connections._getIndex(id)", () => {
     let id;
@@ -370,7 +367,7 @@ describe("Given connections._getIndex() private method exist", () => {
 describe("Given connections.add() private method exist", () => {
   let connections;
   beforeEach(() => {
-    connections = new Connections([]);
+    connections = new Connections();
   });
   describe("when connections.add(details)", () => {
     let details;
@@ -395,7 +392,7 @@ describe("Given connections.add() private method exist", () => {
 describe("Given connections.update() private method exist", () => {
   let connections;
   beforeEach(() => {
-    connections = new Connections([]);
+    connections = new Connections();
   });
   describe("when connections.update(id, update)", () => {
     let id;
@@ -430,7 +427,7 @@ describe("Given connections.update() private method exist", () => {
 describe("Given connections.findById() private method exist", () => {
   let connections;
   beforeEach(() => {
-    connections = new Connections([]);
+    connections = new Connections();
   });
   describe("when connections.findById(id)", () => {
     let id;
@@ -454,7 +451,7 @@ describe("Given connections.findById() private method exist", () => {
 describe("Given connections.translate() private method exist", () => {
   let connections;
   beforeEach(() => {
-    connections = new Connections([]);
+    connections = new Connections();
   });
   describe("when connections.translate(id, offset)", () => {
     let id;
@@ -496,7 +493,7 @@ describe("Given connections.translate() private method exist", () => {
 describe("Given connections.remove() private method exist", () => {
   let connections;
   beforeEach(() => {
-    connections = new Connections([]);
+    connections = new Connections();
   });
   describe("when connections.remove(id)", () => {
     let id;
