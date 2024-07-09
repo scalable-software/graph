@@ -592,3 +592,147 @@ describe("Given method = connections.remove", () => {
     expect(method).toBeDefined();
   });
 });
+
+// Proxy Method Behavior
+describe("Given connections.add() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = Connections.init();
+  });
+  describe("when connections.add(details)", () => {
+    let details;
+    beforeEach(() => {
+      details = {
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add(details);
+    });
+    it("then connections.length is 1", () => {
+      expect(connections.length).toEqual(1);
+    });
+  });
+});
+describe("Given connections.update() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = Connections.init();
+  });
+  describe("when connections.update(id, update)", () => {
+    let id;
+    let connection;
+    let update;
+    beforeEach(() => {
+      connection = {
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add(connection);
+      update = {
+        id: connections[0].id,
+        name: "Updated Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      id = connections[0].id;
+      connections.update(id, update);
+    });
+    it("then connections.length is 1", () => {
+      expect(connections.length).toEqual(1);
+    });
+    it("then connections[0] is equal to update", () => {
+      expect(connections[0]).toEqual(update);
+    });
+  });
+});
+describe("Given connections.findById() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = Connections.init();
+  });
+  describe("when connections.findById(id)", () => {
+    let id;
+    let connection;
+    beforeEach(() => {
+      connection = {
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add(connection);
+      id = connections[0].id;
+      connection.id = id;
+    });
+    it("then connections.findById(id) is equal to connection", () => {
+      expect(connections.findById(id)).toEqual(connection);
+    });
+  });
+});
+describe("Given connections.translate() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = Connections.init();
+  });
+  describe("when connections.translate(id, offset)", () => {
+    let id;
+    let connection;
+    let offset;
+    beforeEach(() => {
+      connection = {
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add(connection);
+      id = connections[0].id;
+      offset = { x: 10, y: 10 };
+      connections.translate(id, offset);
+    });
+    it("then connections.length is 1", () => {
+      expect(connections.length).toEqual(1);
+    });
+    it("then connections[0].coordinates.start.x is equal to offset.x", () => {
+      expect(connections[0].coordinates.start.x).toEqual(offset.x);
+    });
+    it("then connections[0].coordinates.start.y is equal to offset.y", () => {
+      expect(connections[0].coordinates.start.y).toEqual(offset.y);
+    });
+    it("then connections[0].coordinates.end.x is equal to offset.x", () => {
+      expect(connections[0].coordinates.end.x).toEqual(offset.x);
+    });
+    it("then connections[0].coordinates.end.y is equal to offset.y", () => {
+      expect(connections[0].coordinates.end.y).toEqual(offset.y);
+    });
+  });
+});
+describe("Given connections.remove() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = Connections.init();
+  });
+  describe("when connections.remove(id)", () => {
+    let id;
+    let connection;
+    beforeEach(() => {
+      connection = {
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add(connection);
+      id = connections[0].id;
+      connections.remove(id);
+    });
+    it("then connections.length is 0", () => {
+      expect(connections.length).toEqual(0);
+    });
+  });
+});
