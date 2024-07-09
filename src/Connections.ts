@@ -104,5 +104,8 @@ export class Connections extends EventTarget {
     return this._proxy;
   };
 
-  private remove = (id: UUID) => {};
+  private remove = (id: UUID) => {
+    this.connections.splice(this._getIndex(id), 1);
+    return this._proxy;
+  };
 }
