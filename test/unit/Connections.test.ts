@@ -428,3 +428,27 @@ describe("Given connections.translate() method exist", () => {
     });
   });
 });
+describe("Given connections.remove() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections([]);
+  });
+  describe("when connections.remove(id)", () => {
+    let id;
+    let connection;
+    beforeEach(() => {
+      connection = {
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add(connection);
+      id = connections["connections"][0].id;
+      connections.remove(id);
+    });
+    it("then connections.connections.length is 0", () => {
+      expect(connections["connections"].length).toEqual(0);
+    });
+  });
+});
