@@ -7,9 +7,7 @@ export {
   type GraphDetails,
   type NodeMetadata,
   type Node,
-  type Nodes,
   type Connection,
-  type Connections,
   type Coordinates,
   type Icon,
 } from "./Graph.js";

@@ -9,7 +9,6 @@ import {
   Icon,
   NodeMetadata,
   Node,
-  Nodes,
   UUID,
 } from "@scalable-software/graph.structure";
 
@@ -152,7 +151,7 @@ describe("Given graph.createNodes method exist", () => {
     graph = new Graph(metadata);
   });
   describe("when nodes = graph.createNodes(1, details)", () => {
-    let nodes: Nodes;
+    let nodes;
     beforeEach(() => {
       let details = {
         name: "Node",
@@ -611,7 +610,7 @@ describe("Given graph.findNodesByType method exist", () => {
   });
   describe("when graph.findNodesByType(type)", () => {
     let type: NodeType;
-    let nodes: Nodes;
+    let nodes;
     beforeEach(() => {
       graph.nodes.add({
         name: "Node1",
@@ -647,7 +646,7 @@ describe("Given graph.translateNode method exist", () => {
   });
   describe("When node exists in nodes", () => {
     let id: UUID;
-    let nodes: Nodes;
+    let nodes;
     beforeEach(() => {
       let details = {
         name: "Node",
