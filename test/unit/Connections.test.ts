@@ -174,56 +174,121 @@ describe("Given Connections.translate() static method exist", () => {
 });
 
 // Instance Properties Availability
-describe("Given connections instance", () => {
-  let connections;
+describe("Given property = connections['_proxy']", () => {
+  let property;
   beforeEach(() => {
-    connections = new Connections([]);
+    const connections = new Connections();
+    property = connections["_proxy"];
   });
-  it("then connections._proxy private property exists", () => {
-    expect(connections["_proxy"]).toBeDefined();
+  it("then property exists", () => {
+    expect(property).toBeDefined();
   });
-  it("then connections.connections private property exists", () => {
-    expect(connections["connections"]).toBeDefined();
+});
+describe("Given property = connections['connections']", () => {
+  let property;
+  beforeEach(() => {
+    const connections = new Connections();
+    property = connections["connections"];
+  });
+  it("then property exists", () => {
+    expect(property).toBeDefined();
   });
 });
 
 // Instance Methods Availability
-describe("Given connections instance", () => {
-  let connections;
+describe("Given method = connections['_createProxy]", () => {
+  let method;
   beforeEach(() => {
-    connections = new Connections([]);
+    const connections = new Connections();
+    method = connections["_createProxy"];
   });
-  it("then connections._createProxy() method exists", () => {
-    expect(connections["_createProxy"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then connections._get() method exists", () => {
-    expect(connections["_get"]).toBeDefined();
+});
+describe("Given method = connections['_get']", () => {
+  let method;
+  beforeEach(() => {
+    const connections = new Connections();
+    method = connections["_get"];
   });
-  it("then connections._set() method exists", () => {
-    expect(connections["_set"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then connections._getIndex() method exists", () => {
-    expect(connections["_getIndex"]).toBeDefined();
+});
+describe("Given method = connections['_set']", () => {
+  let method;
+  beforeEach(() => {
+    const connections = new Connections();
+    method = connections["_set"];
   });
-  it("then connections.add() method exists", () => {
-    expect(connections["add"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then connections.update() method exists", () => {
-    expect(connections["update"]).toBeDefined();
+});
+describe("Given method = connections['_getIndex']", () => {
+  let method;
+  beforeEach(() => {
+    const connections = new Connections();
+    method = connections["_get"];
   });
-  it("then connections.findById() method exists", () => {
-    expect(connections["findById"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then connections.translate() method exists", () => {
-    expect(connections["translate"]).toBeDefined();
+});
+describe("Given method = connections['add']", () => {
+  let method;
+  beforeEach(() => {
+    const connections = new Connections();
+    method = connections["add"];
   });
-  it("then connections.remove() method exists", () => {
-    expect(connections["remove"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = connections['update']", () => {
+  let method;
+  beforeEach(() => {
+    const connections = new Connections();
+    method = connections["update"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = connections['findById']", () => {
+  let method;
+  beforeEach(() => {
+    const connections = new Connections();
+    method = connections["findById"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = connections['translate']", () => {
+  let method;
+  beforeEach(() => {
+    const connections = new Connections();
+    method = connections["translate"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = connections['remove']", () => {
+  let method;
+  beforeEach(() => {
+    const connections = new Connections();
+    method = connections["remove"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
 });
 
 // Instance Methods Behavior
-describe("Given connections._createProxy() method exist", () => {
+describe("Given connections._createProxy() private method exist", () => {
   let connections;
   beforeEach(() => {
     connections = new Connections([]);
@@ -241,7 +306,7 @@ describe("Given connections._createProxy() method exist", () => {
     });
   });
 });
-describe("Given connections._get() method exist", () => {
+describe("Given connections._get() private method exist", () => {
   let connections;
   beforeEach(() => {
     connections = new Connections([]);
@@ -262,7 +327,7 @@ describe("Given connections._get() method exist", () => {
     });
   });
 });
-describe("Given connections._set() method exist", () => {
+describe("Given connections._set() private method exist", () => {
   let connections;
   beforeEach(() => {
     connections = new Connections([]);
@@ -287,7 +352,7 @@ describe("Given connections._set() method exist", () => {
     });
   });
 });
-describe("Given connections._getIndex() method exist", () => {
+describe("Given connections._getIndex() private method exist", () => {
   let connections;
   beforeEach(() => {
     connections = new Connections([]);
@@ -302,7 +367,7 @@ describe("Given connections._getIndex() method exist", () => {
     });
   });
 });
-describe("Given connections.add() method exist", () => {
+describe("Given connections.add() private method exist", () => {
   let connections;
   beforeEach(() => {
     connections = new Connections([]);
@@ -327,7 +392,7 @@ describe("Given connections.add() method exist", () => {
     });
   });
 });
-describe("Given connections.update() method exist", () => {
+describe("Given connections.update() private method exist", () => {
   let connections;
   beforeEach(() => {
     connections = new Connections([]);
@@ -362,7 +427,7 @@ describe("Given connections.update() method exist", () => {
     });
   });
 });
-describe("Given connections.findById() method exist", () => {
+describe("Given connections.findById() private method exist", () => {
   let connections;
   beforeEach(() => {
     connections = new Connections([]);
@@ -386,7 +451,7 @@ describe("Given connections.findById() method exist", () => {
     });
   });
 });
-describe("Given connections.translate() method exist", () => {
+describe("Given connections.translate() private method exist", () => {
   let connections;
   beforeEach(() => {
     connections = new Connections([]);
@@ -428,7 +493,7 @@ describe("Given connections.translate() method exist", () => {
     });
   });
 });
-describe("Given connections.remove() method exist", () => {
+describe("Given connections.remove() private method exist", () => {
   let connections;
   beforeEach(() => {
     connections = new Connections([]);
