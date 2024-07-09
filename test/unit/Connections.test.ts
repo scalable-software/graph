@@ -217,6 +217,9 @@ describe("Given connections instance", () => {
   it("then connections.translate() method exists", () => {
     expect(connections["translate"]).toBeDefined();
   });
+  it("then connections.remove() method exists", () => {
+    expect(connections["remove"]).toBeDefined();
+  });
 });
 
 // Instance Methods Behavior
