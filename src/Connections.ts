@@ -93,4 +93,6 @@ export class Connections extends EventTarget {
     );
     return this._proxy;
   };
+
+  private findById = (id: UUID) => {};
 }
