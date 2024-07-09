@@ -1632,7 +1632,7 @@ describe("Given method = nodes.remove", () => {
 });
 
 // Proxy Method Behavior
-describe("Given nodes proxy instance", () => {
+describe("Given nodes.add(node) public method exists", () => {
   let nodes;
   beforeEach(() => {
     nodes = Nodes.init();
@@ -1668,6 +1668,12 @@ describe("Given nodes proxy instance", () => {
       expect(nodes[0].icon).toEqual(node.icon);
     });
   });
+});
+describe("Given nodes.addMetadata(node, metadata) public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
   describe("when nodes.addMetadata(node, metadata)", () => {
     let nodes;
     let node: Omit<Node, "id">;
@@ -1693,6 +1699,12 @@ describe("Given nodes proxy instance", () => {
       expect(nodes[0].metadata).toEqual([metadata]);
     });
   });
+});
+describe("Given nodes.update(node, metadata) public method exist", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
   describe("when nodes.update(node, update)", () => {
     let node: Omit<Node, "id">;
     let update: Partial<Node>;
@@ -1716,6 +1728,12 @@ describe("Given nodes proxy instance", () => {
       (update as Node).id = nodes[0].id;
       expect(nodes[0]).toEqual(update);
     });
+  });
+});
+describe("Given nodes.updateMetadata(node, metadata) public method exist", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
   });
   describe("when nodes.updateMetadata(node, metadata)", () => {
     let node: Omit<Node, "id">;
@@ -1746,6 +1764,12 @@ describe("Given nodes proxy instance", () => {
       expect(nodes[0].metadata).toEqual([metadata]);
     });
   });
+});
+describe("Given nodes.updateIcon(node, icon) public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
   describe("when nodes.updateIcon(node, icon)", () => {
     let node: Omit<Node, "id">;
     let icon: string;
@@ -1763,6 +1787,12 @@ describe("Given nodes proxy instance", () => {
     it("then node in nodes has updated icon", () => {
       expect(nodes[0].icon).toEqual(icon);
     });
+  });
+});
+describe("Given nodes.updateCoordinates(node, coordinates) public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
   });
   describe("when nodes.updateCoordinates(node, coordinates)", () => {
     let node: Omit<Node, "id">;
@@ -1782,6 +1812,12 @@ describe("Given nodes proxy instance", () => {
       expect(nodes[0].coordinates).toEqual(coordinates);
     });
   });
+});
+describe("Given nodes.findById(id) public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
   describe("when nodes.findById(id)", () => {
     let node: Omit<Node, "id">;
     let result: Node;
@@ -1799,6 +1835,12 @@ describe("Given nodes proxy instance", () => {
     it("then result is equal to node", () => {
       expect(result).toEqual(nodes[0]);
     });
+  });
+});
+describe("Given nodes.findByType(type) public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
   });
   describe("when nodes.findByType(type)", () => {
     let node: Omit<Node, "id">;
@@ -1818,6 +1860,12 @@ describe("Given nodes proxy instance", () => {
       expect(result).toEqual([nodes[0]]);
     });
   });
+});
+describe("Given nodes.findByCoordinates(coordinates) public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
+  });
   describe("when nodes.findByCoordinates(coordinates)", () => {
     let node: Omit<Node, "id">;
     let result: Node[];
@@ -1835,6 +1883,12 @@ describe("Given nodes proxy instance", () => {
     it("then result is equal to [node]", () => {
       expect(result).toEqual([nodes[0]]);
     });
+  });
+});
+describe("Given nodes.translate(id, offset) public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
   });
   describe("when nodes.translate(id, offset)", () => {
     let node: Omit<Node, "id">;
@@ -1857,6 +1911,12 @@ describe("Given nodes proxy instance", () => {
       };
       expect(nodes[0].coordinates).toEqual(updatedCoordinates);
     });
+  });
+});
+describe("Given nodes.removeMetadata(id, type) public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
   });
   describe("when nodes.removeMetadata(id, type)", () => {
     let node: Omit<Node, "id">;
@@ -1881,6 +1941,12 @@ describe("Given nodes proxy instance", () => {
     it("then node in nodes does not contain metadata", () => {
       expect(nodes[0].metadata).toEqual([]);
     });
+  });
+});
+describe("Given nodes.remove(id) public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = Nodes.init();
   });
   describe("when nodes.remove(id)", () => {
     let node: Omit<Node, "id">;
