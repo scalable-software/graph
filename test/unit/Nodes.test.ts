@@ -1510,46 +1510,124 @@ describe("Given element of type property", () => {
 });
 
 // Proxy Method Availability
-describe("Given nodes proxy instance", () => {
-  let nodes;
+describe("Given method = nodes.add", () => {
+  let method;
   beforeEach(() => {
-    nodes = Nodes.init();
+    const nodes = Nodes.init();
+    method = nodes["add"];
   });
-  it("then nodes.add exists", () => {
-    expect(nodes.add).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.addMetadata exists", () => {
-    expect(nodes.addMetadata).toBeDefined();
+});
+describe("Given method = nodes.addMetadata", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = Nodes.init();
+    method = nodes["addMetadata"];
   });
-  it("then nodes.update exists", () => {
-    expect(nodes.update).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.updateMetadata exists", () => {
-    expect(nodes.updateMetadata).toBeDefined();
+});
+describe("Given method = nodes.update", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = Nodes.init();
+    method = nodes["update"];
   });
-  it("then nodes.updateIcon exists", () => {
-    expect(nodes.updateIcon).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.updateCoordinates exists", () => {
-    expect(nodes.updateCoordinates).toBeDefined();
+});
+describe("Given method = nodes.updateMetadata", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = Nodes.init();
+    method = nodes["updateMetadata"];
   });
-  it("then nodes.findById exists", () => {
-    expect(nodes.findById).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.findByType exists", () => {
-    expect(nodes.findByType).toBeDefined();
+});
+describe("Given method = nodes.updateIcon", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = Nodes.init();
+    method = nodes["updateIcon"];
   });
-  it("then nodes.findByCoordinates exists", () => {
-    expect(nodes.findByCoordinates).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.translate exists", () => {
-    expect(nodes.translate).toBeDefined();
+});
+describe("Given method = nodes.updateCoordinates", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = Nodes.init();
+    method = nodes["updateCoordinates"];
   });
-  it("then nodes.removeMetadata exists", () => {
-    expect(nodes.removeMetadata).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.remove exists", () => {
-    expect(nodes.remove).toBeDefined();
+});
+describe("Given method = nodes.findById", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = Nodes.init();
+    method = nodes["findById"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes.findByType", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = Nodes.init();
+    method = nodes["findByType"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes.findByCoordinates", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = Nodes.init();
+    method = nodes["findByCoordinates"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes.translate", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = Nodes.init();
+    method = nodes["translate"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes.removeMetadata", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = Nodes.init();
+    method = nodes["removeMetadata"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes.remove", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = Nodes.init();
+    method = nodes["remove"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
 });
 

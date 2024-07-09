@@ -540,3 +540,25 @@ describe("Given connections.remove() private method exist", () => {
     });
   });
 });
+
+// Proxy Method Availability
+describe("Given method = connections.add", () => {
+  let method;
+  beforeEach(() => {
+    const connections = Connections.init();
+    method = connections["add"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = connections.update", () => {
+  let method;
+  beforeEach(() => {
+    const connections = Connections.init();
+    method = connections["update"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
