@@ -383,3 +383,45 @@ describe("Given connections.findById() method exist", () => {
     });
   });
 });
+describe("Given connections.translate() method exist", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections([]);
+  });
+  describe("when connections.translate(id, offset)", () => {
+    let id;
+    let connection;
+    let offset;
+    beforeEach(() => {
+      connection = {
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add(connection);
+      id = connections["connections"][0].id;
+      offset = { x: 10, y: 10 };
+      connections.translate(id, offset);
+    });
+    it("then connections.connections.length is 1", () => {
+      expect(connections["connections"].length).toEqual(1);
+    });
+    it("then connections.connections[0].coordinates.start.x is equal to offset.x", () => {
+      expect(connections["connections"][0].coordinates.start.x).toEqual(
+        offset.x
+      );
+    });
+    it("then connections.connections[0].coordinates.start.y is equal to offset.y", () => {
+      expect(connections["connections"][0].coordinates.start.y).toEqual(
+        offset.y
+      );
+    });
+    it("then connections.connections[0].coordinates.end.x is equal to offset.x", () => {
+      expect(connections["connections"][0].coordinates.end.x).toEqual(offset.x);
+    });
+    it("then connections.connections[0].coordinates.end.y is equal to offset.y", () => {
+      expect(connections["connections"][0].coordinates.end.y).toEqual(offset.y);
+    });
+  });
+});
