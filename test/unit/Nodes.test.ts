@@ -11,11 +11,14 @@ import { Utilities } from "@scalable-software/graph.structure";
 
 import { Helper } from "./Helper.js";
 
-// Static Members Availability
 describe("Given Nodes imported", () => {
   it("then Nodes exist", () => {
     expect(Nodes).toBeDefined();
   });
+});
+
+// Static Methods Availability
+describe("Given Nodes has static methods", () => {
   it("then Nodes.init exists", () => {
     expect(Nodes.init).toBeDefined();
   });
@@ -805,110 +808,294 @@ describe("Given Nodes.removeMetadata() static method exist", () => {
 });
 
 // Instance Properties Availability
-describe("Given nodes instance", () => {
-  let nodes;
+describe("Given property = nodes['_proxy']", () => {
+  let property;
   beforeEach(() => {
-    nodes = new Nodes();
+    const nodes = new Nodes();
+    property = nodes["_proxy"];
   });
-  it("then nodes._proxy private property exists", () => {
-    expect(nodes["_proxy"]).toBeDefined();
+  it("then property exists", () => {
+    expect(property).toBeDefined();
+  });
+});
+describe("Given property = nodes['nodes']", () => {
+  let property;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    property = nodes["nodes"];
+  });
+  it("then property exists", () => {
+    expect(property).toBeDefined();
   });
 });
 
 // Instance Properties Value
-describe("Given nodes instance", () => {
+describe("Given nodes._proxy private property exists", () => {
   let nodes;
-  let node: Node;
   beforeEach(() => {
-    node = {
-      id: "1",
-      name: "Node1",
-      type: NodeType.START,
-      coordinates: { x: 0, y: 0 },
-      icon: "./icon.svg",
-    };
-    nodes = Nodes.init([node]);
+    nodes = new Nodes();
   });
-  it("then nodes is an data", () => {
-    expect(nodes).toEqual([node]);
+  it("then nodes._proxy is an array", () => {
+    expect(nodes["_proxy"]).toBeInstanceOf(Array);
+  });
+  it("then nodes._proxy is empty", () => {
+    expect(nodes["_proxy"]).toEqual([]);
+  });
+});
+describe("Given nodes.nodes private property exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  it("then nodes.nodes is an array", () => {
+    expect(nodes["nodes"]).toBeInstanceOf(Array);
+  });
+  it("then nodes.nodes is empty", () => {
+    expect(nodes["nodes"]).toEqual([]);
   });
 });
 
 // Instance Methods Availability
-describe("Given nodes instance", () => {
-  let nodes;
+describe("Given method = nodes['_get']", () => {
+  let method;
   beforeEach(() => {
-    nodes = new Nodes();
+    const nodes = new Nodes();
+    method = nodes["_get"];
   });
-  it("then nodes._get exists", () => {
-    expect(nodes["_get"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes._set exists", () => {
-    expect(nodes["_set"]).toBeDefined();
+});
+describe("Given method = nodes['_set']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["_set"];
   });
-  it("then nodes._createProxy exists", () => {
-    expect(nodes["_createProxy"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes._getIndex exists", () => {
-    expect(nodes["_getIndex"]).toBeDefined();
+});
+describe("Given method = nodes['_getIndex']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["_getIndex"];
   });
-  it("then nodes.add exists", () => {
-    expect(nodes["add"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.addMetadata exists", () => {
-    expect(nodes["addMetadata"]).toBeDefined();
+});
+describe("Given method = nodes['_createProxy']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["_createProxy"];
   });
-  it("then nodes.update exists", () => {
-    expect(nodes["update"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.updateMetadata exists", () => {
-    expect(nodes["updateMetadata"]).toBeDefined();
+});
+describe("Given method = nodes['_getIndex']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["_getIndex"];
   });
-  it("then nodes.updateIcon exists", () => {
-    expect(nodes["updateIcon"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.updateCoordinates exists", () => {
-    expect(nodes["updateCoordinates"]).toBeDefined();
+});
+describe("Given method = nodes['add']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["add"];
   });
-  it("then nodes.findById exists", () => {
-    expect(nodes["findById"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.findByType exists", () => {
-    expect(nodes["findByType"]).toBeDefined();
+});
+describe("Given method = nodes['addMetadata']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["addMetadata"];
   });
-  it("then nodes.findByCoordinates exists", () => {
-    expect(nodes["findByCoordinates"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.translate exists", () => {
-    expect(nodes["translate"]).toBeDefined();
+});
+describe("Given method = nodes['update']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["update"];
   });
-  it("then nodes.removeMetadata exists", () => {
-    expect(nodes["removeMetadata"]).toBeDefined();
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
-  it("then nodes.remove exists", () => {
-    expect(nodes["remove"]).toBeDefined();
+});
+describe("Given method = nodes['updateMetadata']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["updateMetadata"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes['updateIcon']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["updateIcon"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes['updateCoordinates']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["updateCoordinates"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes['findById']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["findById"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes['findByType']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["findByType"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes['findByCoordinates']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["findByCoordinates"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes['translate']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["translate"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes['removeMetadata']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["removeMetadata"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
+  });
+});
+describe("Given method = nodes['remove']", () => {
+  let method;
+  beforeEach(() => {
+    const nodes = new Nodes();
+    method = nodes["remove"];
+  });
+  it("then method exists", () => {
+    expect(method).toBeDefined();
   });
 });
 
-// Instance Getters Availability
-
-// Instance Setters Availability
-
 // Instance Methods Behavior
-describe("Given nodes instance", () => {
+describe("Given nodes._createProxy() private method exists", () => {
   let nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
-  describe("when proxy = nodes._createProxy(array)", () => {
+  describe("when proxy = nodes._createProxy(target)", () => {
     let proxy;
-    let array = [];
     beforeEach(() => {
-      proxy = nodes["_createProxy"](array);
+      proxy = nodes["_createProxy"]([]);
     });
-    it("then proxy is equal to an empty array", () => {
-      expect(proxy).toEqual(array);
+    it("then proxy is defined", () => {
+      expect(proxy).toBeDefined();
     });
+    it("then proxy is an array", () => {
+      expect(proxy).toBeInstanceOf(Array);
+    });
+  });
+});
+describe("Given nodes._get() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when proxy = new Proxy(target, handler)", () => {
+    let proxy;
+    let target;
+    beforeEach(() => {
+      target = [1, 2, 3];
+      proxy = new Proxy(target, {
+        get: nodes["_get"],
+        set: (target, property, value, receiver) =>
+          Reflect.set(target, property, value, receiver),
+      });
+    });
+    it("then proxy.length is equal to target.length", () => {
+      expect(proxy.length).toEqual(target.length);
+    });
+  });
+});
+describe("Given nodes._set() private method exist", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when proxy = new Proxy(target, handler)", () => {
+    let proxy;
+    let target;
+    beforeEach(() => {
+      target = [1, 2, 3];
+      proxy = new Proxy(target, {
+        get: (target, property, receiver) =>
+          Reflect.get(target, property, receiver),
+        set: nodes["_set"],
+      });
+    });
+    it("then proxy.length is equal to target.length", () => {
+      expect(proxy.length).toEqual(target.length);
+    });
+    it("then proxy.push(4) adds 4 to the target", () => {
+      proxy.push(4);
+      expect(target).toEqual([1, 2, 3, 4]);
+    });
+  });
+});
+describe("Given nodes._getIndex() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
   });
   describe("when index = nodes._getIndex(id)", () => {
     let node;
@@ -928,6 +1115,12 @@ describe("Given nodes instance", () => {
       expect(nodes._getIndex(node.id)).toEqual(index);
     });
   });
+});
+describe("Given nodes.add() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
   describe("when nodes.add(node)", () => {
     let node: Omit<Node, "id">;
     beforeEach(() => {
@@ -938,10 +1131,310 @@ describe("Given nodes instance", () => {
         icon: "./icon.svg",
       };
       nodes.add(node);
+      (node as Node).id = nodes["nodes"][0].id;
     });
     it("then nodes.nodes is equal to [node]", () => {
-      (node as Node).id = nodes["nodes"][0].id;
       expect(nodes["nodes"]).toEqual([node]);
+    });
+  });
+});
+describe("Given nodes.addMetadata() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when nodes.addMetadata(id, metadata)", () => {
+    let node: Node;
+    let metadata: NodeMetadata;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      metadata = {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 1 }],
+        },
+      };
+      nodes["nodes"].push(node);
+      nodes.addMetadata(node.id, metadata);
+    });
+    it("then node.metadata is equal to [metadata]", () => {
+      expect(nodes["nodes"][0].metadata).toEqual([metadata]);
+    });
+  });
+});
+describe("Given nodes.update() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when nodes.update(node, update)", () => {
+    let node: Node;
+    let update: Node;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      update = {
+        id: "1",
+        name: "Node2",
+        type: NodeType.END,
+        coordinates: { x: 1, y: 1 },
+        icon: "./icon.svg",
+      };
+      nodes["nodes"].push(node);
+      nodes.update(node.id, update);
+    });
+    it("then node is equal to update", () => {
+      expect(nodes["nodes"][0]).toEqual(update);
+    });
+  });
+});
+describe("Given nodes.updateMetadata() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when nodes.updateMetadata(id, metadata)", () => {
+    let node: Node;
+    let metadata: NodeMetadata;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+        metadata: [
+          {
+            arrival: {
+              distribution: "exponential",
+              parameters: [{ rate: 1 }],
+            },
+          },
+        ],
+      };
+      metadata = {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 10 }],
+        },
+      };
+      nodes["nodes"].push(node);
+      nodes.updateMetadata(node.id, metadata);
+    });
+    it("then node.metadata is equal to [metadata]", () => {
+      expect(nodes["nodes"][0].metadata).toEqual([metadata]);
+    });
+  });
+});
+describe("Given nodes.updateIcon() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when nodes.updateIcon(id, icon)", () => {
+    let node: Node;
+    let icon: string;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      icon = "./newIcon.svg";
+      nodes["nodes"].push(node);
+      nodes.updateIcon(node.id, icon);
+    });
+    it("then node.icon is equal to icon", () => {
+      expect(nodes["nodes"][0].icon).toEqual(icon);
+    });
+  });
+});
+describe("Given nodes.updateCoordinates() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when nodes.updateCoordinates(id, coordinates)", () => {
+    let node: Node;
+    let coordinates: Coordinates;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      coordinates = { x: 1, y: 1 };
+      nodes["nodes"].push(node);
+      nodes.updateCoordinates(node.id, coordinates);
+    });
+    it("then node.coordinates is equal to coordinates", () => {
+      expect(nodes["nodes"][0].coordinates).toEqual(coordinates);
+    });
+  });
+});
+describe("Given nodes.findById() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when node = nodes.findById(id)", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes["nodes"].push(node);
+    });
+    it("then node is equal to nodes[0]", () => {
+      expect(nodes.findById(node.id)).toEqual(node);
+    });
+  });
+});
+describe("Given nodes.findByType() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when nodes.findByType(type)", () => {
+    let node: Node;
+    let type: NodeType;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      type = NodeType.START;
+      nodes["nodes"].push(node);
+    });
+    it("then node is equal to nodes[0]", () => {
+      expect(nodes.findByType(type)).toEqual([node]);
+    });
+  });
+});
+describe("Given nodes.findByCoordinates() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when nodes.findByCoordinates(coordinates)", () => {
+    let node: Node;
+    let coordinates: Coordinates;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      coordinates = { x: 0, y: 0 };
+      nodes["nodes"].push(node);
+    });
+    it("then node is equal to nodes[0]", () => {
+      expect(nodes.findByCoordinates(coordinates)).toEqual([node]);
+    });
+  });
+});
+describe("Given nodes.translate() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when nodes.translate(offset)", () => {
+    let node: Node;
+    let offset: Coordinates;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      offset = { x: 1, y: 1 };
+      nodes["nodes"].push(node);
+      nodes.translate(node.id, offset);
+    });
+    it("then node.coordinates is equal to offset", () => {
+      expect(nodes["nodes"][0].coordinates).toEqual(offset);
+    });
+  });
+});
+describe("Given nodes.removeMetadata() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when nodes.removeMetadata(id, type)", () => {
+    let node: Node;
+    let type: NodeMetadataType;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+        metadata: [
+          {
+            arrival: {
+              distribution: "exponential",
+              parameters: [{ rate: 1 }],
+            },
+          },
+        ],
+      };
+      type = "arrival";
+      nodes["nodes"].push(node);
+      nodes.removeMetadata(node.id, type);
+    });
+    it("then node.metadata is empty", () => {
+      expect(nodes["nodes"][0].metadata).toEqual([]);
+    });
+  });
+});
+describe("Given nodes.remove() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when nodes.remove(id)", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = {
+        id: "1",
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes["nodes"].push(node);
+      nodes.remove(node.id);
+    });
+    it("then nodes is empty", () => {
+      expect(nodes["nodes"]).toEqual([]);
     });
   });
 });

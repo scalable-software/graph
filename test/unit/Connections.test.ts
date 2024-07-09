@@ -192,6 +192,32 @@ describe("Given property = connections['connections']", () => {
   });
 });
 
+// Instance Properties Values
+describe("Given connections._proxy private property exists", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections();
+  });
+  it("then connections._proxy is an array", () => {
+    expect(connections["_proxy"]).toBeInstanceOf(Array);
+  });
+  it("then connections._proxy is empty", () => {
+    expect(connections["_proxy"].length).toEqual(0);
+  });
+});
+describe("Given connections.connections private property exists", () => {
+  let connections;
+  beforeEach(() => {
+    connections = new Connections();
+  });
+  it("then connections.connections is an array", () => {
+    expect(connections["connections"]).toBeInstanceOf(Array);
+  });
+  it("then connections.connections is empty", () => {
+    expect(connections["connections"].length).toEqual(0);
+  });
+});
+
 // Instance Methods Availability
 describe("Given method = connections['_createProxy]", () => {
   let method;
