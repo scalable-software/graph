@@ -96,5 +96,11 @@ export class Connections extends EventTarget {
 
   private findById = (id: UUID) => this.connections[this._getIndex(id)];
 
-  private translate = (id: UUID, offset: Coordinates) => {};
+  private translate = (id: UUID, offset: Coordinates) => {
+    this.connections[this._getIndex(id)] = Connections.translate(
+      this.connections[this._getIndex(id)],
+      offset
+    );
+    return this._proxy;
+  };
 }
