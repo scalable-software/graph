@@ -214,6 +214,9 @@ describe("Given connections instance", () => {
   it("then connections.findById() method exists", () => {
     expect(connections["findById"]).toBeDefined();
   });
+  it("then connections.translate() method exists", () => {
+    expect(connections["translate"]).toBeDefined();
+  });
 });
 
 // Instance Methods Behavior
