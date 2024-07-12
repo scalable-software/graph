@@ -16,4 +16,6 @@ export class Nodes<T> extends Array<T> {
   public updateCoordinates = (item: T, coordinates: any) => {};
 
   public findById = (id: any) => {};
+
+  public findByType = (type: any) => {};
 }
