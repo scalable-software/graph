@@ -73,31 +73,31 @@ describe("Given Nodes instantiated", () => {
 // Method Availability
 describe("Given Nodes instantiated", () => {
   const nodes = new Nodes();
-  it("then add method exists", () => {
+  it("then add public method exists", () => {
     expect(nodes.add).toBeDefined();
   });
-  it("then addMetadata method exists", () => {
+  it("then addMetadata public method exists", () => {
     expect(nodes.addMetadata).toBeDefined();
   });
-  it("then update method exists", () => {
+  it("then update public method exists", () => {
     expect(nodes.update).toBeDefined();
   });
-  it("then updateMetadata method exists", () => {
+  it("then updateMetadata public method exists", () => {
     expect(nodes.updateMetadata).toBeDefined();
   });
-  it("then updateIcon method exists", () => {
+  it("then updateIcon public method exists", () => {
     expect(nodes.updateIcon).toBeDefined();
   });
-  it("then updateCoordinates method exists", () => {
+  it("then updateCoordinates public method exists", () => {
     expect(nodes.updateCoordinates).toBeDefined();
   });
-  it("then findById method exists", () => {
+  it("then findById public method exists", () => {
     expect(nodes.findById).toBeDefined();
   });
-  it("then findByType method exists", () => {
+  it("then findByType public method exists", () => {
     expect(nodes.findByType).toBeDefined();
   });
-  it("then findByCoordinates method exists", () => {
+  it("then findByCoordinates public method exists", () => {
     expect(nodes.findByCoordinates).toBeDefined();
   });
 });
