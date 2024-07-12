@@ -101,3 +101,28 @@ describe("Given Nodes instantiated", () => {
     expect(nodes.findByCoordinates).toBeDefined();
   });
 });
+
+// Method Behavior
+describe("Given nodes.add() public method exists", () => {
+  let nodes: Nodes<Node>;
+  beforeEach(() => {
+    nodes = new Nodes<Node>();
+  });
+  describe("when nodes.add(details)", () => {
+    let details: Omit<Node, "id">;
+    let node: Node;
+    beforeEach(() => {
+      details = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(details);
+      node = { ...nodes[0], id: nodes[0].id };
+    });
+    it("then node with details is added to nodes", () => {
+      expect(nodes[0]).toEqual(node);
+    });
+  });
+});
