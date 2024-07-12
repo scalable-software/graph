@@ -22,6 +22,9 @@ describe("Given Nodes Imported", () => {
   it("then Nodes.getMetadataType public static method exists", () => {
     expect(Nodes.getMetadataType).toBeDefined();
   });
+  it("then Nodes.getMetadataTypes public static method exists", () => {
+    expect(Nodes.getMetadataTypes).toBeDefined();
+  });
 });
 
 // Static Method Behavior
