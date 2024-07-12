@@ -99,9 +99,6 @@ export class Graph {
     };
   }
 
-  public updateConnection = (id: UUID, update: Connection) =>
-    this.connections.update(id, update);
-
   public findNodeById = (id: UUID): Node => this.nodes.findById(id);
 
   public findConnectionById = (id: UUID): Connection =>

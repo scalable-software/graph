@@ -43,9 +43,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.findNodeByCoordinates exist", () => {
     expect(graph.findNodeByCoordinates).toBeDefined();
   });
-  it("then graph.updateConnection exist", () => {
-    expect(graph.updateConnection).toBeDefined();
-  });
   it("then graph.removeNodeMetadata exist", () => {
     expect(graph.removeNodeMetadata).toBeDefined();
   });
@@ -413,7 +410,7 @@ describe("Given graph.nodes.update method exist", () => {
     });
   });
 });
-describe("Given graph.updateConnection method exist", () => {
+describe("Given graph.connections.update method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -422,9 +419,9 @@ describe("Given graph.updateConnection method exist", () => {
     };
     graph = new Graph(metadata);
   });
-  describe("when updatedConnection = graph.updateConnection(existingConnections, update)", () => {
+  describe("when graph.connections.update(id, updatedConnection)", () => {
     let connection: Connection;
-    let update: Connection;
+    let updatedConnection: Connection;
     beforeEach(() => {
       graph.connections.add({
         name: "",
@@ -436,7 +433,7 @@ describe("Given graph.updateConnection method exist", () => {
         },
       });
       connection = graph.connections[0];
-      update = {
+      updatedConnection = {
         id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
@@ -446,7 +443,7 @@ describe("Given graph.updateConnection method exist", () => {
           end: { x: 1, y: 1 },
         },
       };
-      graph.updateConnection(connection.id, update);
+      graph.connections.update(connection.id, updatedConnection);
     });
     it("then graph.connections exist", () => {
       expect(graph.connections).toBeDefined();
@@ -455,8 +452,8 @@ describe("Given graph.updateConnection method exist", () => {
       expect(graph.connections.length).toBe(1);
     });
     it("then graph.connections[0] equals update", () => {
-      update.id = connection.id;
-      expect(graph.connections[0]).toEqual(update);
+      updatedConnection.id = connection.id;
+      expect(graph.connections[0]).toEqual(updatedConnection);
     });
   });
 });
