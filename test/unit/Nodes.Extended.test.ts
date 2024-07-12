@@ -163,6 +163,70 @@ describe("Given Nodes.getMetadataTypes() static method exist", () => {
     });
   });
 });
+describe("Given Nodes.hasMetadata() static method exist", () => {
+  describe("and node has metadata", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = {
+        id: Utilities.uuid,
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeType),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+        metadata: [
+          {
+            arrival: {
+              distribution: "exponential",
+              parameters: [{ rate: 1 }],
+            },
+          },
+          {
+            duration: {
+              distribution: "log normal",
+              parameters: [{ meanlog: 0.1640238 }, { sdlog: 0.4169375 }],
+            },
+          },
+        ],
+      };
+    });
+    describe("when hasMetadata = Nodes.hasMetadata(node)", () => {
+      let hasMetadata: boolean;
+      beforeEach(() => {
+        hasMetadata = Nodes.hasMetadata(node);
+      });
+      it("then hasMetadata is exist", () => {
+        expect(hasMetadata).toBeDefined();
+      });
+      it("then hasMetadata is equal to true", () => {
+        expect(hasMetadata).toEqual(true);
+      });
+    });
+  });
+  describe("and node has no metadata", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = {
+        id: Utilities.uuid,
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeType),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+    });
+    describe("when hasMetadata = Nodes.hasMetadata(node)", () => {
+      let hasMetadata: boolean;
+      beforeEach(() => {
+        hasMetadata = Nodes.hasMetadata(node);
+      });
+      it("then hasMetadata is exist", () => {
+        expect(hasMetadata).toBeDefined();
+      });
+      it("then hasMetadata is equal to false", () => {
+        expect(hasMetadata).toEqual(false);
+      });
+    });
+  });
+});
 
 // Constructor Behavior
 describe("Given Nodes instantiated", () => {
