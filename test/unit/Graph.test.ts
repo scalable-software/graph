@@ -31,9 +31,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.connections exists", () => {
     expect(graph.connections).toBeDefined();
   });
-  it("then graph.removeConnectionById exist", () => {
-    expect(graph.removeConnectionById).toBeDefined();
-  });
 });
 
 // Instance Property Values
@@ -693,7 +690,7 @@ describe("Given graph.nodes.remove exist", () => {
     });
   });
 });
-describe("Given graph.removeConnectionById exist", () => {
+describe("Given graph.connections.remove exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -702,7 +699,7 @@ describe("Given graph.removeConnectionById exist", () => {
     };
     graph = new Graph(metadata);
   });
-  describe("when graph.removeConnectionById(existingConnections, id)", () => {
+  describe("when graph.connections.remove(id)", () => {
     let id: UUID;
     beforeEach(() => {
       graph.connections.add({
@@ -715,7 +712,7 @@ describe("Given graph.removeConnectionById exist", () => {
         },
       });
       id = graph.connections[0].id;
-      graph.removeConnectionById(id);
+      graph.connections.remove(id);
     });
     it("then graph.connections exist", () => {
       expect(graph.connections).toBeDefined();
