@@ -99,8 +99,6 @@ export class Graph {
     };
   }
 
-  public removeNodeById = (id: UUID): Nodes => this.nodes.remove(id);
-
   public removeConnectionById = (id: UUID): Connections =>
     this.connections.remove(id);
 }

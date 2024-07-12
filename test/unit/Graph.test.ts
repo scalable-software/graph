@@ -667,7 +667,7 @@ describe("Given graph.nodes.removeMetadata method exist", () => {
     });
   });
 });
-describe("Given graph.removeNodeById exist", () => {
+describe("Given graph.nodes.remove exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -676,7 +676,7 @@ describe("Given graph.removeNodeById exist", () => {
     };
     graph = new Graph(metadata);
   });
-  describe("when graph.removeNodeById(existingNodes, id)", () => {
+  describe("when graph.nodes.removeById(id)", () => {
     let id: UUID;
     beforeEach(() => {
       graph.nodes.add({
@@ -686,7 +686,7 @@ describe("Given graph.removeNodeById exist", () => {
         icon: "./icon.svg",
       });
       id = graph.nodes[0].id;
-      graph.removeNodeById(id);
+      graph.nodes.remove(id);
     });
     it("then graph.nodes exist", () => {
       expect(graph.nodes).toBeDefined();
