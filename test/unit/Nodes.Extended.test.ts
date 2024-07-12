@@ -1,5 +1,5 @@
 import { Nodes, Node, NodeType } from "../../src/Nodes.Extended.js";
-import { Utilities } from "@scalable-software/graph.structure";
+import { Utilities, UUID } from "@scalable-software/graph.structure";
 
 // Class Availability
 describe("Given Nodes imported", () => {
@@ -106,6 +106,34 @@ describe("Given Nodes instantiated", () => {
 });
 
 // Method Behavior
+describe("given nodes._getIndex(id) private method exists", () => {
+  let nodes: Nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("and nodes contains a node with id", () => {
+    let id: UUID;
+    beforeEach(() => {
+      const details = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(details);
+      id = nodes[0].id;
+    });
+    describe("when index = nodes._getIndex(id)", () => {
+      let index: number;
+      beforeEach(() => {
+        index = nodes["_getIndex"](id);
+      });
+      it("then index is 0", () => {
+        expect(index).toBe(0);
+      });
+    });
+  });
+});
 describe("Given nodes.add() public method exists", () => {
   let nodes: Nodes;
   beforeEach(() => {
