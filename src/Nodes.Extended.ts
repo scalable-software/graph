@@ -8,4 +8,6 @@ export class Nodes<T> extends Array<T> {
   public addMetadata = (item: T, metadata: any) => {};
 
   public update = (item: T, update: T) => {};
+
+  public updateMetadata = (item: T, metadata: any) => {};
 }
