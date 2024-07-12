@@ -39,4 +39,7 @@ describe("Given Nodes instantiated", () => {
   it("then findById method exists", () => {
     expect(nodes.findById).toBeDefined();
   });
+  it("then findByType method exists", () => {
+    expect(nodes.findByType).toBeDefined();
+  });
 });
