@@ -99,9 +99,6 @@ export class Graph {
     };
   }
 
-  public updateNodeIcon = (id: UUID, icon: Icon) =>
-    this.nodes.updateIcon(id, icon);
-
   public updateNode = (id: UUID, update) => this.nodes.update(id, update);
 
   public updateConnection = (id: UUID, update: Connection) =>

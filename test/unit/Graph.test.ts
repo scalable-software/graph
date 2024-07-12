@@ -43,9 +43,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.findNodeByCoordinates exist", () => {
     expect(graph.findNodeByCoordinates).toBeDefined();
   });
-  it("then graph.updateNodeIcon exist", () => {
-    expect(graph.updateNodeIcon).toBeDefined();
-  });
   it("then graph.updateNode exist", () => {
     expect(graph.updateNode).toBeDefined();
   });
@@ -345,7 +342,7 @@ describe("Given graph.nodes.updateCoordinates method exist", () => {
     });
   });
 });
-describe("Given graph.updateNodeIcon method exist", () => {
+describe("Given graph.nodes.updateIcon method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -354,7 +351,7 @@ describe("Given graph.updateNodeIcon method exist", () => {
     };
     graph = new Graph(metadata);
   });
-  describe("when graph.updateNodeIcon(id, icon)", () => {
+  describe("when graph.nodes.updateIcon(id, icon)", () => {
     let id: UUID;
     let icon: string;
     beforeEach(() => {
@@ -366,7 +363,7 @@ describe("Given graph.updateNodeIcon method exist", () => {
       });
       id = graph.nodes[0].id;
       icon = "./newIcon.svg";
-      graph.updateNodeIcon(id, icon);
+      graph.nodes.updateIcon(id, icon);
     });
     it("then graph.nodes exist", () => {
       expect(graph.nodes).toBeDefined();
@@ -602,17 +599,17 @@ describe("Given graph.translateNode method exist", () => {
         expect(graph.nodes[0].coordinates.y).toEqual(coordinates.y + offset.y);
       });
     });
-    describe("When graph.updateNodeIcon(id, icon)", () => {
+    describe("When graph.nodes.updateIcon(id, icon)", () => {
       let icon: Icon;
       beforeEach(() => {
         icon = "./new-icon.svg";
-        graph.updateNodeIcon(id, icon);
+        graph.nodes.updateIcon(id, icon);
       });
       it("then graph.nodes[0].icon equals icon", () => {
         expect(graph.nodes[0].icon).toEqual(icon);
       });
     });
-    describe("When graph.updateNode(id, update)", () => {
+    describe("When graph.nodes.updateNode(id, update)", () => {
       let details;
       let node;
       beforeEach(() => {
