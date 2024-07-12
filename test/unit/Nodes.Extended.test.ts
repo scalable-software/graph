@@ -36,4 +36,7 @@ describe("Given Nodes instantiated", () => {
   it("then updateCoordinates method exists", () => {
     expect(nodes.updateCoordinates).toBeDefined();
   });
+  it("then findById method exists", () => {
+    expect(nodes.findById).toBeDefined();
+  });
 });
