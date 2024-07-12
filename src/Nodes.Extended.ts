@@ -18,4 +18,6 @@ export class Nodes<T> extends Array<T> {
   public findById = (id: any) => {};
 
   public findByType = (type: any) => {};
+
+  public findByCoordinates = (coordinates: any) => {};
 }
