@@ -94,6 +94,72 @@ describe("Given Nodes.getMetadataType() static method exist", () => {
     });
   });
 });
+describe("Given Nodes.getMetadataTypes() static method exist", () => {
+  describe("and node has no metadata", () => {
+    describe("when metadataTypes = Nodes.getMetadataTypes(node)", () => {
+      let node: Node;
+      let metadataTypes: NodeMetadataType[];
+      beforeEach(() => {
+        node = {
+          id: Utilities.uuid,
+          name: "Node",
+          type: Utilities.getRandomElement<NodeType>(NodeType),
+          coordinates: { x: 0, y: 0 },
+          icon: "./icon.svg",
+          metadata: [
+            {
+              arrival: {
+                distribution: "exponential",
+                parameters: [{ rate: 1 }],
+              },
+            },
+            {
+              duration: {
+                distribution: "log normal",
+                parameters: [{ meanlog: 0.1640238 }, { sdlog: 0.4169375 }],
+              },
+            },
+          ],
+        };
+        metadataTypes = Nodes.getMetadataTypes(node);
+      });
+      it("then metadataTypes is exist", () => {
+        expect(metadataTypes).toBeDefined();
+      });
+      it("then metadataTypes is an array", () => {
+        expect(metadataTypes).toBeInstanceOf(Array);
+      });
+      it("then metadataTypes is equal to ['arrival', 'duration']", () => {
+        expect(metadataTypes).toEqual(["arrival", "duration"]);
+      });
+    });
+  });
+  describe("and node has metadata", () => {
+    describe("when metadataTypes = Nodes.getMetadataTypes(node)", () => {
+      let node: Node;
+      let metadataTypes: NodeMetadataType[];
+      beforeEach(() => {
+        node = {
+          id: Utilities.uuid,
+          name: "Node",
+          type: Utilities.getRandomElement<NodeType>(NodeType),
+          coordinates: { x: 0, y: 0 },
+          icon: "./icon.svg",
+        };
+        metadataTypes = Nodes.getMetadataTypes(node);
+      });
+      it("then metadataTypes is exist", () => {
+        expect(metadataTypes).toBeDefined();
+      });
+      it("then metadataTypes is an array", () => {
+        expect(metadataTypes).toBeInstanceOf(Array);
+      });
+      it("then metadataTypes is equal to []", () => {
+        expect(metadataTypes).toEqual([]);
+      });
+    });
+  });
+});
 
 // Constructor Behavior
 describe("Given Nodes instantiated", () => {
