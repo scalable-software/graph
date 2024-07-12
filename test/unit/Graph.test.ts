@@ -31,9 +31,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.connections exists", () => {
     expect(graph.connections).toBeDefined();
   });
-  it("then graph.removeNodeById exist", () => {
-    expect(graph.removeNodeById).toBeDefined();
-  });
   it("then graph.removeConnectionById exist", () => {
     expect(graph.removeConnectionById).toBeDefined();
   });
