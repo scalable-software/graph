@@ -43,9 +43,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.findNodeByCoordinates exist", () => {
     expect(graph.findNodeByCoordinates).toBeDefined();
   });
-  it("then graph.updateNode exist", () => {
-    expect(graph.updateNode).toBeDefined();
-  });
   it("then graph.updateConnection exist", () => {
     expect(graph.updateConnection).toBeDefined();
   });
@@ -376,7 +373,7 @@ describe("Given graph.nodes.updateIcon method exist", () => {
     });
   });
 });
-describe("Given graph.updateNode method exist", () => {
+describe("Given graph.nodes.update method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -385,9 +382,9 @@ describe("Given graph.updateNode method exist", () => {
     };
     graph = new Graph(metadata);
   });
-  describe("when updatedNode = graph.updateNode(existingNodes, update)", () => {
+  describe("when graph.nodes.update(id, updatedNode)", () => {
     let node: Node;
-    let update: Node;
+    let updatedNode: Node;
     beforeEach(() => {
       graph.nodes.add({
         name: "Node1",
@@ -396,14 +393,14 @@ describe("Given graph.updateNode method exist", () => {
         icon: "./icon.svg",
       });
       node = graph.nodes[0];
-      update = {
+      updatedNode = {
         id: node.id,
         name: "Node2",
         type: "workflow",
         coordinates: { x: 1, y: 1 },
         icon: "./icon.svg",
       };
-      graph.updateNode(node.id, update);
+      graph.nodes.update(node.id, updatedNode);
     });
     it("then graph.nodes exist", () => {
       expect(graph.nodes).toBeDefined();
@@ -412,7 +409,7 @@ describe("Given graph.updateNode method exist", () => {
       expect(graph.nodes.length).toBe(1);
     });
     it("then graph.nodes[0] equals update", () => {
-      expect(graph.nodes[0]).toEqual(update);
+      expect(graph.nodes[0]).toEqual(updatedNode);
     });
   });
 });
@@ -609,7 +606,7 @@ describe("Given graph.translateNode method exist", () => {
         expect(graph.nodes[0].icon).toEqual(icon);
       });
     });
-    describe("When graph.nodes.updateNode(id, update)", () => {
+    describe("When graph.nodes.update(id, update)", () => {
       let details;
       let node;
       beforeEach(() => {
@@ -622,7 +619,7 @@ describe("Given graph.translateNode method exist", () => {
           icon: "./new-icon.svg",
         };
         node = graph.nodes[0];
-        graph.updateNode(id, node);
+        graph.nodes.update(id, node);
       });
       it("then graph.nodes[0] equals update", () => {
         node.id = graph.nodes[0].id;
