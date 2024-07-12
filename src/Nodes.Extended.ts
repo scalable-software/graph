@@ -10,4 +10,6 @@ export class Nodes<T> extends Array<T> {
   public update = (item: T, update: T) => {};
 
   public updateMetadata = (item: T, metadata: any) => {};
+
+  public updateIcon = (item: T, icon: any) => {};
 }
