@@ -69,7 +69,8 @@ export class Nodes<T> extends Array<T> {
     super(...items);
   }
 
-  public add = (item: Omit<T, "id">) => {};
+  public add = (details: Omit<T, "id">) =>
+    this.push(Nodes.create(details as Omit<Node, "id">) as T) && this;
 
   public addMetadata = (item: T, metadata: any) => {};
 
