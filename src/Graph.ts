@@ -99,9 +99,6 @@ export class Graph {
     };
   }
 
-  public findNodeByCoordinates = (coordinates: Coordinates): Node =>
-    this.nodes.findByCoordinates(coordinates);
-
   public translateNode = (id: UUID, offset: Offset) =>
     this.nodes.translate(id, offset);
 

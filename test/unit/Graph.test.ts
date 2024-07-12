@@ -31,9 +31,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.connections exists", () => {
     expect(graph.connections).toBeDefined();
   });
-  it("then graph.findNodeByCoordinates exist", () => {
-    expect(graph.findNodeByCoordinates).toBeDefined();
-  });
   it("then graph.removeNodeMetadata exist", () => {
     expect(graph.removeNodeMetadata).toBeDefined();
   });
@@ -614,12 +611,12 @@ describe("Given graph.translateNode method exist", () => {
         expect(graph.nodes[0]).toEqual(node);
       });
     });
-    describe("When graph.findNodeByCoordinates(coordinates)", () => {
+    describe("When graph.nodes.findByCoordinates(coordinates)", () => {
       let coordinates: Coordinates;
       let node: Node;
       beforeEach(() => {
         coordinates = { x: 10, y: 10 };
-        node = graph.findNodeByCoordinates(coordinates);
+        node = graph.nodes.findByCoordinates(coordinates);
       });
       it("then node exists", () => {
         expect(node).toBeDefined();
