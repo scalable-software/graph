@@ -42,4 +42,7 @@ describe("Given Nodes instantiated", () => {
   it("then findByType method exists", () => {
     expect(nodes.findByType).toBeDefined();
   });
+  it("then findByCoordinates method exists", () => {
+    expect(nodes.findByCoordinates).toBeDefined();
+  });
 });
