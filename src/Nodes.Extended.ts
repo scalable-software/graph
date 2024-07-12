@@ -4,4 +4,6 @@ export class Nodes<T> extends Array<T> {
   }
 
   public add = (item: T) => {};
+
+  public addMetadata = (item: T, metadata: any) => {};
 }
