@@ -33,4 +33,7 @@ describe("Given Nodes instantiated", () => {
   it("then updateIcon method exists", () => {
     expect(nodes.updateIcon).toBeDefined();
   });
+  it("then updateCoordinates method exists", () => {
+    expect(nodes.updateCoordinates).toBeDefined();
+  });
 });
