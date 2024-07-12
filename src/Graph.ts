@@ -98,7 +98,4 @@ export class Graph {
       type: metadata.type,
     };
   }
-
-  public removeConnectionById = (id: UUID): Connections =>
-    this.connections.remove(id);
 }
