@@ -57,7 +57,13 @@ export type NodeMetadataType =
   (typeof NodeMetadataType)[keyof typeof NodeMetadataType];
 
 export class Nodes<T> extends Array<T> {
-  public static create = (details: Omit<Node, "id">) => {};
+  public static create = (details: Omit<Node, "id">): Node => ({
+    id: Utilities.uuid,
+    name: details.name,
+    type: details.type,
+    coordinates: details.coordinates,
+    icon: details.icon,
+  });
 
   constructor(...items: T[]) {
     super(...items);
