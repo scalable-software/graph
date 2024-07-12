@@ -230,6 +230,88 @@ describe("Given Nodes.hasMetadata() static method exist", () => {
     });
   });
 });
+describe("Given Nodes.hasMetadataType() static method exist", () => {
+  describe("and type = 'arrival'", () => {
+    let node: Node;
+    let type: NodeMetadataType;
+    beforeEach(() => {
+      node = {
+        id: Utilities.uuid,
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeType),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+        metadata: [
+          {
+            arrival: {
+              distribution: "exponential",
+              parameters: [{ rate: 1 }],
+            },
+          },
+          {
+            duration: {
+              distribution: "log normal",
+              parameters: [{ meanlog: 0.1640238 }, { sdlog: 0.4169375 }],
+            },
+          },
+        ],
+      };
+      type = "arrival";
+    });
+    describe("when hasMetadataType = Nodes.hasMetadataType(node, type)", () => {
+      let hasMetadataType: boolean;
+      beforeEach(() => {
+        hasMetadataType = Nodes.hasMetadataType(node, type);
+      });
+      it("then hasMetadataType is exist", () => {
+        expect(hasMetadataType).toBeDefined();
+      });
+      it("then hasMetadataType is equal to true", () => {
+        expect(hasMetadataType).toEqual(true);
+      });
+    });
+  });
+  describe("and type = 'prevalence'", () => {
+    let node: Node;
+    let type: NodeMetadataType;
+    beforeEach(() => {
+      node = {
+        id: Utilities.uuid,
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeType),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+        metadata: [
+          {
+            arrival: {
+              distribution: "exponential",
+              parameters: [{ rate: 1 }],
+            },
+          },
+          {
+            duration: {
+              distribution: "log normal",
+              parameters: [{ meanlog: 0.1640238 }, { sdlog: 0.4169375 }],
+            },
+          },
+        ],
+      };
+      type = "prevalence";
+    });
+    describe("when hasMetadataType = Nodes.hasMetadataType(node, type)", () => {
+      let hasMetadataType: boolean;
+      beforeEach(() => {
+        hasMetadataType = Nodes.hasMetadataType(node, type);
+      });
+      it("then hasMetadataType is exist", () => {
+        expect(hasMetadataType).toBeDefined();
+      });
+      it("then hasMetadataType is equal to false", () => {
+        expect(hasMetadataType).toEqual(false);
+      });
+    });
+  });
+});
 
 // Constructor Behavior
 describe("Given Nodes instantiated", () => {
