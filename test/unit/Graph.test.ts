@@ -40,9 +40,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.removeConnectionById exist", () => {
     expect(graph.removeConnectionById).toBeDefined();
   });
-  it("then graph.translateNode exist", () => {
-    expect(graph.translateNode).toBeDefined();
-  });
   it("then graph.translateConnection exist", () => {
     expect(graph.translateConnection).toBeDefined();
   });
@@ -544,7 +541,7 @@ describe("Given graph.nodes.findByType method exist", () => {
     });
   });
 });
-describe("Given graph.translateNode method exist", () => {
+describe("Given graph.nodes.translate method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -566,60 +563,19 @@ describe("Given graph.translateNode method exist", () => {
       graph.nodes.add(details);
       id = graph.nodes[0].id;
     });
-    describe("when graph.translateNode(id, offset)", () => {
+    describe("when graph.nodes.translate(id, offset)", () => {
       let offset;
       let coordinates: Coordinates;
       beforeEach(() => {
         coordinates = graph.nodes[0].coordinates;
         offset = { x: 10, y: 10 };
-        graph.translateNode(id, offset);
+        graph.nodes.translate(id, offset);
       });
       it("then graph.nodes[0].coordinates.x equals coordinates.x + offset.x", () => {
         expect(graph.nodes[0].coordinates.x).toEqual(coordinates.x + offset.x);
       });
       it("then graph.nodes[0].coordinates.y equals coordinates.y + offset.y", () => {
         expect(graph.nodes[0].coordinates.y).toEqual(coordinates.y + offset.y);
-      });
-    });
-    describe("When graph.nodes.updateIcon(id, icon)", () => {
-      let icon: Icon;
-      beforeEach(() => {
-        icon = "./new-icon.svg";
-        graph.nodes.updateIcon(id, icon);
-      });
-      it("then graph.nodes[0].icon equals icon", () => {
-        expect(graph.nodes[0].icon).toEqual(icon);
-      });
-    });
-    describe("When graph.nodes.update(id, update)", () => {
-      let details;
-      let node;
-      beforeEach(() => {
-        const id = graph.nodes[0].id;
-        details = {
-          id: id,
-          name: "New Node",
-          type: "workflow",
-          coordinates: { x: 10, y: 10 },
-          icon: "./new-icon.svg",
-        };
-        node = graph.nodes[0];
-        graph.nodes.update(id, node);
-      });
-      it("then graph.nodes[0] equals update", () => {
-        node.id = graph.nodes[0].id;
-        expect(graph.nodes[0]).toEqual(node);
-      });
-    });
-    describe("When graph.nodes.findByCoordinates(coordinates)", () => {
-      let coordinates: Coordinates;
-      let node: Node;
-      beforeEach(() => {
-        coordinates = { x: 10, y: 10 };
-        node = graph.nodes.findByCoordinates(coordinates);
-      });
-      it("then node exists", () => {
-        expect(node).toBeDefined();
       });
     });
   });

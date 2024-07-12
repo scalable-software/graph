@@ -99,9 +99,6 @@ export class Graph {
     };
   }
 
-  public translateNode = (id: UUID, offset: Offset) =>
-    this.nodes.translate(id, offset);
-
   public translateConnection = (id: UUID, offset: Offset) =>
     this.connections.translate(id, offset);
 
