@@ -69,6 +69,8 @@ export class Nodes<T> extends Array<T> {
     super(...items);
   }
 
+  private _getIndex = (id: UUID) => {};
+
   public add = (details: Omit<T, "id">) =>
     this.push(Nodes.create(details as Omit<Node, "id">) as T) && this;
 
