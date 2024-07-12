@@ -102,7 +102,13 @@ export class Nodes extends Array<Node> {
   public add = (details: Omit<Node, "id">) =>
     this.push(Nodes.create(details as Omit<Node, "id">) as Node) && this;
 
-  public addMetadata = (item: Node, metadata: any) => {};
+  public addMetadata = (id: UUID, metadata: NodeMetadata) => {
+    this[this._getIndex(id)] = Nodes.addMetadata(
+      this[this._getIndex(id)],
+      metadata
+    );
+    return this;
+  };
 
   public update = (item: Node, update: Node) => {};
 
