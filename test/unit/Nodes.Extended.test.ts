@@ -24,4 +24,7 @@ describe("Given Nodes instantiated", () => {
   it("then addMetadata method exists", () => {
     expect(nodes.addMetadata).toBeDefined();
   });
+  it("then update method exists", () => {
+    expect(nodes.update).toBeDefined();
+  });
 });
