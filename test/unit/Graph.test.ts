@@ -31,9 +31,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.connections exists", () => {
     expect(graph.connections).toBeDefined();
   });
-  it("then graph.removeNodeMetadata exist", () => {
-    expect(graph.removeNodeMetadata).toBeDefined();
-  });
   it("then graph.removeNodeById exist", () => {
     expect(graph.removeNodeById).toBeDefined();
   });
@@ -633,7 +630,7 @@ describe("Given graph.connections.translate method exist", () => {
     });
   });
 });
-describe("Given graph.removeNodeMetadata method exist", () => {
+describe("Given graph.nodes.removeMetadata method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -642,7 +639,7 @@ describe("Given graph.removeNodeMetadata method exist", () => {
     };
     graph = new Graph(metadata);
   });
-  describe("when graph.removeNodeMetadata(id, type)", () => {
+  describe("when graph.nodes.removeMetadata(id, type)", () => {
     let id: UUID;
     let metadata: NodeMetadata;
     beforeEach(() => {
@@ -660,7 +657,7 @@ describe("Given graph.removeNodeMetadata method exist", () => {
         },
       };
       graph.nodes.addMetadata(id, metadata);
-      graph.removeNodeMetadata(id, "arrival");
+      graph.nodes.removeMetadata(id, "arrival");
     });
     it("then graph.nodes exist", () => {
       expect(graph.nodes).toBeDefined();

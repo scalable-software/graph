@@ -99,9 +99,6 @@ export class Graph {
     };
   }
 
-  public removeNodeMetadata = (id: UUID, type: NodeMetadataType) =>
-    this.nodes.removeMetadata(id, type);
-
   public removeNodeById = (id: UUID): Nodes => this.nodes.remove(id);
 
   public removeConnectionById = (id: UUID): Connections =>
