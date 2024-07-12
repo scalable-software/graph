@@ -1,9 +1,16 @@
-import { Nodes } from "../../src/Nodes.Extended.js";
+import { Nodes, Node, NodeType } from "../../src/Nodes.Extended.js";
 
 // Class Availability
 describe("Given Nodes imported", () => {
   it("then Nodes exist", () => {
     expect(Nodes).toBeDefined();
+  });
+});
+
+// Static Method Availability
+describe("Given Nodes Imported", () => {
+  it("then Nodes.create public static method exists", () => {
+    expect(Nodes.create).toBeDefined();
   });
 });
 
