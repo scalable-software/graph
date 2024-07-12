@@ -615,3 +615,40 @@ describe("Given nodes.add() public method exists", () => {
     });
   });
 });
+describe("Given nodes.addMetadata() private method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("and nodes contain node without metadata", () => {
+    let details: Omit<Node, "id">;
+    let id: UUID;
+    beforeEach(() => {
+      details = {
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(details);
+      id = nodes[0].id;
+    });
+    describe("when nodes.addMetadata(id, metadata)", () => {
+      let metadata: NodeMetadata;
+      let node: Node;
+      beforeEach(() => {
+        metadata = {
+          arrival: {
+            distribution: "exponential",
+            parameters: [{ rate: 1 }],
+          },
+        };
+        nodes.addMetadata(id, metadata);
+        node = nodes[0];
+      });
+      it("then metadata is added to node in nodes", () => {
+        expect(node.metadata).toEqual([metadata]);
+      });
+    });
+  });
+});
