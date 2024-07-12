@@ -102,11 +102,6 @@ export class Graph {
   public updateNodeCoordinates = (id: UUID, coordinates: Coordinates) =>
     this.nodes.updateCoordinates(id, coordinates);
 
-  public updateConnectionCoordinates = (
-    id: UUID,
-    coordinates: { start: Coordinates; end: Coordinates }
-  ) => this.connections.updateCoordinates(id, coordinates);
-
   public updateNodeIcon = (id: UUID, icon: Icon) =>
     this.nodes.updateIcon(id, icon);
 
