@@ -99,9 +99,6 @@ export class Graph {
     };
   }
 
-  public findConnectionById = (id: UUID): Connection =>
-    this.connections.findById(id);
-
   public findNodesByType = (type: NodeType): Nodes =>
     this.nodes.findByType(type);
 
