@@ -12,4 +12,6 @@ export class Nodes<T> extends Array<T> {
   public updateMetadata = (item: T, metadata: any) => {};
 
   public updateIcon = (item: T, icon: any) => {};
+
+  public updateCoordinates = (item: T, coordinates: any) => {};
 }
