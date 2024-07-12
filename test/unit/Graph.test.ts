@@ -13,7 +13,7 @@ import {
 } from "@scalable-software/graph.structure";
 
 // Instance Members Availability
-describe("when graph = new Graph()", () => {
+describe("Given graph = new Graph()", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -141,47 +141,52 @@ describe("Given graph.connections public property exist", () => {
 });
 
 // Instance Method Behavior
-describe("Given graph.createNodes method exist", () => {
+describe("Given graph.nodes.add method exist", () => {
   let graph: Graph;
   beforeEach(() => {
-    const metadata = {
+    graph = new Graph({
       name: "ACS Diagnostic",
       type: GraphType.PATHWAY,
-    };
-    graph = new Graph(metadata);
+    });
   });
-  describe("when nodes = graph.createNodes(1, details)", () => {
-    let nodes;
+  describe("when graph.node.add(details)", () => {
+    let details;
     beforeEach(() => {
-      let details = {
+      details = {
         name: "Node",
         type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
-      nodes = graph.nodes.add(details);
+      graph.nodes.add(details);
     });
-    it("then nodes exist", () => {
-      expect(nodes).toBeDefined();
+    it("then a node is added to graph.nodes", () => {
+      expect(graph.nodes.length).toBe(1);
     });
-    it("then nodes.length equals 1", () => {
-      expect(nodes.length).toBe(1);
+    describe("given a node is added to graph.nodes", () => {
+      let node;
+      beforeEach(() => {
+        node = graph.nodes[0];
+        delete node.id;
+      });
+      it("then node contains details", () => {
+        expect(node).toEqual(details);
+      });
     });
   });
 });
-describe("Given graph.createConnections method exist", () => {
+describe("Given graph.connections.add method exist", () => {
   let graph: Graph;
   beforeEach(() => {
-    const metadata = {
+    graph = new Graph({
       name: "ACS Diagnostic",
       type: GraphType.PATHWAY,
-    };
-    graph = new Graph(metadata);
+    });
   });
-  describe("when connections = graph.createConnections(1, details)", () => {
-    let connections: Connection[];
+  describe("when graph.connection.add(details)", () => {
+    let details;
     beforeEach(() => {
-      let details = {
+      details = {
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -190,13 +195,20 @@ describe("Given graph.createConnections method exist", () => {
           end: { x: 100, y: 400 },
         },
       };
-      connections = graph.connections.add(details);
+      graph.connections.add(details);
     });
-    it("then connections exist", () => {
-      expect(connections).toBeDefined();
+    it("then a connection is added to graph.connections", () => {
+      expect(graph.connections.length).toBe(1);
     });
-    it("then connections.length equals 1", () => {
-      expect(connections.length).toBe(1);
+    describe("given a connection is added to graph.connections", () => {
+      let connection;
+      beforeEach(() => {
+        connection = graph.connections[0];
+        delete connection.id;
+      });
+      it("then connection contains details", () => {
+        expect(connection).toEqual(details);
+      });
     });
   });
 });
