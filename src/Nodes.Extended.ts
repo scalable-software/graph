@@ -56,7 +56,7 @@ export const NodeMetadataType = {
 export type NodeMetadataType =
   (typeof NodeMetadataType)[keyof typeof NodeMetadataType];
 
-export class Nodes<T> extends Array<T> {
+export class Nodes extends Array<Node> {
   public static create = (details: Omit<Node, "id">): Node => ({
     id: Utilities.uuid,
     name: details.name,
@@ -65,24 +65,24 @@ export class Nodes<T> extends Array<T> {
     icon: details.icon,
   });
 
-  constructor(...items: T[]) {
+  constructor(...items: Node[]) {
     super(...items);
   }
 
   private _getIndex = (id: UUID) => {};
 
-  public add = (details: Omit<T, "id">) =>
-    this.push(Nodes.create(details as Omit<Node, "id">) as T) && this;
+  public add = (details: Omit<Node, "id">) =>
+    this.push(Nodes.create(details as Omit<Node, "id">) as Node) && this;
 
-  public addMetadata = (item: T, metadata: any) => {};
+  public addMetadata = (item: Node, metadata: any) => {};
 
-  public update = (item: T, update: T) => {};
+  public update = (item: Node, update: Node) => {};
 
-  public updateMetadata = (item: T, metadata: any) => {};
+  public updateMetadata = (item: Node, metadata: any) => {};
 
-  public updateIcon = (item: T, icon: any) => {};
+  public updateIcon = (item: Node, icon: any) => {};
 
-  public updateCoordinates = (item: T, coordinates: any) => {};
+  public updateCoordinates = (item: Node, coordinates: any) => {};
 
   public findById = (id: any) => {};
 

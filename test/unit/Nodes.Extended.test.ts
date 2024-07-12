@@ -107,9 +107,9 @@ describe("Given Nodes instantiated", () => {
 
 // Method Behavior
 describe("Given nodes.add() public method exists", () => {
-  let nodes: Nodes<Node>;
+  let nodes: Nodes;
   beforeEach(() => {
-    nodes = new Nodes<Node>();
+    nodes = new Nodes();
   });
   describe("when nodes.add(details)", () => {
     let details: Omit<Node, "id">;
