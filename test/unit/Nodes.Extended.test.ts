@@ -14,3 +14,11 @@ describe("Given Nodes instantiated", () => {
     expect(nodes).toBeInstanceOf(Array);
   });
 });
+
+// Method Availability
+describe("Given Nodes instantiated", () => {
+  const nodes = new Nodes();
+  it("then add method exists", () => {
+    expect(nodes.add).toBeDefined();
+  });
+});
