@@ -99,14 +99,6 @@ export class Graph {
     };
   }
 
-  public addNode = (details: Omit<Node, "id">) => this.nodes.add(details);
-
-  public addConnection = (details: Omit<Connection, "id">): Connections =>
-    this.connections.add(details);
-
-  public addNodeMetadata = (id: UUID, metadata: NodeMetadata): Nodes =>
-    this.nodes.addMetadata(id, metadata);
-
   public updateNodeMetadata = (id: UUID, metadata: NodeMetadata): Nodes =>
     this.nodes.updateMetadata(id, metadata);
 

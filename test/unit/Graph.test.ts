@@ -31,12 +31,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.connections exists", () => {
     expect(graph.connections).toBeDefined();
   });
-  it("then graph.addNode exist", () => {
-    expect(graph.addNode).toBeDefined();
-  });
-  it("then graph.addConnection exist", () => {
-    expect(graph.addConnection).toBeDefined();
-  });
   it("then graph.findNodeById exist", () => {
     expect(graph.findNodeById).toBeDefined();
   });
@@ -48,9 +42,6 @@ describe("Given graph = new Graph()", () => {
   });
   it("then graph.findNodeByCoordinates exist", () => {
     expect(graph.findNodeByCoordinates).toBeDefined();
-  });
-  it("then graph.addNodeMetadata exist", () => {
-    expect(graph.addNodeMetadata).toBeDefined();
   });
   it("then graph.updateNodeMetadata exist", () => {
     expect(graph.updateNodeMetadata).toBeDefined();
@@ -211,94 +202,27 @@ describe("Given graph.connections.add method exist", () => {
       });
     });
   });
-});
-describe("Given graph.addNode method exist", () => {
-  let graph: Graph;
-  beforeEach(() => {
-    const metadata = {
-      name: "ACS Diagnostic",
-      type: GraphType.PATHWAY,
-    };
-    graph = new Graph(metadata);
-  });
-  describe("when graph.addNode(details)", () => {
+  describe("when graph.connections.add(details).add(details)", () => {
     beforeEach(() => {
-      let details = {
-        name: "Node1",
-        type: Utilities.getRandomElement<NodeType>(NodeType),
-        coordinates: { x: 0, y: 0 },
-        icon: "./icon.svg",
-      };
-      graph.addNode(details);
-    });
-    it("then graph.nodes exist", () => {
-      expect(graph.nodes).toBeDefined();
-    });
-    it("then graph.nodes.length equals 1", () => {
-      expect(graph.nodes.length).toBe(1);
-    });
-  });
-});
-describe("Given graph.addConnection method exist", () => {
-  let graph: Graph;
-  beforeEach(() => {
-    const metadata = {
-      name: "ACS Diagnostic",
-      type: GraphType.PATHWAY,
-    };
-    graph = new Graph(metadata);
-  });
-  describe("when graph.addConnection(details)", () => {
-    beforeEach(() => {
-      let details = {
-        name: "",
-        source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
-        target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-        coordinates: {
-          start: { x: 0, y: 400 },
-          end: { x: 100, y: 400 },
-        },
-      };
-      graph.addConnection(details);
-    });
-    it("then graph.connections exist", () => {
-      expect(graph.connections).toBeDefined();
-    });
-    it("then graph.connections.length equals 1", () => {
-      expect(graph.connections.length).toBe(1);
-    });
-  });
-});
-describe("Given graph.addConnections method exist", () => {
-  let graph: Graph;
-  beforeEach(() => {
-    const metadata = {
-      name: "ACS Diagnostic",
-      type: GraphType.PATHWAY,
-    };
-    graph = new Graph(metadata);
-  });
-  describe("when graph.addConnections(newConnections)", () => {
-    let newConnections: Connection[];
-    beforeEach(() => {
-      graph.connections.add({
-        name: "",
-        source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
-        target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-        coordinates: {
-          start: { x: 0, y: 400 },
-          end: { x: 100, y: 400 },
-        },
-      });
-      graph.connections.add({
-        name: "",
-        source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
-        target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-        coordinates: {
-          start: { x: 0, y: 400 },
-          end: { x: 100, y: 400 },
-        },
-      });
+      graph.connections
+        .add({
+          name: "",
+          source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+          target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: {
+            start: { x: 0, y: 400 },
+            end: { x: 100, y: 400 },
+          },
+        })
+        .add({
+          name: "",
+          source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+          target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: {
+            start: { x: 0, y: 400 },
+            end: { x: 100, y: 400 },
+          },
+        });
     });
     it("then graph.connections exist", () => {
       expect(graph.connections).toBeDefined();
@@ -308,7 +232,7 @@ describe("Given graph.addConnections method exist", () => {
     });
   });
 });
-describe("Given graph.addNodeMetadata method exist", () => {
+describe("Given graph.nodes.addMetadata method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -317,9 +241,8 @@ describe("Given graph.addNodeMetadata method exist", () => {
     };
     graph = new Graph(metadata);
   });
-  describe("when graph.addNodeMetadata(existingNodes, id, metadata)", () => {
-    let id: UUID;
-    let metadata: NodeMetadata;
+  describe("and graph.nodes contains a node with no metadata", () => {
+    let node;
     beforeEach(() => {
       graph.nodes.add({
         name: "Node1",
@@ -327,23 +250,27 @@ describe("Given graph.addNodeMetadata method exist", () => {
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       });
-      id = graph.nodes[0].id;
-      metadata = {
-        arrival: {
-          distribution: "exponential",
-          parameters: [{ rate: 1 }],
-        },
-      };
-      graph.addNodeMetadata(id, metadata);
+      node = graph.nodes[0];
     });
-    it("then graph.nodes exist", () => {
-      expect(graph.nodes).toBeDefined();
+    it("then node.metadata is undefined", () => {
+      expect(node.metadata).toBeUndefined();
     });
-    it("then graph.nodes.length equals 1", () => {
-      expect(graph.nodes.length).toBe(1);
-    });
-    it("then graph.nodes[0].metadata[0] equals metadata", () => {
-      expect(graph.nodes[0].metadata[0]).toEqual(metadata);
+    describe("when graph.nodes.addMetadata(id, metadata)", () => {
+      let metadata: NodeMetadata;
+      beforeEach(() => {
+        const id = node.id;
+        metadata = {
+          arrival: {
+            distribution: "exponential",
+            parameters: [{ rate: 1 }],
+          },
+        };
+        graph.nodes.addMetadata(id, metadata);
+        node = graph.nodes[0];
+      });
+      it("then node.metadata is equal to [metadata]", () => {
+        expect(node.metadata).toEqual([metadata]);
+      });
     });
   });
 });
@@ -373,7 +300,7 @@ describe("Given graph.updateNodeMetadata method exist", () => {
           parameters: [{ rate: 1 }],
         },
       };
-      graph.addNodeMetadata(id, metadata);
+      graph.nodes.addMetadata(id, metadata);
       updatedMetadata = {
         arrival: {
           distribution: "exponential",
@@ -819,7 +746,7 @@ describe("Given graph.removeNodeMetadata method exist", () => {
           parameters: [{ rate: 1 }],
         },
       };
-      graph.addNodeMetadata(id, metadata);
+      graph.nodes.addMetadata(id, metadata);
       graph.removeNodeMetadata(id, "arrival");
     });
     it("then graph.nodes exist", () => {
