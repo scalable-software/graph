@@ -40,9 +40,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.removeConnectionById exist", () => {
     expect(graph.removeConnectionById).toBeDefined();
   });
-  it("then graph.translateConnection exist", () => {
-    expect(graph.translateConnection).toBeDefined();
-  });
 });
 
 // Instance Property Values
@@ -580,7 +577,7 @@ describe("Given graph.nodes.translate method exist", () => {
     });
   });
 });
-describe("Given graph.translateConnection method exist", () => {
+describe("Given graph.connections.translate method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -611,7 +608,7 @@ describe("Given graph.translateConnection method exist", () => {
       beforeEach(() => {
         coordinates = graph.connections[0].coordinates;
         offset = { x: 10, y: 10 };
-        graph.translateConnection(id, offset);
+        graph.connections.translate(id, offset);
       });
       it("then graph.connections[0].coordinates.start.x equals coordinates.start.x + offset.x", () => {
         expect(graph.connections[0].coordinates.start.x).toEqual(

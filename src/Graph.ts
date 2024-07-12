@@ -99,9 +99,6 @@ export class Graph {
     };
   }
 
-  public translateConnection = (id: UUID, offset: Offset) =>
-    this.connections.translate(id, offset);
-
   public removeNodeMetadata = (id: UUID, type: NodeMetadataType) =>
     this.nodes.removeMetadata(id, type);
 
