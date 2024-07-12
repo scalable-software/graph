@@ -43,9 +43,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.findNodeByCoordinates exist", () => {
     expect(graph.findNodeByCoordinates).toBeDefined();
   });
-  it("then graph.updateNodeMetadata exist", () => {
-    expect(graph.updateNodeMetadata).toBeDefined();
-  });
   it("then graph.updateNodeCoordinates exist", () => {
     expect(graph.updateNodeCoordinates).toBeDefined();
   });
@@ -274,7 +271,7 @@ describe("Given graph.nodes.addMetadata method exist", () => {
     });
   });
 });
-describe("Given graph.updateNodeMetadata method exist", () => {
+describe("Given graph.nodes.updateMetadata method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -307,7 +304,7 @@ describe("Given graph.updateNodeMetadata method exist", () => {
           parameters: [{ rate: 2 }],
         },
       };
-      graph.updateNodeMetadata(id, updatedMetadata);
+      graph.nodes.updateMetadata(id, updatedMetadata);
     });
     it("then graph.nodes exist", () => {
       expect(graph.nodes).toBeDefined();

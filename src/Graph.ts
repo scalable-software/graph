@@ -99,9 +99,6 @@ export class Graph {
     };
   }
 
-  public updateNodeMetadata = (id: UUID, metadata: NodeMetadata): Nodes =>
-    this.nodes.updateMetadata(id, metadata);
-
   public updateNodeCoordinates = (id: UUID, coordinates: Coordinates) =>
     this.nodes.updateCoordinates(id, coordinates);
 
