@@ -43,12 +43,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.findNodeByCoordinates exist", () => {
     expect(graph.findNodeByCoordinates).toBeDefined();
   });
-  it("then graph.updateNodeCoordinates exist", () => {
-    expect(graph.updateNodeCoordinates).toBeDefined();
-  });
-  it("then graph.updateConnectionCoordinates exist", () => {
-    expect(graph.updateConnectionCoordinates).toBeDefined();
-  });
   it("then graph.updateNodeIcon exist", () => {
     expect(graph.updateNodeIcon).toBeDefined();
   });
@@ -317,7 +311,7 @@ describe("Given graph.nodes.updateMetadata method exist", () => {
     });
   });
 });
-describe("Given graph.updateNodeCoordinates method exist", () => {
+describe("Given graph.nodes.updateCoordinates method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -326,7 +320,7 @@ describe("Given graph.updateNodeCoordinates method exist", () => {
     };
     graph = new Graph(metadata);
   });
-  describe("when graph.updateNodeCoordinates(id, coordinates)", () => {
+  describe("when graph.nodes.updateCoordinates(id, coordinates)", () => {
     let id: UUID;
     let coordinates: Coordinates;
     beforeEach(() => {
@@ -338,7 +332,7 @@ describe("Given graph.updateNodeCoordinates method exist", () => {
       });
       id = graph.nodes[0].id;
       coordinates = { x: 1, y: 1 };
-      graph.updateNodeCoordinates(id, coordinates);
+      graph.nodes.updateCoordinates(id, coordinates);
     });
     it("then graph.nodes exist", () => {
       expect(graph.nodes).toBeDefined();
@@ -606,16 +600,6 @@ describe("Given graph.translateNode method exist", () => {
       });
       it("then graph.nodes[0].coordinates.y equals coordinates.y + offset.y", () => {
         expect(graph.nodes[0].coordinates.y).toEqual(coordinates.y + offset.y);
-      });
-    });
-    describe("when graph.updateNodeCoordinates(id, coordinates)", () => {
-      let coordinates: Coordinates;
-      beforeEach(() => {
-        coordinates = { x: 10, y: 10 };
-        graph.updateNodeCoordinates(id, coordinates);
-      });
-      it("then graph.nodes[0].coordinates equals coordinates", () => {
-        expect(graph.nodes[0].coordinates).toEqual(coordinates);
       });
     });
     describe("When graph.updateNodeIcon(id, icon)", () => {
