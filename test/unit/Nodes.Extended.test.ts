@@ -73,6 +73,9 @@ describe("Given Nodes instantiated", () => {
 // Method Availability
 describe("Given Nodes instantiated", () => {
   const nodes = new Nodes();
+  it("then _getIndex private method exists", () => {
+    expect(nodes["_getIndex"]).toBeDefined();
+  });
   it("then add public method exists", () => {
     expect(nodes.add).toBeDefined();
   });
