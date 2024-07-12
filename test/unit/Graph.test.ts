@@ -31,9 +31,6 @@ describe("Given graph = new Graph()", () => {
   it("then graph.connections exists", () => {
     expect(graph.connections).toBeDefined();
   });
-  it("then graph.findNodesByType exist", () => {
-    expect(graph.findNodesByType).toBeDefined();
-  });
   it("then graph.findNodeByCoordinates exist", () => {
     expect(graph.findNodeByCoordinates).toBeDefined();
   });
@@ -514,7 +511,7 @@ describe("Given graph.connections.findById method exist", () => {
     });
   });
 });
-describe("Given graph.findNodesByType method exist", () => {
+describe("Given graph.nodes.findByType method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     const metadata = {
@@ -523,7 +520,7 @@ describe("Given graph.findNodesByType method exist", () => {
     };
     graph = new Graph(metadata);
   });
-  describe("when graph.findNodesByType(type)", () => {
+  describe("when graph.nodes.findByType(type)", () => {
     let type: NodeType;
     let nodes;
     beforeEach(() => {
@@ -540,7 +537,7 @@ describe("Given graph.findNodesByType method exist", () => {
         icon: "./icon.svg",
       });
       type = NodeType.WORKFLOW;
-      nodes = graph.findNodesByType(type);
+      nodes = graph.nodes.findByType(type);
     });
     it("then nodes exist", () => {
       expect(nodes).toBeDefined();

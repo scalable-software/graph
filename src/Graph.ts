@@ -99,9 +99,6 @@ export class Graph {
     };
   }
 
-  public findNodesByType = (type: NodeType): Nodes =>
-    this.nodes.findByType(type);
-
   public findNodeByCoordinates = (coordinates: Coordinates): Node =>
     this.nodes.findByCoordinates(coordinates);
 
