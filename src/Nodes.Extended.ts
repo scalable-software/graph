@@ -80,7 +80,18 @@ export class Nodes extends Array<Node> {
     type: NodeMetadataType
   ): boolean => Nodes.getMetadataTypes(node).includes(type);
 
-  public static addMetadata = (node: Node, metadata: NodeMetadata) => {};
+  public static addMetadata = (node: Node, metadata: NodeMetadata): Node =>
+    Nodes.hasMetadataType(node, Nodes.getMetadataType(metadata))
+      ? {
+          ...node,
+          metadata: node.metadata.map((node) =>
+            node[Nodes.getMetadataType(metadata)] ? metadata : node
+          ),
+        }
+      : {
+          ...node,
+          metadata: node.metadata ? [...node.metadata, metadata] : [metadata],
+        };
 
   constructor(...items: Node[]) {
     super(...items);
