@@ -69,7 +69,7 @@ export class Nodes extends Array<Node> {
     super(...items);
   }
 
-  private _getIndex = (id: UUID) => {};
+  private _getIndex = (id: UUID) => this.findIndex((node) => node.id === id);
 
   public add = (details: Omit<Node, "id">) =>
     this.push(Nodes.create(details as Omit<Node, "id">) as Node) && this;
