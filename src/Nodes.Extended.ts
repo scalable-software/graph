@@ -68,7 +68,10 @@ export class Nodes extends Array<Node> {
   public static getMetadataType = (metadata: NodeMetadata): NodeMetadataType =>
     Object.keys(metadata)[0] as NodeMetadataType;
 
-  public static getMetadataTypes = (node: Node) => {};
+  public static getMetadataTypes = (node: Node) =>
+    node.metadata
+      ? node.metadata.map((metadata) => Nodes.getMetadataType(metadata))
+      : [];
 
   constructor(...items: Node[]) {
     super(...items);
