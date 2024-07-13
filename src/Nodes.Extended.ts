@@ -115,7 +115,10 @@ export class Nodes extends Array<Node> {
     return this;
   };
 
-  public update = (item: Node, update: Node) => {};
+  public update = (id: UUID, update: Node) => {
+    this[this._getIndex(id)] = Nodes.update(this[this._getIndex(id)], update);
+    return this;
+  };
 
   public updateMetadata = (item: Node, metadata: any) => {};
 
