@@ -112,7 +112,10 @@ export class Nodes extends Array<Node> {
   public static updateCoordinates = (
     node: Node,
     coordinates: Coordinates
-  ) => {};
+  ): Node => ({
+    ...node,
+    coordinates,
+  });
 
   public static translate = (node: Node, offset: Offset) => {};
 
