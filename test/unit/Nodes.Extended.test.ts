@@ -5,7 +5,11 @@ import {
   NodeMetadata,
   NodeMetadataType,
 } from "../../src/Nodes.Extended.js";
-import { Utilities, UUID } from "@scalable-software/graph.structure";
+import {
+  Coordinates,
+  Utilities,
+  UUID,
+} from "@scalable-software/graph.structure";
 
 // Class Availability
 describe("Given Nodes imported", () => {
@@ -670,6 +674,60 @@ describe("Given Nodes.updateIcon() static method exist", () => {
       it("then node icon is updated", () => {
         expect(node.icon).toEqual(newIcon);
       });
+    });
+  });
+});
+describe("Given Nodes.updateCoordinates() static method exist", () => {
+  describe("when updateNode = Nodes.updateCoordinates(node, coordinates)", () => {
+    let node: Node;
+    let coordinates: Coordinates;
+    let updatedNode: Node;
+    beforeEach(() => {
+      node = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        name: "Node",
+        type: "workflow",
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      coordinates = { x: 1, y: 1 };
+      updatedNode = Nodes.updateCoordinates(node, coordinates);
+    });
+    it("then updatedNode exist", () => {
+      expect(updatedNode).toBeDefined();
+    });
+    it("then updatedNode.id exist", () => {
+      expect(updatedNode.id).toBeDefined();
+    });
+    it("then updatedNode.name exist", () => {
+      expect(updatedNode.name).toBeDefined();
+    });
+    it("then updatedNode.type exist", () => {
+      expect(updatedNode.type).toBeDefined();
+    });
+    it("then updatedNode.coordinates exist", () => {
+      expect(updatedNode.coordinates).toBeDefined();
+    });
+    it("then updatedNode.icon exist", () => {
+      expect(updatedNode.icon).toBeDefined();
+    });
+    it("then updatedNode.id equals node.id", () => {
+      expect(updatedNode.id).toEqual(node.id);
+    });
+    it("then updatedNode.name equals node.name", () => {
+      expect(updatedNode.name).toEqual(node.name);
+    });
+    it("then updatedNode.type equals node.type", () => {
+      expect(updatedNode.type).toEqual(node.type);
+    });
+    it("then result.coordinates equals coordinates", () => {
+      expect(updatedNode.coordinates).toEqual(coordinates);
+    });
+    it("then result.coordinates is not equal to node.coordinates", () => {
+      expect(updatedNode.coordinates).not.toEqual(node.coordinates);
+    });
+    it("then updatedNode.icon equals node.icon", () => {
+      expect(updatedNode.icon).toEqual(node.icon);
     });
   });
 });
