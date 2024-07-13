@@ -90,7 +90,7 @@ export class Graph {
   public nodes;
   public connections;
   constructor(metadata: GraphDetails) {
-    this.nodes = Nodes.init();
+    this.nodes = new Nodes();
     this.connections = Connections.init();
     this.metadata = {
       id: Utilities.uuid,

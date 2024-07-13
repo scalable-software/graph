@@ -56,9 +56,7 @@ export const NodeMetadataType = {
 export type NodeMetadataType =
   (typeof NodeMetadataType)[keyof typeof NodeMetadataType];
 
-export class Nodes extends EventTarget {
-  public static init = (nodes: Node[] = []): Node[] => new Nodes(nodes)._proxy;
-
+export class Nodes extends Array<Node> {
   public static create = (details: Omit<Node, "id">): Node => ({
     id: Utilities.uuid,
     name: details.name,
@@ -70,7 +68,7 @@ export class Nodes extends EventTarget {
   public static getMetadataType = (metadata: NodeMetadata): NodeMetadataType =>
     Object.keys(metadata)[0] as NodeMetadataType;
 
-  public static getMetadataTypes = (node: Node) =>
+  public static getMetadataTypes = (node: Node): NodeMetadataType[] =>
     node.metadata
       ? node.metadata.map((metadata) => Nodes.getMetadataType(metadata))
       : [];
@@ -100,11 +98,10 @@ export class Nodes extends EventTarget {
     id: node.id,
   });
 
-  public static updateMetadata = (node: Node, metadata: NodeMetadata): Node => {
-    let type = Nodes.getMetadataType(metadata);
-    node.metadata = node.metadata.map((node) => (node[type] ? metadata : node));
-    return node;
-  };
+  public static updateMetadata = (node: Node, metadata: NodeMetadata): Node =>
+    (node.metadata = node.metadata.map((node) =>
+      node[Nodes.getMetadataType(metadata)] ? metadata : node
+    )) && node;
 
   public static updateIcon = (node: Node, icon: Icon): Node => ({
     ...node,
@@ -119,141 +116,77 @@ export class Nodes extends EventTarget {
     coordinates,
   });
 
-  public static translate = (node: Node, offset: any) => {
-    node.coordinates = {
+  public static translate = (node: Node, offset: any): Node =>
+    (node.coordinates = {
       x: node.coordinates.x + offset.x,
       y: node.coordinates.y + offset.y,
-    };
-    return node;
-  };
+    }) && node;
 
-  public static removeMetadata = (node: Node, type: NodeMetadataType): Node => {
-    node.metadata = node.metadata.filter(
+  public static removeMetadata = (node: Node, type: NodeMetadataType): Node =>
+    (node.metadata = node.metadata.filter(
       (metadata) => metadata[type] === undefined
-    );
-    return node;
-  };
+    )) && node;
 
-  private _proxy: Node[] = [];
+  private _getIndex = (id: UUID): number =>
+    this.findIndex((node) => node.id === id);
 
-  /**
-   * The private constructor is used by the static init method: no direct instantiation is allowed.
-   * This is done so that a different return value, other than an instance of the class can be returned.
-   */
-  constructor(private nodes: Node[] = []) {
-    super();
-    this._proxy = this._createProxy(nodes);
-  }
+  public add = (details: Omit<Node, "id">): Nodes =>
+    this.push(Nodes.create(details as Omit<Node, "id">) as Node) && this;
 
-  private _get = (target, property, receiver) =>
-    property === "add"
-      ? this.add
-      : property === "addMetadata"
-      ? this.addMetadata
-      : property === "update"
-      ? this.update
-      : property === "updateMetadata"
-      ? this.updateMetadata
-      : property === "updateIcon"
-      ? this.updateIcon
-      : property === "updateCoordinates"
-      ? this.updateCoordinates
-      : property === "findById"
-      ? this.findById
-      : property === "findByType"
-      ? this.findByType
-      : property === "findByCoordinates"
-      ? this.findByCoordinates
-      : property === "translate"
-      ? this.translate
-      : property === "removeMetadata"
-      ? this.removeMetadata
-      : property === "remove"
-      ? this.remove
-      : Reflect.get(target, property, receiver);
-
-  private _set = (target, property, value, receiver) =>
-    Reflect.set(target, property, value, receiver);
-
-  private _createProxy = (target: Node[]): Node[] =>
-    new Proxy(target, { get: this._get, set: this._set });
-
-  private _getIndex = (id: UUID) =>
-    this.nodes.findIndex((node) => node.id === id);
-
-  private add = (details: Omit<Node, "id">) =>
-    this.nodes.push(Nodes.create(details)) && this._proxy;
-
-  private addMetadata = (id: UUID, metadata: NodeMetadata) => {
-    this.nodes[this._getIndex(id)] = Nodes.addMetadata(
-      this.nodes[this._getIndex(id)],
+  public addMetadata = (id: UUID, metadata: NodeMetadata): Nodes =>
+    (this[this._getIndex(id)] = Nodes.addMetadata(
+      this[this._getIndex(id)],
       metadata
-    );
-    return this._proxy;
-  };
+    )) && this;
 
-  private update = (id, update) => {
-    this.nodes[this._getIndex(id)] = Nodes.update(
-      this.nodes[this._getIndex(id)],
+  public update = (id: UUID, update: Node): Nodes =>
+    (this[this._getIndex(id)] = Nodes.update(
+      this[this._getIndex(id)],
       update
-    );
-    return this._proxy;
-  };
+    )) && this;
 
-  private updateMetadata = (id, metadata) => {
-    this.nodes[this._getIndex(id)] = Nodes.updateMetadata(
-      this.nodes[this._getIndex(id)],
+  public updateMetadata = (id: UUID, metadata: any): Nodes =>
+    (this[this._getIndex(id)] = Nodes.updateMetadata(
+      this[this._getIndex(id)],
       metadata
-    );
-    return this._proxy;
-  };
+    )) && this;
 
-  private updateIcon = (id, icon) => {
-    this.nodes[this._getIndex(id)] = Nodes.updateIcon(
-      this.nodes[this._getIndex(id)],
+  public updateIcon = (id: UUID, icon: any): Nodes =>
+    (this[this._getIndex(id)] = Nodes.updateIcon(
+      this[this._getIndex(id)],
       icon
-    );
-    return this._proxy;
-  };
+    )) && this;
 
-  private updateCoordinates = (id, coordinates) => {
-    this.nodes[this._getIndex(id)] = Nodes.updateCoordinates(
-      this.nodes[this._getIndex(id)],
+  public updateCoordinates = (id: UUID, coordinates: Coordinates): Nodes =>
+    (this[this._getIndex(id)] = Nodes.updateCoordinates(
+      this[this._getIndex(id)],
       coordinates
-    );
-    return this._proxy;
-  };
+    )) && this;
 
-  private findById = (id) => this.nodes[this._getIndex(id)];
+  public findById = (id: UUID): Node => this[this._getIndex(id)];
 
-  private findByType = (type) =>
-    this.nodes.filter((node) => node.type === type);
+  public findByType = (type: any): Node[] =>
+    this.filter((node) => node.type === type);
 
-  private findByCoordinates = (coordinates) =>
-    this.nodes.filter(
+  public findByCoordinates = (coordinates: any): Node[] =>
+    this.filter(
       (node) =>
         node.coordinates.x === coordinates.x &&
         node.coordinates.y === coordinates.y
     );
 
-  private translate = (id, offset) => {
-    this.nodes[this._getIndex(id)] = Nodes.translate(
-      this.nodes[this._getIndex(id)],
+  public translate = (id: UUID, offset: Offset): Nodes =>
+    (this[this._getIndex(id)] = Nodes.translate(
+      this[this._getIndex(id)],
       offset
-    );
-    return this._proxy;
-  };
+    )) && this;
 
-  private removeMetadata = (id, type) => {
-    this.nodes[this._getIndex(id)] = Nodes.removeMetadata(
-      this.nodes[this._getIndex(id)],
+  public removeMetadata = (id: UUID, type: NodeMetadataType): Nodes =>
+    (this[this._getIndex(id)] = Nodes.removeMetadata(
+      this[this._getIndex(id)],
       type
-    );
-    return this._proxy;
-  };
+    )) && this;
 
-  private remove = (id) => {
-    this.nodes.splice(this._getIndex(id), 1);
-    return this._proxy;
-  };
+  public remove = (id: UUID): Nodes =>
+    this.splice(this._getIndex(id), 1) && this;
 }
