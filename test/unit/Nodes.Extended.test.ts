@@ -693,3 +693,39 @@ describe("Given nodes.addMetadata() private method exists", () => {
     });
   });
 });
+describe("Given nodes.update() public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("and nodes contain node", () => {
+    let id: UUID;
+    beforeEach(() => {
+      nodes.add({
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      id = nodes[0].id;
+    });
+    describe("when nodes.update(id, update)", () => {
+      let update;
+      let node;
+      beforeEach(() => {
+        update = {
+          name: "Node2",
+          type: NodeType.END,
+          coordinates: { x: 100, y: 100 },
+          icon: "./icon2.svg",
+        };
+        nodes.update(id, update);
+        node = nodes[0];
+        delete node.id;
+      });
+      it("then node is updated", () => {
+        expect(nodes[0]).toEqual(update);
+      });
+    });
+  });
+});
