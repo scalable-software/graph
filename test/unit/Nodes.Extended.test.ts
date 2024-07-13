@@ -962,3 +962,44 @@ describe("Given nodes.update() public method exists", () => {
     });
   });
 });
+describe("Given nodes.updateMetadata() public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("and nodes contain node with metadata", () => {
+    let id: UUID;
+    beforeEach(() => {
+      nodes.add({
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      id = nodes[0].id;
+      nodes.addMetadata(id, {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 1 }],
+        },
+      });
+    });
+    describe("when nodes.updateMetadata(id, metadata)", () => {
+      let metadata: NodeMetadata;
+      let node;
+      beforeEach(() => {
+        metadata = {
+          arrival: {
+            distribution: "exponential",
+            parameters: [{ rate: 10 }],
+          },
+        };
+        nodes.updateMetadata(id, metadata);
+        node = nodes[0];
+      });
+      it("then metadata is updated in node", () => {
+        expect(node.metadata).toEqual([metadata]);
+      });
+    });
+  });
+});
