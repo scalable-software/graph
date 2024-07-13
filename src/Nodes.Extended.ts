@@ -104,6 +104,8 @@ export class Nodes extends Array<Node> {
     return node;
   };
 
+  public static updateIcon = (node: Node, icon: Icon) => {};
+
   constructor(...items: Node[]) {
     super(...items);
   }
