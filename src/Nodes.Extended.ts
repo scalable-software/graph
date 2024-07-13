@@ -183,4 +183,6 @@ export class Nodes extends Array<Node> {
     );
 
   public translate = (id: UUID, offset: Offset) => {};
+
+  public removeMetadata = (id: UUID, type: NodeMetadataType) => {};
 }
