@@ -1003,3 +1003,33 @@ describe("Given nodes.updateMetadata() public method exists", () => {
     });
   });
 });
+describe("Given nodes.updateIcon() public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("and nodes contain node", () => {
+    let id: UUID;
+    beforeEach(() => {
+      nodes.add({
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      id = nodes[0].id;
+    });
+    describe("when nodes.updateIcon(id, icon)", () => {
+      let icon: string;
+      let node;
+      beforeEach(() => {
+        icon = "./newIcon.svg";
+        nodes.updateIcon(id, icon);
+        node = nodes[0];
+      });
+      it("then icon is updated in node", () => {
+        expect(node.icon).toEqual(icon);
+      });
+    });
+  });
+});
