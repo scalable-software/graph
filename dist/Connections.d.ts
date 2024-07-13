@@ -13,9 +13,7 @@ export type Connection = {
         end: Coordinates;
     };
 };
-export declare class Connections extends EventTarget {
-    private connections;
-    static init: (connections?: Connection[]) => Connection[];
+export declare class Connections extends Array<Connection> {
     static create: (details: Omit<Connection, "id">) => Connection;
     static update: (connection: Connection, update: Connection) => Connection;
     static updateCoordinates: (connection: Connection, coordinates: {
@@ -23,12 +21,10 @@ export declare class Connections extends EventTarget {
         end: Coordinates;
     }) => Connection;
     static translate: (connection: Connection, offset: Coordinates) => Connection;
-    private _proxy;
-    constructor(connections: Connection[]);
-    private _createProxy;
-    private _get;
-    private _set;
     private _getIndex;
-    private add;
-    private update;
+    add: (details: Omit<Connection, "id">) => this;
+    update: (id: any, update: any) => this;
+    findById: (id: UUID) => Connection;
+    translate: (id: UUID, offset: Coordinates) => this;
+    remove: (id: UUID) => this;
 }

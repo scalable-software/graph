@@ -54,9 +54,7 @@ export declare const NodeMetadataType: {
     readonly PREVALENCE: "prevalence";
 };
 export type NodeMetadataType = (typeof NodeMetadataType)[keyof typeof NodeMetadataType];
-export declare class Nodes extends EventTarget {
-    private nodes;
-    static init: (nodes?: Node[]) => Node[];
+export declare class Nodes extends Array<Node> {
     static create: (details: Omit<Node, "id">) => Node;
     static getMetadataType: (metadata: NodeMetadata) => NodeMetadataType;
     static getMetadataTypes: (node: Node) => NodeMetadataType[];
@@ -69,26 +67,17 @@ export declare class Nodes extends EventTarget {
     static updateCoordinates: (node: Node, coordinates: Coordinates) => Node;
     static translate: (node: Node, offset: any) => Node;
     static removeMetadata: (node: Node, type: NodeMetadataType) => Node;
-    private _proxy;
-    /**
-     * The private constructor is used by the static init method: no direct instantiation is allowed.
-     * This is done so that a different return value, other than an instance of the class can be returned.
-     */
-    constructor(nodes?: Node[]);
-    private _get;
-    private _set;
-    private _createProxy;
     private _getIndex;
-    private add;
-    private addMetadata;
-    private update;
-    private updateMetadata;
-    private updateIcon;
-    private updateCoordinates;
-    private findById;
-    private findByType;
-    private findByCoordinates;
-    private translate;
-    private removeMetadata;
-    private remove;
+    add: (details: Omit<Node, "id">) => Nodes;
+    addMetadata: (id: UUID, metadata: NodeMetadata) => Nodes;
+    update: (id: UUID, update: Node) => Nodes;
+    updateMetadata: (id: UUID, metadata: any) => Nodes;
+    updateIcon: (id: UUID, icon: any) => Nodes;
+    updateCoordinates: (id: UUID, coordinates: Coordinates) => Nodes;
+    findById: (id: UUID) => Node;
+    findByType: (type: any) => Node[];
+    findByCoordinates: (coordinates: any) => Node[];
+    translate: (id: UUID, offset: Offset) => Nodes;
+    removeMetadata: (id: UUID, type: NodeMetadataType) => Nodes;
+    remove: (id: UUID) => Nodes;
 }

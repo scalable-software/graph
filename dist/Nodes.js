@@ -11,9 +11,7 @@ export const NodeMetadataType = {
     DURATION: "duration",
     PREVALENCE: "prevalence",
 };
-export class Nodes extends EventTarget {
-    nodes;
-    static init = (nodes = []) => new Nodes(nodes)._proxy;
+export class Nodes extends Array {
     static create = (details) => ({
         id: Utilities.uuid,
         name: details.name,
@@ -40,11 +38,7 @@ export class Nodes extends EventTarget {
         ...update,
         id: node.id,
     });
-    static updateMetadata = (node, metadata) => {
-        let type = Nodes.getMetadataType(metadata);
-        node.metadata = node.metadata.map((node) => (node[type] ? metadata : node));
-        return node;
-    };
+    static updateMetadata = (node, metadata) => (node.metadata = node.metadata.map((node) => node[Nodes.getMetadataType(metadata)] ? metadata : node)) && node;
     static updateIcon = (node, icon) => ({
         ...node,
         icon,
@@ -53,90 +47,23 @@ export class Nodes extends EventTarget {
         ...node,
         coordinates,
     });
-    static translate = (node, offset) => {
-        node.coordinates = {
-            x: node.coordinates.x + offset.x,
-            y: node.coordinates.y + offset.y,
-        };
-        return node;
-    };
-    static removeMetadata = (node, type) => {
-        node.metadata = node.metadata.filter((metadata) => metadata[type] === undefined);
-        return node;
-    };
-    _proxy = [];
-    /**
-     * The private constructor is used by the static init method: no direct instantiation is allowed.
-     * This is done so that a different return value, other than an instance of the class can be returned.
-     */
-    constructor(nodes = []) {
-        super();
-        this.nodes = nodes;
-        this._proxy = this._createProxy(nodes);
-    }
-    _get = (target, property, receiver) => property === "add"
-        ? this.add
-        : property === "addMetadata"
-            ? this.addMetadata
-            : property === "update"
-                ? this.update
-                : property === "updateMetadata"
-                    ? this.updateMetadata
-                    : property === "updateIcon"
-                        ? this.updateIcon
-                        : property === "updateCoordinates"
-                            ? this.updateCoordinates
-                            : property === "findById"
-                                ? this.findById
-                                : property === "findByType"
-                                    ? this.findByType
-                                    : property === "findByCoordinates"
-                                        ? this.findByCoordinates
-                                        : property === "translate"
-                                            ? this.translate
-                                            : property === "removeMetadata"
-                                                ? this.removeMetadata
-                                                : property === "remove"
-                                                    ? this.remove
-                                                    : Reflect.get(target, property, receiver);
-    _set = (target, property, value, receiver) => Reflect.set(target, property, value, receiver);
-    _createProxy = (target) => new Proxy(target, { get: this._get, set: this._set });
-    _getIndex = (id) => this.nodes.findIndex((node) => node.id === id);
-    add = (details) => this.nodes.push(Nodes.create(details)) && this._proxy;
-    addMetadata = (id, metadata) => {
-        this.nodes[this._getIndex(id)] = Nodes.addMetadata(this.nodes[this._getIndex(id)], metadata);
-        return this._proxy;
-    };
-    update = (id, update) => {
-        this.nodes[this._getIndex(id)] = Nodes.update(this.nodes[this._getIndex(id)], update);
-        return this._proxy;
-    };
-    updateMetadata = (id, metadata) => {
-        this.nodes[this._getIndex(id)] = Nodes.updateMetadata(this.nodes[this._getIndex(id)], metadata);
-        return this._proxy;
-    };
-    updateIcon = (id, icon) => {
-        this.nodes[this._getIndex(id)] = Nodes.updateIcon(this.nodes[this._getIndex(id)], icon);
-        return this._proxy;
-    };
-    updateCoordinates = (id, coordinates) => {
-        this.nodes[this._getIndex(id)] = Nodes.updateCoordinates(this.nodes[this._getIndex(id)], coordinates);
-        return this._proxy;
-    };
-    findById = (id) => this.nodes[this._getIndex(id)];
-    findByType = (type) => this.nodes.filter((node) => node.type === type);
-    findByCoordinates = (coordinates) => this.nodes.filter((node) => node.coordinates.x === coordinates.x &&
+    static translate = (node, offset) => (node.coordinates = {
+        x: node.coordinates.x + offset.x,
+        y: node.coordinates.y + offset.y,
+    }) && node;
+    static removeMetadata = (node, type) => (node.metadata = node.metadata.filter((metadata) => metadata[type] === undefined)) && node;
+    _getIndex = (id) => this.findIndex((node) => node.id === id);
+    add = (details) => this.push(Nodes.create(details)) && this;
+    addMetadata = (id, metadata) => (this[this._getIndex(id)] = Nodes.addMetadata(this[this._getIndex(id)], metadata)) && this;
+    update = (id, update) => (this[this._getIndex(id)] = Nodes.update(this[this._getIndex(id)], update)) && this;
+    updateMetadata = (id, metadata) => (this[this._getIndex(id)] = Nodes.updateMetadata(this[this._getIndex(id)], metadata)) && this;
+    updateIcon = (id, icon) => (this[this._getIndex(id)] = Nodes.updateIcon(this[this._getIndex(id)], icon)) && this;
+    updateCoordinates = (id, coordinates) => (this[this._getIndex(id)] = Nodes.updateCoordinates(this[this._getIndex(id)], coordinates)) && this;
+    findById = (id) => this[this._getIndex(id)];
+    findByType = (type) => this.filter((node) => node.type === type);
+    findByCoordinates = (coordinates) => this.filter((node) => node.coordinates.x === coordinates.x &&
         node.coordinates.y === coordinates.y);
-    translate = (id, offset) => {
-        this.nodes[this._getIndex(id)] = Nodes.translate(this.nodes[this._getIndex(id)], offset);
-        return this._proxy;
-    };
-    removeMetadata = (id, type) => {
-        this.nodes[this._getIndex(id)] = Nodes.removeMetadata(this.nodes[this._getIndex(id)], type);
-        return this._proxy;
-    };
-    remove = (id) => {
-        this.nodes.splice(this._getIndex(id), 1);
-        return this._proxy;
-    };
+    translate = (id, offset) => (this[this._getIndex(id)] = Nodes.translate(this[this._getIndex(id)], offset)) && this;
+    removeMetadata = (id, type) => (this[this._getIndex(id)] = Nodes.removeMetadata(this[this._getIndex(id)], type)) && this;
+    remove = (id) => this.splice(this._getIndex(id), 1) && this;
 }

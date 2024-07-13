@@ -1,7 +1,5 @@
 import { Utilities } from "./Utilities/Utilities.js";
-export class Connections extends EventTarget {
-    connections;
-    static init = (connections = []) => new Connections(connections)._proxy;
+export class Connections extends Array {
     static create = (details) => ({
         id: Utilities.uuid,
         name: details.name,
@@ -30,22 +28,19 @@ export class Connections extends EventTarget {
         };
         return connection;
     };
-    _proxy = [];
-    constructor(connections) {
-        super();
-        this.connections = connections;
-        this._proxy = this._createProxy(connections);
-    }
-    _createProxy = (target) => new Proxy(target, {
-        get: this._get,
-        set: this._set,
-    });
-    _get = (target, property, receiver) => property === "add" ? this.add : Reflect.get(target, property, receiver);
-    _set = (target, property, value, receiver) => Reflect.set(target, property, value, receiver);
-    _getIndex = (id) => this.connections.findIndex((connection) => connection.id === id);
-    add = (details) => this.connections.push(Connections.create(details)) && this._proxy;
+    _getIndex = (id) => this.findIndex((connection) => connection.id === id);
+    add = (details) => this.push(Connections.create(details)) && this;
     update = (id, update) => {
-        this.connections[this._getIndex(id)] = Connections.update(this.connections[this._getIndex(id)], update);
-        return this._proxy;
+        this[this._getIndex(id)] = Connections.update(this[this._getIndex(id)], update);
+        return this;
+    };
+    findById = (id) => this[this._getIndex(id)];
+    translate = (id, offset) => {
+        this[this._getIndex(id)] = Connections.translate(this[this._getIndex(id)], offset);
+        return this;
+    };
+    remove = (id) => {
+        this.splice(this._getIndex(id), 1);
+        return this;
     };
 }
