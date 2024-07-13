@@ -764,6 +764,35 @@ describe("Given Nodes.translate() static method exist", () => {
     });
   });
 });
+describe("Given Nodes.removeMetadata() static method exist", () => {
+  describe("Given node with metadata exist in nodes", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = Nodes.create({
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeType),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      node = Nodes.addMetadata(node, {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 1 }],
+        },
+      });
+    });
+    describe("When Graph.removeNodeMetadata(node, type)", () => {
+      let type: NodeMetadataType;
+      beforeEach(() => {
+        type = "arrival";
+        node = Nodes.removeMetadata(node, type);
+      });
+      it("then node does not contain metadata of type", () => {
+        expect(node.metadata).toEqual([]);
+      });
+    });
+  });
+});
 
 // Constructor Behavior
 describe("Given Nodes instantiated", () => {
