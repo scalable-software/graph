@@ -181,4 +181,6 @@ export class Nodes extends Array<Node> {
         node.coordinates.x === coordinates.x &&
         node.coordinates.y === coordinates.y
     );
+
+  public translate = (id: UUID, offset: Offset) => {};
 }
