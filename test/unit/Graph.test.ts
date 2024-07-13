@@ -95,6 +95,9 @@ describe("Given graph = new Graph()", () => {
   it("then graph.nodes.create exist", () => {
     expect(graph.nodes.create).toBeDefined();
   });
+  it("then graph.nodes.add exist", () => {
+    expect(graph.nodes.add).toBeDefined();
+  });
   it("then graph.nodes.addMetadata exist", () => {
     expect(graph.nodes.addMetadata).toBeDefined();
   });
@@ -174,6 +177,34 @@ describe("Given graph.nodes.create method exist", () => {
       it("then node contains details", () => {
         expect(node as Omit<Node, "id">).toEqual(details);
       });
+    });
+  });
+});
+describe("Given graph.nodes.add method exists", () => {
+  let graph: Graph;
+  beforeEach(() => {
+    graph = new Graph({
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    });
+  });
+  describe("when graph.nodes.add(node)", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = {
+        id: Utilities.uuid,
+        name: "Node",
+        type: Utilities.getRandomElement<NodeType>(NodeType),
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      graph.nodes.add(node);
+    });
+    it("then a node is added to graph.nodes", () => {
+      expect(graph.nodes.length).toBe(1);
+    });
+    it("then graph.nodes[0] equals node", () => {
+      expect(graph.nodes[0]).toEqual(node);
     });
   });
 });
