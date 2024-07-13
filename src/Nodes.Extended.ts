@@ -98,11 +98,10 @@ export class Nodes extends Array<Node> {
     id: node.id,
   });
 
-  public static updateMetadata = (node: Node, metadata: NodeMetadata): Node => {
-    let type = Nodes.getMetadataType(metadata);
-    node.metadata = node.metadata.map((node) => (node[type] ? metadata : node));
-    return node;
-  };
+  public static updateMetadata = (node: Node, metadata: NodeMetadata): Node =>
+    (node.metadata = node.metadata.map((node) =>
+      node[Nodes.getMetadataType(metadata)] ? metadata : node
+    )) && node;
 
   public static updateIcon = (node: Node, icon: Icon): Node => ({
     ...node,
@@ -117,59 +116,51 @@ export class Nodes extends Array<Node> {
     coordinates,
   });
 
-  public static translate = (node: Node, offset: any) => {
-    node.coordinates = {
+  public static translate = (node: Node, offset: any) =>
+    (node.coordinates = {
       x: node.coordinates.x + offset.x,
       y: node.coordinates.y + offset.y,
-    };
-    return node;
-  };
+    }) && node;
 
-  public static removeMetadata = (node: Node, type: NodeMetadataType): Node => {
-    node.metadata = node.metadata.filter(
+  public static removeMetadata = (node: Node, type: NodeMetadataType): Node =>
+    (node.metadata = node.metadata.filter(
       (metadata) => metadata[type] === undefined
-    );
-    return node;
-  };
+    )) && node;
 
   private _getIndex = (id: UUID) => this.findIndex((node) => node.id === id);
 
   public add = (details: Omit<Node, "id">) =>
     this.push(Nodes.create(details as Omit<Node, "id">) as Node) && this;
 
-  public addMetadata = (id: UUID, metadata: NodeMetadata) => {
-    this[this._getIndex(id)] = Nodes.addMetadata(
+  public addMetadata = (id: UUID, metadata: NodeMetadata) =>
+    (this[this._getIndex(id)] = Nodes.addMetadata(
       this[this._getIndex(id)],
       metadata
-    );
-    return this;
-  };
+    )) && this;
 
-  public update = (id: UUID, update: Node) => {
-    this[this._getIndex(id)] = Nodes.update(this[this._getIndex(id)], update);
-    return this;
-  };
+  public update = (id: UUID, update: Node) =>
+    (this[this._getIndex(id)] = Nodes.update(
+      this[this._getIndex(id)],
+      update
+    )) && this;
 
-  public updateMetadata = (id: UUID, metadata: any) => {
-    this[this._getIndex(id)] = Nodes.updateMetadata(
+  public updateMetadata = (id: UUID, metadata: any) =>
+    (this[this._getIndex(id)] = Nodes.updateMetadata(
       this[this._getIndex(id)],
       metadata
-    );
-    return this;
-  };
+    )) && this;
 
-  public updateIcon = (id: UUID, icon: any) => {
-    this[this._getIndex(id)] = Nodes.updateIcon(this[this._getIndex(id)], icon);
-    return this;
-  };
+  public updateIcon = (id: UUID, icon: any) =>
+    (this[this._getIndex(id)] = Nodes.updateIcon(
+      this[this._getIndex(id)],
+      icon
+    )) && this;
 
-  public updateCoordinates = (id: UUID, coordinates: Coordinates) => {
-    this[this._getIndex(id)] = Nodes.updateCoordinates(
+  public updateCoordinates = (id: UUID, coordinates: Coordinates) =>
+    (this[this._getIndex(id)] = Nodes.updateCoordinates(
       this[this._getIndex(id)],
       coordinates
-    );
-    return this;
-  };
+    )) && this;
 
   public findById = (id: UUID) => this[this._getIndex(id)];
 
@@ -182,24 +173,17 @@ export class Nodes extends Array<Node> {
         node.coordinates.y === coordinates.y
     );
 
-  public translate = (id: UUID, offset: Offset) => {
-    this[this._getIndex(id)] = Nodes.translate(
+  public translate = (id: UUID, offset: Offset) =>
+    (this[this._getIndex(id)] = Nodes.translate(
       this[this._getIndex(id)],
       offset
-    );
-    return this;
-  };
+    )) && this;
 
-  public removeMetadata = (id: UUID, type: NodeMetadataType) => {
-    this[this._getIndex(id)] = Nodes.removeMetadata(
+  public removeMetadata = (id: UUID, type: NodeMetadataType) =>
+    (this[this._getIndex(id)] = Nodes.removeMetadata(
       this[this._getIndex(id)],
       type
-    );
-    return this;
-  };
+    )) && this;
 
-  public remove = (id: UUID) => {
-    this.splice(this._getIndex(id), 1);
-    return this;
-  };
+  public remove = (id: UUID) => this.splice(this._getIndex(id), 1) && this;
 }
