@@ -3,9 +3,11 @@ import {
   Connections,
   Coordinates,
   Offset,
+  Utilities,
   UUID,
 } from "@scalable-software/graph.structure";
 
+// Class Availability
 describe("Given Connections imported", () => {
   it("then Connections exist", () => {
     expect(Connections).toBeDefined();
@@ -13,7 +15,7 @@ describe("Given Connections imported", () => {
 });
 
 // Static Methods Availability
-describe("Given Connections has static methods", () => {
+describe("Given Connections Exists", () => {
   it("then Connections.create static method exists", () => {
     expect(Connections.create).toBeDefined();
   });
@@ -103,7 +105,7 @@ describe("Given Connections.updateCoordinates() static method exist", () => {
     let connection: Connection;
     beforeEach(() => {
       connection = {
-        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        id: Utilities.uuid,
         name: "Connection",
         source: "source",
         target: "target",
@@ -112,12 +114,16 @@ describe("Given Connections.updateCoordinates() static method exist", () => {
     });
     describe("when updatedConnection = Connections.updateCoordinates(connection, coordinates)", () => {
       let coordinates: { start: Coordinates; end: Coordinates };
+      let updatedConnection: Connection;
       beforeEach(() => {
         coordinates = { start: { x: 0, y: 0 }, end: { x: 10, y: 10 } };
-        connection = Connections.updateCoordinates(connection, coordinates);
+        updatedConnection = Connections.updateCoordinates(
+          connection,
+          coordinates
+        );
       });
-      it("then connection.coordinates is equal to coordinates", () => {
-        expect(connection.coordinates).toEqual(coordinates);
+      it("then updatedConnection.coordinates is equal to coordinates", () => {
+        expect(updatedConnection.coordinates).toEqual(coordinates);
       });
     });
   });
@@ -136,85 +142,47 @@ describe("Given Connections.translate() static method exist", () => {
     });
     describe("when updatedConnection = Connections.translate(connection, offset)", () => {
       let offset: Offset;
+      let updatedConnection: Connection;
       beforeEach(() => {
         offset = { x: 10, y: 10 };
-        connection = Connections.translate(connection, offset);
+        updatedConnection = Connections.translate(connection, offset);
       });
-      it("then connection.coordinates.start.x is equal to offset.x", () => {
-        expect(connection.coordinates.start.x).toEqual(offset.x);
+      it("then updatedConnection.coordinates.start.x is equal to offset.x", () => {
+        expect(updatedConnection.coordinates.start.x).toEqual(offset.x);
       });
-      it("then connection.coordinates.start.y is equal to offset.y", () => {
-        expect(connection.coordinates.start.y).toEqual(offset.y);
+      it("then updatedConnection.coordinates.start.y is equal to offset.y", () => {
+        expect(updatedConnection.coordinates.start.y).toEqual(offset.y);
       });
-      it("then connection.coordinates.end.x is equal to offset.x", () => {
-        expect(connection.coordinates.end.x).toEqual(offset.x);
+      it("then updatedConnection.coordinates.end.x is equal to offset.x", () => {
+        expect(updatedConnection.coordinates.end.x).toEqual(offset.x);
       });
-      it("then connection.coordinates.end.y is equal to offset.y", () => {
-        expect(connection.coordinates.end.y).toEqual(offset.y);
+      it("then updatedConnection.coordinates.end.y is equal to offset.y", () => {
+        expect(updatedConnection.coordinates.end.y).toEqual(offset.y);
       });
     });
   });
 });
 
 // Instance Methods Availability
-describe("Given method = connections['_getIndex']", () => {
-  let method;
-  beforeEach(() => {
-    const connections = new Connections();
-    method = connections["_getIndex"];
+describe("Given Connections instantiated", () => {
+  const connections = new Connections();
+  it("then _getIndex private method exists", () => {
+    expect(connections["_getIndex"]).toBeDefined();
   });
-  it("then method exists", () => {
-    expect(method).toBeDefined();
+  it("then add public method exists", () => {
+    expect(connections.add).toBeDefined();
   });
-});
-describe("Given method = connections['add']", () => {
-  let method;
-  beforeEach(() => {
-    const connections = new Connections();
-    method = connections["add"];
+  it("then update public method exists", () => {
+    expect(connections.update).toBeDefined();
   });
-  it("then method exists", () => {
-    expect(method).toBeDefined();
+  it("then findById public method exists", () => {
+    expect(connections.findById).toBeDefined();
   });
-});
-describe("Given method = connections['update']", () => {
-  let method;
-  beforeEach(() => {
-    const connections = new Connections();
-    method = connections["update"];
+  it("then translate public method exists", () => {
+    expect(connections.translate).toBeDefined();
   });
-  it("then method exists", () => {
-    expect(method).toBeDefined();
-  });
-});
-describe("Given method = connections['findById']", () => {
-  let method;
-  beforeEach(() => {
-    const connections = new Connections();
-    method = connections["findById"];
-  });
-  it("then method exists", () => {
-    expect(method).toBeDefined();
-  });
-});
-describe("Given method = connections['translate']", () => {
-  let method;
-  beforeEach(() => {
-    const connections = new Connections();
-    method = connections["translate"];
-  });
-  it("then method exists", () => {
-    expect(method).toBeDefined();
-  });
-});
-describe("Given method = connections['remove']", () => {
-  let method;
-  beforeEach(() => {
-    const connections = new Connections();
-    method = connections["remove"];
-  });
-  it("then method exists", () => {
-    expect(method).toBeDefined();
+  it("then remove public method exists", () => {
+    expect(connections.remove).toBeDefined();
   });
 });
 
@@ -224,13 +192,26 @@ describe("Given connections._getIndex() private method exist", () => {
   beforeEach(() => {
     connections = new Connections();
   });
-  describe("when connections._getIndex(id)", () => {
+  describe("and connections contains a connection with id", () => {
     let id: UUID;
     beforeEach(() => {
-      id = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+      const details = {
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add(details);
+      id = connections[0].id;
     });
-    it("then connections._getIndex(id) is -1", () => {
-      expect(connections["_getIndex"](id)).toEqual(-1);
+    describe("when index = connections._getIndex(id)", () => {
+      let index: number;
+      beforeEach(() => {
+        index = connections["_getIndex"](id);
+      });
+      it("then index is 0", () => {
+        expect(index).toEqual(0);
+      });
     });
   });
 });
@@ -241,6 +222,7 @@ describe("Given connections.add() private method exist", () => {
   });
   describe("when connections.add(details)", () => {
     let details: Omit<Connection, "id">;
+    let connection: Connection;
     beforeEach(() => {
       details = {
         name: "Connections",
@@ -249,13 +231,13 @@ describe("Given connections.add() private method exist", () => {
         coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
       };
       connections.add(details);
+      connection = { ...details, id: connections[0].id };
     });
     it("then connections.length is 1", () => {
       expect(connections.length).toEqual(1);
     });
-    it("then connections.connections[0] is equal to details", () => {
-      (details as Connection).id = connections[0].id;
-      expect(connections[0]).toEqual(details);
+    it("then connections with details is added to connections", () => {
+      expect(connections[0]).toEqual(connection);
     });
   });
 });
@@ -264,33 +246,34 @@ describe("Given connections.update() private method exist", () => {
   beforeEach(() => {
     connections = new Connections();
   });
-  describe("when connections.update(id, update)", () => {
+  describe("and connections contains a connection", () => {
     let id: UUID;
-    let connection: Connection;
-    let update: Connection;
     beforeEach(() => {
-      connection = {
+      connections.add({
         name: "Connections",
         source: "source",
         target: "target",
         coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
-      };
-      connections.add(connection);
-      update = {
-        id: connections[0].id,
-        name: "Updated Connections",
-        source: "source",
-        target: "target",
-        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
-      };
+      });
       id = connections[0].id;
-      connections.update(id, update);
     });
-    it("then connections.length is 1", () => {
-      expect(connections.length).toEqual(1);
-    });
-    it("then connections[0] is equal to update", () => {
-      expect(connections[0]).toEqual(update);
+    describe("when connections.update(id, update)", () => {
+      let connection: Connection;
+      let update: Connection;
+      beforeEach(() => {
+        update = {
+          id: id,
+          name: "Updated Connections",
+          source: "source",
+          target: "target",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+        };
+        connections.update(id, update);
+        connection = connections[0];
+      });
+      it("then connection is updated", () => {
+        expect(connection).toEqual(update);
+      });
     });
   });
 });
@@ -299,22 +282,25 @@ describe("Given connections.findById() private method exist", () => {
   beforeEach(() => {
     connections = new Connections();
   });
-  describe("when connections.findById(id)", () => {
+  describe("and connections contains a connection width id", () => {
     let id: UUID;
-    let connection: Connection;
     beforeEach(() => {
-      connection = {
+      connections.add({
         name: "Connections",
         source: "source",
         target: "target",
         coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
-      };
-      connections.add(connection);
+      });
       id = connections[0].id;
-      connection.id = id;
     });
-    it("then connections.findById(id) is equal to connection", () => {
-      expect(connections.findById(id)).toEqual(connection);
+    describe("when connection = connections.findById(id)", () => {
+      let connection: Connection;
+      beforeEach(() => {
+        connection = connections.findById(id);
+      });
+      it("then connection in connections is returns", () => {
+        expect(connection).toEqual(connections[0]);
+      });
     });
   });
 });
@@ -323,36 +309,40 @@ describe("Given connections.translate() private method exist", () => {
   beforeEach(() => {
     connections = new Connections();
   });
-  describe("when connections.translate(id, offset)", () => {
+  describe("and connections contains a connection", () => {
     let id: UUID;
-    let connection: Connection;
-    let offset: Offset;
     beforeEach(() => {
-      connection = {
+      connections.add({
         name: "Connections",
         source: "source",
         target: "target",
         coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
-      };
-      connections.add(connection);
+      });
       id = connections[0].id;
-      offset = { x: 10, y: 10 };
-      connections.translate(id, offset);
     });
-    it("then connections.length is 1", () => {
-      expect(connections.length).toEqual(1);
-    });
-    it("then connections[0].coordinates.start.x is equal to offset.x", () => {
-      expect(connections[0].coordinates.start.x).toEqual(offset.x);
-    });
-    it("then connections[0].coordinates.start.y is equal to offset.y", () => {
-      expect(connections[0].coordinates.start.y).toEqual(offset.y);
-    });
-    it("then connections[0].coordinates.end.x is equal to offset.x", () => {
-      expect(connections[0].coordinates.end.x).toEqual(offset.x);
-    });
-    it("then connections[0].coordinates.end.y is equal to offset.y", () => {
-      expect(connections[0].coordinates.end.y).toEqual(offset.y);
+    describe("when connections.translate(id, offset)", () => {
+      let connection: Connection;
+      let offset: Offset;
+      beforeEach(() => {
+        offset = { x: 10, y: 10 };
+        connections.translate(id, offset);
+        connection = connections[0];
+      });
+      it("then connections.length is 1", () => {
+        expect(connections.length).toEqual(1);
+      });
+      it("then connections[0].coordinates.start.x is equal to offset.x", () => {
+        expect(connections[0].coordinates.start.x).toEqual(offset.x);
+      });
+      it("then connections[0].coordinates.start.y is equal to offset.y", () => {
+        expect(connections[0].coordinates.start.y).toEqual(offset.y);
+      });
+      it("then connections[0].coordinates.end.x is equal to offset.x", () => {
+        expect(connections[0].coordinates.end.x).toEqual(offset.x);
+      });
+      it("then connections[0].coordinates.end.y is equal to offset.y", () => {
+        expect(connections[0].coordinates.end.y).toEqual(offset.y);
+      });
     });
   });
 });
@@ -361,22 +351,26 @@ describe("Given connections.remove() private method exist", () => {
   beforeEach(() => {
     connections = new Connections();
   });
-  describe("when connections.remove(id)", () => {
+  describe("and connections contains a connection", () => {
     let id: UUID;
-    let connection: Connection;
     beforeEach(() => {
-      connection = {
+      connections.add({
         name: "Connections",
         source: "source",
         target: "target",
         coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
-      };
-      connections.add(connection);
+      });
       id = connections[0].id;
-      connections.remove(id);
     });
-    it("then connections.length is 0", () => {
-      expect(connections.length).toEqual(0);
+    describe("when connections.remove(id)", () => {
+      let connection: Connection;
+      beforeEach(() => {
+        connections.remove(id);
+        connection = connections[0];
+      });
+      it("then connection is removed from nodes", () => {
+        expect(connection).toBeUndefined();
+      });
     });
   });
 });
