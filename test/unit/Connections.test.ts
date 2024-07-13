@@ -172,6 +172,9 @@ describe("Given Connections instantiated", () => {
   it("then create public method exists", () => {
     expect(connections.create).toBeDefined();
   });
+  it("then add public method exists", () => {
+    expect(connections.add).toBeDefined();
+  });
   it("then update public method exists", () => {
     expect(connections.update).toBeDefined();
   });
