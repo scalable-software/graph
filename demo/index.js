@@ -1,16 +1,12 @@
 import { Graph } from "@scalable-software/graph.structure";
-console.log(`Import module: Graph`);
 
-console.log(`Define node details`);
-let details = {
+const graph = new Graph({ name: "Graph", type: "clinical pathway" });
+
+graph.nodes.add({
   name: "Node",
   type: "start",
   coordinates: { x: 0, y: 0 },
   icon: "./icon.svg",
-};
+});
 
-console.log(details);
-let node = Graph.createNode(details);
-
-console.log("Create node using static function: Graph.createNode(details)");
-console.log(node);
+console.log(graph.nodes[0]);
