@@ -190,7 +190,13 @@ export class Nodes extends Array<Node> {
     return this;
   };
 
-  public removeMetadata = (id: UUID, type: NodeMetadataType) => {};
+  public removeMetadata = (id: UUID, type: NodeMetadataType) => {
+    this[this._getIndex(id)] = Nodes.removeMetadata(
+      this[this._getIndex(id)],
+      type
+    );
+    return this;
+  };
 
   public remove = (id: UUID) => {};
 }
