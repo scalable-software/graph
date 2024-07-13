@@ -125,10 +125,12 @@ export class Nodes extends Array<Node> {
     return node;
   };
 
-  public static removeMetadata = (node: Node, type: NodeMetadataType) => {};
-  constructor(...items: Node[]) {
-    super(...items);
-  }
+  public static removeMetadata = (node: Node, type: NodeMetadataType): Node => {
+    node.metadata = node.metadata.filter(
+      (metadata) => metadata[type] === undefined
+    );
+    return node;
+  };
 
   private _getIndex = (id: UUID) => this.findIndex((node) => node.id === id);
 
