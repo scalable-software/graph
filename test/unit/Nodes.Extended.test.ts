@@ -1157,3 +1157,36 @@ describe("Given nodes.findByCoordinates() public method exists", () => {
     });
   });
 });
+describe("Given nodes.translate() public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("and nodes contain node", () => {
+    let id: UUID;
+    beforeEach(() => {
+      nodes.add({
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      id = nodes[0].id;
+    });
+    describe("when nodes.translate(id, offset)", () => {
+      let offset;
+      let node;
+      beforeEach(() => {
+        offset = { x: 10, y: 10 };
+        nodes.translate(id, offset);
+        node = nodes[0];
+      });
+      it("then coordinates is updated in node", () => {
+        expect(node.coordinates).toEqual({
+          x: 10,
+          y: 10,
+        });
+      });
+    });
+  });
+});
