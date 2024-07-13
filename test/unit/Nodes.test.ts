@@ -5,6 +5,7 @@ import {
   NodeMetadata,
   NodeMetadataType,
   Coordinates,
+  Offset,
   Utilities,
   UUID,
 } from "@scalable-software/graph.structure";
@@ -340,7 +341,7 @@ describe("Given Nodes.addMetadata() static method exist", () => {
     describe("when extendedNode = Nodes.addMetadata(node, metadata)", () => {
       let node: Node;
       let metadata: NodeMetadata;
-      let extendedNode;
+      let extendedNode: Node;
       beforeEach(() => {
         node = {
           id: Utilities.uuid,
@@ -402,7 +403,7 @@ describe("Given Nodes.addMetadata() static method exist", () => {
     describe("when extendedNode = Nodes.addMetadata(node, metadata)", () => {
       let node: Node;
       let metadata: NodeMetadata;
-      let extendedNode;
+      let extendedNode: Node;
       beforeEach(() => {
         node = {
           id: Utilities.uuid,
@@ -472,7 +473,7 @@ describe("Given Nodes.addMetadata() static method exist", () => {
     describe("when extendedNode = Nodes.addMetadata(node, metadata)", () => {
       let node: Node;
       let metadata: NodeMetadata;
-      let extendedNode;
+      let extendedNode: Node;
       beforeEach(() => {
         node = {
           id: Utilities.uuid,
@@ -552,7 +553,7 @@ describe("Given Nodes.update() static method exist", () => {
       };
     });
     describe("when updatedNode = Node.update(node, update)", () => {
-      let update;
+      let update: Node;
       beforeEach(() => {
         update = {
           id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -742,8 +743,8 @@ describe("Given Nodes.translate() static method exist", () => {
       };
     });
     describe("when node = Graph.translate(node, offset)", () => {
-      let coordinates;
-      let offset;
+      let coordinates: Coordinates;
+      let offset: Offset;
       beforeEach(() => {
         coordinates = node.coordinates;
         offset = {
@@ -934,7 +935,7 @@ describe("Given nodes.addMetadata() private method exists", () => {
   });
 });
 describe("Given nodes.update() public method exists", () => {
-  let nodes;
+  let nodes: Nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
@@ -950,10 +951,11 @@ describe("Given nodes.update() public method exists", () => {
       id = nodes[0].id;
     });
     describe("when nodes.update(id, update)", () => {
-      let update;
-      let node;
+      let update: Node;
+      let node: Node;
       beforeEach(() => {
         update = {
+          id: id,
           name: "Node2",
           type: NodeType.END,
           coordinates: { x: 100, y: 100 },
@@ -961,16 +963,15 @@ describe("Given nodes.update() public method exists", () => {
         };
         nodes.update(id, update);
         node = nodes[0];
-        delete node.id;
       });
       it("then node is updated", () => {
-        expect(nodes[0]).toEqual(update);
+        expect(node).toEqual(update);
       });
     });
   });
 });
 describe("Given nodes.updateMetadata() public method exists", () => {
-  let nodes;
+  let nodes: Nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
@@ -993,7 +994,7 @@ describe("Given nodes.updateMetadata() public method exists", () => {
     });
     describe("when nodes.updateMetadata(id, metadata)", () => {
       let metadata: NodeMetadata;
-      let node;
+      let node: Node;
       beforeEach(() => {
         metadata = {
           arrival: {
@@ -1011,7 +1012,7 @@ describe("Given nodes.updateMetadata() public method exists", () => {
   });
 });
 describe("Given nodes.updateIcon() public method exists", () => {
-  let nodes;
+  let nodes: Nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
@@ -1028,7 +1029,7 @@ describe("Given nodes.updateIcon() public method exists", () => {
     });
     describe("when nodes.updateIcon(id, icon)", () => {
       let icon: string;
-      let node;
+      let node: Node;
       beforeEach(() => {
         icon = "./newIcon.svg";
         nodes.updateIcon(id, icon);
@@ -1041,7 +1042,7 @@ describe("Given nodes.updateIcon() public method exists", () => {
   });
 });
 describe("Given nodes.updateCoordinates() public method exists", () => {
-  let nodes;
+  let nodes: Nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
@@ -1058,7 +1059,7 @@ describe("Given nodes.updateCoordinates() public method exists", () => {
     });
     describe("when nodes.updateCoordinates(id, coordinates)", () => {
       let coordinates: Coordinates;
-      let node;
+      let node: Node;
       beforeEach(() => {
         coordinates = { x: 100, y: 100 };
         nodes.updateCoordinates(id, coordinates);
@@ -1071,7 +1072,7 @@ describe("Given nodes.updateCoordinates() public method exists", () => {
   });
 });
 describe("Given nodes.findById() public method exists", () => {
-  let nodes;
+  let nodes: Nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
@@ -1087,7 +1088,7 @@ describe("Given nodes.findById() public method exists", () => {
       id = nodes[0].id;
     });
     describe("when node = nodes.findById(id)", () => {
-      let node;
+      let node: Node;
       beforeEach(() => {
         node = nodes.findById(id);
       });
@@ -1098,7 +1099,7 @@ describe("Given nodes.findById() public method exists", () => {
   });
 });
 describe("Given nodes.findByType() public method exists", () => {
-  let nodes;
+  let nodes: Nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
@@ -1116,7 +1117,7 @@ describe("Given nodes.findByType() public method exists", () => {
       node = nodes[0];
     });
     describe("when results = nodes.findByType(type)", () => {
-      let results;
+      let results: Node[];
       beforeEach(() => {
         results = nodes.findByType(type);
       });
@@ -1127,7 +1128,7 @@ describe("Given nodes.findByType() public method exists", () => {
   });
 });
 describe("Given nodes.findByCoordinates() public method exists", () => {
-  let nodes;
+  let nodes: Nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
@@ -1145,7 +1146,7 @@ describe("Given nodes.findByCoordinates() public method exists", () => {
       node = nodes[0];
     });
     describe("when results = nodes.findByCoordinates(coordinates)", () => {
-      let results;
+      let results: Node[];
       beforeEach(() => {
         results = nodes.findByCoordinates(coordinates);
       });
@@ -1156,7 +1157,7 @@ describe("Given nodes.findByCoordinates() public method exists", () => {
   });
 });
 describe("Given nodes.translate() public method exists", () => {
-  let nodes;
+  let nodes: Nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
@@ -1172,8 +1173,8 @@ describe("Given nodes.translate() public method exists", () => {
       id = nodes[0].id;
     });
     describe("when nodes.translate(id, offset)", () => {
-      let offset;
-      let node;
+      let offset: Offset;
+      let node: Node;
       beforeEach(() => {
         offset = { x: 10, y: 10 };
         nodes.translate(id, offset);
@@ -1189,7 +1190,7 @@ describe("Given nodes.translate() public method exists", () => {
   });
 });
 describe("Given nodes.removeMetadata() public method exists", () => {
-  let nodes;
+  let nodes: Nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
@@ -1212,7 +1213,7 @@ describe("Given nodes.removeMetadata() public method exists", () => {
     });
     describe("when nodes.removeMetadata(id, type)", () => {
       let type: NodeMetadataType;
-      let node;
+      let node: Node;
       beforeEach(() => {
         type = "arrival";
         nodes.removeMetadata(id, type);
@@ -1225,7 +1226,7 @@ describe("Given nodes.removeMetadata() public method exists", () => {
   });
 });
 describe("Given nodes.remove() public method exists", () => {
-  let nodes;
+  let nodes: Nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
@@ -1241,7 +1242,7 @@ describe("Given nodes.remove() public method exists", () => {
       id = nodes[0].id;
     });
     describe("when nodes.remove(id)", () => {
-      let node;
+      let node: Node;
       beforeEach(() => {
         nodes.remove(id);
         node = nodes[0];
