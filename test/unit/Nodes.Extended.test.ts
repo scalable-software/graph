@@ -1063,3 +1063,30 @@ describe("Given nodes.updateCoordinates() public method exists", () => {
     });
   });
 });
+describe("Given nodes.findById() public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("and nodes contain node with id", () => {
+    let id: UUID;
+    beforeEach(() => {
+      nodes.add({
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      id = nodes[0].id;
+    });
+    describe("when node = nodes.findById(id)", () => {
+      let node;
+      beforeEach(() => {
+        node = nodes.findById(id);
+      });
+      it("then node is returned", () => {
+        expect(node).toEqual(nodes[0]);
+      });
+    });
+  });
+});
