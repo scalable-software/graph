@@ -905,6 +905,28 @@ describe("Given nodes.create() public method exists", () => {
     });
   });
 });
+describe("Given nodes.add() public method exists", () => {
+  let nodes: Nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("when nodes.add(node)", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = {
+        id: Utilities.uuid,
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodes.add(node);
+    });
+    it("then node is added to nodes", () => {
+      expect(nodes[0]).toEqual(node);
+    });
+  });
+});
 describe("Given nodes.addMetadata() public method exists", () => {
   let nodes;
   beforeEach(() => {
