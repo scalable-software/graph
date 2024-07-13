@@ -167,7 +167,7 @@ export class Nodes extends Array<Node> {
 
   public findById = (id: UUID): Node => this[this._getIndex(id)];
 
-  public findByType = (type: any): Node[] =>
+  public findByType = (type: NodeType): Node[] =>
     this.filter((node) => node.type === type);
 
   public findByCoordinates = (coordinates: any): Node[] =>
