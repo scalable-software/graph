@@ -731,6 +731,39 @@ describe("Given Nodes.updateCoordinates() static method exist", () => {
     });
   });
 });
+describe("Given Nodes.translate() static method exist", () => {
+  describe("and node exist", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        name: "Node",
+        type: "workflow",
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+    });
+    describe("when node = Graph.translate(node, offset)", () => {
+      let coordinates;
+      let offset;
+      beforeEach(() => {
+        coordinates = node.coordinates;
+        offset = {
+          x: 10,
+          y: 10,
+        };
+        node = Nodes.translate(node, offset);
+      });
+      it("then node coordinates is original coordinates plus offset ", () => {
+        let updateCoordinates = {
+          x: coordinates.x + offset.x,
+          y: coordinates.y + offset.y,
+        };
+        expect(node.coordinates).toEqual(updateCoordinates);
+      });
+    });
+  });
+});
 
 // Constructor Behavior
 describe("Given Nodes instantiated", () => {
