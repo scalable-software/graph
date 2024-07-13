@@ -198,5 +198,8 @@ export class Nodes extends Array<Node> {
     return this;
   };
 
-  public remove = (id: UUID) => {};
+  public remove = (id: UUID) => {
+    this.splice(this._getIndex(id), 1);
+    return this;
+  };
 }
