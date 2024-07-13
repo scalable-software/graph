@@ -1226,3 +1226,31 @@ describe("Given nodes.removeMetadata() public method exists", () => {
     });
   });
 });
+describe("Given nodes.remove() public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("and nodes contain node", () => {
+    let id: UUID;
+    beforeEach(() => {
+      nodes.add({
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      id = nodes[0].id;
+    });
+    describe("when nodes.remove(id)", () => {
+      let node;
+      beforeEach(() => {
+        nodes.remove(id);
+        node = nodes[0];
+      });
+      it("then node is removed from nodes", () => {
+        expect(node).toBeUndefined();
+      });
+    });
+  });
+});
