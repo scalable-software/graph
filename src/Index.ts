@@ -1,15 +1,21 @@
 export {
   Graph,
   GraphType,
-  NodeType,
-  NodeMetadataType,
   type GraphMetadata,
   type GraphDetails,
+} from "./Graph.js";
+
+export {
+  Nodes,
+  NodeType,
+  NodeMetadataType,
   type NodeMetadata,
   type Node,
-  type Connection,
-  type Coordinates,
   type Icon,
-} from "./Graph.js";
+  type Coordinates,
+  type Offset,
+} from "./Nodes.js";
+
+export { Connections, type Connection } from "./Connections.js";
 
 export { Utilities, type UUID } from "./Utilities/Utilities.js";

@@ -1,4 +1,10 @@
-import { Connection, Connections } from "../../src/Connections.js";
+import {
+  Connection,
+  Connections,
+  Coordinates,
+  Offset,
+  UUID,
+} from "@scalable-software/graph.structure";
 
 describe("Given Connections imported", () => {
   it("then Connections exist", () => {
@@ -25,7 +31,7 @@ describe("Given Connections has static methods", () => {
 // Static Methods Behavior
 describe("Given Connections.create() static method exist", () => {
   describe("when connections = Connections.create(details)", () => {
-    let details;
+    let details: Omit<Connection, "id">;
     let connection: Connection;
     beforeEach(() => {
       details = {
@@ -75,7 +81,7 @@ describe("Given Connections.update() static method exist", () => {
       };
     });
     describe("when updatedConnection = Connections.update(connection, update)", () => {
-      let update;
+      let update: Connection;
       beforeEach(() => {
         update = {
           id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -105,7 +111,7 @@ describe("Given Connections.updateCoordinates() static method exist", () => {
       };
     });
     describe("when updatedConnection = Connections.updateCoordinates(connection, coordinates)", () => {
-      let coordinates;
+      let coordinates: { start: Coordinates; end: Coordinates };
       beforeEach(() => {
         coordinates = { start: { x: 0, y: 0 }, end: { x: 10, y: 10 } };
         connection = Connections.updateCoordinates(connection, coordinates);
@@ -129,7 +135,7 @@ describe("Given Connections.translate() static method exist", () => {
       };
     });
     describe("when updatedConnection = Connections.translate(connection, offset)", () => {
-      let offset;
+      let offset: Offset;
       beforeEach(() => {
         offset = { x: 10, y: 10 };
         connection = Connections.translate(connection, offset);
@@ -214,12 +220,12 @@ describe("Given method = connections['remove']", () => {
 
 // Instance Methods Behavior
 describe("Given connections._getIndex() private method exist", () => {
-  let connections;
+  let connections: Connections;
   beforeEach(() => {
     connections = new Connections();
   });
   describe("when connections._getIndex(id)", () => {
-    let id;
+    let id: UUID;
     beforeEach(() => {
       id = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
     });
@@ -229,12 +235,12 @@ describe("Given connections._getIndex() private method exist", () => {
   });
 });
 describe("Given connections.add() private method exist", () => {
-  let connections;
+  let connections: Connections;
   beforeEach(() => {
     connections = new Connections();
   });
   describe("when connections.add(details)", () => {
-    let details;
+    let details: Omit<Connection, "id">;
     beforeEach(() => {
       details = {
         name: "Connections",
@@ -248,20 +254,20 @@ describe("Given connections.add() private method exist", () => {
       expect(connections.length).toEqual(1);
     });
     it("then connections.connections[0] is equal to details", () => {
-      details.id = connections[0].id;
+      (details as Connection).id = connections[0].id;
       expect(connections[0]).toEqual(details);
     });
   });
 });
 describe("Given connections.update() private method exist", () => {
-  let connections;
+  let connections: Connections;
   beforeEach(() => {
     connections = new Connections();
   });
   describe("when connections.update(id, update)", () => {
-    let id;
-    let connection;
-    let update;
+    let id: UUID;
+    let connection: Connection;
+    let update: Connection;
     beforeEach(() => {
       connection = {
         name: "Connections",
@@ -289,13 +295,13 @@ describe("Given connections.update() private method exist", () => {
   });
 });
 describe("Given connections.findById() private method exist", () => {
-  let connections;
+  let connections: Connections;
   beforeEach(() => {
     connections = new Connections();
   });
   describe("when connections.findById(id)", () => {
-    let id;
-    let connection;
+    let id: UUID;
+    let connection: Connection;
     beforeEach(() => {
       connection = {
         name: "Connections",
@@ -313,14 +319,14 @@ describe("Given connections.findById() private method exist", () => {
   });
 });
 describe("Given connections.translate() private method exist", () => {
-  let connections;
+  let connections: Connections;
   beforeEach(() => {
     connections = new Connections();
   });
   describe("when connections.translate(id, offset)", () => {
-    let id;
-    let connection;
-    let offset;
+    let id: UUID;
+    let connection: Connection;
+    let offset: Offset;
     beforeEach(() => {
       connection = {
         name: "Connections",
@@ -351,13 +357,13 @@ describe("Given connections.translate() private method exist", () => {
   });
 });
 describe("Given connections.remove() private method exist", () => {
-  let connections;
+  let connections: Connections;
   beforeEach(() => {
     connections = new Connections();
   });
   describe("when connections.remove(id)", () => {
-    let id;
-    let connection;
+    let id: UUID;
+    let connection: Connection;
     beforeEach(() => {
       connection = {
         name: "Connections",

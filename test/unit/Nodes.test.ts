@@ -4,8 +4,6 @@ import {
   NodeType,
   NodeMetadata,
   NodeMetadataType,
-} from "../../src/Nodes.js";
-import {
   Coordinates,
   Utilities,
   UUID,
