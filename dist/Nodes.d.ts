@@ -68,7 +68,7 @@ export declare class Nodes extends Array<Node> {
     static translate: (node: Node, offset: any) => Node;
     static removeMetadata: (node: Node, type: NodeMetadataType) => Node;
     private _getIndex;
-    add: (details: Omit<Node, "id">) => Nodes;
+    create: (details: Omit<Node, "id">) => Nodes;
     addMetadata: (id: UUID, metadata: NodeMetadata) => Nodes;
     update: (id: UUID, update: Node) => Nodes;
     updateMetadata: (id: UUID, metadata: any) => Nodes;

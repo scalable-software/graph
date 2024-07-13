@@ -169,8 +169,8 @@ describe("Given Connections instantiated", () => {
   it("then _getIndex private method exists", () => {
     expect(connections["_getIndex"]).toBeDefined();
   });
-  it("then add public method exists", () => {
-    expect(connections.add).toBeDefined();
+  it("then create public method exists", () => {
+    expect(connections.create).toBeDefined();
   });
   it("then update public method exists", () => {
     expect(connections.update).toBeDefined();
@@ -201,7 +201,7 @@ describe("Given connections._getIndex() private method exist", () => {
         target: "target",
         coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
       };
-      connections.add(details);
+      connections.create(details);
       id = connections[0].id;
     });
     describe("when index = connections._getIndex(id)", () => {
@@ -215,12 +215,12 @@ describe("Given connections._getIndex() private method exist", () => {
     });
   });
 });
-describe("Given connections.add() private method exist", () => {
+describe("Given connections.create() private method exist", () => {
   let connections: Connections;
   beforeEach(() => {
     connections = new Connections();
   });
-  describe("when connections.add(details)", () => {
+  describe("when connections.create(details)", () => {
     let details: Omit<Connection, "id">;
     let connection: Connection;
     beforeEach(() => {
@@ -230,7 +230,7 @@ describe("Given connections.add() private method exist", () => {
         target: "target",
         coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
       };
-      connections.add(details);
+      connections.create(details);
       connection = { ...details, id: connections[0].id };
     });
     it("then connections.length is 1", () => {
@@ -249,7 +249,7 @@ describe("Given connections.update() private method exist", () => {
   describe("and connections contains a connection", () => {
     let id: UUID;
     beforeEach(() => {
-      connections.add({
+      connections.create({
         name: "Connections",
         source: "source",
         target: "target",
@@ -285,7 +285,7 @@ describe("Given connections.findById() private method exist", () => {
   describe("and connections contains a connection width id", () => {
     let id: UUID;
     beforeEach(() => {
-      connections.add({
+      connections.create({
         name: "Connections",
         source: "source",
         target: "target",
@@ -312,7 +312,7 @@ describe("Given connections.translate() private method exist", () => {
   describe("and connections contains a connection", () => {
     let id: UUID;
     beforeEach(() => {
-      connections.add({
+      connections.create({
         name: "Connections",
         source: "source",
         target: "target",
@@ -354,7 +354,7 @@ describe("Given connections.remove() private method exist", () => {
   describe("and connections contains a connection", () => {
     let id: UUID;
     beforeEach(() => {
-      connections.add({
+      connections.create({
         name: "Connections",
         source: "source",
         target: "target",

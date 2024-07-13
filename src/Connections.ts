@@ -61,7 +61,7 @@ export class Connections extends Array<Connection> {
   private _getIndex = (id: UUID) =>
     this.findIndex((connection) => connection.id === id);
 
-  public add = (details: Omit<Connection, "id">) =>
+  public create = (details: Omit<Connection, "id">) =>
     this.push(Connections.create(details)) && this;
 
   public update = (id, update) => {

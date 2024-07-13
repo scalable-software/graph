@@ -22,7 +22,7 @@ export declare class Connections extends Array<Connection> {
     }) => Connection;
     static translate: (connection: Connection, offset: Coordinates) => Connection;
     private _getIndex;
-    add: (details: Omit<Connection, "id">) => this;
+    create: (details: Omit<Connection, "id">) => this;
     update: (id: any, update: any) => this;
     findById: (id: UUID) => Connection;
     translate: (id: UUID, offset: Coordinates) => this;

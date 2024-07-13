@@ -130,7 +130,7 @@ export class Nodes extends Array<Node> {
   private _getIndex = (id: UUID): number =>
     this.findIndex((node) => node.id === id);
 
-  public add = (details: Omit<Node, "id">): Nodes =>
+  public create = (details: Omit<Node, "id">): Nodes =>
     this.push(Nodes.create(details as Omit<Node, "id">) as Node) && this;
 
   public addMetadata = (id: UUID, metadata: NodeMetadata): Nodes =>

@@ -92,8 +92,8 @@ describe("Given graph = new Graph()", () => {
       type: GraphType.PATHWAY,
     });
   });
-  it("then graph.nodes.add exist", () => {
-    expect(graph.nodes.add).toBeDefined();
+  it("then graph.nodes.create exist", () => {
+    expect(graph.nodes.create).toBeDefined();
   });
   it("then graph.nodes.addMetadata exist", () => {
     expect(graph.nodes.addMetadata).toBeDefined();
@@ -128,8 +128,8 @@ describe("Given graph = new Graph()", () => {
   it("then graph.connections.findById exist", () => {
     expect(graph.connections.findById).toBeDefined();
   });
-  it("then graph.connections.add exist", () => {
-    expect(graph.connections.add).toBeDefined();
+  it("then graph.connections.create exist", () => {
+    expect(graph.connections.create).toBeDefined();
   });
   it("then graph.connections.update exist", () => {
     expect(graph.connections.update).toBeDefined();
@@ -143,7 +143,7 @@ describe("Given graph = new Graph()", () => {
 });
 
 // Instance Method Behavior
-describe("Given graph.nodes.add method exist", () => {
+describe("Given graph.nodes.create method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     graph = new Graph({
@@ -151,7 +151,7 @@ describe("Given graph.nodes.add method exist", () => {
       type: GraphType.PATHWAY,
     });
   });
-  describe("when graph.node.add(details)", () => {
+  describe("when graph.node.create(details)", () => {
     let details: Omit<Node, "id">;
     beforeEach(() => {
       details = {
@@ -160,7 +160,7 @@ describe("Given graph.nodes.add method exist", () => {
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
-      graph.nodes.add(details);
+      graph.nodes.create(details);
     });
     it("then a node is added to graph.nodes", () => {
       expect(graph.nodes.length).toBe(1);
@@ -188,7 +188,7 @@ describe("Given graph.nodes.addMetadata method exist", () => {
   describe("and graph.nodes contains a node with no metadata", () => {
     let node: Node;
     beforeEach(() => {
-      graph.nodes.add({
+      graph.nodes.create({
         name: "Node1",
         type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
@@ -229,7 +229,7 @@ describe("Given graph.nodes.updateMetadata method exist", () => {
   describe("and graph.nodes contains a node with metadata", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.nodes.add({
+      graph.nodes.create({
         name: "Node1",
         type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
@@ -277,7 +277,7 @@ describe("Given graph.nodes.updateCoordinates method exist", () => {
   describe("and graph.nodes contains a node", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.nodes.add({
+      graph.nodes.create({
         name: "Node1",
         type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
@@ -314,7 +314,7 @@ describe("Given graph.nodes.updateIcon method exist", () => {
   describe("and graph.nodes contains a node", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.nodes.add({
+      graph.nodes.create({
         name: "Node1",
         type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
@@ -351,7 +351,7 @@ describe("Given graph.nodes.update method exist", () => {
   describe("and graph.nodes contains a node", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.nodes.add({
+      graph.nodes.create({
         name: "Node1",
         type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
@@ -394,7 +394,7 @@ describe("Given graph.nodes.findById method exist", () => {
   describe("and graph.nodes contains a node", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.nodes.add({
+      graph.nodes.create({
         name: "Node1",
         type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
@@ -427,13 +427,13 @@ describe("Given graph.nodes.findByType method exist", () => {
   describe("and graph.nodes contains nodes of different types", () => {
     beforeEach(() => {
       graph.nodes
-        .add({
+        .create({
           name: "Node1",
           type: NodeType.WORKFLOW,
           coordinates: { x: 0, y: 0 },
           icon: "./icon.svg",
         })
-        .add({
+        .create({
           name: "Node2",
           type: NodeType.DECISION,
           coordinates: { x: 0, y: 0 },
@@ -467,7 +467,7 @@ describe("Given graph.nodes.translate method exist", () => {
   describe("When node exists in nodes", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.nodes.add({
+      graph.nodes.create({
         name: "Node",
         type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 10, y: 10 },
@@ -503,7 +503,7 @@ describe("Given graph.nodes.removeMetadata method exist", () => {
   describe("and graph.nodes contains a node with metadata", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.nodes.add({
+      graph.nodes.create({
         name: "Node1",
         type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
@@ -543,7 +543,7 @@ describe("Given graph.nodes.remove exist", () => {
   describe("and graph.nodes contains a node", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.nodes.add({
+      graph.nodes.create({
         name: "Node1",
         type: Utilities.getRandomElement<NodeType>(NodeType),
         coordinates: { x: 0, y: 0 },
@@ -576,7 +576,7 @@ describe("Given graph.connections.findById method exist", () => {
   describe("and graph.connections contains a connection", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.connections.add({
+      graph.connections.create({
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -601,7 +601,7 @@ describe("Given graph.connections.findById method exist", () => {
     });
   });
 });
-describe("Given graph.connections.add method exist", () => {
+describe("Given graph.connections.create method exist", () => {
   let graph: Graph;
   beforeEach(() => {
     graph = new Graph({
@@ -609,7 +609,7 @@ describe("Given graph.connections.add method exist", () => {
       type: GraphType.PATHWAY,
     });
   });
-  describe("when graph.connection.add(details)", () => {
+  describe("when graph.connection.create(details)", () => {
     let details: Omit<Connection, "id">;
     beforeEach(() => {
       details = {
@@ -621,7 +621,7 @@ describe("Given graph.connections.add method exist", () => {
           end: { x: 100, y: 400 },
         },
       };
-      graph.connections.add(details);
+      graph.connections.create(details);
     });
     it("then a connection is added to graph.connections", () => {
       expect(graph.connections.length).toBe(1);
@@ -637,10 +637,10 @@ describe("Given graph.connections.add method exist", () => {
       });
     });
   });
-  describe("when graph.connections.add(details).add(details)", () => {
+  describe("when graph.connections.create(details).create(details)", () => {
     beforeEach(() => {
       graph.connections
-        .add({
+        .create({
           name: "",
           source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
           target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -649,7 +649,7 @@ describe("Given graph.connections.add method exist", () => {
             end: { x: 100, y: 400 },
           },
         })
-        .add({
+        .create({
           name: "",
           source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
           target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -678,7 +678,7 @@ describe("Given graph.connections.update method exist", () => {
   describe("and graph.connections contains a connection", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.connections.add({
+      graph.connections.create({
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -727,7 +727,7 @@ describe("Given graph.connections.translate method exist", () => {
   describe("When connection exists in connections", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.connections.add({
+      graph.connections.create({
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
@@ -781,7 +781,7 @@ describe("Given graph.connections.remove exist", () => {
   describe("and graph.connections contains a connection", () => {
     let id: UUID;
     beforeEach(() => {
-      graph.connections.add({
+      graph.connections.create({
         name: "",
         source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",

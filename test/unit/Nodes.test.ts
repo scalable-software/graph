@@ -812,8 +812,8 @@ describe("Given Nodes instantiated", () => {
   it("then _getIndex private method exists", () => {
     expect(nodes["_getIndex"]).toBeDefined();
   });
-  it("then add public method exists", () => {
-    expect(nodes.add).toBeDefined();
+  it("then create public method exists", () => {
+    expect(nodes.create).toBeDefined();
   });
   it("then addMetadata public method exists", () => {
     expect(nodes.addMetadata).toBeDefined();
@@ -865,7 +865,7 @@ describe("Given nodes._getIndex(id) private method exists", () => {
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
-      nodes.add(details);
+      nodes.create(details);
       id = nodes[0].id;
     });
     describe("when index = nodes._getIndex(id)", () => {
@@ -879,12 +879,12 @@ describe("Given nodes._getIndex(id) private method exists", () => {
     });
   });
 });
-describe("Given nodes.add() public method exists", () => {
+describe("Given nodes.create() public method exists", () => {
   let nodes: Nodes;
   beforeEach(() => {
     nodes = new Nodes();
   });
-  describe("when nodes.add(details)", () => {
+  describe("when nodes.create(details)", () => {
     let details: Omit<Node, "id">;
     let node: Node;
     beforeEach(() => {
@@ -894,7 +894,7 @@ describe("Given nodes.add() public method exists", () => {
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
-      nodes.add(details);
+      nodes.create(details);
       node = { ...nodes[0], id: nodes[0].id };
     });
     it("then node with details is added to nodes", () => {
@@ -917,7 +917,7 @@ describe("Given nodes.addMetadata() private method exists", () => {
         coordinates: { x: 0, y: 0 },
         icon: "./icon.svg",
       };
-      nodes.add(details);
+      nodes.create(details);
       id = nodes[0].id;
     });
     describe("when nodes.addMetadata(id, metadata)", () => {
@@ -947,7 +947,7 @@ describe("Given nodes.update() public method exists", () => {
   describe("and nodes contain a node", () => {
     let id: UUID;
     beforeEach(() => {
-      nodes.add({
+      nodes.create({
         name: "Node1",
         type: NodeType.START,
         coordinates: { x: 0, y: 0 },
@@ -983,7 +983,7 @@ describe("Given nodes.updateMetadata() public method exists", () => {
   describe("and nodes contain node with metadata", () => {
     let id: UUID;
     beforeEach(() => {
-      nodes.add({
+      nodes.create({
         name: "Node1",
         type: NodeType.START,
         coordinates: { x: 0, y: 0 },
@@ -1024,7 +1024,7 @@ describe("Given nodes.updateIcon() public method exists", () => {
   describe("and nodes contain node", () => {
     let id: UUID;
     beforeEach(() => {
-      nodes.add({
+      nodes.create({
         name: "Node1",
         type: NodeType.START,
         coordinates: { x: 0, y: 0 },
@@ -1054,7 +1054,7 @@ describe("Given nodes.updateCoordinates() public method exists", () => {
   describe("and nodes contain node", () => {
     let id: UUID;
     beforeEach(() => {
-      nodes.add({
+      nodes.create({
         name: "Node1",
         type: NodeType.START,
         coordinates: { x: 0, y: 0 },
@@ -1084,7 +1084,7 @@ describe("Given nodes.findById() public method exists", () => {
   describe("and nodes contains a node with id", () => {
     let id: UUID;
     beforeEach(() => {
-      nodes.add({
+      nodes.create({
         name: "Node1",
         type: NodeType.START,
         coordinates: { x: 0, y: 0 },
@@ -1113,7 +1113,7 @@ describe("Given nodes.findByType() public method exists", () => {
     let node: Node;
     beforeEach(() => {
       type = NodeType.START;
-      nodes.add({
+      nodes.create({
         name: "Node1",
         type: type,
         coordinates: { x: 0, y: 0 },
@@ -1142,7 +1142,7 @@ describe("Given nodes.findByCoordinates() public method exists", () => {
     let node: Node;
     beforeEach(() => {
       coordinates = { x: 0, y: 0 };
-      nodes.add({
+      nodes.create({
         name: "Node1",
         type: NodeType.START,
         coordinates: coordinates,
@@ -1169,7 +1169,7 @@ describe("Given nodes.translate() public method exists", () => {
   describe("and nodes contain node", () => {
     let id: UUID;
     beforeEach(() => {
-      nodes.add({
+      nodes.create({
         name: "Node1",
         type: NodeType.START,
         coordinates: { x: 0, y: 0 },
@@ -1202,7 +1202,7 @@ describe("Given nodes.removeMetadata() public method exists", () => {
   describe("and nodes contain node with metadata", () => {
     let id: UUID;
     beforeEach(() => {
-      nodes.add({
+      nodes.create({
         name: "Node1",
         type: NodeType.START,
         coordinates: { x: 0, y: 0 },
@@ -1238,7 +1238,7 @@ describe("Given nodes.remove() public method exists", () => {
   describe("and nodes contain node", () => {
     let id: UUID;
     beforeEach(() => {
-      nodes.add({
+      nodes.create({
         name: "Node1",
         type: NodeType.START,
         coordinates: { x: 0, y: 0 },

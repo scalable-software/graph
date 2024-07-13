@@ -2,7 +2,7 @@ import { Graph } from "@scalable-software/graph.structure";
 
 const graph = new Graph({ name: "Graph", type: "clinical pathway" });
 
-graph.nodes.add({
+graph.nodes.create({
   name: "Node",
   type: "start",
   coordinates: { x: 0, y: 0 },
