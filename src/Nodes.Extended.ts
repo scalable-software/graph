@@ -98,6 +98,8 @@ export class Nodes extends Array<Node> {
     id: node.id,
   });
 
+  public static updateMetadata = (node: Node, metadata: NodeMetadata) => {};
+
   constructor(...items: Node[]) {
     super(...items);
   }
