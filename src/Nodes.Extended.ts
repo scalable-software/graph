@@ -111,6 +111,8 @@ export class Nodes extends Array<Node> {
     coordinates: Coordinates
   ) => {};
 
+  public static translate = (node: Node, offset: Offset) => {};
+
   constructor(...items: Node[]) {
     super(...items);
   }
