@@ -163,7 +163,13 @@ export class Nodes extends Array<Node> {
     return this;
   };
 
-  public updateCoordinates = (item: Node, coordinates: any) => {};
+  public updateCoordinates = (id: UUID, coordinates: Coordinates) => {
+    this[this._getIndex(id)] = Nodes.updateCoordinates(
+      this[this._getIndex(id)],
+      coordinates
+    );
+    return this;
+  };
 
   public findById = (id: any) => {};
 
