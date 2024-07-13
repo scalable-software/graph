@@ -171,7 +171,7 @@ export class Nodes extends Array<Node> {
     return this;
   };
 
-  public findById = (id: any) => {};
+  public findById = (id: UUID) => this[this._getIndex(id)];
 
   public findByType = (type: any) => {};
 
