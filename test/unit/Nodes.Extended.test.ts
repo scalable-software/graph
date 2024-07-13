@@ -649,6 +649,30 @@ describe("Given Nodes.updateMetadata() static method exist", () => {
     });
   });
 });
+describe("Given Nodes.updateIcon() static method exist", () => {
+  describe("and node exist", () => {
+    let node: Node;
+    beforeEach(() => {
+      node = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        name: "Node",
+        type: "workflow",
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+    });
+    describe("when updatedNode = Nodes.updateIcon(node, icon)", () => {
+      let newIcon: string;
+      beforeEach(() => {
+        newIcon = "./newIcon.svg";
+        node = Nodes.updateIcon(node, newIcon);
+      });
+      it("then node icon is updated", () => {
+        expect(node.icon).toEqual(newIcon);
+      });
+    });
+  });
+});
 
 // Constructor Behavior
 describe("Given Nodes instantiated", () => {
