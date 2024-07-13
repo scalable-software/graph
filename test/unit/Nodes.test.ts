@@ -815,6 +815,9 @@ describe("Given Nodes instantiated", () => {
   it("then create public method exists", () => {
     expect(nodes.create).toBeDefined();
   });
+  it("then add public method exists", () => {
+    expect(nodes.add).toBeDefined();
+  });
   it("then addMetadata public method exists", () => {
     expect(nodes.addMetadata).toBeDefined();
   });
