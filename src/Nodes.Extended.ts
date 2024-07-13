@@ -113,6 +113,7 @@ export class Nodes extends Array<Node> {
 
   public static translate = (node: Node, offset: Offset) => {};
 
+  public static removeMetadata = (node: Node, type: NodeMetadataType) => {};
   constructor(...items: Node[]) {
     super(...items);
   }
