@@ -244,6 +244,31 @@ describe("Given connections.create() private method exist", () => {
     });
   });
 });
+describe("Given connections.add() private method exist", () => {
+  let connections: Connections;
+  beforeEach(() => {
+    connections = new Connections();
+  });
+  describe("when connections.add(connection)", () => {
+    let connection: Connection;
+    beforeEach(() => {
+      connection = {
+        id: Utilities.uuid,
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add(connection);
+    });
+    it("then connections.length is 1", () => {
+      expect(connections.length).toEqual(1);
+    });
+    it("then connection is added to connections", () => {
+      expect(connections[0]).toEqual(connection);
+    });
+  });
+});
 describe("Given connections.update() private method exist", () => {
   let connections: Connections;
   beforeEach(() => {
