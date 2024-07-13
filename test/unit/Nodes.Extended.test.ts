@@ -1119,3 +1119,32 @@ describe("Given nodes.findByType() public method exists", () => {
     });
   });
 });
+describe("Given nodes.findByCoordinates() public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("and nodes contain node with coordinates", () => {
+    let coordinates: Coordinates;
+    let node: Node;
+    beforeEach(() => {
+      coordinates = { x: 0, y: 0 };
+      nodes.add({
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: coordinates,
+        icon: "./icon.svg",
+      });
+      node = nodes[0];
+    });
+    describe("when results = nodes.findByCoordinates(coordinates)", () => {
+      let results;
+      beforeEach(() => {
+        results = nodes.findByCoordinates(coordinates);
+      });
+      it("then results[1] is equal to node", () => {
+        expect(results[0]).toEqual(node);
+      });
+    });
+  });
+});
