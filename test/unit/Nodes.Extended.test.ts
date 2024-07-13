@@ -46,6 +46,9 @@ describe("Given Nodes Imported", () => {
   it("then Nodes.updateCoordinates public static method exists", () => {
     expect(Nodes.updateCoordinates).toBeDefined();
   });
+  it("then Nodes.translate public static method exists", () => {
+    expect(Nodes.translate).toBeDefined();
+  });
 });
 
 // Static Method Behavior
