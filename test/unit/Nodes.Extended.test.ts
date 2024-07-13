@@ -40,6 +40,9 @@ describe("Given Nodes Imported", () => {
   it("then Nodes.updateMetadata public static method exists", () => {
     expect(Nodes.updateMetadata).toBeDefined();
   });
+  it("then Nodes.updateIcon public static method exists", () => {
+    expect(Nodes.updateIcon).toBeDefined();
+  });
 });
 
 // Static Method Behavior
