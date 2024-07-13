@@ -64,7 +64,8 @@ export class Connections extends Array<Connection> {
   public create = (details: Omit<Connection, "id">) =>
     this.push(Connections.create(details)) && this;
 
-  public add = (connection: Connection) => {};
+  public add = (connection: Connection): Connections =>
+    this.push(connection) && this;
 
   public update = (id, update) => {
     this[this._getIndex(id)] = Connections.update(
