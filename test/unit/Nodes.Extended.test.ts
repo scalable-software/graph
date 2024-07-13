@@ -1190,3 +1190,39 @@ describe("Given nodes.translate() public method exists", () => {
     });
   });
 });
+describe("Given nodes.removeMetadata() public method exists", () => {
+  let nodes;
+  beforeEach(() => {
+    nodes = new Nodes();
+  });
+  describe("and nodes contain node with metadata", () => {
+    let id: UUID;
+    beforeEach(() => {
+      nodes.add({
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      });
+      id = nodes[0].id;
+      nodes.addMetadata(id, {
+        arrival: {
+          distribution: "exponential",
+          parameters: [{ rate: 1 }],
+        },
+      });
+    });
+    describe("when nodes.removeMetadata(id, type)", () => {
+      let type: NodeMetadataType;
+      let node;
+      beforeEach(() => {
+        type = "arrival";
+        nodes.removeMetadata(id, type);
+        node = nodes[0];
+      });
+      it("then metadata is removed from node", () => {
+        expect(node.metadata).toEqual([]);
+      });
+    });
+  });
+});
