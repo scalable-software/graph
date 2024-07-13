@@ -835,6 +835,9 @@ describe("Given Nodes instantiated", () => {
   it("then findByCoordinates public method exists", () => {
     expect(nodes.findByCoordinates).toBeDefined();
   });
+  it("then translate public method exists", () => {
+    expect(nodes.translate).toBeDefined();
+  });
 });
 
 // Method Behavior
