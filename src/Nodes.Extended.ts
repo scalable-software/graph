@@ -117,7 +117,13 @@ export class Nodes extends Array<Node> {
     coordinates,
   });
 
-  public static translate = (node: Node, offset: Offset) => {};
+  public static translate = (node: Node, offset: any) => {
+    node.coordinates = {
+      x: node.coordinates.x + offset.x,
+      y: node.coordinates.y + offset.y,
+    };
+    return node;
+  };
 
   public static removeMetadata = (node: Node, type: NodeMetadataType) => {};
   constructor(...items: Node[]) {
