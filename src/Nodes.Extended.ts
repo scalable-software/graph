@@ -182,7 +182,13 @@ export class Nodes extends Array<Node> {
         node.coordinates.y === coordinates.y
     );
 
-  public translate = (id: UUID, offset: Offset) => {};
+  public translate = (id: UUID, offset: Offset) => {
+    this[this._getIndex(id)] = Nodes.translate(
+      this[this._getIndex(id)],
+      offset
+    );
+    return this;
+  };
 
   public removeMetadata = (id: UUID, type: NodeMetadataType) => {};
 
