@@ -902,7 +902,7 @@ describe("Given nodes.create() public method exists", () => {
     });
   });
 });
-describe("Given nodes.addMetadata() private method exists", () => {
+describe("Given nodes.addMetadata() public method exists", () => {
   let nodes;
   beforeEach(() => {
     nodes = new Nodes();
