@@ -158,7 +158,10 @@ export class Nodes extends Array<Node> {
     return this;
   };
 
-  public updateIcon = (item: Node, icon: any) => {};
+  public updateIcon = (id: UUID, icon: any) => {
+    this[this._getIndex(id)] = Nodes.updateIcon(this[this._getIndex(id)], icon);
+    return this;
+  };
 
   public updateCoordinates = (item: Node, coordinates: any) => {};
 
