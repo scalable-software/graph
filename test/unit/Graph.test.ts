@@ -134,6 +134,9 @@ describe("Given graph = new Graph()", () => {
   it("then graph.connections.create exist", () => {
     expect(graph.connections.create).toBeDefined();
   });
+  it("then graph.connections.add exist", () => {
+    expect(graph.connections.add).toBeDefined();
+  });
   it("then graph.connections.update exist", () => {
     expect(graph.connections.update).toBeDefined();
   });
@@ -695,6 +698,46 @@ describe("Given graph.connections.create method exist", () => {
     });
     it("then graph.connections.length equals 2", () => {
       expect(graph.connections.length).toBe(2);
+    });
+  });
+});
+describe("Given graph.connections.add method exists", () => {
+  let graph: Graph;
+  beforeEach(() => {
+    graph = new Graph({
+      name: "ACS Diagnostic",
+      type: GraphType.PATHWAY,
+    });
+    graph.connections.create({
+      name: "",
+      source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+      target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+      coordinates: {
+        start: { x: 0, y: 400 },
+        end: { x: 100, y: 400 },
+      },
+    });
+  });
+  describe("when graph.connections.add(connection)", () => {
+    let connection: Connection;
+    beforeEach(() => {
+      connection = {
+        id: Utilities.uuid,
+        name: "",
+        source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+        target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        coordinates: {
+          start: { x: 0, y: 400 },
+          end: { x: 100, y: 400 },
+        },
+      };
+      graph.connections.add(connection);
+    });
+    it("then a connection is added to graph.connections", () => {
+      expect(graph.connections.length).toBe(2);
+    });
+    it("then graph.connections[1] equals connection", () => {
+      expect(graph.connections[1]).toEqual(connection);
     });
   });
 });
