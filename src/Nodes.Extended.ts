@@ -106,6 +106,11 @@ export class Nodes extends Array<Node> {
 
   public static updateIcon = (node: Node, icon: Icon) => {};
 
+  public static updateCoordinates = (
+    node: Node,
+    coordinates: Coordinates
+  ) => {};
+
   constructor(...items: Node[]) {
     super(...items);
   }
