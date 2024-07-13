@@ -175,5 +175,10 @@ export class Nodes extends Array<Node> {
 
   public findByType = (type: any) => this.filter((node) => node.type === type);
 
-  public findByCoordinates = (coordinates: any) => {};
+  public findByCoordinates = (coordinates: any) =>
+    this.filter(
+      (node) =>
+        node.coordinates.x === coordinates.x &&
+        node.coordinates.y === coordinates.y
+    );
 }
