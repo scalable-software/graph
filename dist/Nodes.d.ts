@@ -69,13 +69,14 @@ export declare class Nodes extends Array<Node> {
     static removeMetadata: (node: Node, type: NodeMetadataType) => Node;
     private _getIndex;
     create: (details: Omit<Node, "id">) => Nodes;
+    add: (node: Node) => Nodes;
     addMetadata: (id: UUID, metadata: NodeMetadata) => Nodes;
     update: (id: UUID, update: Node) => Nodes;
     updateMetadata: (id: UUID, metadata: any) => Nodes;
     updateIcon: (id: UUID, icon: any) => Nodes;
     updateCoordinates: (id: UUID, coordinates: Coordinates) => Nodes;
     findById: (id: UUID) => Node;
-    findByType: (type: any) => Node[];
+    findByType: (type: NodeType) => Node[];
     findByCoordinates: (coordinates: any) => Node[];
     translate: (id: UUID, offset: Offset) => Nodes;
     removeMetadata: (id: UUID, type: NodeMetadataType) => Nodes;
