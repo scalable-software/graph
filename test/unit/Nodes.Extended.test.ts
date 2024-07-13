@@ -841,6 +841,9 @@ describe("Given Nodes instantiated", () => {
   it("then removeMetadata public method exists", () => {
     expect(nodes.removeMetadata).toBeDefined();
   });
+  it("then remove public method exists", () => {
+    expect(nodes.remove).toBeDefined();
+  });
 });
 
 // Method Behavior
