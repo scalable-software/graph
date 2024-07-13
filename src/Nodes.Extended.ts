@@ -150,7 +150,13 @@ export class Nodes extends Array<Node> {
     return this;
   };
 
-  public updateMetadata = (item: Node, metadata: any) => {};
+  public updateMetadata = (id: UUID, metadata: any) => {
+    this[this._getIndex(id)] = Nodes.updateMetadata(
+      this[this._getIndex(id)],
+      metadata
+    );
+    return this;
+  };
 
   public updateIcon = (item: Node, icon: any) => {};
 
