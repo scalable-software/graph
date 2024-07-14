@@ -49,7 +49,7 @@ Extended arrays as used for the graph nodes and connections. The methods availab
 - `graph.nodes.create(details: Omit<Node, 'id'>): Nodes`
   Create a new node by using the provided details, adding a unique id and adding it to `graph.nodes`
 
-- `graph.nodes.add(node: Node): Nodes`
+- `graph.nodes.add(node: Node | Node[]): Nodes`
   Add a node to the graph
 
 - `graph.nodes.addMetadata(id: UUID, metadata: NodeMetadata): Nodes`
@@ -90,7 +90,7 @@ Extended arrays as used for the graph nodes and connections. The methods availab
 - `graph.connections.create(details: Omit<Connection, 'id'>): Connections`
   Create a new connection by using the provided details, adding a unique id and adding it to `graph.connections`
 
-- `graph.connections.add(connection: Connection): Connections`
+- `graph.connections.add(connection: Connection | Connection[]): Connections`
   Add a connection to the `graph.connections`
 
 - `graph.connections.update(id: UUID, update: Connection): Connections`
