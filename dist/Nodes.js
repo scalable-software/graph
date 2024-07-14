@@ -54,7 +54,7 @@ export class Nodes extends Array {
     static removeMetadata = (node, type) => (node.metadata = node.metadata.filter((metadata) => metadata[type] === undefined)) && node;
     _getIndex = (id) => this.findIndex((node) => node.id === id);
     create = (details) => this.push(Nodes.create(details)) && this;
-    add = (node) => this.push(node) && this;
+    add = (node) => Array.isArray(node) ? this.push(...node) && this : this.push(node) && this;
     addMetadata = (id, metadata) => (this[this._getIndex(id)] = Nodes.addMetadata(this[this._getIndex(id)], metadata)) && this;
     update = (id, update) => (this[this._getIndex(id)] = Nodes.update(this[this._getIndex(id)], update)) && this;
     updateMetadata = (id, metadata) => (this[this._getIndex(id)] = Nodes.updateMetadata(this[this._getIndex(id)], metadata)) && this;

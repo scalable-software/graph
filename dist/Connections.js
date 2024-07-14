@@ -30,7 +30,9 @@ export class Connections extends Array {
     };
     _getIndex = (id) => this.findIndex((connection) => connection.id === id);
     create = (details) => this.push(Connections.create(details)) && this;
-    add = (connection) => this.push(connection) && this;
+    add = (connection) => Array.isArray(connection)
+        ? this.push(...connection) && this
+        : this.push(connection) && this;
     update = (id, update) => {
         this[this._getIndex(id)] = Connections.update(this[this._getIndex(id)], update);
         return this;
