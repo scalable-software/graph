@@ -32,7 +32,7 @@
 <li><p><code>graph.nodes.create(details: Omit&lt;Node, &#39;id&#39;&gt;): Nodes</code>
 Create a new node by using the provided details, adding a unique id and adding it to <code>graph.nodes</code></p>
 </li>
-<li><p><code>graph.nodes.add(node: Node): Nodes</code>
+<li><p><code>graph.nodes.add(node: Node | Node[]): Nodes</code>
 Add a node to the graph</p>
 </li>
 <li><p><code>graph.nodes.addMetadata(id: UUID, metadata: NodeMetadata): Nodes</code>
@@ -73,7 +73,7 @@ Remove a node from <code>graph.nodes</code> where id matches the provided id</p>
 <li><p><code>graph.connections.create(details: Omit&lt;Connection, &#39;id&#39;&gt;): Connections</code>
 Create a new connection by using the provided details, adding a unique id and adding it to <code>graph.connections</code></p>
 </li>
-<li><p><code>graph.connections.add(connection: Connection): Connections</code>
+<li><p><code>graph.connections.add(connection: Connection | Connection[]): Connections</code>
 Add a connection to the <code>graph.connections</code></p>
 </li>
 <li><p><code>graph.connections.update(id: UUID, update: Connection): Connections</code>
