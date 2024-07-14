@@ -926,6 +926,33 @@ describe("Given nodes.add() public method exists", () => {
       expect(nodes[0]).toEqual(node);
     });
   });
+  describe("when nodes.add([nodeOne,nodeTwo])", () => {
+    let nodeOne: Node;
+    let nodeTwo: Node;
+    beforeEach(() => {
+      nodeOne = {
+        id: Utilities.uuid,
+        name: "Node1",
+        type: NodeType.START,
+        coordinates: { x: 0, y: 0 },
+        icon: "./icon.svg",
+      };
+      nodeTwo = {
+        id: Utilities.uuid,
+        name: "Node2",
+        type: NodeType.END,
+        coordinates: { x: 100, y: 100 },
+        icon: "./icon2.svg",
+      };
+      nodes.add([nodeOne, nodeTwo]);
+    });
+    it("then nodes contain nodeOne", () => {
+      expect(nodes[0]).toEqual(nodeOne);
+    });
+    it("then nodes contain nodeTwo", () => {
+      expect(nodes[1]).toEqual(nodeTwo);
+    });
+  });
 });
 describe("Given nodes.addMetadata() public method exists", () => {
   let nodes;
