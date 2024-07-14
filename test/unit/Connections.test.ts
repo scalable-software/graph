@@ -268,6 +268,36 @@ describe("Given connections.add() private method exist", () => {
       expect(connections[0]).toEqual(connection);
     });
   });
+  describe("when connections.add([connectionOne, connectionTwo])", () => {
+    let connectionOne: Connection;
+    let connectionTwo: Connection;
+    beforeEach(() => {
+      connectionOne = {
+        id: Utilities.uuid,
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connectionTwo = {
+        id: Utilities.uuid,
+        name: "Connections",
+        source: "source",
+        target: "target",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+      };
+      connections.add([connectionOne, connectionTwo]);
+    });
+    it("then connections.length is 2", () => {
+      expect(connections.length).toEqual(2);
+    });
+    it("then connectionOne is added to connections", () => {
+      expect(connections[0]).toEqual(connectionOne);
+    });
+    it("then connectionTwo is added to connections", () => {
+      expect(connections[1]).toEqual(connectionTwo);
+    });
+  });
 });
 describe("Given connections.update() private method exist", () => {
   let connections: Connections;
