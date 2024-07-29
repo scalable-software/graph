@@ -18,5 +18,12 @@ export declare class Graph {
     metadata: GraphMetadata;
     nodes: any;
     connections: any;
-    constructor(metadata: GraphDetails);
+    constructor();
+    create: (details: GraphDetails) => void;
+    add: (data: any) => void;
+    retrieve: () => {
+        metadata: GraphMetadata;
+        nodes: any[];
+        connections: any[];
+    };
 }

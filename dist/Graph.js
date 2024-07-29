@@ -10,13 +10,25 @@ export class Graph {
     metadata;
     nodes;
     connections;
-    constructor(metadata) {
+    constructor() {
         this.nodes = new Nodes();
         this.connections = new Connections();
+    }
+    create = (details) => {
         this.metadata = {
             id: Utilities.uuid,
-            name: metadata.name,
-            type: metadata.type,
+            name: details.name,
+            type: details.type,
         };
-    }
+    };
+    add = (data) => {
+        this.metadata = data.metadata;
+        this.nodes.add(data.nodes);
+        this.connections.add(data.connections);
+    };
+    retrieve = () => ({
+        metadata: this.metadata,
+        nodes: [...this.nodes],
+        connections: [...this.connections],
+    });
 }
