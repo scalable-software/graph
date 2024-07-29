@@ -108,6 +108,9 @@ describe("Given graph = new Graph()", () => {
   it("then graph.create exist", () => {
     expect(graph.create).toBeDefined();
   });
+  it("then graph.add exist", () => {
+    expect(graph.add).toBeDefined();
+  });
   it("then graph.nodes.create exist", () => {
     expect(graph.nodes.create).toBeDefined();
   });
@@ -187,6 +190,50 @@ describe("Given graph.create method exist", () => {
     });
     it("then graph.metadata.type equals details.type", () => {
       expect(graph.metadata.type).toBe(details.type);
+    });
+  });
+});
+describe("Given graph.add method exist", () => {
+  let graph: Graph;
+  beforeEach(() => {
+    graph = new Graph();
+  });
+  describe("when graph.add(data)", () => {
+    beforeEach(() => {
+      graph.add(pathway);
+    });
+    it("then graph.metadata exist", () => {
+      expect(graph.metadata).toBeDefined();
+    });
+    it("then graph.nodes exist", () => {
+      expect(graph.nodes).toBeDefined();
+    });
+    it("then graph.connections exist", () => {
+      expect(graph.connections).toBeDefined();
+    });
+    describe("and graph.nodes exist", () => {
+      let nodes;
+      beforeEach(() => {
+        nodes = [...graph.nodes];
+      });
+      it("then nodes.length equals pathway.nodes.length", () => {
+        expect(nodes.length).toBe(pathway.nodes.length);
+      });
+      it("then nodes equals pathway.nodes", () => {
+        expect(nodes).toEqual(pathway.nodes);
+      });
+    });
+    describe("and graph.connections exist", () => {
+      let connections;
+      beforeEach(() => {
+        connections = [...graph.connections];
+      });
+      it("then connections.length equals pathway.connections.length", () => {
+        expect(connections.length).toBe(pathway.connections.length);
+      });
+      it("then connections equals pathway.connections", () => {
+        expect(connections).toEqual(pathway.connections);
+      });
     });
   });
 });
