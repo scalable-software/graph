@@ -24,13 +24,16 @@ export class Graph {
   public metadata: GraphMetadata;
   public nodes;
   public connections;
-  constructor(metadata: GraphDetails) {
+  constructor() {
     this.nodes = new Nodes();
     this.connections = new Connections();
+  }
+
+  public create = (details: GraphDetails) => {
     this.metadata = {
       id: Utilities.uuid,
-      name: metadata.name,
-      type: metadata.type,
+      name: details.name,
+      type: details.type,
     };
-  }
+  };
 }
