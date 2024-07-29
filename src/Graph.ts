@@ -42,4 +42,10 @@ export class Graph {
     this.nodes.add(data.nodes);
     this.connections.add(data.connections);
   };
+
+  public retrieve = () => ({
+    metadata: this.metadata,
+    nodes: [...this.nodes],
+    connections: [...this.connections],
+  });
 }
