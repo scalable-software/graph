@@ -111,6 +111,9 @@ describe("Given graph = new Graph()", () => {
   it("then graph.add exist", () => {
     expect(graph.add).toBeDefined();
   });
+  it("then graph.retrieve exist", () => {
+    expect(graph.retrieve).toBeDefined();
+  });
   it("then graph.nodes.create exist", () => {
     expect(graph.nodes.create).toBeDefined();
   });
@@ -233,6 +236,32 @@ describe("Given graph.add method exist", () => {
       });
       it("then connections equals pathway.connections", () => {
         expect(connections).toEqual(pathway.connections);
+      });
+    });
+  });
+});
+describe("Given graph.retrieve method exist", () => {
+  let graph: Graph;
+  beforeEach(() => {
+    graph = new Graph();
+  });
+  describe("and graph.add(pathway)", () => {
+    beforeEach(() => {
+      graph.add(pathway);
+    });
+    describe("when data = graph.retrieve()", () => {
+      let data;
+      beforeEach(() => {
+        data = graph.retrieve();
+      });
+      it("then data.metadata equals pathway.metadata", () => {
+        expect(data.metadata).toEqual(pathway.metadata);
+      });
+      it("then data.nodes equals pathway.nodes", () => {
+        expect(data.nodes).toEqual(pathway.nodes);
+      });
+      it("then data.connections equals pathway.connections", () => {
+        expect(data.connections).toEqual(pathway.connections);
       });
     });
   });
