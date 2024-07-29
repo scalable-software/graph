@@ -36,4 +36,10 @@ export class Graph {
       type: details.type,
     };
   };
+
+  public add = (data) => {
+    this.metadata = data.metadata;
+    this.nodes.add(data.nodes);
+    this.connections.add(data.connections);
+  };
 }
