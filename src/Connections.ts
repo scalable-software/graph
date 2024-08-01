@@ -1,50 +1,34 @@
 import { type UUID, Utilities } from "./Utilities/Utilities.js";
+import { type Coordinates, type Offset } from "./Graph.Types.js";
+import { type Connection } from "./Connections.Types.js";
 
-export type Coordinates = {
-  x: number;
-  y: number;
-};
+export class Connections<T extends Connection> extends Array<T> {
+  public static create = <T extends Connection>(details: Omit<T, "id">): T =>
+    ({
+      ...details,
+      id: Utilities.uuid,
+    } as T);
 
-export type Connection = {
-  id?: UUID;
-  name: string;
-  source: UUID;
-  target: UUID;
-  coordinates: {
-    start: Coordinates;
-    end: Coordinates;
-  };
-};
-
-export class Connections extends Array<Connection> {
-  public static create = (details: Omit<Connection, "id">): Connection => ({
-    id: Utilities.uuid,
-    name: details.name,
-    source: details.source,
-    target: details.target,
-    coordinates: details.coordinates,
-  });
-
-  public static update = (
-    connection: Connection,
-    update: Connection
-  ): Connection => ({
+  public static update = <T extends Connection>(
+    connection: T,
+    update: T
+  ): T => ({
     ...update,
     id: connection.id,
   });
 
-  public static updateCoordinates = (
-    connection: Connection,
+  public static updateCoordinates = <T extends Connection>(
+    connection: T,
     coordinates: { start: Coordinates; end: Coordinates }
-  ): Connection => ({
+  ): T => ({
     ...connection,
     coordinates,
   });
 
-  public static translate = (
-    connection: Connection,
-    offset: Coordinates
-  ): Connection => {
+  public static translate = <T extends Connection>(
+    connection: T,
+    offset: Offset
+  ): T => {
     connection.coordinates = {
       start: {
         x: connection.coordinates.start.x + offset.x,
@@ -61,34 +45,28 @@ export class Connections extends Array<Connection> {
   private _getIndex = (id: UUID) =>
     this.findIndex((connection) => connection.id === id);
 
-  public create = (details: Omit<Connection, "id">) =>
+  public create = (details: Omit<T, "id">): Connections<T> =>
     this.push(Connections.create(details)) && this;
 
-  public add = (connection: Connection | Connection[]): Connections =>
+  public add = (connection: T | T[]): Connections<T> =>
     Array.isArray(connection)
       ? this.push(...connection) && this
       : this.push(connection) && this;
 
-  public update = (id, update) => {
-    this[this._getIndex(id)] = Connections.update(
+  public update = (id: UUID, update: T) =>
+    (this[this._getIndex(id)] = Connections.update(
       this[this._getIndex(id)],
       update
-    );
-    return this;
-  };
+    )) && this;
 
-  public findById = (id: UUID) => this[this._getIndex(id)];
+  public findById = (id: UUID): T => this[this._getIndex(id)];
 
-  public translate = (id: UUID, offset: Coordinates) => {
-    this[this._getIndex(id)] = Connections.translate(
+  public translate = (id: UUID, offset: Coordinates) =>
+    (this[this._getIndex(id)] = Connections.translate(
       this[this._getIndex(id)],
       offset
-    );
-    return this;
-  };
+    )) && this;
 
-  public remove = (id: UUID) => {
-    this.splice(this._getIndex(id), 1);
-    return this;
-  };
+  public remove = (id: UUID): Connections<T> =>
+    this.splice(this._getIndex(id), 1) && this;
 }

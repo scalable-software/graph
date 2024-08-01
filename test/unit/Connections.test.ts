@@ -191,7 +191,7 @@ describe("Given Connections instantiated", () => {
 
 // Instance Methods Behavior
 describe("Given connections._getIndex() private method exist", () => {
-  let connections: Connections;
+  let connections: Connections<Connection>;
   beforeEach(() => {
     connections = new Connections();
   });
@@ -219,7 +219,7 @@ describe("Given connections._getIndex() private method exist", () => {
   });
 });
 describe("Given connections.create() private method exist", () => {
-  let connections: Connections;
+  let connections: Connections<Connection>;
   beforeEach(() => {
     connections = new Connections();
   });
@@ -245,7 +245,7 @@ describe("Given connections.create() private method exist", () => {
   });
 });
 describe("Given connections.add() private method exist", () => {
-  let connections: Connections;
+  let connections: Connections<Connection>;
   beforeEach(() => {
     connections = new Connections();
   });
@@ -300,7 +300,7 @@ describe("Given connections.add() private method exist", () => {
   });
 });
 describe("Given connections.update() private method exist", () => {
-  let connections: Connections;
+  let connections: Connections<Connection>;
   beforeEach(() => {
     connections = new Connections();
   });
@@ -336,7 +336,7 @@ describe("Given connections.update() private method exist", () => {
   });
 });
 describe("Given connections.findById() private method exist", () => {
-  let connections: Connections;
+  let connections: Connections<Connection>;
   beforeEach(() => {
     connections = new Connections();
   });
@@ -363,7 +363,7 @@ describe("Given connections.findById() private method exist", () => {
   });
 });
 describe("Given connections.translate() private method exist", () => {
-  let connections: Connections;
+  let connections: Connections<Connection>;
   beforeEach(() => {
     connections = new Connections();
   });
@@ -405,7 +405,7 @@ describe("Given connections.translate() private method exist", () => {
   });
 });
 describe("Given connections.remove() private method exist", () => {
-  let connections: Connections;
+  let connections: Connections<Connection>;
   beforeEach(() => {
     connections = new Connections();
   });
