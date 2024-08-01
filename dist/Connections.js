@@ -1,11 +1,8 @@
 import { Utilities } from "./Utilities/Utilities.js";
 export class Connections extends Array {
     static create = (details) => ({
+        ...details,
         id: Utilities.uuid,
-        name: details.name,
-        source: details.source,
-        target: details.target,
-        coordinates: details.coordinates,
     });
     static update = (connection, update) => ({
         ...update,
@@ -33,17 +30,8 @@ export class Connections extends Array {
     add = (connection) => Array.isArray(connection)
         ? this.push(...connection) && this
         : this.push(connection) && this;
-    update = (id, update) => {
-        this[this._getIndex(id)] = Connections.update(this[this._getIndex(id)], update);
-        return this;
-    };
+    update = (id, update) => (this[this._getIndex(id)] = Connections.update(this[this._getIndex(id)], update)) && this;
     findById = (id) => this[this._getIndex(id)];
-    translate = (id, offset) => {
-        this[this._getIndex(id)] = Connections.translate(this[this._getIndex(id)], offset);
-        return this;
-    };
-    remove = (id) => {
-        this.splice(this._getIndex(id), 1);
-        return this;
-    };
+    translate = (id, offset) => (this[this._getIndex(id)] = Connections.translate(this[this._getIndex(id)], offset)) && this;
+    remove = (id) => this.splice(this._getIndex(id), 1) && this;
 }
