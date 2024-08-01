@@ -1,6 +1,6 @@
 {
   "name": "@scalable.software/graph.structure",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Nodes and Connections Data Structures with Utility Functions",
   "exports": {
     ".": {
