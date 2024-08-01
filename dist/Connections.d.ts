@@ -1,31 +1,19 @@
 import { type UUID } from "./Utilities/Utilities.js";
-export type Coordinates = {
-    x: number;
-    y: number;
-};
-export type Connection = {
-    id?: UUID;
-    name: string;
-    source: UUID;
-    target: UUID;
-    coordinates: {
+import { type Coordinates, type Offset } from "./Graph.Types.js";
+import { type Connection } from "./Connections.Types.js";
+export declare class Connections<T extends Connection> extends Array<T> {
+    static create: <T_1 extends Connection>(details: Omit<T_1, "id">) => T_1;
+    static update: <T_1 extends Connection>(connection: T_1, update: T_1) => T_1;
+    static updateCoordinates: <T_1 extends Connection>(connection: T_1, coordinates: {
         start: Coordinates;
         end: Coordinates;
-    };
-};
-export declare class Connections extends Array<Connection> {
-    static create: (details: Omit<Connection, "id">) => Connection;
-    static update: (connection: Connection, update: Connection) => Connection;
-    static updateCoordinates: (connection: Connection, coordinates: {
-        start: Coordinates;
-        end: Coordinates;
-    }) => Connection;
-    static translate: (connection: Connection, offset: Coordinates) => Connection;
+    }) => T_1;
+    static translate: <T_1 extends Connection>(connection: T_1, offset: Offset) => T_1;
     private _getIndex;
-    create: (details: Omit<Connection, "id">) => this;
-    add: (connection: Connection | Connection[]) => Connections;
-    update: (id: any, update: any) => this;
-    findById: (id: UUID) => Connection;
+    create: (details: Omit<T, "id">) => Connections<T>;
+    add: (connection: T | T[]) => Connections<T>;
+    update: (id: UUID, update: T) => this;
+    findById: (id: UUID) => T;
     translate: (id: UUID, offset: Coordinates) => this;
-    remove: (id: UUID) => this;
+    remove: (id: UUID) => Connections<T>;
 }
