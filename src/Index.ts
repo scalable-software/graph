@@ -13,3 +13,10 @@ export {
   type PathwayNodeMetadataType,
   type PathwayNodeMetadata,
 } from "./Pathway.Types.js";
+
+export {
+  Graph,
+  GraphType,
+  type GraphMetadata,
+  type GraphDetails,
+} from "./Graph.js";
