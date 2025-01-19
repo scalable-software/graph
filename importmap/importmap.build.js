@@ -6,10 +6,9 @@
 inject(
   {
     imports: {
-      "@scalable-software/graph.structure": "../dist/Index.js",
-      "@scalable-software/graph.structure/Nodes": "../dist/Nodes.js",
-      "@scalable-software/graph.structure/Connections":
-        "../dist/Connections.js",
+      "@scalable-software/graph": "../dist/Index.js",
+      "@scalable-software/graph/Nodes": "../dist/Nodes.js",
+      "@scalable-software/graph/Connections": "../dist/Connections.js",
     },
   },
   "importmap"

@@ -1,4 +1,4 @@
-import { Graph } from "@scalable-software/graph.structure";
+import { Graph } from "@scalable-software/graph";
 
 const graph = new Graph({ name: "Graph", type: "clinical pathway" });
 

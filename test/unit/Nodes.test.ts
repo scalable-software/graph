@@ -6,7 +6,7 @@ import {
   Offset,
   Utilities,
   UUID,
-} from "@scalable-software/graph.structure";
+} from "@scalable-software/graph";
 
 // Class Availability
 describe("Given Nodes imported", () => {
