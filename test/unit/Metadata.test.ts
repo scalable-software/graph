@@ -20,3 +20,24 @@ given(`Metadata ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
     });
   });
 });
+
+given(`Metadata id ${Type.PROPERTY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.PROPERTY);
+    setSpecProperty("spec", "id");
+  });
+  when("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = new Metadata();
+    });
+    then("metadata.id is defined", () => {
+      expect(metadata.id).toBeDefined();
+    });
+    and("metadata.id is defined", () => {
+      then("metadata.id is null", () => {
+        expect(metadata.id).toBeNull();
+      });
+    });
+  });
+});
