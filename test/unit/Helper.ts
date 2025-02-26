@@ -64,6 +64,7 @@ export const Type = {
   STATIC_METHOD: "static method",
   GETTER: "getter",
   SETTER: "setter",
+  ABSTRACT_CLASS: "abstract_class",
 };
 
 export const Spec = {
