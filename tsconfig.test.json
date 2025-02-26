@@ -7,7 +7,7 @@
     "inlineSources": true,
     "baseUrl": "./",
     "paths": {
-      "@scalable.software/pin.component": ["./src/Index.js"]
+      "@scalable.software/graph": ["./src/Index.js"]
     },
     "declaration": false
   },
@@ -20,7 +20,7 @@
     "disableSources": true,
     "categorizeByGroup": false,
     "sort": ["static-first", "visibility"],
-    "name": "Web Component",
+    "name": "Graph Data Structure",
     "plugin": ["typedoc-plugin-merge-modules"],
     "mergeModulesMergeMode": "module",
     "hideGenerator": true

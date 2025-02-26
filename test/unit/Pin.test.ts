@@ -25,7 +25,7 @@ import {
   Operation,
   Event,
   Gesture,
-} from "@scalable.software/pin.component";
+} from "@scalable.software/graph";
 
 given("Tag Type.CONFIG test", () => {
   beforeEach(() => {

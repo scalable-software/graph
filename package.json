@@ -1,11 +1,11 @@
 {
-  "name": "@scalable.software/pin.component",
-  "version": "1.2.1",
-  "description": "Web Component Template",
+  "name": "@scalable.software/graph",
+  "version": "0.0.1",
+  "description": "Graph Data Structure",
   "keywords": [
-    "web",
-    "component",
-    "template"
+    "module",
+    "graph",
+    "data structure"
   ],
   "exports": {
     ".": {
@@ -29,14 +29,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scalable-software/web.component.git"
+    "url": "git+https://github.com/scalable-software/graph.git"
   },
   "author": "Scalable.Software",
   "license": "CC-BY-NC-SA-4.0",
   "bugs": {
-    "url": "https://github.com/scalable-software/web.component/issues"
+    "url": "https://github.com/scalable-software/graph/issues"
   },
-  "homepage": "https://github.com/scalable-software/web.component#readme",
+  "homepage": "https://github.com/scalable-software/graph#readme",
   "devDependencies": {
     "@types/jasmine": "^5.1.4",
     "@web/dev-server": "^0.4.6",
