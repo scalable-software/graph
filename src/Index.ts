@@ -22,3 +22,4 @@ export { type Configuration } from "@scalable.software/component";
 export { Pin, configuration } from "./Pin.js";
 
 export { Metadata } from "./Metadata.js";
+export type { IMetadata } from "./Metadata.js";
