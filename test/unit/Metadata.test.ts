@@ -41,3 +41,24 @@ given(`Metadata id ${Type.PROPERTY} test`, () => {
     });
   });
 });
+
+given(`Metadata name ${Type.PROPERTY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.PROPERTY);
+    setSpecProperty("spec", "name");
+  });
+  when("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = new Metadata();
+    });
+    then("metadata.name is defined", () => {
+      expect(metadata.name).toBeDefined();
+    });
+    and("metadata.name is defined", () => {
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+    });
+  });
+});
