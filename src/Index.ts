@@ -23,3 +23,5 @@ export { Pin, configuration } from "./Pin.js";
 
 export { Metadata } from "./Metadata.js";
 export type { IMetadata } from "./Metadata.js";
+
+export type { UUID, Name } from "./Graph.types.js";
