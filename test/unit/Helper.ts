@@ -54,3 +54,19 @@ export const hasSetter = (obj, propName) => {
   }
   return false;
 };
+
+export const Type = {
+  CLASS: "class",
+  CONSTRUCTOR: "constructor",
+  PROPERTY: "property",
+  METHOD: "method",
+  STATIC_PROPERTY: "static property",
+  STATIC_METHOD: "static method",
+  GETTER: "getter",
+  SETTER: "setter",
+};
+
+export const Spec = {
+  AVAILABILITY: "Availability",
+  INSTANTIATION: "Instantiation",
+};
