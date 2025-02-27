@@ -1,6 +1,6 @@
 import { Exceptions } from "../exceptions/Exceptions.js";
 
-import type { UUID } from "../Graph.types.js";
+import type { UUID, Name } from "../Graph.types.js";
 
 export class Validate {
   /**
@@ -27,5 +27,28 @@ export class Validate {
       ? Exceptions.invalidArgumentException("id", "must be a valid UUID")
       : (id as UUID);
 
-  public static name = () => {};
+  /**
+   * Validate name and throw if not valid
+   *
+   * @param name - The name to validate
+   * @returns The name if valid
+   * @throws {InvalidArgumentException} If the name is invalid or null
+   *
+   * @example
+   * ```ts
+   * Validate.name("John Doe");
+   * // => "John Doe"
+   *
+   * Validate.name("J");
+   * // => InvalidArgumentException: Invalid argument: name - must be a valid name
+   *
+   * Validate.name(null);
+   * // => InvalidArgumentException: Invalid argument: name - must be a valid name
+   * ```
+   *
+   */
+  public static name = (name: string | null): Name =>
+    !name || name.length < 3 || name.length > 100
+      ? Exceptions.invalidArgumentException("name", "must be a valid name")
+      : (name as Name);
 }
