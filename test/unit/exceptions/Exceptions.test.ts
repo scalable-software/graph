@@ -254,5 +254,36 @@ given(`Exceptions invalidArgumentException ${Type.STATIC_METHOD} test`, () => {
     then(`Exceptions.invalidArgumentException is a function`, () => {
       expect(Exceptions.invalidArgumentException).toBeInstanceOf(Function);
     });
+    and(`Exceptions.invalidArgumentException is a function`, () => {
+      when(
+        "Exceptions.invalidArgumentException(parameter, reason) is called",
+        () => {
+          let error: Error;
+          beforeEach(() => {
+            try {
+              Exceptions.invalidArgumentException("test", "reason");
+            } catch (e) {
+              error = e;
+            }
+          });
+          then("error is defined", () => {
+            expect(error).toBeDefined();
+          });
+          and("error is defined", () => {
+            then("error is an instance of InvalidArgumentException", () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            and("error is an instance of InvalidArgumentException", () => {
+              then("error.name is InvalidArgumentException", () => {
+                expect(error.name).toBe("InvalidArgumentException");
+              });
+              then("error.message is 'Invalid argument: test - reason'", () => {
+                expect(error.message).toBe("Invalid argument: test - reason");
+              });
+            });
+          });
+        }
+      );
+    });
   });
 });
