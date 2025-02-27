@@ -130,5 +130,117 @@ given(`Validate name ${Type.STATIC_METHOD} test`, () => {
     then(`Validate.name is a function`, () => {
       expect(Validate.name).toBeInstanceOf(Function);
     });
+    and(`Validate.name is a function`, () => {
+      when(`Validate.name(name) is called with a valid name`, () => {
+        let name: string;
+        let result: string;
+        beforeEach(() => {
+          name = "John Doe";
+          result = Validate.name(name);
+        });
+        then(`Validate.name returns the name`, () => {
+          expect(result).toBe(name);
+        });
+      });
+      when(`Validate.name(name) is called with too short name`, () => {
+        let name: string;
+        let error: Error;
+        beforeEach(() => {
+          name = "J";
+          try {
+            Validate.name(name);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(InvalidArgumentException);
+          });
+          and(`error is an instance of InvalidArgumentException`, () => {
+            then(`error is an instance of InvalidArgumentException`, () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            then(
+              `error.message is "Invalid argument: name - must be a valid name"`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: name - must be a valid name"
+                );
+              }
+            );
+          });
+        });
+      });
+      when(`Validate.name(name) is called with too long name`, () => {
+        let name: string;
+        let error: Error;
+        beforeEach(() => {
+          name = "J".repeat(101);
+          try {
+            Validate.name(name);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(InvalidArgumentException);
+          });
+          and(`error is an instance of InvalidArgumentException`, () => {
+            then(`error is an instance of InvalidArgumentException`, () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            then(
+              `error.message is "Invalid argument: name - must be a valid name"`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: name - must be a valid name"
+                );
+              }
+            );
+          });
+        });
+      });
+      when(`Validate.name(name) is called with null`, () => {
+        let name: string;
+        let error: Error;
+        beforeEach(() => {
+          name = null;
+          try {
+            Validate.name(name);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(InvalidArgumentException);
+          });
+          and(`error is an instance of InvalidArgumentException`, () => {
+            then(`error is an instance of InvalidArgumentException`, () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            then(
+              `error.message is "Invalid argument: name - must be a valid name"`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: name - must be a valid name"
+                );
+              }
+            );
+          });
+        });
+      });
+    });
   });
 });
