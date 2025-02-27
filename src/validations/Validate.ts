@@ -16,7 +16,7 @@ export class Validate {
 
   private static applyRules = <T>(
     details: T,
-    rules: ((details: T) => T)[]
+    rules: ((details: T) => unknown)[]
   ): Exception[] => rules.reduce<Exception[]>(Validate.applyRule(details), []);
 
   private static throwIfExceptions = <T>(
@@ -97,6 +97,9 @@ export class Validate {
    * // => ValidationException: Validation failed with 2 error(s).
    * ```
    */
-  public static rules = <T>(details: T, rules: ((details: T) => T)[]): T =>
+  public static rules = <T>(
+    details: T,
+    rules: ((details: T) => unknown)[]
+  ): T =>
     Validate.throwIfExceptions(Validate.applyRules(details, rules), details);
 }
