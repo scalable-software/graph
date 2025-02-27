@@ -260,5 +260,230 @@ given(`Validate rules ${Type.STATIC_METHOD} test`, () => {
     then(`Validate.rules is a function`, () => {
       expect(Validate.rules).toBeInstanceOf(Function);
     });
+    and(`Validate.rules is a function`, () => {
+      when(
+        `Validate.rules(details, rules) is called with valid details`,
+        () => {
+          let details: any;
+          let rules: any[];
+          let result: any;
+          beforeEach(() => {
+            details = {
+              id: "123e4567-e89b-12d3-a456-426614174000",
+              name: "John Doe",
+            };
+            rules = [
+              ({ id }) => Validate.uuid(id),
+              ({ name }) => Validate.name(name),
+            ];
+            result = Validate.rules(details, rules);
+          });
+          then(`Validate.rules returns the details`, () => {
+            expect(result).toBe(details);
+          });
+        }
+      );
+      when(
+        `Validate.rules(details, rules) is called with invalid details.id`,
+        () => {
+          let details: any;
+          let rules: any[];
+          let result: any;
+          let error: ValidationException;
+          beforeEach(() => {
+            details = {
+              id: "invalid",
+              name: "John Doe",
+            };
+            rules = [
+              ({ id }) => Validate.uuid(id),
+              ({ name }) => Validate.name(name),
+            ];
+            try {
+              result = Validate.rules(details, rules);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(`error is an instance of ValidationException`, () => {
+              expect(error).toBeInstanceOf(ValidationException);
+            });
+            and(`error is an instance of ValidationException`, () => {
+              then(`error.errors.length is 1`, () => {
+                expect(error.errors.length).toBe(1);
+              });
+              and(`error.errors.length is 1`, () => {
+                then(
+                  `error.errors[0] is an instance of InvalidArgumentException`,
+                  () => {
+                    expect(error.errors[0]).toBeInstanceOf(
+                      InvalidArgumentException
+                    );
+                  }
+                );
+                and(
+                  `error.errors[0] is an instance of InvalidArgumentException`,
+                  () => {
+                    then(
+                      `error.errors[0].message is "Invalid argument: id - must be a valid UUID"`,
+                      () => {
+                        expect(error.errors[0].message).toBe(
+                          "Invalid argument: id - must be a valid UUID"
+                        );
+                      }
+                    );
+                  }
+                );
+              });
+            });
+          });
+        }
+      );
+      when(
+        `Validate.rules(details, rules) is called with invalid details.name`,
+        () => {
+          let details: any;
+          let rules: any[];
+          let result: any;
+          let error: ValidationException;
+          beforeEach(() => {
+            details = {
+              id: "123e4567-e89b-12d3-a456-426614174000",
+              name: "J",
+            };
+            rules = [
+              ({ id }) => Validate.uuid(id),
+              ({ name }) => Validate.name(name),
+            ];
+            try {
+              result = Validate.rules(details, rules);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(`error is an instance of ValidationException`, () => {
+              expect(error).toBeInstanceOf(ValidationException);
+            });
+            and(`error is an instance of ValidationException`, () => {
+              then(`error.errors.length is 1`, () => {
+                expect(error.errors.length).toBe(1);
+              });
+              and(`error.errors.length is 1`, () => {
+                then(
+                  `error.errors[0] is an instance of InvalidArgumentException`,
+                  () => {
+                    expect(error.errors[0]).toBeInstanceOf(
+                      InvalidArgumentException
+                    );
+                  }
+                );
+                and(
+                  `error.errors[0] is an instance of InvalidArgumentException`,
+                  () => {
+                    then(
+                      `error.errors[0].message is "Invalid argument: name - must be a valid name"`,
+                      () => {
+                        expect(error.errors[0].message).toBe(
+                          "Invalid argument: name - must be a valid name"
+                        );
+                      }
+                    );
+                  }
+                );
+              });
+            });
+          });
+        }
+      );
+      when(
+        `Validate.rules(details, rules) is called with invalid details`,
+        () => {
+          let details: any;
+          let rules: any[];
+          let result: any;
+          let error: ValidationException;
+          beforeEach(() => {
+            details = {
+              id: "invalid",
+              name: "J",
+            };
+            rules = [
+              ({ id }) => Validate.uuid(id),
+              ({ name }) => Validate.name(name),
+            ];
+            try {
+              result = Validate.rules(details, rules);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(`error is an instance of ValidationException`, () => {
+              expect(error).toBeInstanceOf(ValidationException);
+            });
+            and(`error is an instance of ValidationException`, () => {
+              then(`error.errors.length is 2`, () => {
+                expect(error.errors.length).toBe(2);
+              });
+              and(`error.errors.length is 2`, () => {
+                then(
+                  `error.errors[0] is an instance of InvalidArgumentException`,
+                  () => {
+                    expect(error.errors[0]).toBeInstanceOf(
+                      InvalidArgumentException
+                    );
+                  }
+                );
+                and(
+                  `error.errors[0] is an instance of InvalidArgumentException`,
+                  () => {
+                    then(
+                      `error.errors[0].message is "Invalid argument: id - must be a valid UUID"`,
+                      () => {
+                        expect(error.errors[0].message).toBe(
+                          "Invalid argument: id - must be a valid UUID"
+                        );
+                      }
+                    );
+                  }
+                );
+                then(
+                  `error.errors[1] is an instance of InvalidArgumentException`,
+                  () => {
+                    expect(error.errors[1]).toBeInstanceOf(
+                      InvalidArgumentException
+                    );
+                  }
+                );
+                and(
+                  `error.errors[1] is an instance of InvalidArgumentException`,
+                  () => {
+                    then(
+                      `error.errors[1].message is "Invalid argument: name - must be a valid name"`,
+                      () => {
+                        expect(error.errors[1].message).toBe(
+                          "Invalid argument: name - must be a valid name"
+                        );
+                      }
+                    );
+                  }
+                );
+              });
+            });
+          });
+        }
+      );
+    });
   });
 });
