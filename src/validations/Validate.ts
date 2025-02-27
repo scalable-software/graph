@@ -3,6 +3,28 @@ import { Exception, Exceptions } from "../exceptions/Exceptions.js";
 import type { UUID, Name } from "../Graph.types.js";
 
 export class Validate {
+  private static applyRule =
+    <T>(details: T) =>
+    (exceptions: Exception[], rule: (details: T) => unknown): Exception[] => {
+      try {
+        rule(details);
+      } catch (exception) {
+        exceptions.push(exception);
+      }
+      return exceptions;
+    };
+
+  private static applyRules = <T>(
+    details: T,
+    rules: ((details: T) => T)[]
+  ): Exception[] => rules.reduce<Exception[]>(Validate.applyRule(details), []);
+
+  private static throwIfExceptions = <T>(
+    exceptions: Exception[],
+    details: T
+  ): T =>
+    exceptions.length ? Exceptions.validationException(exceptions) : details;
+
   /**
    * Validate id and throw if not valid UUID
    *
@@ -52,5 +74,29 @@ export class Validate {
       ? Exceptions.invalidArgumentException("name", "must be a valid name")
       : (name as Name);
 
-  public static rules = () => {};
+  /**
+   * Validate details against a set of rules and throw ValidationException if any fail
+   *
+   * @param details - The details to validate
+   * @param rules - The rules to apply
+   * @returns The details if all rules pass
+   * @throws {ValidationException} If any rule fails
+   *
+   * @example
+   * ```ts
+   * Validate.rules({ id: "123e4567-e89b-12d3-a456-426614174000", name: "John Doe" }, [
+   *   ({ id }) => Validate.uuid(id),
+   *   ({ name }) => Validate.name(name),
+   * ]);
+   * // => { id: "123e4567-e89b-12d3-a456-426614174000", name: "John Doe" }
+   *
+   * Validate.rules({ id: "invalid", name: "J" }, [
+   *   ({ id }) => Validate.uuid(id),
+   *   ({ name }) => Validate.name(name),
+   * ]);
+   * // => ValidationException: Validation failed with 2 error(s).
+   * ```
+   */
+  public static rules = <T>(details: T, rules: ((details: T) => T)[]): T =>
+    Validate.throwIfExceptions(Validate.applyRules(details, rules), details);
 }
