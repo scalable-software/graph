@@ -11,3 +11,12 @@ export abstract class Exception extends Error {
     Error.captureStackTrace && Error.captureStackTrace(this, this.constructor);
   }
 }
+
+/**
+ * Exception thrown when an argument is invalid.
+ */
+export class InvalidArgumentException extends Exception {
+  constructor(parameter: string, reason?: string) {
+    super(`Invalid argument: ${parameter}${reason ? ` - ${reason}` : ""}`);
+  }
+}
