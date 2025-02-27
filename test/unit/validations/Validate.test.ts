@@ -8,7 +8,10 @@ const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
 import { Validate } from "../../../src/validations/Validate.js";
-import { InvalidArgumentException } from "../../../src/exceptions/Exceptions.js";
+import {
+  InvalidArgumentException,
+  ValidationException,
+} from "../../../src/exceptions/Exceptions.js";
 
 import type { UUID } from "@scalable.software/graph";
 
@@ -241,6 +244,21 @@ given(`Validate name ${Type.STATIC_METHOD} test`, () => {
           });
         });
       });
+    });
+  });
+});
+
+given(`Validate rules ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.rules");
+  });
+  then(`Validate.rules is defined`, () => {
+    expect(Validate.rules).toBeDefined();
+  });
+  and(`Validate.rules is defined`, () => {
+    then(`Validate.rules is a function`, () => {
+      expect(Validate.rules).toBeInstanceOf(Function);
     });
   });
 });
