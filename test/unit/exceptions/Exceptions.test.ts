@@ -11,6 +11,7 @@ import {
   Exception,
   InvalidArgumentException,
   ValidationException,
+  Exceptions,
 } from "../../../src/exceptions/Exceptions.js";
 
 given(`Exception ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
@@ -203,6 +204,39 @@ given(`ValidationException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
             );
           });
         });
+      });
+    });
+  });
+});
+
+given(`Exceptions ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`Exceptions is imported`, () => {
+    then(`Exceptions is defined`, () => {
+      expect(Exceptions).toBeDefined();
+    });
+  });
+});
+
+given(`Exceptions ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.INSTANTIATION);
+  });
+  when("a new Exceptions is created", () => {
+    let exception: Exceptions;
+    beforeEach(() => {
+      exception = new Exceptions();
+    });
+    then("exception is defined", () => {
+      expect(exception).toBeDefined();
+    });
+    and("exception is defined", () => {
+      then("exception is an instance of Exceptions", () => {
+        expect(exception).toBeInstanceOf(Exceptions);
       });
     });
   });
