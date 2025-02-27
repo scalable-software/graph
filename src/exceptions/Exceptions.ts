@@ -44,5 +44,7 @@ export class Exceptions {
     throw new InvalidArgumentException(parameter, reason);
   };
 
-  public static validationException = () => {};
+  public static validationException = (errors: Exception[]) => {
+    throw new ValidationException(errors);
+  };
 }
