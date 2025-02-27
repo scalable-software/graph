@@ -300,5 +300,40 @@ given(`Exceptions validationException ${Type.STATIC_METHOD} test`, () => {
     then(`Exceptions.validationException is a function`, () => {
       expect(Exceptions.validationException).toBeInstanceOf(Function);
     });
+    and(`Exceptions.validationException is a function`, () => {
+      when("Exceptions.validationException(errors) is called", () => {
+        let error: Error;
+        beforeEach(() => {
+          try {
+            Exceptions.validationException([
+              new InvalidArgumentException("test"),
+            ]);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of ValidationException", () => {
+            expect(error).toBeInstanceOf(ValidationException);
+          });
+          and("error is an instance of ValidationException", () => {
+            then("error.name is ValidationException", () => {
+              expect(error.name).toBe("ValidationException");
+            });
+            then(
+              "error.message is 'Validation failed with 1 error(s).'",
+              () => {
+                expect(error.message).toBe(
+                  "Validation failed with 1 error(s)."
+                );
+              }
+            );
+          });
+        });
+      });
+    });
   });
 });
