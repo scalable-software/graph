@@ -7,7 +7,10 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import { Exception } from "../../../src/exceptions/Exceptions.js";
+import {
+  Exception,
+  InvalidArgumentException,
+} from "../../../src/exceptions/Exceptions.js";
 
 given(`Exception ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
@@ -65,3 +68,62 @@ given(`Exception ${Type.ABSTRACT_CLASS} ${Spec.INSTANTIATION} test`, () => {
     });
   });
 });
+
+given(
+  `InvalidArgumentException ${Type.CLASS} ${Spec.AVAILABILITY} test`,
+  () => {
+    beforeEach(() => {
+      setSpecProperty("type", Type.CLASS);
+      setSpecProperty("spec", Spec.AVAILABILITY);
+    });
+    and(`InvalidArgumentException is imported`, () => {
+      then(`InvalidArgumentException is defined`, () => {
+        expect(InvalidArgumentException).toBeDefined();
+      });
+    });
+  }
+);
+
+given(
+  `InvalidArgumentException ${Type.CLASS} ${Spec.INSTANTIATION} test`,
+  () => {
+    beforeEach(() => {
+      setSpecProperty("type", Type.CLASS);
+      setSpecProperty("spec", Spec.INSTANTIATION);
+    });
+    when("a new InvalidArgumentException is created", () => {
+      let parameter: string;
+      let reason: string;
+      let exception: Exception;
+      beforeEach(() => {
+        parameter = "test";
+        reason = "reason";
+        exception = new InvalidArgumentException(parameter, reason);
+      });
+      then("exception is defined", () => {
+        expect(exception).toBeDefined();
+      });
+      and("exception is defined", () => {
+        then("exception is an instance of InvalidArgumentException", () => {
+          expect(exception).toBeInstanceOf(InvalidArgumentException);
+        });
+        then("exception.name is defined", () => {
+          expect(exception.name).toBeDefined();
+        });
+        and("exception.name is defined", () => {
+          then("exception.name is InvalidArgumentException", () => {
+            expect(exception.name).toBe("InvalidArgumentException");
+          });
+        });
+        then("exception.message is defined", () => {
+          expect(exception.message).toBeDefined();
+        });
+        and("exception.message is defined", () => {
+          then("exception.message is 'Invalid argument: test - reason'", () => {
+            expect(exception.message).toBe("Invalid argument: test - reason");
+          });
+        });
+      });
+    });
+  }
+);
