@@ -32,3 +32,8 @@ export class ValidationException extends Exception {
     this.errors = errors;
   }
 }
+
+/**
+ * Set of exceptions thrown via static methods.
+ */
+export class Exceptions {}
