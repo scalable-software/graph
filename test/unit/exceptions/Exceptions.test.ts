@@ -241,3 +241,18 @@ given(`Exceptions ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
     });
   });
 });
+
+given(`Exceptions invalidArgumentException ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Exceptions.invalidArgumentException");
+  });
+  then(`Exceptions.invalidArgumentException is defined`, () => {
+    expect(Exceptions.invalidArgumentException).toBeDefined();
+  });
+  and(`Exceptions.invalidArgumentException is defined`, () => {
+    then(`Exceptions.invalidArgumentException is a function`, () => {
+      expect(Exceptions.invalidArgumentException).toBeInstanceOf(Function);
+    });
+  });
+});
