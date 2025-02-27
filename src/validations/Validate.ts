@@ -1,4 +1,4 @@
-import { Exceptions } from "../exceptions/Exceptions.js";
+import { Exception, Exceptions } from "../exceptions/Exceptions.js";
 
 import type { UUID, Name } from "../Graph.types.js";
 
@@ -51,4 +51,6 @@ export class Validate {
     !name || name.length < 3 || name.length > 100
       ? Exceptions.invalidArgumentException("name", "must be a valid name")
       : (name as Name);
+
+  public static rules = () => {};
 }
