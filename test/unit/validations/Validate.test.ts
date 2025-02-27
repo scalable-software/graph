@@ -117,3 +117,18 @@ given(`Validate uuid ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Validate name ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.name");
+  });
+  then(`Validate.name is defined`, () => {
+    expect(Validate.name).toBeDefined();
+  });
+  and(`Validate.name is defined`, () => {
+    then(`Validate.name is a function`, () => {
+      expect(Validate.name).toBeInstanceOf(Function);
+    });
+  });
+});
