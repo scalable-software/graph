@@ -10,6 +10,7 @@ const then = (description, spec) => it(`then ${description}`, spec);
 import {
   Exception,
   InvalidArgumentException,
+  ValidationException,
 } from "../../../src/exceptions/Exceptions.js";
 
 given(`Exception ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
@@ -127,3 +128,82 @@ given(
     });
   }
 );
+
+given(`ValidationException ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`ValidationException is imported`, () => {
+    then(`ValidationException is defined`, () => {
+      expect(ValidationException).toBeDefined();
+    });
+  });
+});
+
+given(`ValidationException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.INSTANTIATION);
+  });
+  when("a new ValidationException is created", () => {
+    let errors: Exception[];
+    let exception: ValidationException;
+    beforeEach(() => {
+      errors = [new InvalidArgumentException("test")];
+      exception = new ValidationException(errors);
+    });
+    then("exception is defined", () => {
+      expect(exception).toBeDefined();
+    });
+    and("exception is defined", () => {
+      then("exception is an instance of ValidationException", () => {
+        expect(exception).toBeInstanceOf(ValidationException);
+      });
+      then("exception.name is defined", () => {
+        expect(exception.name).toBeDefined();
+      });
+      and("exception.name is defined", () => {
+        then("exception.name is ValidationException", () => {
+          expect(exception.name).toBe("ValidationException");
+        });
+      });
+      then("exception.message is defined", () => {
+        expect(exception.message).toBeDefined();
+      });
+      and("exception.message is defined", () => {
+        then(
+          "exception.message is 'Validation failed with 1 error(s).'",
+          () => {
+            expect(exception.message).toBe(
+              "Validation failed with 1 error(s)."
+            );
+          }
+        );
+      });
+      then("exception.errors is defined", () => {
+        expect(exception.errors).toBeDefined();
+      });
+      and("exception.errors is defined", () => {
+        then("exception.errors is an array", () => {
+          expect(exception.errors).toBeInstanceOf(Array);
+        });
+        and("exception.errors is an array", () => {
+          then("exception.errors has length 1", () => {
+            expect(exception.errors.length).toBe(1);
+          });
+          and("exception.errors has length 1", () => {
+            then(
+              "exception.errors[0] is an instance of InvalidArgumentException",
+              () => {
+                expect(exception.errors[0]).toBeInstanceOf(
+                  InvalidArgumentException
+                );
+              }
+            );
+          });
+        });
+      });
+    });
+  });
+});
