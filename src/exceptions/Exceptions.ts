@@ -36,4 +36,6 @@ export class ValidationException extends Exception {
 /**
  * Set of exceptions thrown via static methods.
  */
-export class Exceptions {}
+export class Exceptions {
+  public static invalidArgumentException = () => {};
+}
