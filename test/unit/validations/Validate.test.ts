@@ -20,3 +20,18 @@ given(`Validate ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
     });
   });
 });
+
+given(`Validate uuid ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.uuid");
+  });
+  then(`Validate.uuid is defined`, () => {
+    expect(Validate.uuid).toBeDefined();
+  });
+  and(`Validate.uuid is defined`, () => {
+    then(`Validate.uuid is a function`, () => {
+      expect(Validate.uuid).toBeInstanceOf(Function);
+    });
+  });
+});
