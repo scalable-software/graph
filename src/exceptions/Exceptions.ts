@@ -20,3 +20,15 @@ export class InvalidArgumentException extends Exception {
     super(`Invalid argument: ${parameter}${reason ? ` - ${reason}` : ""}`);
   }
 }
+
+/**
+ * Exception thrown when validation of arguments fails.
+ */
+export class ValidationException extends Exception {
+  public errors: Exception[];
+
+  constructor(errors: Exception[]) {
+    super(`Validation failed with ${errors.length} error(s).`);
+    this.errors = errors;
+  }
+}
