@@ -1,1 +1,3 @@
-export class Validate {}
+export class Validate {
+  public static uuid = () => {};
+}
