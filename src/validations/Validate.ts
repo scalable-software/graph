@@ -26,4 +26,6 @@ export class Validate {
     !id || !/^[0-9a-fA-F-]{36}$/.test(id)
       ? Exceptions.invalidArgumentException("id", "must be a valid UUID")
       : (id as UUID);
+
+  public static name = () => {};
 }
