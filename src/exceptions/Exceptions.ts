@@ -52,6 +52,15 @@ export class AssignedException extends Exception {
 }
 
 /**
+ * Exception thrown when a value is not assigned.
+ */
+export class UnassignedException extends Exception {
+  constructor(type: string, hint: string) {
+    super(`No value has been assigned to ${type}: ${hint}`);
+  }
+}
+
+/**
  * Set of exceptions thrown via static methods.
  */
 export class Exceptions {
