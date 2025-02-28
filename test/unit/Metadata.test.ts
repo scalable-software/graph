@@ -699,6 +699,42 @@ given(`Metadata name ${Type.SETTER} test`, () => {
           expect(metadata.name).toBe(name);
         });
       });
+      when("metadata.name is set to invalid name", () => {
+        let name: Name;
+        let error: Exception.InvalidArgumentException;
+        beforeEach(() => {
+          name = "T";
+          try {
+            metadata.name = name;
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then(
+            "error is an instance of Exception.InvalidArgumentException",
+            () => {
+              expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+            }
+          );
+          and(
+            "error is an instance of Exception.InvalidArgumentException",
+            () => {
+              then(
+                "error.message is 'Invalid argument: name - must be a valid name'",
+                () => {
+                  expect(error.message).toBe(
+                    "Invalid argument: name - must be a valid name"
+                  );
+                }
+              );
+            }
+          );
+        });
+      });
     });
   });
 });
