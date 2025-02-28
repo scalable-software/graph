@@ -43,6 +43,15 @@ export class ImmutablePropertyException extends Exception {
 }
 
 /**
+ * Exception thrown when a value is already assigned.
+ */
+export class AssignedException extends Exception {
+  constructor(type: string, hint: string) {
+    super(`A value has already been assigned to ${type}: ${hint}`);
+  }
+}
+
+/**
  * Set of exceptions thrown via static methods.
  */
 export class Exceptions {
