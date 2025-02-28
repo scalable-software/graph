@@ -1,3 +1,4 @@
+import { Validate } from "./validations/Validate.js";
 import type { UUID, Name } from "./Graph.types.js";
 
 export type IMetadata = {
@@ -5,7 +6,13 @@ export type IMetadata = {
   name: Name | null;
 };
 export class Metadata {
-  public static validate = () => {};
+  public static validate = (metadata?: IMetadata) =>
+    metadata
+      ? Validate.rules(metadata, [
+          ({ id }) => Validate.uuid(id),
+          ({ name }) => Validate.name(name),
+        ])
+      : null;
 
   public id: UUID | null = null;
   public name: Name | null = null;
