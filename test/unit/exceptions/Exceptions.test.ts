@@ -607,3 +607,18 @@ given(`Exceptions assignedException ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Exceptions unassignedException ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Exceptions.unassignedException");
+  });
+  then(`Exceptions.unassignedException is defined`, () => {
+    expect(Exceptions.unassignedException).toBeDefined();
+  });
+  and(`Exceptions.unassignedException is defined`, () => {
+    then(`Exceptions.unassignedException is a function`, () => {
+      expect(Exceptions.unassignedException).toBeInstanceOf(Function);
+    });
+  });
+});
