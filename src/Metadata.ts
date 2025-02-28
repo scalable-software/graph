@@ -65,6 +65,10 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * As a workaround to support proper types, we must use a static factory method
    */
   private constructor(metadata?: T) {
+    this.hydrate(metadata);
+  }
+
+  private hydrate(metadata: T): void {
     Object.assign(this, Metadata.normalize<T>(metadata));
   }
 }
