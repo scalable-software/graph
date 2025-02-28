@@ -79,5 +79,7 @@ export class Exceptions {
     throw new ImmutablePropertyException(property);
   };
 
-  public static assignedException = () => {};
+  public static assignedException = (type: string, hint: string) => {
+    throw new AssignedException(type, hint);
+  };
 }
