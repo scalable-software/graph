@@ -9,7 +9,7 @@ const then = (description, spec) => it(`then ${description}`, spec);
 
 import type { UUID, Name } from "@scalable.software/graph";
 
-import { Metadata } from "@scalable.software/graph";
+import { Metadata, Exception } from "@scalable.software/graph";
 import type { IMetadata } from "@scalable.software/graph";
 
 given(`Metadata ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
@@ -87,6 +87,220 @@ given(`Metadata validate ${Type.STATIC_METHOD} test`, () => {
   and("Metadata.validate is defined", () => {
     then("Metadata.validate is a function", () => {
       expect(Metadata.validate).toBeInstanceOf(Function);
+    });
+    and("Metadata.validate is a function", () => {
+      when("Metadata.validate(data) is called with valid data", () => {
+        let data: IMetadata;
+        let result: any;
+        beforeEach(() => {
+          data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
+          result = Metadata.validate(data);
+        });
+        then("data is returned", () => {
+          expect(result).toBe(data);
+        });
+      });
+      when("Metadata.validate(data) is called with invalid data", () => {
+        let data: Partial<IMetadata>;
+        let result: any;
+        let error: Exception.ValidationException;
+        beforeEach(() => {
+          data = { id: "invalid", name: "T" };
+          try {
+            result = Metadata.validate(data as IMetadata);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of Exception.ValidationException", () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+          and("error is an instance of Exception.ValidationException", () => {
+            then(
+              "error.message is 'Validation failed with 2 error(s).'",
+              () => {
+                expect(error.message).toBe(
+                  "Validation failed with 2 error(s)."
+                );
+              }
+            );
+            then("error.errors is defined", () => {
+              expect(error.errors).toBeDefined();
+            });
+            and("error.errors is defined", () => {
+              then(
+                "error.errors[0] is an Exception.InvalidArgumentException",
+                () => {
+                  expect(error.errors[0]).toBeInstanceOf(
+                    Exception.InvalidArgumentException
+                  );
+                }
+              );
+              and(
+                "error.errors[0] is an Exception.InvalidArgumentException",
+                () => {
+                  then(
+                    "error.errors[0].message is 'Invalid argument: id - must be a valid UUID'",
+                    () => {
+                      expect(error.errors[0].message).toBe(
+                        "Invalid argument: id - must be a valid UUID"
+                      );
+                    }
+                  );
+                }
+              );
+              then(
+                "error.errors[1] is an Exception.InvalidArgumentException",
+                () => {
+                  expect(error.errors[1]).toBeInstanceOf(
+                    Exception.InvalidArgumentException
+                  );
+                }
+              );
+              and(
+                "error.errors[1] is an Exception.InvalidArgumentException",
+                () => {
+                  then(
+                    "error.errors[1].message is 'Invalid argument: name - must be a valid name'",
+                    () => {
+                      expect(error.errors[1].message).toBe(
+                        "Invalid argument: name - must be a valid name"
+                      );
+                    }
+                  );
+                }
+              );
+            });
+          });
+        });
+      });
+      when("Metadata.validate(data) is called with invalid data.id", () => {
+        let data: Partial<IMetadata>;
+        let result: any;
+        let error: Exception.ValidationException;
+        beforeEach(() => {
+          data = { id: "invalid", name: "test" };
+          try {
+            result = Metadata.validate(data as IMetadata);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of Exception.ValidationException", () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+          and("error is an instance of Exception.ValidationException", () => {
+            then(
+              "error.message is 'Validation failed with 1 error(s).'",
+              () => {
+                expect(error.message).toBe(
+                  "Validation failed with 1 error(s)."
+                );
+              }
+            );
+            then("error.errors is defined", () => {
+              expect(error.errors).toBeDefined();
+            });
+            and("error.errors is defined", () => {
+              then(
+                "error.errors[0] is an Exception.InvalidArgumentException",
+                () => {
+                  expect(error.errors[0]).toBeInstanceOf(
+                    Exception.InvalidArgumentException
+                  );
+                }
+              );
+              and(
+                "error.errors[0] is an Exception.InvalidArgumentException",
+                () => {
+                  then(
+                    "error.errors[0].message is 'Invalid argument: id - must be a valid UUID'",
+                    () => {
+                      expect(error.errors[0].message).toBe(
+                        "Invalid argument: id - must be a valid UUID"
+                      );
+                    }
+                  );
+                }
+              );
+            });
+          });
+        });
+      });
+      when("Metadata.validate(data) is called with invalid data.name", () => {
+        let data: Partial<IMetadata>;
+        let result: any;
+        let error: Exception.ValidationException;
+        beforeEach(() => {
+          data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "T" };
+          try {
+            result = Metadata.validate(data as IMetadata);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of Exception.ValidationException", () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+          and("error is an instance of Exception.ValidationException", () => {
+            then(
+              "error.message is 'Validation failed with 1 error(s).'",
+              () => {
+                expect(error.message).toBe(
+                  "Validation failed with 1 error(s)."
+                );
+              }
+            );
+            then("error.errors is defined", () => {
+              expect(error.errors).toBeDefined();
+            });
+            and("error.errors is defined", () => {
+              then(
+                "error.errors[0] is an Exception.InvalidArgumentException",
+                () => {
+                  expect(error.errors[0]).toBeInstanceOf(
+                    Exception.InvalidArgumentException
+                  );
+                }
+              );
+              and(
+                "error.errors[0] is an Exception.InvalidArgumentException",
+                () => {
+                  then(
+                    "error.errors[0].message is 'Invalid argument: name - must be a valid name'",
+                    () => {
+                      expect(error.errors[0].message).toBe(
+                        "Invalid argument: name - must be a valid name"
+                      );
+                    }
+                  );
+                }
+              );
+            });
+          });
+        });
+      });
+      when("Metadata.validate() is called without arguments", () => {
+        let result: any;
+        beforeEach(() => {
+          result = Metadata.validate();
+        });
+        then("null is returned", () => {
+          expect(result).toBeNull();
+        });
+      });
     });
   });
 });
