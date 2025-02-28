@@ -17,7 +17,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
         ])
       : null;
 
-  public static create = () => {};
+  public static create = <T extends IMetadata>(metadata?: T): Metadata<T> & T =>
+    new Metadata<T>(metadata) as Metadata<T> & T;
 
   public id: UUID | null = null;
   public name: Name | null = null;
