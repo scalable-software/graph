@@ -1,4 +1,5 @@
 import { Validate } from "./validations/Validate.js";
+import { Exceptions } from "./exceptions/Exceptions.js";
 import type { UUID, Name } from "./Graph.types.js";
 
 export type IMetadata = {
@@ -72,8 +73,11 @@ export class Metadata<T extends IMetadata = IMetadata> {
     return this._id;
   }
 
+  /**
+   * The id property is immutable and cannot be set directly.
+   */
   set id(id: UUID | null) {
-    this._id = id;
+    Exceptions.immutablePropertyException("id");
   }
 
   private hydrate(metadata: T): void {
