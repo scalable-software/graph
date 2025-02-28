@@ -395,3 +395,21 @@ given(`Exceptions validationException ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(
+  `Exceptions immutablePropertyException ${Type.STATIC_METHOD} test`,
+  () => {
+    beforeEach(() => {
+      setSpecProperty("type", Type.STATIC_METHOD);
+      setSpecProperty("spec", "Exceptions.immutablePropertyException");
+    });
+    then(`Exceptions.immutablePropertyException is defined`, () => {
+      expect(Exceptions.immutablePropertyException).toBeDefined();
+    });
+    and(`Exceptions.immutablePropertyException is defined`, () => {
+      then(`Exceptions.immutablePropertyException is a function`, () => {
+        expect(Exceptions.immutablePropertyException).toBeInstanceOf(Function);
+      });
+    });
+  }
+);
