@@ -620,5 +620,38 @@ given(`Exceptions unassignedException ${Type.STATIC_METHOD} test`, () => {
     then(`Exceptions.unassignedException is a function`, () => {
       expect(Exceptions.unassignedException).toBeInstanceOf(Function);
     });
+    and(`Exceptions.unassignedException is a function`, () => {
+      when("Exceptions.unassignedException(type, hint) is called", () => {
+        let error: Error;
+        beforeEach(() => {
+          try {
+            Exceptions.unassignedException("test", "reason");
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of UnassignedException", () => {
+            expect(error).toBeInstanceOf(UnassignedException);
+          });
+          and("error is an instance of UnassignedException", () => {
+            then("error.name is UnassignedException", () => {
+              expect(error.name).toBe("UnassignedException");
+            });
+            then(
+              "error.message is 'No value has been assigned to test: reason'",
+              () => {
+                expect(error.message).toBe(
+                  "No value has been assigned to test: reason"
+                );
+              }
+            );
+          });
+        });
+      });
+    });
   });
 });
