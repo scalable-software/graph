@@ -547,9 +547,35 @@ given(`Metadata validate ${Type.STATIC_METHOD} test`, () => {
   });
 });
 
-given(`Metadata id ${Type.PROPERTY} test`, () => {
+given(`Metadata id ${Type.GETTER} test`, () => {
   beforeEach(() => {
-    setSpecProperty("type", Type.PROPERTY);
+    setSpecProperty("type", Type.GETTER);
+    setSpecProperty("spec", "id");
+  });
+  when(
+    "a metadata instance is created using Metadata.create(data) with valid data",
+    () => {
+      let metadata: Metadata;
+      let data: IMetadata;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
+        metadata = Metadata.create(data);
+      });
+      then("metadata.id is defined", () => {
+        expect(metadata.id).toBeDefined();
+      });
+      and("metadata.id is defined", () => {
+        then("metadata.id is data.id", () => {
+          expect(metadata.id).toBe(data.id);
+        });
+      });
+    }
+  );
+});
+
+given(`Metadata id ${Type.SETTER} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.SETTER);
     setSpecProperty("spec", "id");
   });
   when("a metadata instance is created", () => {
@@ -563,6 +589,27 @@ given(`Metadata id ${Type.PROPERTY} test`, () => {
     and("metadata.id is defined", () => {
       then("metadata.id is null", () => {
         expect(metadata.id).toBeNull();
+      });
+    });
+  });
+  and("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata.id setter is defined", () => {
+      expect(help.hasSetter(metadata, "id")).toBeTruthy();
+    });
+    and("metadata.id setter is defined", () => {
+      when("metadata.id is set to valid id", () => {
+        let id: UUID;
+        beforeEach(() => {
+          id = "123e4567-e89b-12d3-a456-426614174000";
+          metadata.id = id;
+        });
+        then("metadata.id is set to id", () => {
+          expect(metadata.id).toBe(id);
+        });
       });
     });
   });
