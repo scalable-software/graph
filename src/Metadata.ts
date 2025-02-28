@@ -23,7 +23,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
   public id: UUID | null = null;
   public name: Name | null = null;
 
-  constructor(metadata?: T) {
+  private constructor(metadata?: T) {
     Object.assign(this, Metadata.initialize<T>(metadata));
   }
 }
