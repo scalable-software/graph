@@ -11,6 +11,7 @@ import {
   Exception,
   InvalidArgumentException,
   ValidationException,
+  ImmutablePropertyException,
   Exceptions,
 } from "../../../src/exceptions/Exceptions.js";
 
@@ -208,6 +209,63 @@ given(`ValidationException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
     });
   });
 });
+
+given(
+  `ImmutablePropertyException ${Type.CLASS} ${Spec.AVAILABILITY} test`,
+  () => {
+    beforeEach(() => {
+      setSpecProperty("type", Type.CLASS);
+      setSpecProperty("spec", Spec.AVAILABILITY);
+    });
+    and(`ImmutablePropertyException is imported`, () => {
+      then(`ImmutablePropertyException is defined`, () => {
+        expect(ImmutablePropertyException).toBeDefined();
+      });
+    });
+  }
+);
+
+given(
+  `ImmutablePropertyException ${Type.CLASS} ${Spec.INSTANTIATION} test`,
+  () => {
+    beforeEach(() => {
+      setSpecProperty("type", Type.CLASS);
+      setSpecProperty("spec", Spec.INSTANTIATION);
+    });
+    when("a new ImmutablePropertyException is created", () => {
+      let property: string;
+      let exception: Exception;
+      beforeEach(() => {
+        property = "test";
+        exception = new ImmutablePropertyException(property);
+      });
+      then("exception is defined", () => {
+        expect(exception).toBeDefined();
+      });
+      and("exception is defined", () => {
+        then("exception is an instance of ImmutablePropertyException", () => {
+          expect(exception).toBeInstanceOf(ImmutablePropertyException);
+        });
+        then("exception.name is defined", () => {
+          expect(exception.name).toBeDefined();
+        });
+        and("exception.name is defined", () => {
+          then("exception.name is ImmutablePropertyException", () => {
+            expect(exception.name).toBe("ImmutablePropertyException");
+          });
+        });
+        then("exception.message is defined", () => {
+          expect(exception.message).toBeDefined();
+        });
+        and("exception.message is defined", () => {
+          then("exception.message is 'Property 'test' is immutable.'", () => {
+            expect(exception.message).toBe("Property 'test' is immutable.");
+          });
+        });
+      });
+    });
+  }
+);
 
 given(`Exceptions ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
