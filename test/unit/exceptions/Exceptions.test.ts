@@ -12,6 +12,7 @@ import {
   InvalidArgumentException,
   ValidationException,
   ImmutablePropertyException,
+  AssignedException,
   Exceptions,
 } from "../../../src/exceptions/Exceptions.js";
 
@@ -266,6 +267,64 @@ given(
     });
   }
 );
+
+given(`AssignedException ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`AssignedException is imported`, () => {
+    then(`AssignedException is defined`, () => {
+      expect(AssignedException).toBeDefined();
+    });
+  });
+});
+
+given(`AssignedException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.INSTANTIATION);
+  });
+  when("a new AssignedException is created", () => {
+    let type: string;
+    let hint: string;
+    let exception: AssignedException;
+    beforeEach(() => {
+      type = "metadata";
+      hint = "Use metadata.update(metadata) instead.";
+      exception = new AssignedException(type, hint);
+    });
+    then("exception is defined", () => {
+      expect(exception).toBeDefined();
+    });
+    and("exception is defined", () => {
+      then("exception is an instance of AssignedException", () => {
+        expect(exception).toBeInstanceOf(AssignedException);
+      });
+      then("exception.name is defined", () => {
+        expect(exception.name).toBeDefined();
+      });
+      and("exception.name is defined", () => {
+        then("exception.name is AssignedException", () => {
+          expect(exception.name).toBe("AssignedException");
+        });
+      });
+      then("exception.message is defined", () => {
+        expect(exception.message).toBeDefined();
+      });
+      and("exception.message is defined", () => {
+        then(
+          "exception.message is 'A value has already been assigned to 'type': 'hint''",
+          () => {
+            expect(exception.message).toBe(
+              `A value has already been assigned to ${type}: ${hint}`
+            );
+          }
+        );
+      });
+    });
+  });
+});
 
 given(`Exceptions ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
