@@ -172,6 +172,104 @@ given(`Metadata create ${Type.STATIC_METHOD} test`, () => {
     then("Metadata.create is a function", () => {
       expect(Metadata.create).toBeInstanceOf(Function);
     });
+    when("Metadata.create() is called", () => {
+      let metadata: Metadata;
+      beforeEach(() => {
+        metadata = Metadata.create();
+      });
+      then("metadata instance is returned", () => {
+        expect(metadata).toBeDefined();
+      });
+      and("metadata instance is returned", () => {
+        then("metadata.id is defined", () => {
+          expect(metadata.id).toBeDefined();
+        });
+        and("metadata.id is defined", () => {
+          then("metadata.id is null", () => {
+            expect(metadata.id).toBeNull();
+          });
+        });
+        then("metadata.name is defined", () => {
+          expect(metadata.name).toBeDefined();
+        });
+        and("metadata.name is defined", () => {
+          then("metadata.name is null", () => {
+            expect(metadata.name).toBeNull();
+          });
+        });
+      });
+    });
+    when("Metadata.create(data) is called", () => {
+      let data: IMetadata;
+      let metadata: IMetadata;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
+        metadata = Metadata.create(data);
+      });
+      then("metadata instance is returned", () => {
+        expect(metadata).toBeDefined();
+      });
+      and("metadata instance is returned", () => {
+        then("metadata.id is defined", () => {
+          expect(metadata.id).toBeDefined();
+        });
+        and("metadata.id is defined", () => {
+          then("metadata.id is data.id", () => {
+            expect(metadata.id).toBe(data.id);
+          });
+        });
+        then("metadata.name is defined", () => {
+          expect(metadata.name).toBeDefined();
+        });
+        and("metadata.name is defined", () => {
+          then("metadata.name is data.name", () => {
+            expect(metadata.name).toBe(data.name);
+          });
+        });
+      });
+    });
+    when("Metadata.create(data) is called with custom data", () => {
+      type CMetadata = { type: string } & IMetadata;
+      let data: CMetadata;
+      let metadata: CMetadata;
+      beforeEach(() => {
+        data = {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "test",
+          type: "custom",
+        };
+        metadata = Metadata.create<CMetadata>(data);
+      });
+      then("metadata instance is returned", () => {
+        expect(metadata).toBeDefined();
+      });
+      and("metadata instance is returned", () => {
+        then("metadata.id is defined", () => {
+          expect(metadata.id).toBeDefined();
+        });
+        and("metadata.id is defined", () => {
+          then("metadata.id is data.id", () => {
+            expect(metadata.id).toBe(data.id);
+          });
+        });
+        then("metadata.name is defined", () => {
+          expect(metadata.name).toBeDefined();
+        });
+        and("metadata.name is defined", () => {
+          then("metadata.name is data.name", () => {
+            expect(metadata.name).toBe(data.name);
+          });
+        });
+        then("metadata.type is defined", () => {
+          expect(metadata.type).toBeDefined();
+        });
+        and("metadata.type is defined", () => {
+          then("metadata.type is data.type", () => {
+            expect(metadata.type).toBe(data.type);
+          });
+        });
+      });
+    });
   });
 });
 
