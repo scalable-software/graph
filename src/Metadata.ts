@@ -77,6 +77,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
   }
 
   private hydrate(metadata: T): void {
-    Object.assign(this, Metadata.normalize<T>(metadata));
+    const { id, ...properties } = Metadata.normalize<T>(metadata);
+    this._id = id;
+    Object.assign(this, properties);
   }
 }
