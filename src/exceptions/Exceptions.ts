@@ -57,5 +57,7 @@ export class Exceptions {
     throw new ValidationException(errors);
   };
 
-  public static immutablePropertyException = () => {};
+  public static immutablePropertyException = (property: string) => {
+    throw new ImmutablePropertyException(property);
+  };
 }
