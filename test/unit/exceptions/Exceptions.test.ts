@@ -572,5 +572,38 @@ given(`Exceptions assignedException ${Type.STATIC_METHOD} test`, () => {
     then(`Exceptions.assignedException is a function`, () => {
       expect(Exceptions.assignedException).toBeInstanceOf(Function);
     });
+    and(`Exceptions.assignedException is a function`, () => {
+      when("Exceptions.assignedException(type, hint) is called", () => {
+        let error: Error;
+        beforeEach(() => {
+          try {
+            Exceptions.assignedException("test", "reason");
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of AssignedException", () => {
+            expect(error).toBeInstanceOf(AssignedException);
+          });
+          and("error is an instance of AssignedException", () => {
+            then("error.name is AssignedException", () => {
+              expect(error.name).toBe("AssignedException");
+            });
+            then(
+              "error.message is 'A value has already been assigned to test: reason'",
+              () => {
+                expect(error.message).toBe(
+                  "A value has already been assigned to test: reason"
+                );
+              }
+            );
+          });
+        });
+      });
+    });
   });
 });
