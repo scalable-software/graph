@@ -74,6 +74,90 @@ given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
       });
     });
   });
+  when(
+    "a metadata instance is created using new Metadata(data) with invalid data.id",
+    () => {
+      let data: Partial<IMetadata>;
+      let error: Exception.ValidationException;
+      beforeEach(() => {
+        data = { id: "invalid", name: "test" };
+        try {
+          new Metadata(data as IMetadata);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of Exception.ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+        and("error is an instance of Exception.ValidationException", () => {
+          then("error.message is 'Validation failed with 1 error(s).'", () => {
+            expect(error.message).toBe("Validation failed with 1 error(s).");
+          });
+        });
+      });
+    }
+  );
+  when(
+    "a metadata instance is created using new Metadata(data) with invalid data.name",
+    () => {
+      let data: Partial<IMetadata>;
+      let error: Exception.ValidationException;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "T" };
+        try {
+          new Metadata(data as IMetadata);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of Exception.ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+        and("error is an instance of Exception.ValidationException", () => {
+          then("error.message is 'Validation failed with 1 error(s).'", () => {
+            expect(error.message).toBe("Validation failed with 1 error(s).");
+          });
+        });
+      });
+    }
+  );
+  when(
+    "a metadata instance is created using new Metadata(data) with invalid data",
+    () => {
+      let data: Partial<IMetadata>;
+      let error: Exception.ValidationException;
+      beforeEach(() => {
+        data = { id: "invalid", name: "T" };
+        try {
+          new Metadata(data as IMetadata);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of Exception.ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+        and("error is an instance of Exception.ValidationException", () => {
+          then("error.message is 'Validation failed with 2 error(s).'", () => {
+            expect(error.message).toBe("Validation failed with 2 error(s).");
+          });
+        });
+      });
+    }
+  );
 });
 
 given(`Metadata validate ${Type.STATIC_METHOD} test`, () => {
