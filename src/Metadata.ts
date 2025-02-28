@@ -57,7 +57,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
   public static create = <T extends IMetadata>(metadata?: T): Metadata<T> & T =>
     new Metadata<T>(metadata) as Metadata<T> & T;
 
-  public id: UUID | null = null;
+  public _id: UUID | null = null;
   public name: Name | null = null;
 
   /**
@@ -66,6 +66,14 @@ export class Metadata<T extends IMetadata = IMetadata> {
    */
   private constructor(metadata?: T) {
     this.hydrate(metadata);
+  }
+
+  get id(): UUID | null {
+    return this._id;
+  }
+
+  set id(id: UUID | null) {
+    this._id = id;
   }
 
   private hydrate(metadata: T): void {
