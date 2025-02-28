@@ -29,10 +29,10 @@ given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
     setSpecProperty("type", Type.CLASS);
     setSpecProperty("spec", Spec.INSTANTIATION);
   });
-  when("a metadata instance is created using new Metadata()", () => {
+  when("a metadata instance is created using Metadata.create()", () => {
     let metadata: Metadata;
     beforeEach(() => {
-      metadata = new Metadata();
+      metadata = Metadata.create();
     });
     then("metadata is defined", () => {
       expect(metadata).toBeDefined();
@@ -43,14 +43,14 @@ given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
       });
     });
   });
-  when("a metadata instance is create using new Metadata(data)", () => {
+  when("a metadata instance is created using Metadata.create(data)", () => {
     let metadata: Metadata;
     let data: IMetadata;
 
     beforeEach(() => {
       data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
 
-      metadata = new Metadata(data);
+      metadata = Metadata.create(data);
     });
     then("metadata is defined", () => {
       expect(metadata).toBeDefined();
@@ -75,14 +75,59 @@ given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
     });
   });
   when(
-    "a metadata instance is created using new Metadata(data) with invalid data.id",
+    "a metadata instance is created using Metadata.create(data) with custom data",
+    () => {
+      type CMetadata = { type: string } & IMetadata;
+      let metadata: CMetadata;
+      let data: CMetadata;
+      beforeEach(() => {
+        data = {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "test",
+          type: "custom",
+        };
+        metadata = Metadata.create<CMetadata>(data);
+      });
+      then("metadata is defined", () => {
+        expect(metadata).toBeDefined();
+      });
+      and("metadata is defined", () => {
+        then("metadata.id is defined", () => {
+          expect(metadata.id).toBeDefined();
+        });
+        and("metadata.id is defined", () => {
+          then("metadata.id is data.id", () => {
+            expect(metadata.id).toBe(data.id);
+          });
+        });
+        then("metadata.name is defined", () => {
+          expect(metadata.name).toBeDefined();
+        });
+        and("metadata.name is defined", () => {
+          then("metadata.name is data.name", () => {
+            expect(metadata.name).toBe(data.name);
+          });
+        });
+        then("metadata.type is defined", () => {
+          expect(metadata.type).toBeDefined();
+        });
+        and("metadata.type is defined", () => {
+          then("metadata.type is data.type", () => {
+            expect(metadata.type).toBe(data.type);
+          });
+        });
+      });
+    }
+  );
+  when(
+    "a metadata instance is created using Metadata.create(data) with invalid data.id",
     () => {
       let data: Partial<IMetadata>;
       let error: Exception.ValidationException;
       beforeEach(() => {
         data = { id: "invalid", name: "test" };
         try {
-          new Metadata(data as IMetadata);
+          Metadata.create(data as IMetadata);
         } catch (e) {
           error = e;
         }
@@ -103,14 +148,14 @@ given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
     }
   );
   when(
-    "a metadata instance is created using new Metadata(data) with invalid data.name",
+    "a metadata instance is created using Metadata.create(data) with invalid data.name",
     () => {
       let data: Partial<IMetadata>;
       let error: Exception.ValidationException;
       beforeEach(() => {
         data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "T" };
         try {
-          new Metadata(data as IMetadata);
+          Metadata.create(data as IMetadata);
         } catch (e) {
           error = e;
         }
@@ -131,14 +176,14 @@ given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
     }
   );
   when(
-    "a metadata instance is created using new Metadata(data) with invalid data",
+    "a metadata instance is created using Metadata.create(data) with invalid data",
     () => {
       let data: Partial<IMetadata>;
       let error: Exception.ValidationException;
       beforeEach(() => {
         data = { id: "invalid", name: "T" };
         try {
-          new Metadata(data as IMetadata);
+          Metadata.create(data as IMetadata);
         } catch (e) {
           error = e;
         }
@@ -510,7 +555,7 @@ given(`Metadata id ${Type.PROPERTY} test`, () => {
   when("a metadata instance is created", () => {
     let metadata: Metadata;
     beforeEach(() => {
-      metadata = new Metadata();
+      metadata = Metadata.create();
     });
     then("metadata.id is defined", () => {
       expect(metadata.id).toBeDefined();
@@ -531,7 +576,7 @@ given(`Metadata name ${Type.PROPERTY} test`, () => {
   when("a metadata instance is created", () => {
     let metadata: Metadata;
     beforeEach(() => {
-      metadata = new Metadata();
+      metadata = Metadata.create();
     });
     then("metadata.name is defined", () => {
       expect(metadata.name).toBeDefined();
