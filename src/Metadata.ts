@@ -59,7 +59,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
     new Metadata<T>(metadata) as Metadata<T> & T;
 
   public _id: UUID | null = null;
-  public name: Name | null = null;
+  public _name: Name | null = null;
 
   /**
    * Typescript constructors cannot return a value other than the class.
@@ -80,9 +80,18 @@ export class Metadata<T extends IMetadata = IMetadata> {
     Exceptions.immutablePropertyException("id");
   }
 
+  get name(): Name | null {
+    return this._name;
+  }
+
+  set name(name: Name | null) {
+    this._name = name;
+  }
+
   private hydrate(metadata: T): void {
-    const { id, ...properties } = Metadata.normalize<T>(metadata);
+    const { id, name, ...properties } = Metadata.normalize<T>(metadata);
     this._id = id;
+    this._name = name;
     Object.assign(this, properties);
   }
 }
