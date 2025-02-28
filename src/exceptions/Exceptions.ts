@@ -82,4 +82,6 @@ export class Exceptions {
   public static assignedException = (type: string, hint: string) => {
     throw new AssignedException(type, hint);
   };
+
+  public static unassignedException = () => {};
 }
