@@ -85,7 +85,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
   }
 
   set name(name: Name | null) {
-    this._name = name;
+    this._name = Validate.name(name);
   }
 
   private hydrate(metadata: T): void {
