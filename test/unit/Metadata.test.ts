@@ -160,6 +160,21 @@ given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
   );
 });
 
+given(`Metadata create ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Metadata.create");
+  });
+  then("Metadata.create is defined", () => {
+    expect(Metadata.create).toBeDefined();
+  });
+  and("Metadata.create is defined", () => {
+    then("Metadata.create is a function", () => {
+      expect(Metadata.create).toBeInstanceOf(Function);
+    });
+  });
+});
+
 given(`Metadata validate ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
