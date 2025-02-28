@@ -6,7 +6,7 @@ export type IMetadata = {
   name: Name | null;
 };
 export class Metadata<T extends IMetadata = IMetadata> {
-  private static initialize = <T extends IMetadata>(metadata?: T) =>
+  private static normalize = <T extends IMetadata>(metadata?: T) =>
     Metadata.validate<T>(metadata) ?? ({ id: null, name: null } as T);
 
   /**
@@ -65,6 +65,6 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * As a workaround to support proper types, we must use a static factory method
    */
   private constructor(metadata?: T) {
-    Object.assign(this, Metadata.initialize<T>(metadata));
+    Object.assign(this, Metadata.normalize<T>(metadata));
   }
 }
