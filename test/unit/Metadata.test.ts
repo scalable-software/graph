@@ -603,12 +603,35 @@ given(`Metadata id ${Type.SETTER} test`, () => {
     and("metadata.id setter is defined", () => {
       when("metadata.id is set to valid id", () => {
         let id: UUID;
+        let error: Exception.ImmutablePropertyException;
         beforeEach(() => {
           id = "123e4567-e89b-12d3-a456-426614174000";
-          metadata.id = id;
+          try {
+            metadata.id = id;
+          } catch (e) {
+            error = e;
+          }
         });
-        then("metadata.id is set to id", () => {
-          expect(metadata.id).toBe(id);
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then(
+            "error is an instance of Exception.ImmutablePropertyException",
+            () => {
+              expect(error).toBeInstanceOf(
+                Exception.ImmutablePropertyException
+              );
+            }
+          );
+          and(
+            "error is an instance of Exception.ImmutablePropertyException",
+            () => {
+              then("error.message is 'Property 'id' is immutable.'", () => {
+                expect(error.message).toBe("Property 'id' is immutable.");
+              });
+            }
+          );
         });
       });
     });
