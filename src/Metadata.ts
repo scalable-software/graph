@@ -6,6 +6,9 @@ export type IMetadata = {
   name: Name | null;
 };
 export class Metadata {
+  private static initialize = (metadata?: IMetadata) =>
+    Metadata.validate(metadata) ?? { id: null, name: null };
+
   public static validate = (metadata?: IMetadata) =>
     metadata
       ? Validate.rules(metadata, [
@@ -18,7 +21,6 @@ export class Metadata {
   public name: Name | null = null;
 
   constructor(metadata?: IMetadata) {
-    this.id = metadata?.id ?? null;
-    this.name = metadata?.name ?? null;
+    ({ id: this.id, name: this.name } = Metadata.initialize(metadata));
   }
 }
