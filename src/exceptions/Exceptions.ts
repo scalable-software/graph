@@ -34,6 +34,15 @@ export class ValidationException extends Exception {
 }
 
 /**
+ * Exception thrown when an attempt is made to set an immutable property.
+ */
+export class ImmutablePropertyException extends Exception {
+  constructor(property: string) {
+    super(`Property '${property}' is immutable.`);
+  }
+}
+
+/**
  * Set of exceptions thrown via static methods.
  */
 export class Exceptions {
