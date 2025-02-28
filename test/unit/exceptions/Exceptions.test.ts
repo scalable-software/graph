@@ -13,6 +13,7 @@ import {
   ValidationException,
   ImmutablePropertyException,
   AssignedException,
+  UnassignedException,
   Exceptions,
 } from "../../../src/exceptions/Exceptions.js";
 
@@ -318,6 +319,64 @@ given(`AssignedException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
           () => {
             expect(exception.message).toBe(
               `A value has already been assigned to ${type}: ${hint}`
+            );
+          }
+        );
+      });
+    });
+  });
+});
+
+given(`UnassignedException ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`UnassignedException is imported`, () => {
+    then(`UnassignedException is defined`, () => {
+      expect(UnassignedException).toBeDefined();
+    });
+  });
+});
+
+given(`UnassignedException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.INSTANTIATION);
+  });
+  when("a new UnassignedException is created", () => {
+    let type: string;
+    let hint: string;
+    let exception: UnassignedException;
+    beforeEach(() => {
+      type = "metadata";
+      hint = "Use metadata.add(metadata) instead.";
+      exception = new UnassignedException(type, hint);
+    });
+    then("exception is defined", () => {
+      expect(exception).toBeDefined();
+    });
+    and("exception is defined", () => {
+      then("exception is an instance of UnassignedException", () => {
+        expect(exception).toBeInstanceOf(UnassignedException);
+      });
+      then("exception.name is defined", () => {
+        expect(exception.name).toBeDefined();
+      });
+      and("exception.name is defined", () => {
+        then("exception.name is UnassignedException", () => {
+          expect(exception.name).toBe("UnassignedException");
+        });
+      });
+      then("exception.message is defined", () => {
+        expect(exception.message).toBeDefined();
+      });
+      and("exception.message is defined", () => {
+        then(
+          "exception.message is 'No value has been assigned to 'type': 'hint''",
+          () => {
+            expect(exception.message).toBe(
+              `No value has been assigned to ${type}: ${hint}`
             );
           }
         );
