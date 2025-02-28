@@ -5,6 +5,8 @@ export type IMetadata = {
   name: Name | null;
 };
 export class Metadata {
+  public static validate = () => {};
+
   public id: UUID | null = null;
   public name: Name | null = null;
 
