@@ -48,7 +48,7 @@ given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
     let data: IMetadata;
 
     beforeEach(() => {
-      data = { id: "123", name: "test" };
+      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
 
       metadata = new Metadata(data);
     });
@@ -72,6 +72,21 @@ given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
           expect(metadata.name).toBe(data.name);
         });
       });
+    });
+  });
+});
+
+given(`Metadata validate ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Metadata.validate");
+  });
+  then("Metadata.validate is defined", () => {
+    expect(Metadata.validate).toBeDefined();
+  });
+  and("Metadata.validate is defined", () => {
+    then("Metadata.validate is a function", () => {
+      expect(Metadata.validate).toBeInstanceOf(Function);
     });
   });
 });
