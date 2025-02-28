@@ -410,6 +410,34 @@ given(
       then(`Exceptions.immutablePropertyException is a function`, () => {
         expect(Exceptions.immutablePropertyException).toBeInstanceOf(Function);
       });
+      and(`Exceptions.immutablePropertyException is a function`, () => {
+        when("Exceptions.immutablePropertyException(errors) is called", () => {
+          let error: Error;
+          beforeEach(() => {
+            try {
+              Exceptions.immutablePropertyException("test");
+            } catch (e) {
+              error = e;
+            }
+          });
+          then("error is defined", () => {
+            expect(error).toBeDefined();
+          });
+          and("error is defined", () => {
+            then("error is an instance of ImmutablePropertyException", () => {
+              expect(error).toBeInstanceOf(ImmutablePropertyException);
+            });
+            and("error is an instance of ImmutablePropertyException", () => {
+              then("error.name is ImmutablePropertyException", () => {
+                expect(error.name).toBe("ImmutablePropertyException");
+              });
+              then("error.message is 'Property 'test' is immutable.'", () => {
+                expect(error.message).toBe("Property 'test' is immutable.");
+              });
+            });
+          });
+        });
+      });
     });
   }
 );
