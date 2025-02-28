@@ -5,22 +5,24 @@ export type IMetadata = {
   id: UUID | null;
   name: Name | null;
 };
-export class Metadata {
-  private static initialize = (metadata?: IMetadata) =>
-    Metadata.validate(metadata) ?? { id: null, name: null };
+export class Metadata<T extends IMetadata = IMetadata> {
+  private static initialize = <T extends IMetadata>(metadata?: T) =>
+    Metadata.validate<T>(metadata) ?? ({ id: null, name: null } as T);
 
-  public static validate = (metadata?: IMetadata) =>
+  public static validate = <T extends IMetadata>(metadata?: T): T | null =>
     metadata
-      ? Validate.rules(metadata, [
+      ? Validate.rules<T>(metadata, [
           ({ id }) => Validate.uuid(id),
           ({ name }) => Validate.name(name),
         ])
       : null;
 
+  public static create = () => {};
+
   public id: UUID | null = null;
   public name: Name | null = null;
 
-  constructor(metadata?: IMetadata) {
-    ({ id: this.id, name: this.name } = Metadata.initialize(metadata));
+  constructor(metadata?: T) {
+    Object.assign(this, Metadata.initialize<T>(metadata));
   }
 }
