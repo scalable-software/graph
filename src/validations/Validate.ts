@@ -26,6 +26,29 @@ export class Validate {
     exceptions.length ? Exceptions.validationException(exceptions) : details;
 
   /**
+   * Validate keys and throw if key is immutable
+   *
+   * @param keys - The keys to validate
+   * @param immutable - The immutable key to check
+   * @returns True if the key is immutable
+   * @throws {immutablePropertyException} If the key is immutable
+   *
+   * @example
+   * ```ts
+   * Validate.match(["id", "name"], "id");
+   * // => immutablePropertyException: "Property 'id' is immutable."
+   *
+   * Validate.match(["id", "name"], "type");
+   * // => false
+   * ```
+   *
+   */
+  public static match = <T>(keys: T[], immutable: string): boolean =>
+    keys.some((key) => key === immutable)
+      ? Exceptions.immutablePropertyException(immutable as string)
+      : false;
+
+  /**
    * Validate id and throw if not valid UUID
    *
    * @param id - The UUID to validate
@@ -73,6 +96,9 @@ export class Validate {
     !name || name.length < 3 || name.length > 100
       ? Exceptions.invalidArgumentException("name", "must be a valid name")
       : (name as Name);
+
+  public static property = (key: string | null): boolean =>
+    ["id", "name"].includes(key);
 
   /**
    * Validate details against a set of rules and throw ValidationException if any fail
