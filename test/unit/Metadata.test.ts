@@ -738,3 +738,40 @@ given(`Metadata name ${Type.SETTER} test`, () => {
     });
   });
 });
+
+given(`Metadata assigned ${Type.GETTER} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.GETTER);
+    setSpecProperty("spec", "assigned");
+  });
+  when("a metadata instance is created with data", () => {
+    let metadata: Metadata;
+    let data: IMetadata;
+    beforeEach(() => {
+      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
+      metadata = Metadata.create(data);
+    });
+    then("metadata.assigned is defined", () => {
+      expect(metadata.assigned).toBeDefined();
+    });
+    and("metadata.assigned is defined", () => {
+      then("metadata.assigned is true", () => {
+        expect(metadata.assigned).toBe(true);
+      });
+    });
+  });
+  when("a metadata instance is created without data", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata.assigned is defined", () => {
+      expect(metadata.assigned).toBeDefined();
+    });
+    and("metadata.assigned is defined", () => {
+      then("metadata.assigned is false", () => {
+        expect(metadata.assigned).toBe(false);
+      });
+    });
+  });
+});
