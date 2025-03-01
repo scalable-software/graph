@@ -1433,3 +1433,48 @@ given(`Metadata workflow test`, () => {
     });
   });
 });
+
+given(`Metadata workflow test`, () => {
+  when("a metadata instance is created without data", () => {
+    type T = { custom?: string; type?: string } & IMetadata;
+    let metadata;
+    let data: T;
+    let data_one: T;
+    let key: keyof (Metadata<T> & T);
+    let data_two: T;
+    beforeEach(() => {
+      data = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "test",
+      };
+      data_one = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "test",
+        custom: "custom",
+      };
+      key = "custom" as keyof (Metadata<T> & T);
+      data_two = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "test",
+        type: "type",
+      };
+      metadata = Metadata.create<T>()
+        .add(data)
+        .update(data_one)
+        .remove([key])
+        .update(data_two);
+    });
+    then("metadata.id is data.id", () => {
+      expect(metadata.id).toBe(data_two.id);
+    });
+    then("metadata.name is data.name", () => {
+      expect(metadata.name).toBe(data_two.name);
+    });
+    then("metadata.custom is undefined", () => {
+      expect(metadata.custom).toBeUndefined();
+    });
+    then("metadata.type is data.type", () => {
+      expect(metadata.type).toBe(data_two.type);
+    });
+  });
+});
