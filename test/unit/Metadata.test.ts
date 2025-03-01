@@ -1065,3 +1065,43 @@ given(`Metadata update ${Type.METHOD} test`, () => {
     });
   });
 });
+
+given(`Metadata toJSON ${Type.METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", "toJSON");
+  });
+  when("a metadata instance is created with data", () => {
+    type T = { custom: string } & IMetadata;
+    let metadata: Metadata<T> & T;
+    let data: T;
+    let json: any;
+    beforeEach(() => {
+      data = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "test",
+        custom: "custom",
+      };
+      metadata = Metadata.create(data);
+      json = metadata.toJSON();
+    });
+    then("metadata.toJSON() is defined", () => {
+      expect(metadata.toJSON).toBeDefined();
+    });
+    and("metadata.toJSON() is defined", () => {
+      then("metadata.toJSON() is a function", () => {
+        expect(metadata.toJSON).toBeInstanceOf(Function);
+      });
+      and("metadata.toJSON() is a function", () => {
+        then("metadata.toJSON() returns an object", () => {
+          expect(json).toBeInstanceOf(Object);
+        });
+        and("metadata.toJSON() returns an object", () => {
+          then("metadata.toJSON() returns data", () => {
+            expect(json).toEqual(data);
+          });
+        });
+      });
+    });
+  });
+});
