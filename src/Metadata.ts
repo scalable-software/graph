@@ -100,7 +100,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
   }
 
   /**
-   * Retrieve custom properties from the metadata instance.
+   * Retrieve required and custom properties from the metadata instance.
    */
   get properties(): { [key: string]: any } {
     return Utilities.select(this, [
@@ -208,6 +208,13 @@ export class Metadata<T extends IMetadata = IMetadata> {
 
     this.hydrate(metadata);
   };
+
+  public toJSON = (): T =>
+    ({
+      id: this._id,
+      name: this._name,
+      ...this.properties,
+    } as T);
 
   /**
    * Updates the metadata instance with new data.
