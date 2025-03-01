@@ -1,4 +1,8 @@
-import { Exception, Exceptions } from "../exceptions/Exceptions.js";
+import {
+  Exception,
+  Exceptions,
+  ImmutablePropertyException,
+} from "../exceptions/Exceptions.js";
 
 import type { UUID, Name } from "../Graph.types.js";
 
@@ -26,17 +30,43 @@ export class Validate {
     exceptions.length ? Exceptions.validationException(exceptions) : details;
 
   /**
+   * Validate keys and throw if any rules fail
+   *
+   * @param keys - The keys to validate
+   * @param rules - The rules to apply
+   * @returns The keys if all rules pass
+   * @throws {ValidationException} If any rule fails
+   *
+   * @example
+   * ```ts
+   * Validate.keys([""id", "name""], [
+   *  (keys) => Validate.match(keys, "id"),
+   * (keys) => Validate.match(keys, "name"),
+   * ]);
+   * // throws ValidationException: Validation failed with 2 error(s).
+   *
+   * Validate.keys(["custom"], [
+   *  (keys) => Validate.match(keys, "id"),
+   * (keys) => Validate.match(keys, "name"),
+   * ])
+   * // => ["custom"]
+   * ```
+   */
+  public static keys = <T>(keys: T, rules: ((details: T) => unknown)[]) =>
+    Validate.throwIfExceptions(Validate.applyRules(keys, rules), keys);
+
+  /**
    * Validate keys and throw if key is immutable
    *
    * @param keys - The keys to validate
    * @param immutable - The immutable key to check
    * @returns True if the key is immutable
-   * @throws {immutablePropertyException} If the key is immutable
+   * @throws {ImmutablePropertyException} If the key is immutable
    *
    * @example
    * ```ts
    * Validate.match(["id", "name"], "id");
-   * // => immutablePropertyException: "Property 'id' is immutable."
+   * // => ImmutablePropertyException: "Property 'id' is immutable."
    *
    * Validate.match(["id", "name"], "type");
    * // => false
