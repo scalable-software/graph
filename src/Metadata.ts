@@ -174,6 +174,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
       );
 
     this.hydrate(metadata);
+    return this;
   };
 
   /**
@@ -192,8 +193,9 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * // UnassignedException: metadata - Use metadata.add(metadata) instead.
    * ```
    */
-  public update = (metadata: T) => {
-    metadata = Metadata.normalize<T>(metadata);
+  public update = (metadata: Partial<T>) => {
+    metadata &&
+      Validate.rules<Partial<T>>(metadata, [({ id }) => Validate.uuid(id)]);
 
     !this.assigned &&
       Exceptions.unassignedException(
@@ -207,6 +209,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
       );
 
     this.hydrate(metadata);
+
+    return this;
   };
 
   /**
@@ -220,13 +224,16 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * metadata.remove(); // ✅ Clears all custom properties but keeps id & name
    * ```
    */
-  public remove = <K extends keyof (Metadata<T> & T)>(keys?: K[]) =>
+  public remove = <K extends keyof (Metadata<T> & T)>(keys?: K[]) => {
     !keys
       ? (this.reset(), this.hydrate(Metadata.normalize<T>()))
       : Validate.keys<K[]>(keys, [
           (key) => !Validate.match(key, "id"),
           (key) => !Validate.match(key, "name"),
         ]).forEach((key) => delete this[key as keyof this]);
+
+    return this;
+  };
 
   /**
    * Returns required and customer property values as a JSON object.
@@ -256,7 +263,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
    * ```
    */
-  private hydrate(metadata: T): void {
+  private hydrate(metadata: Partial<T>): void {
     const { id, name, ...properties } = metadata;
 
     this._id = id;
@@ -265,7 +272,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
     Object.assign(this, properties);
   }
 
-  private match = (metadata: T): boolean => this._id === metadata.id;
+  private match = (metadata: Partial<T>): boolean => this._id === metadata.id;
 
   private reset = () =>
     Object.keys(this.customProperties).forEach((key) => delete this[key]);
