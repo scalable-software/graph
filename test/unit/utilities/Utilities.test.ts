@@ -20,3 +20,20 @@ given(`Utilities ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
     });
   });
 });
+
+given(
+  `Utilities getProperties ${Type.METHOD} ${Spec.AVAILABILITY} test`,
+  () => {
+    beforeEach(() => {
+      setSpecProperty("type", Type.METHOD);
+      setSpecProperty("spec", Spec.AVAILABILITY);
+    });
+    and(`Utilities getProperties is called`, () => {
+      when(`getProperties is called`, () => {
+        then(`getProperties is defined`, () => {
+          expect(Utilities.getProperties).toBeDefined();
+        });
+      });
+    });
+  }
+);
