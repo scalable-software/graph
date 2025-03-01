@@ -66,7 +66,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * As a workaround to support proper types, we must use a static factory method
    */
   private constructor(metadata?: T) {
-    this.hydrate(metadata);
+    this.hydrate(Metadata.normalize<T>(metadata));
   }
 
   /**
@@ -142,11 +142,14 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * ```
    */
   public add = (metadata: T) => {
+    metadata = Metadata.normalize<T>(metadata);
+
     this.assigned &&
       Exceptions.assignedException(
         "metadata",
         "Use metadata.update(metadata) instead."
       );
+
     this.hydrate(metadata);
   };
 
@@ -167,6 +170,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * ```
    */
   public update = (metadata: T) => {
+    metadata = Metadata.normalize<T>(metadata);
+
     !this.assigned &&
       Exceptions.unassignedException(
         "metadata",
@@ -177,6 +182,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
         "identifier",
         "get metadata.id and verify match."
       );
+
     this.hydrate(metadata);
   };
 
@@ -192,7 +198,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * ```
    */
   private hydrate(metadata: T): void {
-    const { id, name, ...properties } = Metadata.normalize<T>(metadata);
+    const { id, name, ...properties } = metadata;
 
     this._id = id;
     this._name = name;
