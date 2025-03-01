@@ -1,24 +1,22 @@
 export class Utilities {
-  public static getProperties = <T>(instance: T) =>
+  public static select = <T>(
+    instance: T,
+    filters: ((entry: [string, unknown]) => boolean)[]
+  ): { [key: string]: any } =>
     Object.fromEntries(
-      Object.entries(instance).filter(
-        ([key, value]) =>
-          !Utilities.isMethod(value) &&
-          !Utilities.isGetterOrSetter(instance, key) &&
-          !Utilities.isConstructor(key)
+      Object.entries(instance).filter((property) =>
+        filters.every((filter) => filter(property))
       )
     );
 
-  private static isConstructor = (key: string): boolean =>
-    key === "constructor";
+  public static isConstructor = (key: string): boolean => key === "constructor";
 
   /** Checks if the key is a getter or setter */
-  private static isGetterOrSetter = (instance: any, key: string): boolean =>
+  public static isGetterOrSetter = (instance: any, key: string): boolean =>
     ((descriptor) =>
       descriptor?.get !== undefined || descriptor?.set !== undefined)(
       Object.getOwnPropertyDescriptor(instance, key)
     );
 
-  private static isMethod = (value: any): boolean =>
-    typeof value === "function";
+  public static isMethod = (value: any): boolean => typeof value === "function";
 }
