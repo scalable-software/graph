@@ -60,6 +60,12 @@ export class UnassignedException extends Exception {
   }
 }
 
+export class MissMatchException extends Exception {
+  constructor(type: string, hint: string) {
+    super(`${type} does not match: ${hint}`);
+  }
+}
+
 /**
  * Set of exceptions thrown via static methods.
  */
