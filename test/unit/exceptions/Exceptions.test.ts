@@ -14,6 +14,7 @@ import {
   ImmutablePropertyException,
   AssignedException,
   UnassignedException,
+  MissMatchException,
   Exceptions,
 } from "../../../src/exceptions/Exceptions.js";
 
@@ -378,6 +379,62 @@ given(`UnassignedException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
             expect(exception.message).toBe(
               `No value has been assigned to ${type}: ${hint}`
             );
+          }
+        );
+      });
+    });
+  });
+});
+
+given(`MissMatchException ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`MissMatchException is imported`, () => {
+    then(`MissMatchException is defined`, () => {
+      expect(MissMatchException).toBeDefined();
+    });
+  });
+});
+
+given(`MissMatchException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.INSTANTIATION);
+  });
+  when("a new MissMatchException is created ", () => {
+    let type: string;
+    let hint: string;
+    let exception: MissMatchException;
+    beforeEach(() => {
+      type = "id";
+      hint = "Ensure data.id and metadata.id match.";
+      exception = new MissMatchException(type, hint);
+    });
+    then("exception is defined", () => {
+      expect(exception).toBeDefined();
+    });
+    and("exception is defined", () => {
+      then("exception is an instance of MissMatchException", () => {
+        expect(exception).toBeInstanceOf(MissMatchException);
+      });
+      then("exception.name is defined", () => {
+        expect(exception.name).toBeDefined();
+      });
+      and("exception.name is defined", () => {
+        then("exception.name is MissMatchException", () => {
+          expect(exception.name).toBe("MissMatchException");
+        });
+      });
+      then("exception.message is defined", () => {
+        expect(exception.message).toBeDefined();
+      });
+      and("exception.message is defined", () => {
+        then(
+          "exception.message is 'No value has been assigned to 'type': 'hint''",
+          () => {
+            expect(exception.message).toBe(`${type} does not match: ${hint}`);
           }
         );
       });
