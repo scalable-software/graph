@@ -69,13 +69,29 @@ export class Metadata<T extends IMetadata = IMetadata> {
     this.hydrate(metadata);
   }
 
+  /**
+   * Determines if the metadata instance has data assigned.
+   * @returns True if the id and name properties are not null.
+   *
+   * @example
+   * ```ts
+   * const metadata = Metadata.create();
+   * metadata.assigned;
+   * // => false
+   *
+   * const data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" };
+   * const metadata = Metadata.create(data);
+   * metadata.assigned;
+   * // => true
+   * ```
+   */
+  get assigned(): boolean {
+    return this._id !== null && this._name !== null;
+  }
+
   get id(): UUID | null {
     return this._id;
   }
-
-  /**
-   * The id property is immutable and cannot be set directly.
-   */
   set id(id: UUID | null) {
     Exceptions.immutablePropertyException("id");
   }
@@ -83,7 +99,6 @@ export class Metadata<T extends IMetadata = IMetadata> {
   get name(): Name | null {
     return this._name;
   }
-
   set name(name: Name | null) {
     this._name = Validate.name(name);
   }
