@@ -73,10 +73,9 @@ export class Validate {
    * ```
    *
    */
-  public static match = <T>(keys: T[], immutable: string): boolean =>
-    keys.some((key) => key === immutable)
-      ? Exceptions.immutablePropertyException(immutable as string)
-      : false;
+  public static match = <T>(keys: T[], immutable: string): unknown =>
+    keys.some((key) => key === immutable) &&
+    Exceptions.immutablePropertyException(immutable as string);
 
   /**
    * Validate id and throw if not valid UUID
@@ -126,9 +125,6 @@ export class Validate {
     !name || name.length < 3 || name.length > 100
       ? Exceptions.invalidArgumentException("name", "must be a valid name")
       : (name as Name);
-
-  public static property = (key: string | null): boolean =>
-    ["id", "name"].includes(key);
 
   /**
    * Validate details against a set of rules and throw ValidationException if any fail
