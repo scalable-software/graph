@@ -782,7 +782,8 @@ given(`Metadata add ${Type.METHOD} test`, () => {
     setSpecProperty("spec", "add");
   });
   when("a metadata instance is created", () => {
-    let metadata: Metadata;
+    type T = { custom: string } & IMetadata;
+    let metadata: Metadata<T> & T;
     beforeEach(() => {
       metadata = Metadata.create();
     });
@@ -792,6 +793,26 @@ given(`Metadata add ${Type.METHOD} test`, () => {
     and("metadata.add is defined", () => {
       then("metadata.add is a function", () => {
         expect(metadata.add).toBeInstanceOf(Function);
+      });
+    });
+    when("metadata.add(data) is called with valid data", () => {
+      let data: T;
+      beforeEach(() => {
+        data = {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "test",
+          custom: "custom",
+        };
+        metadata.add(data);
+      });
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
+      });
+      then("metadata.name is data.name", () => {
+        expect(metadata.name).toBe(data.name);
+      });
+      then("metadata.custom is data.custom", () => {
+        expect(metadata.custom).toBe(data.custom);
       });
     });
   });
