@@ -10,6 +10,15 @@ export class Metadata<T extends IMetadata = IMetadata> {
   private static normalize = <T extends IMetadata>(metadata?: T) =>
     Metadata.validate<T>(metadata) ?? ({ id: null, name: null } as T);
 
+  private static ensureId = <T extends IMetadata>(
+    metadata: T | Omit<T, "id">,
+    generator: () => UUID = () => crypto.randomUUID()
+  ): T =>
+    ({
+      ...metadata,
+      id: "id" in metadata && metadata.id != null ? metadata.id : generator(),
+    } as T);
+
   /**
    * Validates the metadata object, if provided, to ensure required fields are present and valid.
    *
@@ -142,6 +151,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * ```
    */
   public add = (metadata: T) => {
+    metadata = Metadata.ensureId<T>(metadata);
     metadata = Metadata.normalize<T>(metadata);
 
     this.assigned &&
