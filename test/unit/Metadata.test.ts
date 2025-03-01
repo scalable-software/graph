@@ -775,3 +775,24 @@ given(`Metadata assigned ${Type.GETTER} test`, () => {
     });
   });
 });
+
+given(`Metadata add ${Type.METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", "add");
+  });
+  when("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata.add is defined", () => {
+      expect(metadata.add).toBeDefined();
+    });
+    and("metadata.add is defined", () => {
+      then("metadata.add is a function", () => {
+        expect(metadata.add).toBeInstanceOf(Function);
+      });
+    });
+  });
+});
