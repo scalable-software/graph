@@ -891,6 +891,28 @@ given(`Metadata update ${Type.METHOD} test`, () => {
       then("metadata.update is a function", () => {
         expect(metadata.update).toBeInstanceOf(Function);
       });
+      and("metadata.update is a function", () => {
+        when("metadata.update(data) is called with valid data", () => {
+          let data: T;
+          beforeEach(() => {
+            data = {
+              id: "123e4567-e89b-12d3-a456-426614174000",
+              name: "test",
+              custom: "custom",
+            };
+            metadata.update(data);
+          });
+          then("metadata.id is data.id", () => {
+            expect(metadata.id).toBe(data.id);
+          });
+          then("metadata.name is data.name", () => {
+            expect(metadata.name).toBe(data.name);
+          });
+          then("metadata.custom is data.custom", () => {
+            expect(metadata.custom).toBe(data.custom);
+          });
+        });
+      });
     });
   });
 });
