@@ -554,3 +554,110 @@ given(`Validate rules ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Validate keys ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.keys");
+  });
+  then(`Validate.keys is defined`, () => {
+    expect(Validate.keys).toBeDefined();
+  });
+  and(`Validate.keys is defined`, () => {
+    then(`Validate.keys is a function`, () => {
+      expect(Validate.keys).toBeInstanceOf(Function);
+    });
+    and(`Validate.keys is a function`, () => {
+      when(`Validate.keys(keys, rules) is called with valid keys`, () => {
+        let keys: string[];
+        let rules: ((details: string[]) => unknown)[];
+        let result: string[];
+        beforeEach(() => {
+          keys = ["custom"];
+          rules = [
+            (keys) => Validate.match(keys, "id"),
+            (keys) => Validate.match(keys, "name"),
+          ];
+          result = Validate.keys(keys, rules);
+        });
+        then(`Validate.keys returns the keys`, () => {
+          expect(result).toBe(keys);
+        });
+      });
+      when(`Validate.keys(keys, rules) is called with invalid keys`, () => {
+        let keys: string[];
+        let rules: ((details: string[]) => unknown)[];
+        let error: ValidationException;
+        beforeEach(() => {
+          keys = ["id", "name"];
+          rules = [
+            (keys) => Validate.match(keys, "id"),
+            (keys) => Validate.match(keys, "name"),
+          ];
+          try {
+            Validate.keys(keys, rules);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(ValidationException);
+          });
+          and(`error is an instance of ValidationException`, () => {
+            then(`error.errors.length is 2`, () => {
+              expect(error.errors.length).toBe(2);
+            });
+            and(`error.errors.length is 2`, () => {
+              then(
+                `error.errors[0] is an instance of ImmutablePropertyException`,
+                () => {
+                  expect(error.errors[0]).toBeInstanceOf(
+                    ImmutablePropertyException
+                  );
+                }
+              );
+              and(
+                `error.errors[0] is an instance of ImmutablePropertyException`,
+                () => {
+                  then(
+                    `error.errors[0].message is "Property 'id' is immutable."`,
+                    () => {
+                      expect(error.errors[0].message).toBe(
+                        "Property 'id' is immutable."
+                      );
+                    }
+                  );
+                }
+              );
+              then(
+                `error.errors[1] is an instance of ImmutablePropertyException`,
+                () => {
+                  expect(error.errors[1]).toBeInstanceOf(
+                    ImmutablePropertyException
+                  );
+                }
+              );
+              and(
+                `error.errors[1] is an instance of ImmutablePropertyException`,
+                () => {
+                  then(
+                    `error.errors[1].message is "Property 'name' is immutable."`,
+                    () => {
+                      expect(error.errors[1].message).toBe(
+                        "Property 'name' is immutable."
+                      );
+                    }
+                  );
+                }
+              );
+            });
+          });
+        });
+      });
+    });
+  });
+});
