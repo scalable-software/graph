@@ -150,7 +150,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
     this.hydrate(metadata);
   };
 
-  public update = () => {};
+  public update = (metadata: T) => this.hydrate(metadata);
 
   /**
    * Updates the metadata instance with new data.
