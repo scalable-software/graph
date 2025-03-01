@@ -1,3 +1,5 @@
 import type { UUID, Name } from "../Graph.types.js";
 
-export class Utilities {}
+export class Utilities {
+  public static getProperties = () => {};
+}
