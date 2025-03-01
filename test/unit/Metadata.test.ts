@@ -1090,6 +1090,36 @@ given(`Metadata remove ${Type.METHOD} test`, () => {
       then("metadata.remove is a function", () => {
         expect(metadata.remove).toBeInstanceOf(Function);
       });
+      when("metadata.remove() is called", () => {
+        beforeEach(() => {
+          metadata.remove();
+        });
+        then("metadata.id is null", () => {
+          expect(metadata.id).toBeNull();
+        });
+        then("metadata.name is null", () => {
+          expect(metadata.name).toBeNull();
+        });
+        then("metadata.custom is undefined", () => {
+          expect(metadata.custom).toBeUndefined();
+        });
+      });
+      when("metadata.remove('custom') is called", () => {
+        let key: keyof Metadata<T> & T;
+        beforeEach(() => {
+          key = "custom" as keyof Metadata<T> & T;
+          metadata.remove([key]);
+        });
+        then("metadata.id is data.id", () => {
+          expect(metadata.id).toBe(data.id);
+        });
+        then("metadata.name is data.name", () => {
+          expect(metadata.name).toBe(data.name);
+        });
+        then("metadata.custom is undefined", () => {
+          expect(metadata.custom).toBeUndefined();
+        });
+      });
     });
   });
 });
