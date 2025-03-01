@@ -129,7 +129,14 @@ export class Metadata<T extends IMetadata = IMetadata> {
     this._name = Validate.name(name);
   }
 
-  public add = (metadata: T) => this.hydrate(metadata);
+  public add = (metadata: T) => {
+    this.assigned &&
+      Exceptions.assignedException(
+        "metadata",
+        "Use metadata.update(metadata) instead."
+      );
+    this.hydrate(metadata);
+  };
 
   /**
    * Updates the metadata instance with new data.
