@@ -194,8 +194,9 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * // UnassignedException: metadata - Use metadata.add(metadata) instead.
    * ```
    */
-  public update = (metadata: T) => {
-    metadata = Metadata.normalize<T>(metadata);
+  public update = (metadata: Partial<T>) => {
+    metadata &&
+      Validate.rules<Partial<T>>(metadata, [({ id }) => Validate.uuid(id)]);
 
     !this.assigned &&
       Exceptions.unassignedException(
