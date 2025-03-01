@@ -972,6 +972,49 @@ given(`Metadata update ${Type.METHOD} test`, () => {
             expect(metadata.custom).toBe(data.custom);
           });
         });
+        when(
+          "metadata.update(data) is called with data with different identifier",
+          () => {
+            let data: T;
+            let error: Exception.MissMatchException;
+            beforeEach(() => {
+              data = {
+                id: "123e4567-e89b-12d3-a456-426614174111",
+                name: "test",
+                custom: "custom",
+              };
+              try {
+                metadata.update(data);
+              } catch (e) {
+                error = e;
+              }
+            });
+            then("error is defined", () => {
+              expect(error).toBeDefined();
+            });
+            and("error is defined", () => {
+              then(
+                "error is an instance of Exception.MissMatchException",
+                () => {
+                  expect(error).toBeInstanceOf(Exception.MissMatchException);
+                }
+              );
+              and(
+                "error is an instance of Exception.MissMatchException",
+                () => {
+                  then(
+                    "error.message is 'Metadata identifier does not match: Use metadata.add(metadata) instead.'",
+                    () => {
+                      expect(error.message).toBe(
+                        "identifier does not match: get metadata.id and verify match."
+                      );
+                    }
+                  );
+                }
+              );
+            });
+          }
+        );
       });
     });
   });
