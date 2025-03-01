@@ -209,6 +209,16 @@ export class Metadata<T extends IMetadata = IMetadata> {
     this.hydrate(metadata);
   };
 
+  /**
+   * Returns required and customer property values as a JSON object.
+   *
+   * @example
+   * ```ts
+   * const metadata = Metadata.create({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test", custom: "value" });
+   * metadata.toJSON()
+   * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test", custom: "value" }
+   * ```
+   */
   public toJSON = (): T =>
     ({
       id: this._id,
