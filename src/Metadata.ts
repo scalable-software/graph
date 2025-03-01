@@ -129,6 +129,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
     this._name = Validate.name(name);
   }
 
+  public add = () => {};
+
   /**
    * Updates the metadata instance with new data.
    * @param metadata The new metadata object to update.
