@@ -776,6 +776,39 @@ given(`Metadata assigned ${Type.GETTER} test`, () => {
   });
 });
 
+given(`Metadata properties ${Type.GETTER} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.GETTER);
+    setSpecProperty("spec", "properties");
+  });
+  when("a metadata instance is created with data", () => {
+    type T = { custom: string } & IMetadata;
+    let metadata: Metadata<T> & T;
+    let data: T;
+    beforeEach(() => {
+      data = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "test",
+        custom: "custom",
+      };
+      metadata = Metadata.create(data);
+    });
+    then("metadata.properties is defined", () => {
+      expect(metadata.properties).toBeDefined();
+    });
+    and("metadata.properties is defined", () => {
+      then("metadata.properties is an object", () => {
+        expect(metadata.properties).toBeInstanceOf(Object);
+      });
+      and("metadata.properties is an object", () => {
+        then("metadata.properties has custom properties", () => {
+          expect(metadata.properties).toEqual({ custom: "custom" });
+        });
+      });
+    });
+  });
+});
+
 given(`Metadata add ${Type.METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
