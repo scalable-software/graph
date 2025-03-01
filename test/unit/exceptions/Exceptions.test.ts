@@ -712,3 +712,49 @@ given(`Exceptions unassignedException ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Exceptions missMatchException ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Exceptions.missMatchException");
+  });
+  then(`Exceptions.missMatchException is defined`, () => {
+    expect(Exceptions.missMatchException).toBeDefined();
+  });
+  and(`Exceptions.missMatchException is defined`, () => {
+    then(`Exceptions.missMatchException is a function`, () => {
+      expect(Exceptions.missMatchException).toBeInstanceOf(Function);
+    });
+    and(`Exceptions.missMatchException is a function`, () => {
+      when("Exceptions.missMatchException(type, hint) is called", () => {
+        let error: Error;
+        beforeEach(() => {
+          try {
+            Exceptions.missMatchException("test", "reason");
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of MissMatchException", () => {
+            expect(error).toBeInstanceOf(MissMatchException);
+          });
+          and("error is an instance of MissMatchException", () => {
+            then("error.name is MissMatchException", () => {
+              expect(error.name).toBe("MissMatchException");
+            });
+            then(
+              "error.message is 'No value has been assigned to test: reason'",
+              () => {
+                expect(error.message).toBe("test does not match: reason");
+              }
+            );
+          });
+        });
+      });
+    });
+  });
+});
