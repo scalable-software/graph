@@ -220,12 +220,13 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * metadata.remove(); // ✅ Clears all custom properties but keeps id & name
    * ```
    */
-  public remove = (keys?: (keyof (Metadata<T> & T))[]) =>
+  public remove = <K extends keyof (Metadata<T> & T)>(keys?: K[]) =>
     !keys
       ? (this.reset(), this.hydrate(Metadata.normalize<T>()))
-      : keys
-          .filter((key) => !["id", "name"].includes(key as string))
-          .forEach((key) => delete this[key as keyof this]);
+      : Validate.keys<K[]>(keys, [
+          (key) => !Validate.match(key, "id"),
+          (key) => !Validate.match(key, "name"),
+        ]).forEach((key) => delete this[key as keyof this]);
 
   /**
    * Returns required and customer property values as a JSON object.
