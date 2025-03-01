@@ -172,6 +172,11 @@ export class Metadata<T extends IMetadata = IMetadata> {
         "metadata",
         "Use metadata.add(metadata) instead."
       );
+    !this.match(metadata) &&
+      Exceptions.missMatchException(
+        "identifier",
+        "get metadata.id and verify match."
+      );
     this.hydrate(metadata);
   };
 
@@ -194,4 +199,6 @@ export class Metadata<T extends IMetadata = IMetadata> {
 
     Object.assign(this, properties);
   }
+
+  private match = (metadata: T): boolean => this._id === metadata.id;
 }
