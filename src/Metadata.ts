@@ -209,6 +209,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
     this.hydrate(metadata);
   };
 
+  public remove = () => {};
+
   /**
    * Returns required and customer property values as a JSON object.
    *
