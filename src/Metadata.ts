@@ -209,7 +209,23 @@ export class Metadata<T extends IMetadata = IMetadata> {
     this.hydrate(metadata);
   };
 
-  public remove = () => {};
+  /**
+   * Removes metadata properties.
+   * - If `keys` are provided, removes only those keys.
+   * - If no `keys` are provided, resets all properties.
+   *
+   * @example
+   * ```ts
+   * metadata.remove(["customKey"]); // ✅ Removes only "customKey"
+   * metadata.remove(); // ✅ Clears all custom properties but keeps id & name
+   * ```
+   */
+  public remove = (keys?: (keyof (Metadata<T> & T))[]) =>
+    !keys
+      ? (this.reset(), this.hydrate(Metadata.normalize<T>()))
+      : keys
+          .filter((key) => !["id", "name"].includes(key as string))
+          .forEach((key) => delete this[key as keyof this]);
 
   /**
    * Returns required and customer property values as a JSON object.
@@ -249,4 +265,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
   }
 
   private match = (metadata: T): boolean => this._id === metadata.id;
+
+  private reset = () =>
+    Object.keys(this.customProperties).forEach((key) => delete this[key]);
 }
