@@ -89,6 +89,19 @@ export class Metadata<T extends IMetadata = IMetadata> {
     return this._id !== null && this._name !== null;
   }
 
+  /**
+   * The `id` property is immutable:
+   * `get` returns value
+   * `set` throw exception
+   * @throws {ImmutablePropertyException} The id property is immutable.
+   *
+   * @example
+   * ```ts
+   * const metadata = Metadata.create();
+   * metadata.id = "123e4567-e89b-12d3-a456-426614174000";
+   * // => ImmutablePropertyException: id
+   * ```
+   */
   get id(): UUID | null {
     return this._id;
   }
@@ -96,6 +109,19 @@ export class Metadata<T extends IMetadata = IMetadata> {
     Exceptions.immutablePropertyException("id");
   }
 
+  /**
+   * The `name` property is mutable but gets validated:
+   * `get` returns value
+   * `set` validates and updates value
+   *
+   * @example
+   * ```ts
+   * const metadata = Metadata.create();
+   * metadata.name = "Test";
+   * metadata.name;
+   * // => "Test"
+   * ```
+   */
   get name(): Name | null {
     return this._name;
   }
@@ -103,10 +129,23 @@ export class Metadata<T extends IMetadata = IMetadata> {
     this._name = Validate.name(name);
   }
 
+  /**
+   * Updates the metadata instance with new data.
+   * @param metadata The new metadata object to update.
+   *
+   * @example
+   * ```ts
+   * const metadata = Metadata.create();
+   * metadata.update({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
+   * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
+   * ```
+   */
   private hydrate(metadata: T): void {
     const { id, name, ...properties } = Metadata.normalize<T>(metadata);
+
     this._id = id;
     this._name = name;
+
     Object.assign(this, properties);
   }
 }
