@@ -894,6 +894,66 @@ given(`Metadata update ${Type.METHOD} test`, () => {
       and("metadata.update is a function", () => {
         when("metadata.update(data) is called with valid data", () => {
           let data: T;
+          let error: Exception.UnassignedException;
+          beforeEach(() => {
+            data = {
+              id: "123e4567-e89b-12d3-a456-426614174000",
+              name: "test",
+              custom: "custom",
+            };
+            try {
+              metadata.update(data);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then("error is defined", () => {
+            expect(error).toBeDefined();
+          });
+          and("error is defined", () => {
+            then(
+              "error is an instance of Exception.UnassignedException",
+              () => {
+                expect(error).toBeInstanceOf(Exception.UnassignedException);
+              }
+            );
+            and("error is an instance of Exception.UnassignedException", () => {
+              then(
+                "error.message is 'No value has been assigned to metadata: Use metadata.add(metadata) instead.'",
+                () => {
+                  expect(error.message).toBe(
+                    "No value has been assigned to metadata: Use metadata.add(metadata) instead."
+                  );
+                }
+              );
+            });
+          });
+        });
+      });
+    });
+  });
+  when("a metadata instance is created with data", () => {
+    type T = { custom: string } & IMetadata;
+    let metadata: Metadata<T> & T;
+    let data: T;
+    beforeEach(() => {
+      data = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "test",
+        custom: "custom",
+      };
+      metadata = Metadata.create(data);
+    });
+    then("metadata.update is defined", () => {
+      expect(metadata.update).toBeDefined();
+    });
+    and("metadata.update is defined", () => {
+      then("metadata.update is a function", () => {
+        expect(metadata.update).toBeInstanceOf(Function);
+      });
+      and("metadata.update is a function", () => {
+        when("metadata.update(data) is called with valid data", () => {
+          let data: T;
           beforeEach(() => {
             data = {
               id: "123e4567-e89b-12d3-a456-426614174000",
