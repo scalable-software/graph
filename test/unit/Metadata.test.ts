@@ -815,6 +815,19 @@ given(`Metadata add ${Type.METHOD} test`, () => {
         expect(metadata.custom).toBe(data.custom);
       });
     });
+    when("metadata.add(data) is called with no id", () => {
+      let data: Omit<T, "id">;
+      beforeEach(() => {
+        data = {
+          name: "test",
+          custom: "custom",
+        };
+        metadata.add(data as T);
+      });
+      then("metadata.id is defined", () => {
+        expect(metadata.id).toBeDefined();
+      });
+    });
   });
   when("a metadata instance is created with data", () => {
     type T = { custom: string } & IMetadata;
