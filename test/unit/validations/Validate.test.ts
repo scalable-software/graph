@@ -9,6 +9,7 @@ const then = (description, spec) => it(`then ${description}`, spec);
 
 import { Validate } from "../../../src/validations/Validate.js";
 import {
+  ImmutablePropertyException,
   InvalidArgumentException,
   ValidationException,
 } from "../../../src/exceptions/Exceptions.js";
@@ -244,6 +245,72 @@ given(`Validate name ${Type.STATIC_METHOD} test`, () => {
           });
         });
       });
+    });
+  });
+});
+
+given(`Validate match ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.match");
+  });
+  then(`Validate.match is defined`, () => {
+    expect(Validate.match).toBeDefined();
+  });
+  and(`Validate.match is defined`, () => {
+    then(`Validate.match is a function`, () => {
+      expect(Validate.match).toBeInstanceOf(Function);
+    });
+    and(`Validate.match is a function`, () => {
+      when(
+        `Validate.match(keys, immutable) is called with a matching key`,
+        () => {
+          let keys: string[];
+          let immutable: string;
+          let error: Error;
+          beforeEach(() => {
+            keys = ["id", "name"];
+            immutable = "id";
+            try {
+              Validate.match(keys, immutable);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(`error is an instance of ImmutablePropertyException`, () => {
+              expect(error).toBeInstanceOf(ImmutablePropertyException);
+            });
+            and(`error is an instance of ImmutablePropertyException`, () => {
+              then(`error is an instance of ImmutablePropertyException`, () => {
+                expect(error).toBeInstanceOf(ImmutablePropertyException);
+              });
+              then(`error.message is "The id property is immutable."`, () => {
+                expect(error.message).toBe("Property 'id' is immutable.");
+              });
+            });
+          });
+        }
+      );
+      when(
+        `Validate.match(keys, immutable) is called with a non-matching key`,
+        () => {
+          let keys: string[];
+          let immutable: string;
+          let result: boolean;
+          beforeEach(() => {
+            keys = ["id", "name"];
+            immutable = "type";
+            result = Validate.match(keys, immutable);
+          });
+          then(`Validate.match returns false`, () => {
+            expect(result).toBe(false);
+          });
+        }
+      );
     });
   });
 });
