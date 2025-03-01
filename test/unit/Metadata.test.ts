@@ -1066,6 +1066,34 @@ given(`Metadata update ${Type.METHOD} test`, () => {
   });
 });
 
+given(`Metadata remove ${Type.METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", "remove");
+  });
+  when("a metadata instance is created with data", () => {
+    type T = { custom: string } & IMetadata;
+    let metadata: Metadata<T> & T;
+    let data: T;
+    beforeEach(() => {
+      data = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "test",
+        custom: "custom",
+      };
+      metadata = Metadata.create(data);
+    });
+    then("metadata.remove is defined", () => {
+      expect(metadata.remove).toBeDefined();
+    });
+    and("metadata.remove is defined", () => {
+      then("metadata.remove is a function", () => {
+        expect(metadata.remove).toBeInstanceOf(Function);
+      });
+    });
+  });
+});
+
 given(`Metadata toJSON ${Type.METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
