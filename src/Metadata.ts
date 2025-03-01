@@ -150,6 +150,22 @@ export class Metadata<T extends IMetadata = IMetadata> {
     this.hydrate(metadata);
   };
 
+  /**
+   * Updates the metadata instance with new data.
+   * @param metadata The new metadata object to update.
+   * @throws {UnassignedException} No value has been assigned to metadata.
+   *
+   * @example
+   * ```ts
+   * const metadata = Metadata.create({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
+   * metadata.update({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
+   * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
+   *
+   * const metadata = Metadata.create();
+   * metadata.update({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
+   * // UnassignedException: metadata - Use metadata.add(metadata) instead.
+   * ```
+   */
   public update = (metadata: T) => {
     !this.assigned &&
       Exceptions.unassignedException(
