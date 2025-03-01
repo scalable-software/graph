@@ -1328,3 +1328,107 @@ given(`Metadata toJSON ${Type.METHOD} test`, () => {
     });
   });
 });
+
+given(`Metadata workflow test`, () => {
+  when("a metadata instance is created without data", () => {
+    type T = { custom?: string; type?: string } & IMetadata;
+    let metadata: Metadata<T> & T;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata is defined", () => {
+      expect(metadata).toBeDefined();
+    });
+    and("metadata is defined", () => {
+      then("metadata.id is null", () => {
+        expect(metadata.id).toBeNull();
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+      then("metadata.custom is undefined", () => {
+        expect(metadata.custom).toBeUndefined();
+      });
+    });
+    and("metadata.add(data) is called with valid data", () => {
+      let data: T;
+      beforeEach(() => {
+        data = {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "test",
+        };
+        metadata.add(data);
+      });
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
+      });
+      then("metadata.name is data.name", () => {
+        expect(metadata.name).toBe(data.name);
+      });
+      then("metadata.custom is undefined", () => {
+        expect(metadata.custom).toBeUndefined();
+      });
+      then("metadata.type is undefined", () => {
+        expect(metadata.type).toBeUndefined();
+      });
+      and("metadata.update(data) is called with custom data", () => {
+        let data: T;
+        beforeEach(() => {
+          data = {
+            id: "123e4567-e89b-12d3-a456-426614174000",
+            name: "test",
+            custom: "custom",
+          };
+          metadata.update(data);
+        });
+        then("metadata.id is data.id", () => {
+          expect(metadata.id).toBe(data.id);
+        });
+        then("metadata.name is data.name", () => {
+          expect(metadata.name).toBe(data.name);
+        });
+        then("metadata.custom is data.custom", () => {
+          expect(metadata.custom).toBe(data.custom);
+        });
+        and("metadata.remove(keys) is called", () => {
+          let key: keyof (Metadata<T> & T);
+          beforeEach(() => {
+            key = "custom" as keyof (Metadata<T> & T);
+            metadata.remove([key]);
+          });
+          then("metadata.id is data.id", () => {
+            expect(metadata.id).toBe(data.id);
+          });
+          then("metadata.name is data.name", () => {
+            expect(metadata.name).toBe(data.name);
+          });
+          then("metadata.custom is undefined", () => {
+            expect(metadata.custom).toBeUndefined();
+          });
+          and("metadata.update(data) is called with type data", () => {
+            let data: Partial<T>;
+            beforeEach(() => {
+              data = {
+                id: "123e4567-e89b-12d3-a456-426614174000",
+                type: "type",
+              };
+              metadata.update(data);
+            });
+            then("metadata.id is data.id", () => {
+              expect(metadata.id).toBe(data.id);
+            });
+            then("metadata.name is data.name", () => {
+              expect(metadata.name).toBe(data.name);
+            });
+            then("metadata.custom is undefined", () => {
+              expect(metadata.custom).toBeUndefined();
+            });
+            then("metadata.type is data.type", () => {
+              expect(metadata.type).toBe(data.type);
+            });
+          });
+        });
+      });
+    });
+  });
+});
