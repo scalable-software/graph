@@ -92,4 +92,8 @@ export class Exceptions {
   public static unassignedException = (type: string, hint: string) => {
     throw new UnassignedException(type, hint);
   };
+
+  public static missMatchException = (type: string, hint: string) => {
+    throw new MissMatchException(type, hint);
+  };
 }
