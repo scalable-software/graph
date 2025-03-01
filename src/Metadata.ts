@@ -1,5 +1,6 @@
 import { Validate } from "./validations/Validate.js";
 import { Exceptions } from "./exceptions/Exceptions.js";
+import { Utilities } from "./utilities/Utilities.js";
 import type { UUID, Name } from "./Graph.types.js";
 
 export type IMetadata = {
@@ -96,6 +97,18 @@ export class Metadata<T extends IMetadata = IMetadata> {
    */
   get assigned(): boolean {
     return this._id !== null && this._name !== null;
+  }
+
+  /**
+   * Retrieve custom properties from the metadata instance.
+   */
+  get properties(): { [key: string]: any } {
+    return Utilities.select(this, [
+      ([key, value]) => !Utilities.isMethod(value),
+      ([key]) => !Utilities.isConstructor(key),
+      ([key]) => !Utilities.isGetterOrSetter(this, key),
+      ([key]) => !["_id", "_name"].includes(key),
+    ]);
   }
 
   /**
