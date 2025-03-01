@@ -816,4 +816,59 @@ given(`Metadata add ${Type.METHOD} test`, () => {
       });
     });
   });
+  when("a metadata instance is created with data", () => {
+    type T = { custom: string } & IMetadata;
+    let metadata: Metadata<T> & T;
+    let data: T;
+    beforeEach(() => {
+      data = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "test",
+        custom: "custom",
+      };
+      metadata = Metadata.create(data);
+    });
+    then("metadata.add is defined", () => {
+      expect(metadata.add).toBeDefined();
+    });
+    and("metadata.add is defined", () => {
+      then("metadata.add is a function", () => {
+        expect(metadata.add).toBeInstanceOf(Function);
+      });
+    });
+    when("metadata.add(data) is called with valid data", () => {
+      let data: T;
+      let error: Exception.AssignedException;
+      beforeEach(() => {
+        data = {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "test",
+          custom: "custom",
+        };
+        try {
+          metadata.add(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of Exception.AssignedException", () => {
+          expect(error).toBeInstanceOf(Exception.AssignedException);
+        });
+        and("error is an instance of Exception.AssignedException", () => {
+          then(
+            "error.message is 'A value has already been assigned to Metadata: id'",
+            () => {
+              expect(error.message).toBe(
+                "A value has already been assigned to metadata: Use metadata.update(metadata) instead."
+              );
+            }
+          );
+        });
+      });
+    });
+  });
 });
