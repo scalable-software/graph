@@ -776,7 +776,7 @@ given(`Metadata assigned ${Type.GETTER} test`, () => {
   });
 });
 
-given(`Metadata properties ${Type.GETTER} test`, () => {
+given(`Metadata customProperties ${Type.GETTER} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.GETTER);
     setSpecProperty("spec", "properties");
@@ -793,16 +793,16 @@ given(`Metadata properties ${Type.GETTER} test`, () => {
       };
       metadata = Metadata.create(data);
     });
-    then("metadata.properties is defined", () => {
-      expect(metadata.properties).toBeDefined();
+    then("metadata.customProperties is defined", () => {
+      expect(metadata.customProperties).toBeDefined();
     });
-    and("metadata.properties is defined", () => {
-      then("metadata.properties is an object", () => {
-        expect(metadata.properties).toBeInstanceOf(Object);
+    and("metadata.customProperties is defined", () => {
+      then("metadata.customProperties is an object", () => {
+        expect(metadata.customProperties).toBeInstanceOf(Object);
       });
-      and("metadata.properties is an object", () => {
-        then("metadata.properties has custom properties", () => {
-          expect(metadata.properties).toEqual({ custom: "custom" });
+      and("metadata.customProperties is an object", () => {
+        then("metadata.customProperties has custom properties", () => {
+          expect(metadata.customProperties).toEqual({ custom: "custom" });
         });
       });
     });

@@ -102,7 +102,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
   /**
    * Retrieve required and custom properties from the metadata instance.
    */
-  get properties(): { [key: string]: any } {
+  get customProperties(): { [key: string]: any } {
     return Utilities.select(this, [
       ([key, value]) => !Utilities.isMethod(value),
       ([key]) => !Utilities.isConstructor(key),
@@ -223,7 +223,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
     ({
       id: this._id,
       name: this._name,
-      ...this.properties,
+      ...this.customProperties,
     } as T);
 
   /**
