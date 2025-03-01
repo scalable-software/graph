@@ -24,187 +24,6 @@ given(`Metadata ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Spec.INSTANTIATION);
-  });
-  when("a metadata instance is created using Metadata.create()", () => {
-    let metadata: Metadata;
-    beforeEach(() => {
-      metadata = Metadata.create();
-    });
-    then("metadata is defined", () => {
-      expect(metadata).toBeDefined();
-    });
-    and("metadata is defined", () => {
-      then("metadata is an instance of Metadata", () => {
-        expect(metadata).toBeInstanceOf(Metadata);
-      });
-    });
-  });
-  when("a metadata instance is created using Metadata.create(data)", () => {
-    let metadata: Metadata;
-    let data: IMetadata;
-
-    beforeEach(() => {
-      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
-
-      metadata = Metadata.create(data);
-    });
-    then("metadata is defined", () => {
-      expect(metadata).toBeDefined();
-    });
-    and("metadata is defined", () => {
-      then("metadata.id is defined", () => {
-        expect(metadata.id).toBeDefined();
-      });
-      and("metadata.id is defined", () => {
-        then("metadata.id is data.id", () => {
-          expect(metadata.id).toBe(data.id);
-        });
-      });
-      then("metadata.name is defined", () => {
-        expect(metadata.name).toBeDefined();
-      });
-      and("metadata.name is defined", () => {
-        then("metadata.name is data.name", () => {
-          expect(metadata.name).toBe(data.name);
-        });
-      });
-    });
-  });
-  when(
-    "a metadata instance is created using Metadata.create(data) with custom data",
-    () => {
-      type CMetadata = { type: string } & IMetadata;
-      let metadata: CMetadata;
-      let data: CMetadata;
-      beforeEach(() => {
-        data = {
-          id: "123e4567-e89b-12d3-a456-426614174000",
-          name: "test",
-          type: "custom",
-        };
-        metadata = Metadata.create<CMetadata>(data);
-      });
-      then("metadata is defined", () => {
-        expect(metadata).toBeDefined();
-      });
-      and("metadata is defined", () => {
-        then("metadata.id is defined", () => {
-          expect(metadata.id).toBeDefined();
-        });
-        and("metadata.id is defined", () => {
-          then("metadata.id is data.id", () => {
-            expect(metadata.id).toBe(data.id);
-          });
-        });
-        then("metadata.name is defined", () => {
-          expect(metadata.name).toBeDefined();
-        });
-        and("metadata.name is defined", () => {
-          then("metadata.name is data.name", () => {
-            expect(metadata.name).toBe(data.name);
-          });
-        });
-        then("metadata.type is defined", () => {
-          expect(metadata.type).toBeDefined();
-        });
-        and("metadata.type is defined", () => {
-          then("metadata.type is data.type", () => {
-            expect(metadata.type).toBe(data.type);
-          });
-        });
-      });
-    }
-  );
-  when(
-    "a metadata instance is created using Metadata.create(data) with invalid data.id",
-    () => {
-      let data: Partial<IMetadata>;
-      let error: Exception.ValidationException;
-      beforeEach(() => {
-        data = { id: "invalid", name: "test" };
-        try {
-          Metadata.create(data as IMetadata);
-        } catch (e) {
-          error = e;
-        }
-      });
-      then("error is defined", () => {
-        expect(error).toBeDefined();
-      });
-      and("error is defined", () => {
-        then("error is an instance of Exception.ValidationException", () => {
-          expect(error).toBeInstanceOf(Exception.ValidationException);
-        });
-        and("error is an instance of Exception.ValidationException", () => {
-          then("error.message is 'Validation failed with 1 error(s).'", () => {
-            expect(error.message).toBe("Validation failed with 1 error(s).");
-          });
-        });
-      });
-    }
-  );
-  when(
-    "a metadata instance is created using Metadata.create(data) with invalid data.name",
-    () => {
-      let data: Partial<IMetadata>;
-      let error: Exception.ValidationException;
-      beforeEach(() => {
-        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "T" };
-        try {
-          Metadata.create(data as IMetadata);
-        } catch (e) {
-          error = e;
-        }
-      });
-      then("error is defined", () => {
-        expect(error).toBeDefined();
-      });
-      and("error is defined", () => {
-        then("error is an instance of Exception.ValidationException", () => {
-          expect(error).toBeInstanceOf(Exception.ValidationException);
-        });
-        and("error is an instance of Exception.ValidationException", () => {
-          then("error.message is 'Validation failed with 1 error(s).'", () => {
-            expect(error.message).toBe("Validation failed with 1 error(s).");
-          });
-        });
-      });
-    }
-  );
-  when(
-    "a metadata instance is created using Metadata.create(data) with invalid data",
-    () => {
-      let data: Partial<IMetadata>;
-      let error: Exception.ValidationException;
-      beforeEach(() => {
-        data = { id: "invalid", name: "T" };
-        try {
-          Metadata.create(data as IMetadata);
-        } catch (e) {
-          error = e;
-        }
-      });
-      then("error is defined", () => {
-        expect(error).toBeDefined();
-      });
-      and("error is defined", () => {
-        then("error is an instance of Exception.ValidationException", () => {
-          expect(error).toBeInstanceOf(Exception.ValidationException);
-        });
-        and("error is an instance of Exception.ValidationException", () => {
-          then("error.message is 'Validation failed with 2 error(s).'", () => {
-            expect(error.message).toBe("Validation failed with 2 error(s).");
-          });
-        });
-      });
-    }
-  );
-});
-
 given(`Metadata create ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
@@ -545,6 +364,187 @@ given(`Metadata validate ${Type.STATIC_METHOD} test`, () => {
       });
     });
   });
+});
+
+given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.INSTANTIATION);
+  });
+  when("a metadata instance is created using Metadata.create()", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata is defined", () => {
+      expect(metadata).toBeDefined();
+    });
+    and("metadata is defined", () => {
+      then("metadata is an instance of Metadata", () => {
+        expect(metadata).toBeInstanceOf(Metadata);
+      });
+    });
+  });
+  when("a metadata instance is created using Metadata.create(data)", () => {
+    let metadata: Metadata;
+    let data: IMetadata;
+
+    beforeEach(() => {
+      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
+
+      metadata = Metadata.create(data);
+    });
+    then("metadata is defined", () => {
+      expect(metadata).toBeDefined();
+    });
+    and("metadata is defined", () => {
+      then("metadata.id is defined", () => {
+        expect(metadata.id).toBeDefined();
+      });
+      and("metadata.id is defined", () => {
+        then("metadata.id is data.id", () => {
+          expect(metadata.id).toBe(data.id);
+        });
+      });
+      then("metadata.name is defined", () => {
+        expect(metadata.name).toBeDefined();
+      });
+      and("metadata.name is defined", () => {
+        then("metadata.name is data.name", () => {
+          expect(metadata.name).toBe(data.name);
+        });
+      });
+    });
+  });
+  when(
+    "a metadata instance is created using Metadata.create(data) with custom data",
+    () => {
+      type CMetadata = { type: string } & IMetadata;
+      let metadata: CMetadata;
+      let data: CMetadata;
+      beforeEach(() => {
+        data = {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "test",
+          type: "custom",
+        };
+        metadata = Metadata.create<CMetadata>(data);
+      });
+      then("metadata is defined", () => {
+        expect(metadata).toBeDefined();
+      });
+      and("metadata is defined", () => {
+        then("metadata.id is defined", () => {
+          expect(metadata.id).toBeDefined();
+        });
+        and("metadata.id is defined", () => {
+          then("metadata.id is data.id", () => {
+            expect(metadata.id).toBe(data.id);
+          });
+        });
+        then("metadata.name is defined", () => {
+          expect(metadata.name).toBeDefined();
+        });
+        and("metadata.name is defined", () => {
+          then("metadata.name is data.name", () => {
+            expect(metadata.name).toBe(data.name);
+          });
+        });
+        then("metadata.type is defined", () => {
+          expect(metadata.type).toBeDefined();
+        });
+        and("metadata.type is defined", () => {
+          then("metadata.type is data.type", () => {
+            expect(metadata.type).toBe(data.type);
+          });
+        });
+      });
+    }
+  );
+  when(
+    "a metadata instance is created using Metadata.create(data) with invalid data.id",
+    () => {
+      let data: Partial<IMetadata>;
+      let error: Exception.ValidationException;
+      beforeEach(() => {
+        data = { id: "invalid", name: "test" };
+        try {
+          Metadata.create(data as IMetadata);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of Exception.ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+        and("error is an instance of Exception.ValidationException", () => {
+          then("error.message is 'Validation failed with 1 error(s).'", () => {
+            expect(error.message).toBe("Validation failed with 1 error(s).");
+          });
+        });
+      });
+    }
+  );
+  when(
+    "a metadata instance is created using Metadata.create(data) with invalid data.name",
+    () => {
+      let data: Partial<IMetadata>;
+      let error: Exception.ValidationException;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "T" };
+        try {
+          Metadata.create(data as IMetadata);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of Exception.ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+        and("error is an instance of Exception.ValidationException", () => {
+          then("error.message is 'Validation failed with 1 error(s).'", () => {
+            expect(error.message).toBe("Validation failed with 1 error(s).");
+          });
+        });
+      });
+    }
+  );
+  when(
+    "a metadata instance is created using Metadata.create(data) with invalid data",
+    () => {
+      let data: Partial<IMetadata>;
+      let error: Exception.ValidationException;
+      beforeEach(() => {
+        data = { id: "invalid", name: "T" };
+        try {
+          Metadata.create(data as IMetadata);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of Exception.ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+        and("error is an instance of Exception.ValidationException", () => {
+          then("error.message is 'Validation failed with 2 error(s).'", () => {
+            expect(error.message).toBe("Validation failed with 2 error(s).");
+          });
+        });
+      });
+    }
+  );
 });
 
 given(`Metadata id ${Type.GETTER} test`, () => {
