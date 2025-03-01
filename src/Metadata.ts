@@ -129,6 +129,18 @@ export class Metadata<T extends IMetadata = IMetadata> {
     this._name = Validate.name(name);
   }
 
+  /**
+   * Adds metadata to the instance if not already assigned.
+   * @param metadata The metadata object to add.
+   * @throws {AssignedException} A value has already been assigned to metadata.
+   *
+   * @example
+   * ```ts
+   * const metadata = Metadata.create();
+   * metadata.add({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
+   * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
+   * ```
+   */
   public add = (metadata: T) => {
     this.assigned &&
       Exceptions.assignedException(
