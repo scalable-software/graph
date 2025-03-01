@@ -1104,7 +1104,7 @@ given(`Metadata remove ${Type.METHOD} test`, () => {
           expect(metadata.custom).toBeUndefined();
         });
       });
-      when("metadata.remove('custom') is called", () => {
+      when("metadata.remove(['custom']) is called", () => {
         let key: keyof Metadata<T> & T;
         beforeEach(() => {
           key = "custom" as keyof Metadata<T> & T;
@@ -1118,6 +1118,171 @@ given(`Metadata remove ${Type.METHOD} test`, () => {
         });
         then("metadata.custom is undefined", () => {
           expect(metadata.custom).toBeUndefined();
+        });
+      });
+      when("metadata.remove(['id']) is called", () => {
+        let key: keyof (Metadata<T> & T);
+        let error: Exception.ValidationException;
+        beforeEach(() => {
+          try {
+            key = "id" as keyof (Metadata<T> & T);
+            metadata.remove([key]);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of Exception.ValidationException", () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+          and("error is an instance of Exception.ValidationException", () => {
+            then("error.length is 1", () => {
+              expect(error.errors.length).toBe(1);
+            });
+            and("error.length is 1", () => {
+              then(
+                "error.errors[0] is an Exception.ImmutablePropertyException",
+                () => {
+                  expect(error.errors[0]).toBeInstanceOf(
+                    Exception.ImmutablePropertyException
+                  );
+                }
+              );
+              and(
+                "error.errors[0] is an Exception.ImmutablePropertyException",
+                () => {
+                  then(
+                    "error.errors[0].message is 'Property 'id' is immutable.'",
+                    () => {
+                      expect(error.errors[0].message).toBe(
+                        "Property 'id' is immutable."
+                      );
+                    }
+                  );
+                }
+              );
+            });
+          });
+        });
+      });
+      when("metadata.remove(['name']) is called", () => {
+        let key: keyof (Metadata<T> & T);
+        let error: Exception.ValidationException;
+        beforeEach(() => {
+          try {
+            key = "name" as keyof (Metadata<T> & T);
+            metadata.remove([key]);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of Exception.ValidationException", () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+          and("error is an instance of Exception.ValidationException", () => {
+            then("error.length is 1", () => {
+              expect(error.errors.length).toBe(1);
+            });
+            and("error.length is 1", () => {
+              then(
+                "error.errors[0] is an Exception.ImmutablePropertyException",
+                () => {
+                  expect(error.errors[0]).toBeInstanceOf(
+                    Exception.ImmutablePropertyException
+                  );
+                }
+              );
+              and(
+                "error.errors[0] is an Exception.ImmutablePropertyException",
+                () => {
+                  then(
+                    "error.errors[0].message is 'Property 'name' is immutable.'",
+                    () => {
+                      expect(error.errors[0].message).toBe(
+                        "Property 'name' is immutable."
+                      );
+                    }
+                  );
+                }
+              );
+            });
+          });
+        });
+      });
+      when("metadata.remove(['id', 'name']) is called", () => {
+        let keys: Array<keyof (Metadata<T> & T)>;
+        let error: Exception.ValidationException;
+        beforeEach(() => {
+          try {
+            keys = ["id", "name"];
+            metadata.remove(keys);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of Exception.ValidationException", () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+          and("error is an instance of Exception.ValidationException", () => {
+            then("error.length is 2", () => {
+              expect(error.errors.length).toBe(2);
+            });
+            and("error.length is 2", () => {
+              then(
+                "error.errors[0] is an Exception.ImmutablePropertyException",
+                () => {
+                  expect(error.errors[0]).toBeInstanceOf(
+                    Exception.ImmutablePropertyException
+                  );
+                }
+              );
+              and(
+                "error.errors[0] is an Exception.ImmutablePropertyException",
+                () => {
+                  then(
+                    "error.errors[0].message is 'Property 'id' is immutable.'",
+                    () => {
+                      expect(error.errors[0].message).toBe(
+                        "Property 'id' is immutable."
+                      );
+                    }
+                  );
+                }
+              );
+              then(
+                "error.errors[1] is an Exception.ImmutablePropertyException",
+                () => {
+                  expect(error.errors[1]).toBeInstanceOf(
+                    Exception.ImmutablePropertyException
+                  );
+                }
+              );
+              and(
+                "error.errors[1] is an Exception.ImmutablePropertyException",
+                () => {
+                  then(
+                    "error.errors[1].message is 'Property 'name' is immutable.'",
+                    () => {
+                      expect(error.errors[1].message).toBe(
+                        "Property 'name' is immutable."
+                      );
+                    }
+                  );
+                }
+              );
+            });
+          });
         });
       });
     });
