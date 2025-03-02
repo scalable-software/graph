@@ -269,12 +269,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
    * ```
    */
-  private hydrate({ id, name, ...properties }: Partial<T>): void {
-    this._id = id;
-    this._name = name;
-
-    Object.assign(this, properties);
-  }
+  private hydrate = ({ id, name, ...properties }: Partial<T>) =>
+    Object.assign(this, { _id: id, _name: name, ...properties });
 
   private match = ({ id }: Partial<T>): boolean => this._id === id;
 
