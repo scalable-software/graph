@@ -9,7 +9,9 @@ export type IMetadata = {
 };
 export class Metadata<T extends IMetadata = IMetadata> {
   private static normalize = <T extends IMetadata>(metadata?: T) =>
-    Metadata.validate<T>(metadata) ?? ({ id: null, name: null } as T);
+    metadata
+      ? Metadata.validate<T>(metadata) || Metadata.defaults<T>()
+      : Metadata.defaults<T>();
 
   private static ensureId = <T extends IMetadata>(
     metadata: T | Omit<T, "id">,
@@ -19,6 +21,9 @@ export class Metadata<T extends IMetadata = IMetadata> {
       ...metadata,
       id: "id" in metadata && metadata.id != null ? metadata.id : generator(),
     } as T);
+
+  private static defaults = <T extends IMetadata>(): T =>
+    ({ id: null, name: null } as T);
 
   /**
    * Validates the metadata object, if provided, to ensure required fields are present and valid.
