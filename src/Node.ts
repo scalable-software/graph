@@ -1,11 +1,40 @@
 import type { UUID, Name, Coordinates, Offset } from "./Graph.types.js";
+import { Validate } from "./validations/Validate.js";
 
 export type INode = {
   id: UUID;
   coordinates: Coordinates;
 };
 
+/**
+ * The `Node` class provides utility methods for working with nodes.
+ */
 export class Node {
+  /**
+   * Validates a node to ensure it has a valid `id` and `coordinates`.
+   *
+   * @param node - The node to validate.
+   * @returns The validated node if successful, otherwise throws an exception.
+   *
+   * @example
+   * ```ts
+   * const node = { id: "a1", coordinates: { x: 0, y: 0 } };
+   * Node.validate(node);
+   * // => { id: "a1", coordinates: { x: 0, y: 0 } }
+   *
+   * Node.validate({ id: "a1", coordinates: { x: 0 } });
+   * // throws ValidationException: Validation failed with 2 error(s).
+   * ```
+   * @category Validation
+   */
+  public static validate = <T extends INode>(node?: T): T | void =>
+    node
+      ? (Validate.rules<T>(node, [
+          ({ id }) => Validate.uuid(id),
+          ({ coordinates }) => Validate.coordinates(coordinates),
+        ]) as T)
+      : null;
+
   /**
    * Creates a new node with a unique `id` while preserving other details.
    *
