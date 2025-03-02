@@ -269,9 +269,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
    * ```
    */
-  private hydrate(metadata: Partial<T>): void {
-    const { id, name, ...properties } = metadata;
-
+  private hydrate({ id, name, ...properties }: Partial<T>): void {
     this._id = id;
     this._name = name;
 
