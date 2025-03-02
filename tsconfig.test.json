@@ -14,15 +14,24 @@
   "include": ["./src/**/*", "./test/unit/**/*"],
   "exclude": ["node_modules", "dist", "tasks"],
   "typedocOptions": {
-    "entryPoints": ["./src/Index.ts"],
+    "entryPoints": ["./src/*.ts", "./src/**/*.ts"],
     "excludePrivate": true,
     "excludeProtected": true,
     "disableSources": true,
-    "categorizeByGroup": false,
-    "sort": ["static-first", "visibility"],
-    "name": "Graph Data Structure",
+    "sort": ["kind", "static-first"],
+    "name": "Graph",
     "plugin": ["typedoc-plugin-merge-modules"],
     "mergeModulesMergeMode": "module",
-    "hideGenerator": true
+    "hideGenerator": true,
+    "customFooterHtml": "Copyright <strong>Scalable.Software</strong> 2025",
+    "categorizeByGroup": false,
+    "categoryOrder": [
+      "Factory",
+      "State",
+      "Data",
+      "Validation",
+      "Operations",
+      "*"
+    ]
   }
 }
