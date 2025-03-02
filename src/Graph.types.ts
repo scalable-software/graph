@@ -31,3 +31,15 @@ export type Coordinates = {
   x: number;
   y: number;
 };
+
+/**
+ * An Offset is a pair of numbers that represent the distance from a point of reference.
+ * @example
+ * ```ts
+ * const offset: Offset = { x: 0, y: 0 };
+ * ```
+ */
+export type Offset = {
+  x: number;
+  y: number;
+};
