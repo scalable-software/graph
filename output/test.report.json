@@ -1,927 +1,3802 @@
 [
   {
-    "type": "Configuration",
-    "spec": "Tag",
+    "type": "static method",
+    "spec": "Validate.match",
     "definition": [
-      "Given Tag Type.CONFIG test",
-      "and Pin imported",
-      "and Pin is defined",
-      "and Pin.Tag static getter is defined",
-      "then Pin.Tag is Tag"
+      "Given Validate match static method test",
+      "and Validate.match is defined",
+      "then Validate.match is a function"
     ],
     "status": "pass"
   },
   {
-    "type": "Configuration",
-    "spec": "Tag",
+    "type": "static method",
+    "spec": "Validate.match",
     "definition": [
-      "Given Tag Type.CONFIG test",
-      "and Pin imported",
-      "and Pin is defined",
-      "then Pin.Tag static getter is defined"
+      "Given Validate match static method test",
+      "and Validate.match is defined",
+      "and Validate.match is a function",
+      "when Validate.match(keys, immutable) is called with a non-matching key",
+      "then Validate.match returns false"
     ],
     "status": "pass"
   },
   {
-    "type": "Configuration",
-    "spec": "Tag",
+    "type": "static method",
+    "spec": "Validate.match",
     "definition": [
-      "Given Tag Type.CONFIG test",
-      "and Pin imported",
-      "then Pin is defined"
+      "Given Validate match static method test",
+      "and Validate.match is defined",
+      "and Validate.match is a function",
+      "when Validate.match(keys, immutable) is called with a matching key",
+      "and error is defined",
+      "and error is an instance of ImmutablePropertyException",
+      "then error is an instance of ImmutablePropertyException"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onunpin",
+    "type": "static method",
+    "spec": "Validate.match",
     "definition": [
-      "Given Event.ONUNPIN Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.onunpin setter is defined"
+      "Given Validate match static method test",
+      "and Validate.match is defined",
+      "and Validate.match is a function",
+      "when Validate.match(keys, immutable) is called with a matching key",
+      "and error is defined",
+      "and error is an instance of ImmutablePropertyException",
+      "then error.message is \"The id property is immutable.\""
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onunpin",
+    "type": "static method",
+    "spec": "Validate.match",
     "definition": [
-      "Given Event.ONUNPIN Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.onunpin setter is defined",
-      "and pin.state is State.PINNED",
-      "and pin.onunpin is set to new listener ",
-      "when pin.unpin()",
-      "then onunpin2 is called"
+      "Given Validate match static method test",
+      "and Validate.match is defined",
+      "and Validate.match is a function",
+      "when Validate.match(keys, immutable) is called with a matching key",
+      "and error is defined",
+      "then error is an instance of ImmutablePropertyException"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onunpin",
+    "type": "static method",
+    "spec": "Validate.match",
     "definition": [
-      "Given Event.ONUNPIN Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.onunpin setter is defined",
-      "and pin.state is State.PINNED",
-      "and pin.onunpin is set to new listener ",
-      "when pin.unpin()",
-      "then onunpin is not called"
+      "Given Validate match static method test",
+      "and Validate.match is defined",
+      "and Validate.match is a function",
+      "when Validate.match(keys, immutable) is called with a matching key",
+      "then error is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onunpin",
+    "type": "static method",
+    "spec": "Validate.match",
     "definition": [
-      "Given Event.ONUNPIN Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.onunpin setter is defined",
-      "and pin.state is State.PINNED",
-      "when pin.toggle()",
-      "then onunpin is called"
+      "Given Validate match static method test",
+      "then Validate.match is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onunpin",
+    "type": "abstract_class",
+    "spec": "Instantiation",
     "definition": [
-      "Given Event.ONUNPIN Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.onunpin setter is defined",
-      "and pin.state is State.PINNED",
-      "when pin.unpin()",
-      "then onunpin is called"
+      "Given Exception abstract_class Instantiation test",
+      "when a new Exception is created using new Exception(message)",
+      "then exception is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "State",
-    "spec": "visible",
+    "type": "abstract_class",
+    "spec": "Instantiation",
     "definition": [
-      "Given Attribute.VISIBLE Type.STATE test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.visible property is defined"
+      "Given Exception abstract_class Instantiation test",
+      "when a new Exception is created using new Exception(message)",
+      "and exception is defined",
+      "and exception.name is defined",
+      "then exception.name is TestException"
     ],
     "status": "pass"
   },
   {
-    "type": "State",
-    "spec": "visible",
+    "type": "abstract_class",
+    "spec": "Instantiation",
     "definition": [
-      "Given Attribute.VISIBLE Type.STATE test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.visible property is defined",
-      "then pin.visible is Visible.YES"
+      "Given Exception abstract_class Instantiation test",
+      "when a new Exception is created using new Exception(message)",
+      "and exception is defined",
+      "then exception.name is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Configuration",
-    "spec": "Template",
+    "type": "abstract_class",
+    "spec": "Instantiation",
     "definition": [
-      "Given Template Type.CONFIG test",
-      "and Pin imported",
-      "and Pin is defined",
-      "then Pin.Template static getter is defined"
+      "Given Exception abstract_class Instantiation test",
+      "when a new Exception is created using new Exception(message)",
+      "and exception is defined",
+      "then exception.message is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Configuration",
-    "spec": "Template",
+    "type": "abstract_class",
+    "spec": "Instantiation",
     "definition": [
-      "Given Template Type.CONFIG test",
-      "and Pin imported",
-      "and Pin is defined",
-      "and Pin.Template static getter is defined",
-      "then Pin.Template is an instance of Template"
+      "Given Exception abstract_class Instantiation test",
+      "when a new Exception is created using new Exception(message)",
+      "and exception is defined",
+      "and exception.message is defined",
+      "then exception.message is message"
     ],
     "status": "pass"
   },
   {
-    "type": "Configuration",
-    "spec": "Template",
+    "type": "abstract_class",
+    "spec": "Instantiation",
     "definition": [
-      "Given Template Type.CONFIG test",
-      "and Pin imported",
-      "then Pin is defined"
+      "Given Exception abstract_class Instantiation test",
+      "when a new Exception is created using new Exception(message)",
+      "and exception is defined",
+      "then exception is an instance of TestException"
     ],
     "status": "pass"
   },
   {
-    "type": "State",
-    "spec": "state",
+    "type": "abstract_class",
+    "spec": "Availability",
     "definition": [
-      "Given Attribute.STATE Type.STATE test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.state property is defined"
+      "Given Exception abstract_class Availability test",
+      "and Exception is imported",
+      "then Exception is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "State",
-    "spec": "state",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Attribute.STATE Type.STATE test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.state property is defined",
-      "then attribute state is State.UNPINNED"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "then Validate.rules is a function"
     ],
     "status": "pass"
   },
   {
-    "type": "State",
-    "spec": "state",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Attribute.STATE Type.STATE test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.state property is defined",
-      "then pin.state is State.UNPINNED"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 2",
+      "and error.errors[0] is an instance of InvalidArgumentException",
+      "then error.errors[0].message is \"Invalid argument: id - must be a valid UUID\""
     ],
     "status": "pass"
   },
   {
-    "type": "Gesture",
-    "spec": "click",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Gesture.CLICK Type.GESTURE test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when user click on icon",
-      "then onpin is called"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 2",
+      "and error.errors[1] is an instance of InvalidArgumentException",
+      "then error.errors[1].message is \"Invalid argument: name - must be a valid name\""
     ],
     "status": "pass"
   },
   {
-    "type": "Gesture",
-    "spec": "click",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Gesture.CLICK Type.GESTURE test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when user click on icon",
-      "then attribute state is State.PINNED"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 2",
+      "then error.errors[0] is an instance of InvalidArgumentException"
     ],
     "status": "pass"
   },
   {
-    "type": "Gesture",
-    "spec": "click",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Gesture.CLICK Type.GESTURE test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when user click on icon",
-      "and user clicks on pin",
-      "then attribute state is State.UNPINNED"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 2",
+      "then error.errors[1] is an instance of InvalidArgumentException"
     ],
     "status": "pass"
   },
   {
-    "type": "Gesture",
-    "spec": "click",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Gesture.CLICK Type.GESTURE test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when user click on icon",
-      "and user clicks on pin",
-      "then pin.state is State.UNPINNED"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "then error.errors.length is 2"
     ],
     "status": "pass"
   },
   {
-    "type": "Gesture",
-    "spec": "click",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Gesture.CLICK Type.GESTURE test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when user click on icon",
-      "and user clicks on pin",
-      "then onunpin is called"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details",
+      "and error is defined",
+      "then error is an instance of ValidationException"
     ],
     "status": "pass"
   },
   {
-    "type": "Gesture",
-    "spec": "click",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Gesture.CLICK Type.GESTURE test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when user click on icon",
-      "then pin.state is State.PINNED"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details",
+      "then error is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Configuration",
-    "spec": "Attributes",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Attributes Type.CONFIG test",
-      "and Pin imported",
-      "and Pin is defined",
-      "and Pin.Attributes static getter is defined",
-      "then Pin.Attributes is Attribute"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with valid details",
+      "then Validate.rules returns the details"
     ],
     "status": "pass"
   },
   {
-    "type": "Configuration",
-    "spec": "Attributes",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Attributes Type.CONFIG test",
-      "and Pin imported",
-      "and Pin is defined",
-      "then Pin.Attributes static getter is defined"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details.id",
+      "then error is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Configuration",
-    "spec": "Attributes",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Attributes Type.CONFIG test",
-      "and Pin imported",
-      "then Pin is defined"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details.id",
+      "and error is defined",
+      "then error is an instance of ValidationException"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "pin",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Operation.PIN Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.pin() method is defined"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details.id",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 1",
+      "and error.errors[0] is an instance of InvalidArgumentException",
+      "then error.errors[0].message is \"Invalid argument: id - must be a valid UUID\""
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "pin",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Operation.PIN Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when pin.pin()",
-      "then attribute state is State.PINNED"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details.id",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 1",
+      "then error.errors[0] is an instance of InvalidArgumentException"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "pin",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Operation.PIN Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when pin.pin()",
-      "then pin.state is State.PINNED"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details.id",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "then error.errors.length is 1"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onhide",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Event.ONHIDE Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and and pin.onhide setter is defined",
-      "when pin.hide()",
-      "then onhide is called"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details.name",
+      "then error is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onhide",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Event.ONHIDE Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and and pin.onhide setter is defined",
-      "and pin.onhide is set to new listener ",
-      "when pin.hide()",
-      "then onhide2 is called"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details.name",
+      "and error is defined",
+      "then error is an instance of ValidationException"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onhide",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Event.ONHIDE Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and and pin.onhide setter is defined",
-      "and pin.onhide is set to new listener ",
-      "when pin.hide()",
-      "then onhide is not called"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details.name",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 1",
+      "and error.errors[0] is an instance of InvalidArgumentException",
+      "then error.errors[0].message is \"Invalid argument: name - must be a valid name\""
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onhide",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Event.ONHIDE Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.onhide setter is defined"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details.name",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 1",
+      "then error.errors[0] is an instance of InvalidArgumentException"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "unpin",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Operation.UNPIN Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.unpin() method is defined"
+      "Given Validate rules static method test",
+      "and Validate.rules is defined",
+      "and Validate.rules is a function",
+      "when Validate.rules(details, rules) is called with invalid details.name",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "then error.errors.length is 1"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "unpin",
+    "type": "static method",
+    "spec": "Validate.rules",
     "definition": [
-      "Given Operation.UNPIN Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "Given pin.state is State.PINNED",
-      "when pin.unpin()",
-      "then attribute state is State.UNPINNED"
+      "Given Validate rules static method test",
+      "then Validate.rules is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "unpin",
+    "type": "static method",
+    "spec": "Validate.uuid",
     "definition": [
-      "Given Operation.UNPIN Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "Given pin.state is State.PINNED",
-      "when pin.unpin()",
-      "then pin.state is State.UNPINNED"
+      "Given Validate uuid static method test",
+      "then Validate.uuid is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onpin",
+    "type": "static method",
+    "spec": "Validate.uuid",
     "definition": [
-      "Given Event.ONPIN Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.onpin setter is defined"
+      "Given Validate uuid static method test",
+      "and Validate.uuid is defined",
+      "then Validate.uuid is a function"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onpin",
+    "type": "static method",
+    "spec": "Validate.uuid",
     "definition": [
-      "Given Event.ONPIN Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.onpin setter is defined",
-      "when pin.toggle()",
-      "then onpin is called"
+      "Given Validate uuid static method test",
+      "and Validate.uuid is defined",
+      "and Validate.uuid is a function",
+      "when Validate.uuid(id) is called with an invalid UUID",
+      "then error is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onpin",
+    "type": "static method",
+    "spec": "Validate.uuid",
     "definition": [
-      "Given Event.ONPIN Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.onpin setter is defined",
-      "and pin.onpin is set to new listener ",
-      "when pin.pin()",
-      "then onpin2 is called"
+      "Given Validate uuid static method test",
+      "and Validate.uuid is defined",
+      "and Validate.uuid is a function",
+      "when Validate.uuid(id) is called with an invalid UUID",
+      "and error is defined",
+      "then error is an instance of InvalidArgumentException"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onpin",
+    "type": "static method",
+    "spec": "Validate.uuid",
     "definition": [
-      "Given Event.ONPIN Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.onpin setter is defined",
-      "and pin.onpin is set to new listener ",
-      "when pin.pin()",
-      "then onpin is not called"
+      "Given Validate uuid static method test",
+      "and Validate.uuid is defined",
+      "and Validate.uuid is a function",
+      "when Validate.uuid(id) is called with an invalid UUID",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error.message is \"Invalid argument: id - must be a valid UUID\""
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onpin",
+    "type": "static method",
+    "spec": "Validate.uuid",
     "definition": [
-      "Given Event.ONPIN Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.onpin setter is defined",
-      "when pin.pin()",
-      "then onpin is called"
+      "Given Validate uuid static method test",
+      "and Validate.uuid is defined",
+      "and Validate.uuid is a function",
+      "when Validate.uuid(id) is called with an invalid UUID",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error is an instance of InvalidArgumentException"
     ],
     "status": "pass"
   },
   {
-    "type": "Composition",
-    "spec": "Template",
+    "type": "static method",
+    "spec": "Validate.uuid",
     "definition": [
-      "Given Template Type.COMPOSITION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "then template contains element with class 'unpinned'"
+      "Given Validate uuid static method test",
+      "and Validate.uuid is defined",
+      "and Validate.uuid is a function",
+      "when Validate.uuid(id) is called with null",
+      "and error is defined",
+      "then error is an instance of InvalidArgumentException"
     ],
     "status": "pass"
   },
   {
-    "type": "Composition",
-    "spec": "Template",
+    "type": "static method",
+    "spec": "Validate.uuid",
     "definition": [
-      "Given Template Type.COMPOSITION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "then template contains element with class 'pinned'"
+      "Given Validate uuid static method test",
+      "and Validate.uuid is defined",
+      "and Validate.uuid is a function",
+      "when Validate.uuid(id) is called with null",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error.message is \"Invalid argument: id - must be a valid UUID\""
     ],
     "status": "pass"
   },
   {
-    "type": "Composition",
-    "spec": "Template",
+    "type": "static method",
+    "spec": "Validate.uuid",
     "definition": [
-      "Given Template Type.COMPOSITION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "then template contains element with class 'icon'"
+      "Given Validate uuid static method test",
+      "and Validate.uuid is defined",
+      "and Validate.uuid is a function",
+      "when Validate.uuid(id) is called with null",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error is an instance of InvalidArgumentException"
     ],
     "status": "pass"
   },
   {
-    "type": "Composition",
-    "spec": "Template",
+    "type": "static method",
+    "spec": "Validate.uuid",
     "definition": [
-      "Given Template Type.COMPOSITION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "then template is defined"
+      "Given Validate uuid static method test",
+      "and Validate.uuid is defined",
+      "and Validate.uuid is a function",
+      "when Validate.uuid(id) is called with null",
+      "then error is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Composition",
-    "spec": "Template",
+    "type": "static method",
+    "spec": "Validate.uuid",
     "definition": [
-      "Given Template Type.COMPOSITION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.root contains template"
+      "Given Validate uuid static method test",
+      "and Validate.uuid is defined",
+      "and Validate.uuid is a function",
+      "when Validate.uuid(id) is called with a valid UUID",
+      "then Validate.uuid returns the id"
     ],
     "status": "pass"
   },
   {
-    "type": "Composition",
-    "spec": "Template",
+    "type": "method",
+    "spec": "toJSON",
     "definition": [
-      "Given Template Type.COMPOSITION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.root contains a linked stylesheet"
+      "Given Metadata toJSON method test",
+      "when a metadata instance is created with data",
+      "then metadata.toJSON() is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "hide",
+    "type": "method",
+    "spec": "toJSON",
     "definition": [
-      "Given Operation.HIDE Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.hide() method is defined"
+      "Given Metadata toJSON method test",
+      "when a metadata instance is created with data",
+      "and metadata.toJSON() is defined",
+      "and metadata.toJSON() is a function",
+      "then metadata.toJSON() returns an object"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "hide",
+    "type": "method",
+    "spec": "toJSON",
     "definition": [
-      "Given Operation.HIDE Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when pin.hide()",
-      "then pin.visible is Visible.NO"
+      "Given Metadata toJSON method test",
+      "when a metadata instance is created with data",
+      "and metadata.toJSON() is defined",
+      "and metadata.toJSON() is a function",
+      "and metadata.toJSON() returns an object",
+      "then metadata.toJSON() returns data"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "hide",
+    "type": "method",
+    "spec": "toJSON",
     "definition": [
-      "Given Operation.HIDE Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when pin.hide()",
-      "then attribute visible is Visible.NO"
+      "Given Metadata toJSON method test",
+      "when a metadata instance is created with data",
+      "and metadata.toJSON() is defined",
+      "then metadata.toJSON() is a function"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onshow",
+    "type": "class",
+    "spec": "Instantiation",
     "definition": [
-      "Given Event.ONSHOW Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.onshow setter is defined"
+      "Given InvalidArgumentException class Instantiation test",
+      "when a new InvalidArgumentException is created",
+      "then exception is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onshow",
+    "type": "class",
+    "spec": "Instantiation",
     "definition": [
-      "Given Event.ONSHOW Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.onshow setter is defined",
-      "and pin.visible is Visible.NO",
-      "when pin.show()",
-      "then onshow is called"
+      "Given InvalidArgumentException class Instantiation test",
+      "when a new InvalidArgumentException is created",
+      "and exception is defined",
+      "then exception is an instance of InvalidArgumentException"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onshow",
+    "type": "class",
+    "spec": "Instantiation",
     "definition": [
-      "Given Event.ONSHOW Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.onshow setter is defined",
-      "and pin.visible is Visible.NO",
-      "and pin.onshow is set to new listener ",
-      "when pin.show()",
-      "then onshow is not called"
+      "Given InvalidArgumentException class Instantiation test",
+      "when a new InvalidArgumentException is created",
+      "and exception is defined",
+      "then exception.message is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "onshow",
+    "type": "class",
+    "spec": "Instantiation",
     "definition": [
-      "Given Event.ONSHOW Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.onshow setter is defined",
-      "and pin.visible is Visible.NO",
-      "and pin.onshow is set to new listener ",
-      "when pin.show()",
-      "then onshow2 is called"
+      "Given InvalidArgumentException class Instantiation test",
+      "when a new InvalidArgumentException is created",
+      "and exception is defined",
+      "then exception.name is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "on",
+    "type": "class",
+    "spec": "Instantiation",
     "definition": [
-      "Given on Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.onshow setter is defined"
+      "Given InvalidArgumentException class Instantiation test",
+      "when a new InvalidArgumentException is created",
+      "and exception is defined",
+      "and exception.message is defined",
+      "then exception.message is 'Invalid argument: test - reason'"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "on",
+    "type": "class",
+    "spec": "Instantiation",
     "definition": [
-      "Given on Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.onpin setter is defined"
+      "Given InvalidArgumentException class Instantiation test",
+      "when a new InvalidArgumentException is created",
+      "and exception is defined",
+      "and exception.name is defined",
+      "then exception.name is InvalidArgumentException"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "on",
+    "type": "setter",
+    "spec": "id",
     "definition": [
-      "Given on Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.onhide setter is defined"
+      "Given Metadata name setter test",
+      "when a metadata instance is created",
+      "then metadata.name is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "on",
+    "type": "setter",
+    "spec": "id",
     "definition": [
-      "Given on Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.on is defined and used with '*'",
-      "and pin.state is State.PINNED",
-      "when pin.unpin()",
-      "then on is called"
+      "Given Metadata name setter test",
+      "when a metadata instance is created",
+      "and metadata.name is defined",
+      "then metadata.name is null"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "on",
+    "type": "setter",
+    "spec": "id",
     "definition": [
-      "Given on Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.on is defined and used with '*'",
-      "when pin.pin()",
-      "then on is called"
+      "Given Metadata name setter test",
+      "and a metadata instance is created",
+      "and metadata.name setter is defined",
+      "when metadata.name is set to valid name",
+      "then metadata.name is name"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "on",
+    "type": "setter",
+    "spec": "id",
     "definition": [
-      "Given on Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.on is defined and used with '*'",
-      "when pin.toggle()",
-      "then on is called"
+      "Given Metadata name setter test",
+      "and a metadata instance is created",
+      "and metadata.name setter is defined",
+      "when metadata.name is set to invalid name",
+      "then error is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "on",
+    "type": "setter",
+    "spec": "id",
     "definition": [
-      "Given on Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.on is defined and used with '*'",
-      "and pin.visible is Visible.NO",
-      "when pin.show()",
-      "then on is called"
+      "Given Metadata name setter test",
+      "and a metadata instance is created",
+      "and metadata.name setter is defined",
+      "when metadata.name is set to invalid name",
+      "and error is defined",
+      "then error is an instance of Exception.InvalidArgumentException"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "on",
+    "type": "setter",
+    "spec": "id",
     "definition": [
-      "Given on Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.on is defined and used with '*'",
-      "when pin.hide()",
-      "then on is called"
+      "Given Metadata name setter test",
+      "and a metadata instance is created",
+      "and metadata.name setter is defined",
+      "when metadata.name is set to invalid name",
+      "and error is defined",
+      "and error is an instance of Exception.InvalidArgumentException",
+      "then error.message is 'Invalid argument: name - must be a valid name'"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "on",
+    "type": "setter",
+    "spec": "id",
     "definition": [
-      "Given on Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.on is defined and used with 'onpin'",
-      "when pin.pin()",
-      "then onpin is called"
+      "Given Metadata name setter test",
+      "and a metadata instance is created",
+      "then metadata.name setter is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Event",
-    "spec": "on",
+    "type": "class",
+    "spec": "Availability",
     "definition": [
-      "Given on Type.EVENT test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.onunpin setter is defined"
+      "Given Metadata class Availability test",
+      "and Metadata is imported",
+      "then Metadata is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "toggle",
+    "type": "static method",
+    "spec": "Exceptions.unassignedException",
     "definition": [
-      "Given Operation.TOGGLE Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.toggle() method is defined"
+      "Given Exceptions unassignedException static method test",
+      "and Exceptions.unassignedException is defined",
+      "then Exceptions.unassignedException is a function"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "toggle",
+    "type": "static method",
+    "spec": "Exceptions.unassignedException",
     "definition": [
-      "Given Operation.TOGGLE Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when pin.toggle()",
-      "then pin.state is State.PINNED"
+      "Given Exceptions unassignedException static method test",
+      "and Exceptions.unassignedException is defined",
+      "and Exceptions.unassignedException is a function",
+      "when Exceptions.unassignedException(type, hint) is called",
+      "then error is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "toggle",
+    "type": "static method",
+    "spec": "Exceptions.unassignedException",
     "definition": [
-      "Given Operation.TOGGLE Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when pin.toggle()",
-      "and pin.toggle()",
-      "then pin.state is State.UNPINNED"
+      "Given Exceptions unassignedException static method test",
+      "and Exceptions.unassignedException is defined",
+      "and Exceptions.unassignedException is a function",
+      "when Exceptions.unassignedException(type, hint) is called",
+      "and error is defined",
+      "then error is an instance of UnassignedException"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "toggle",
+    "type": "static method",
+    "spec": "Exceptions.unassignedException",
     "definition": [
-      "Given Operation.TOGGLE Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when pin.toggle()",
-      "and pin.toggle()",
-      "then attribute state is State.UNPINNED"
+      "Given Exceptions unassignedException static method test",
+      "and Exceptions.unassignedException is defined",
+      "and Exceptions.unassignedException is a function",
+      "when Exceptions.unassignedException(type, hint) is called",
+      "and error is defined",
+      "and error is an instance of UnassignedException",
+      "then error.name is UnassignedException"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "toggle",
+    "type": "static method",
+    "spec": "Exceptions.unassignedException",
     "definition": [
-      "Given Operation.TOGGLE Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "when pin.toggle()",
-      "then attribute state is State.PINNED"
+      "Given Exceptions unassignedException static method test",
+      "and Exceptions.unassignedException is defined",
+      "and Exceptions.unassignedException is a function",
+      "when Exceptions.unassignedException(type, hint) is called",
+      "and error is defined",
+      "and error is an instance of UnassignedException",
+      "then error.message is 'No value has been assigned to test: reason'"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "show",
+    "type": "static method",
+    "spec": "Exceptions.unassignedException",
     "definition": [
-      "Given Operation.SHOW Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.visible is Visible.NO",
-      "when pin.show()",
-      "then attribute visible does not is defined"
+      "Given Exceptions unassignedException static method test",
+      "then Exceptions.unassignedException is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "show",
+    "type": "getter",
+    "spec": "id",
     "definition": [
-      "Given Operation.SHOW Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "and pin.visible is Visible.NO",
-      "when pin.show()",
-      "then pin.visible is Visible.YES"
+      "Given Metadata id getter test",
+      "when a metadata instance is created using Metadata.create(data) with valid data",
+      "then metadata.id is defined"
     ],
     "status": "pass"
   },
   {
-    "type": "Operation",
-    "spec": "show",
+    "type": "getter",
+    "spec": "id",
     "definition": [
-      "Given Operation.SHOW Type.OPERATION test",
-      "and Pin is defined in custom element registry",
-      "and HTML Template is added to DOM",
-      "and a new pin is added to DOM",
-      "then pin.show() method is defined"
+      "Given Metadata id getter test",
+      "when a metadata instance is created using Metadata.create(data) with valid data",
+      "and metadata.id is defined",
+      "then metadata.id is data.id"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "then Metadata.create is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called with custom data",
+      "then metadata instance is returned"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called with custom data",
+      "and metadata instance is returned",
+      "then metadata.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called with custom data",
+      "and metadata instance is returned",
+      "then metadata.id is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called with custom data",
+      "and metadata instance is returned",
+      "and metadata.type is defined",
+      "then metadata.type is data.type"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called with custom data",
+      "and metadata instance is returned",
+      "then metadata.type is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called with custom data",
+      "and metadata instance is returned",
+      "and metadata.id is defined",
+      "then metadata.id is data.id"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called with custom data",
+      "and metadata instance is returned",
+      "and metadata.name is defined",
+      "then metadata.name is data.name"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create() is called",
+      "and metadata instance is returned",
+      "then metadata.id is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create() is called",
+      "and metadata instance is returned",
+      "and metadata.name is defined",
+      "then metadata.name is null"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create() is called",
+      "and metadata instance is returned",
+      "and metadata.id is defined",
+      "then metadata.id is null"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create() is called",
+      "and metadata instance is returned",
+      "then metadata.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create() is called",
+      "then metadata instance is returned"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "then Metadata.create is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called",
+      "and metadata instance is returned",
+      "and metadata.name is defined",
+      "then metadata.name is data.name"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called",
+      "and metadata instance is returned",
+      "then metadata.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called",
+      "and metadata instance is returned",
+      "and metadata.id is defined",
+      "then metadata.id is data.id"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called",
+      "and metadata instance is returned",
+      "then metadata.id is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.create",
+    "definition": [
+      "Given Metadata create static method test",
+      "and Metadata.create is defined",
+      "when Metadata.create(data) is called",
+      "then metadata instance is returned"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Availability",
+    "definition": [
+      "Given ImmutablePropertyException class Availability test",
+      "and ImmutablePropertyException is imported",
+      "then ImmutablePropertyException is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "Utilities.isGetterOrSetter",
+    "definition": [
+      "Given Utilities isGetterOrSetter static method test",
+      "then isGetterOrSetter is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "Utilities.isGetterOrSetter",
+    "definition": [
+      "Given Utilities isGetterOrSetter static method test",
+      "and isGetterOrSetter is defined",
+      "then isGetterOrSetter is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "Utilities.isGetterOrSetter",
+    "definition": [
+      "Given Utilities isGetterOrSetter static method test",
+      "and isGetterOrSetter is defined",
+      "and isGetterOrSetter is a function",
+      "when Utilities.isGetterOrSetter(instance, key) is called",
+      "then result is true"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.missMatchException",
+    "definition": [
+      "Given Exceptions missMatchException static method test",
+      "then Exceptions.missMatchException is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.missMatchException",
+    "definition": [
+      "Given Exceptions missMatchException static method test",
+      "and Exceptions.missMatchException is defined",
+      "then Exceptions.missMatchException is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.missMatchException",
+    "definition": [
+      "Given Exceptions missMatchException static method test",
+      "and Exceptions.missMatchException is defined",
+      "and Exceptions.missMatchException is a function",
+      "when Exceptions.missMatchException(type, hint) is called",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.missMatchException",
+    "definition": [
+      "Given Exceptions missMatchException static method test",
+      "and Exceptions.missMatchException is defined",
+      "and Exceptions.missMatchException is a function",
+      "when Exceptions.missMatchException(type, hint) is called",
+      "and error is defined",
+      "then error is an instance of MissMatchException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.missMatchException",
+    "definition": [
+      "Given Exceptions missMatchException static method test",
+      "and Exceptions.missMatchException is defined",
+      "and Exceptions.missMatchException is a function",
+      "when Exceptions.missMatchException(type, hint) is called",
+      "and error is defined",
+      "and error is an instance of MissMatchException",
+      "then error.message is 'No value has been assigned to test: reason'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.missMatchException",
+    "definition": [
+      "Given Exceptions missMatchException static method test",
+      "and Exceptions.missMatchException is defined",
+      "and Exceptions.missMatchException is a function",
+      "when Exceptions.missMatchException(type, hint) is called",
+      "and error is defined",
+      "and error is an instance of MissMatchException",
+      "then error.name is MissMatchException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "add",
+    "definition": [
+      "Given Metadata add method test",
+      "when a metadata instance is created with data",
+      "when metadata.add(data) is called with valid data",
+      "and error is defined",
+      "then error is an instance of Exception.AssignedException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "add",
+    "definition": [
+      "Given Metadata add method test",
+      "when a metadata instance is created with data",
+      "when metadata.add(data) is called with valid data",
+      "and error is defined",
+      "and error is an instance of Exception.AssignedException",
+      "then error.message is 'A value has already been assigned to Metadata: id'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "add",
+    "definition": [
+      "Given Metadata add method test",
+      "when a metadata instance is created with data",
+      "when metadata.add(data) is called with valid data",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "add",
+    "definition": [
+      "Given Metadata add method test",
+      "when a metadata instance is created with data",
+      "then metadata.add is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "add",
+    "definition": [
+      "Given Metadata add method test",
+      "when a metadata instance is created with data",
+      "and metadata.add is defined",
+      "then metadata.add is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "add",
+    "definition": [
+      "Given Metadata add method test",
+      "when a metadata instance is created",
+      "then metadata.add is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "add",
+    "definition": [
+      "Given Metadata add method test",
+      "when a metadata instance is created",
+      "when metadata.add(data) is called with valid data",
+      "then metadata.id is data.id"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "add",
+    "definition": [
+      "Given Metadata add method test",
+      "when a metadata instance is created",
+      "when metadata.add(data) is called with valid data",
+      "then metadata.name is data.name"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "add",
+    "definition": [
+      "Given Metadata add method test",
+      "when a metadata instance is created",
+      "when metadata.add(data) is called with valid data",
+      "then metadata.custom is data.custom"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "add",
+    "definition": [
+      "Given Metadata add method test",
+      "when a metadata instance is created",
+      "when metadata.add(data) is called with no id",
+      "then metadata.id is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "add",
+    "definition": [
+      "Given Metadata add method test",
+      "when a metadata instance is created",
+      "and metadata.add is defined",
+      "then metadata.add is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "getter",
+    "spec": "assigned",
+    "definition": [
+      "Given Metadata assigned getter test",
+      "when a metadata instance is created with data",
+      "then metadata.assigned is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "getter",
+    "spec": "assigned",
+    "definition": [
+      "Given Metadata assigned getter test",
+      "when a metadata instance is created with data",
+      "and metadata.assigned is defined",
+      "then metadata.assigned is true"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "getter",
+    "spec": "assigned",
+    "definition": [
+      "Given Metadata assigned getter test",
+      "when a metadata instance is created without data",
+      "then metadata.assigned is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "getter",
+    "spec": "assigned",
+    "definition": [
+      "Given Metadata assigned getter test",
+      "when a metadata instance is created without data",
+      "and metadata.assigned is defined",
+      "then metadata.assigned is false"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Availability",
+    "definition": [
+      "Given AssignedException class Availability test",
+      "and AssignedException is imported",
+      "then AssignedException is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.invalidArgumentException",
+    "definition": [
+      "Given Exceptions invalidArgumentException static method test",
+      "and Exceptions.invalidArgumentException is defined",
+      "and Exceptions.invalidArgumentException is a function",
+      "when Exceptions.invalidArgumentException(parameter, reason) is called",
+      "and error is defined",
+      "then error is an instance of InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.invalidArgumentException",
+    "definition": [
+      "Given Exceptions invalidArgumentException static method test",
+      "and Exceptions.invalidArgumentException is defined",
+      "and Exceptions.invalidArgumentException is a function",
+      "when Exceptions.invalidArgumentException(parameter, reason) is called",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error.message is 'Invalid argument: test - reason'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.invalidArgumentException",
+    "definition": [
+      "Given Exceptions invalidArgumentException static method test",
+      "and Exceptions.invalidArgumentException is defined",
+      "and Exceptions.invalidArgumentException is a function",
+      "when Exceptions.invalidArgumentException(parameter, reason) is called",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error.name is InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.invalidArgumentException",
+    "definition": [
+      "Given Exceptions invalidArgumentException static method test",
+      "and Exceptions.invalidArgumentException is defined",
+      "and Exceptions.invalidArgumentException is a function",
+      "when Exceptions.invalidArgumentException(parameter, reason) is called",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.invalidArgumentException",
+    "definition": [
+      "Given Exceptions invalidArgumentException static method test",
+      "and Exceptions.invalidArgumentException is defined",
+      "then Exceptions.invalidArgumentException is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.invalidArgumentException",
+    "definition": [
+      "Given Exceptions invalidArgumentException static method test",
+      "then Exceptions.invalidArgumentException is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "Utilities.isMethod",
+    "definition": [
+      "Given Utilities isMethod static methodtest",
+      "then isMethod is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "Utilities.isMethod",
+    "definition": [
+      "Given Utilities isMethod static methodtest",
+      "and isMethod is defined",
+      "then isMethod is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "Utilities.isMethod",
+    "definition": [
+      "Given Utilities isMethod static methodtest",
+      "and isMethod is defined",
+      "and isMethod is a function",
+      "when Utilities.isMethod(value) is called",
+      "then result is true"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "Utilities.isMethod",
+    "definition": [
+      "Given Utilities isMethod static methodtest",
+      "and isMethod is defined",
+      "and isMethod is a function",
+      "when Utilities.isMethod(value) is called",
+      "and result is true",
+      "when Utilities.isMethod(value) is called",
+      "then result is false"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created with data",
+      "and metadata.update is defined",
+      "then metadata.update is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created with data",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with valid data",
+      "then metadata.custom is data.custom"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created with data",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with valid data",
+      "then metadata.name is data.name"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created with data",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with valid data",
+      "then metadata.id is data.id"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created with data",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with data with different identifier",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created with data",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with data with different identifier",
+      "and error is defined",
+      "then error is an instance of Exception.MissMatchException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created with data",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with data with different identifier",
+      "and error is defined",
+      "and error is an instance of Exception.MissMatchException",
+      "then error.message is 'Metadata identifier does not match: Use metadata.add(metadata) instead.'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created with data",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with data with no id",
+      "then metadata.name is data.name"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created with data",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with data with no id",
+      "then metadata.custom is data.custom"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created with data",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with data with no id",
+      "then metadata.id is id"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created with data",
+      "then metadata.update is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created",
+      "then metadata.update is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created",
+      "and metadata.update is defined",
+      "then metadata.update is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with valid data",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with valid data",
+      "and error is defined",
+      "and error is an instance of Exception.UnassignedException",
+      "then error.message is 'No value has been assigned to metadata: Use metadata.add(metadata) instead.'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "update",
+    "definition": [
+      "Given Metadata update method test",
+      "when a metadata instance is created",
+      "and metadata.update is defined",
+      "and metadata.update is a function",
+      "when metadata.update(data) is called with valid data",
+      "and error is defined",
+      "then error is an instance of Exception.UnassignedException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.assignedException",
+    "definition": [
+      "Given Exceptions assignedException static method test",
+      "and Exceptions.assignedException is defined",
+      "and Exceptions.assignedException is a function",
+      "when Exceptions.assignedException(type, hint) is called",
+      "and error is defined",
+      "and error is an instance of AssignedException",
+      "then error.message is 'A value has already been assigned to test: reason'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.assignedException",
+    "definition": [
+      "Given Exceptions assignedException static method test",
+      "and Exceptions.assignedException is defined",
+      "and Exceptions.assignedException is a function",
+      "when Exceptions.assignedException(type, hint) is called",
+      "and error is defined",
+      "and error is an instance of AssignedException",
+      "then error.name is AssignedException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.assignedException",
+    "definition": [
+      "Given Exceptions assignedException static method test",
+      "and Exceptions.assignedException is defined",
+      "and Exceptions.assignedException is a function",
+      "when Exceptions.assignedException(type, hint) is called",
+      "and error is defined",
+      "then error is an instance of AssignedException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.assignedException",
+    "definition": [
+      "Given Exceptions assignedException static method test",
+      "and Exceptions.assignedException is defined",
+      "and Exceptions.assignedException is a function",
+      "when Exceptions.assignedException(type, hint) is called",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.assignedException",
+    "definition": [
+      "Given Exceptions assignedException static method test",
+      "and Exceptions.assignedException is defined",
+      "then Exceptions.assignedException is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.assignedException",
+    "definition": [
+      "Given Exceptions assignedException static method test",
+      "then Exceptions.assignedException is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Exceptions class Instantiation test",
+      "when a new Exceptions is created",
+      "then exception is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Exceptions class Instantiation test",
+      "when a new Exceptions is created",
+      "and exception is defined",
+      "then exception is an instance of Exceptions"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.validationException",
+    "definition": [
+      "Given Exceptions validationException static method test",
+      "and Exceptions.validationException is defined",
+      "then Exceptions.validationException is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.validationException",
+    "definition": [
+      "Given Exceptions validationException static method test",
+      "and Exceptions.validationException is defined",
+      "and Exceptions.validationException is a function",
+      "when Exceptions.validationException(errors) is called",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.validationException",
+    "definition": [
+      "Given Exceptions validationException static method test",
+      "and Exceptions.validationException is defined",
+      "and Exceptions.validationException is a function",
+      "when Exceptions.validationException(errors) is called",
+      "and error is defined",
+      "then error is an instance of ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.validationException",
+    "definition": [
+      "Given Exceptions validationException static method test",
+      "and Exceptions.validationException is defined",
+      "and Exceptions.validationException is a function",
+      "when Exceptions.validationException(errors) is called",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "then error.message is 'Validation failed with 1 error(s).'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.validationException",
+    "definition": [
+      "Given Exceptions validationException static method test",
+      "and Exceptions.validationException is defined",
+      "and Exceptions.validationException is a function",
+      "when Exceptions.validationException(errors) is called",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "then error.name is ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.validationException",
+    "definition": [
+      "Given Exceptions validationException static method test",
+      "then Exceptions.validationException is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "setter",
+    "spec": "id",
+    "definition": [
+      "Given Metadata id setter test",
+      "and a metadata instance is created",
+      "and metadata.id setter is defined",
+      "when metadata.id is set to valid id",
+      "and error is defined",
+      "then error is an instance of Exception.ImmutablePropertyException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "setter",
+    "spec": "id",
+    "definition": [
+      "Given Metadata id setter test",
+      "and a metadata instance is created",
+      "and metadata.id setter is defined",
+      "when metadata.id is set to valid id",
+      "and error is defined",
+      "and error is an instance of Exception.ImmutablePropertyException",
+      "then error.message is 'Property 'id' is immutable.'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "setter",
+    "spec": "id",
+    "definition": [
+      "Given Metadata id setter test",
+      "and a metadata instance is created",
+      "and metadata.id setter is defined",
+      "when metadata.id is set to valid id",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "setter",
+    "spec": "id",
+    "definition": [
+      "Given Metadata id setter test",
+      "and a metadata instance is created",
+      "then metadata.id setter is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "setter",
+    "spec": "id",
+    "definition": [
+      "Given Metadata id setter test",
+      "when a metadata instance is created",
+      "then metadata.id is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "setter",
+    "spec": "id",
+    "definition": [
+      "Given Metadata id setter test",
+      "when a metadata instance is created",
+      "and metadata.id is defined",
+      "then metadata.id is null"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Availability",
+    "definition": [
+      "Given InvalidArgumentException class Availability test",
+      "and InvalidArgumentException is imported",
+      "then InvalidArgumentException is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given UnassignedException class Instantiation test",
+      "when a new UnassignedException is created",
+      "then exception is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given UnassignedException class Instantiation test",
+      "when a new UnassignedException is created",
+      "and exception is defined",
+      "and exception.name is defined",
+      "then exception.name is UnassignedException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given UnassignedException class Instantiation test",
+      "when a new UnassignedException is created",
+      "and exception is defined",
+      "then exception is an instance of UnassignedException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given UnassignedException class Instantiation test",
+      "when a new UnassignedException is created",
+      "and exception is defined",
+      "then exception.message is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given UnassignedException class Instantiation test",
+      "when a new UnassignedException is created",
+      "and exception is defined",
+      "then exception.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given UnassignedException class Instantiation test",
+      "when a new UnassignedException is created",
+      "and exception is defined",
+      "and exception.message is defined",
+      "then exception.message is 'No value has been assigned to 'type': 'hint''"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with invalid data.name",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with invalid data.name",
+      "and error is defined",
+      "then error is an instance of Exception.ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with invalid data.name",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.message is 'Validation failed with 1 error(s).'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data)",
+      "then metadata is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data)",
+      "and metadata is defined",
+      "and metadata.id is defined",
+      "then metadata.id is data.id"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data)",
+      "and metadata is defined",
+      "then metadata.id is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data)",
+      "and metadata is defined",
+      "then metadata.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data)",
+      "and metadata is defined",
+      "and metadata.name is defined",
+      "then metadata.name is data.name"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create()",
+      "and metadata is defined",
+      "then metadata is an instance of Metadata"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create()",
+      "then metadata is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with invalid data",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with invalid data",
+      "and error is defined",
+      "then error is an instance of Exception.ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with invalid data",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.message is 'Validation failed with 2 error(s).'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with custom data",
+      "and metadata is defined",
+      "and metadata.id is defined",
+      "then metadata.id is data.id"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with custom data",
+      "and metadata is defined",
+      "and metadata.name is defined",
+      "then metadata.name is data.name"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with custom data",
+      "and metadata is defined",
+      "then metadata.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with custom data",
+      "and metadata is defined",
+      "then metadata.type is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with custom data",
+      "and metadata is defined",
+      "and metadata.type is defined",
+      "then metadata.type is data.type"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with custom data",
+      "and metadata is defined",
+      "then metadata.id is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with custom data",
+      "then metadata is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with invalid data.id",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with invalid data.id",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.message is 'Validation failed with 1 error(s).'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given Metadata class Instantiation test",
+      "when a metadata instance is created using Metadata.create(data) with invalid data.id",
+      "and error is defined",
+      "then error is an instance of Exception.ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "getter",
+    "spec": "name",
+    "definition": [
+      "Given Metadata name getter test",
+      "when a metadata instance is created",
+      "then metadata.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "getter",
+    "spec": "name",
+    "definition": [
+      "Given Metadata name getter test",
+      "when a metadata instance is created",
+      "and metadata.name is defined",
+      "then metadata.name is data.name"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "getter",
+    "spec": "properties",
+    "definition": [
+      "Given Metadata customProperties getter test",
+      "when a metadata instance is created with data",
+      "then metadata.customProperties is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "getter",
+    "spec": "properties",
+    "definition": [
+      "Given Metadata customProperties getter test",
+      "when a metadata instance is created with data",
+      "and metadata.customProperties is defined",
+      "and metadata.customProperties is an object",
+      "then metadata.customProperties has custom properties"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "getter",
+    "spec": "properties",
+    "definition": [
+      "Given Metadata customProperties getter test",
+      "when a metadata instance is created with data",
+      "and metadata.customProperties is defined",
+      "then metadata.customProperties is an object"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "then Validate.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with too long name",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with too long name",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error is an instance of InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with too long name",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error.message is \"Invalid argument: name - must be a valid name\""
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with too long name",
+      "and error is defined",
+      "then error is an instance of InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with null",
+      "and error is defined",
+      "then error is an instance of InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with null",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error.message is \"Invalid argument: name - must be a valid name\""
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with null",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error is an instance of InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with null",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with too short name",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error is an instance of InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with too short name",
+      "and error is defined",
+      "and error is an instance of InvalidArgumentException",
+      "then error.message is \"Invalid argument: name - must be a valid name\""
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with too short name",
+      "and error is defined",
+      "then error is an instance of InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with too short name",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "and Validate.name is a function",
+      "when Validate.name(name) is called with a valid name",
+      "then Validate.name returns the name"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.name",
+    "definition": [
+      "Given Validate name static method test",
+      "and Validate.name is defined",
+      "then Validate.name is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given MissMatchException class Instantiation test",
+      "when a new MissMatchException is created ",
+      "then exception is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given MissMatchException class Instantiation test",
+      "when a new MissMatchException is created ",
+      "and exception is defined",
+      "then exception.message is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given MissMatchException class Instantiation test",
+      "when a new MissMatchException is created ",
+      "and exception is defined",
+      "then exception.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given MissMatchException class Instantiation test",
+      "when a new MissMatchException is created ",
+      "and exception is defined",
+      "and exception.message is defined",
+      "then exception.message is 'No value has been assigned to 'type': 'hint''"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given MissMatchException class Instantiation test",
+      "when a new MissMatchException is created ",
+      "and exception is defined",
+      "then exception is an instance of MissMatchException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given MissMatchException class Instantiation test",
+      "when a new MissMatchException is created ",
+      "and exception is defined",
+      "and exception.name is defined",
+      "then exception.name is MissMatchException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "Utilities.isConstructor",
+    "definition": [
+      "Given Utilities isConstructor static method test",
+      "then isConstructor is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "Utilities.isConstructor",
+    "definition": [
+      "Given Utilities isConstructor static method test",
+      "and isConstructor is defined",
+      "then isConstructor is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "Utilities.isConstructor",
+    "definition": [
+      "Given Utilities isConstructor static method test",
+      "and isConstructor is defined",
+      "and isConstructor is a function",
+      "when Utilities.isConstructor(key) is called",
+      "then result is true"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "Utilities.isConstructor",
+    "definition": [
+      "Given Utilities isConstructor static method test",
+      "and isConstructor is defined",
+      "and isConstructor is a function",
+      "when Utilities.isConstructor(key) is called",
+      "and result is true",
+      "when Utilities.isConstructor(key) is called",
+      "then result is false"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "abstract_class",
+    "spec": "Availability",
+    "definition": [
+      "Given Utilities abstract_class Availability test",
+      "and Utilities is imported",
+      "then Utilities is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate() is called without arguments",
+      "then null is returned"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.name",
+      "and error is defined",
+      "then error is an instance of Exception.ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.name",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.message is 'Validation failed with 1 error(s).'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.name",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.errors is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.name",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.errors is defined",
+      "then error.errors[0] is an Exception.InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.name",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.errors is defined",
+      "and error.errors[0] is an Exception.InvalidArgumentException",
+      "then error.errors[0].message is 'Invalid argument: name - must be a valid name'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.name",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.id",
+      "and error is defined",
+      "then error is an instance of Exception.ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.id",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.errors is defined",
+      "and error.errors[0] is an Exception.InvalidArgumentException",
+      "then error.errors[0].message is 'Invalid argument: id - must be a valid UUID'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.id",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.errors is defined",
+      "then error.errors[0] is an Exception.InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.id",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.errors is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.id",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.message is 'Validation failed with 1 error(s).'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data.id",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with valid data",
+      "then data is returned"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data",
+      "and error is defined",
+      "then error is an instance of Exception.ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.message is 'Validation failed with 2 error(s).'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.errors is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.errors is defined",
+      "then error.errors[1] is an Exception.InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.errors is defined",
+      "then error.errors[0] is an Exception.InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.errors is defined",
+      "and error.errors[1] is an Exception.InvalidArgumentException",
+      "then error.errors[1].message is 'Invalid argument: name - must be a valid name'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "and Metadata.validate is a function",
+      "when Metadata.validate(data) is called with invalid data",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.errors is defined",
+      "and error.errors[0] is an Exception.InvalidArgumentException",
+      "then error.errors[0].message is 'Invalid argument: id - must be a valid UUID'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "and Metadata.validate is defined",
+      "then Metadata.validate is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Metadata.validate",
+    "definition": [
+      "Given Metadata validate static method test",
+      "then Metadata.validate is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['custom']) is called",
+      "then metadata.custom is undefined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['custom']) is called",
+      "then metadata.id is data.id"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['custom']) is called",
+      "then metadata.name is data.name"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "then metadata.remove is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id']) is called",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id']) is called",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.length is 1",
+      "and error.errors[0] is an Exception.ImmutablePropertyException",
+      "then error.errors[0].message is 'Property 'id' is immutable.'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id']) is called",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.length is 1",
+      "then error.errors[0] is an Exception.ImmutablePropertyException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id']) is called",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.length is 1"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id']) is called",
+      "and error is defined",
+      "then error is an instance of Exception.ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id', 'name']) is called",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.length is 2",
+      "then error.errors[1] is an Exception.ImmutablePropertyException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id', 'name']) is called",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.length is 2",
+      "and error.errors[1] is an Exception.ImmutablePropertyException",
+      "then error.errors[1].message is 'Property 'name' is immutable.'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id', 'name']) is called",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.length is 2",
+      "and error.errors[0] is an Exception.ImmutablePropertyException",
+      "then error.errors[0].message is 'Property 'id' is immutable.'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id', 'name']) is called",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.length is 2",
+      "then error.errors[0] is an Exception.ImmutablePropertyException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id', 'name']) is called",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.length is 2"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id', 'name']) is called",
+      "and error is defined",
+      "then error is an instance of Exception.ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['id', 'name']) is called",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['name']) is called",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['name']) is called",
+      "and error is defined",
+      "then error is an instance of Exception.ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['name']) is called",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "then error.length is 1"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['name']) is called",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.length is 1",
+      "and error.errors[0] is an Exception.ImmutablePropertyException",
+      "then error.errors[0].message is 'Property 'name' is immutable.'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove(['name']) is called",
+      "and error is defined",
+      "and error is an instance of Exception.ValidationException",
+      "and error.length is 1",
+      "then error.errors[0] is an Exception.ImmutablePropertyException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove() is called",
+      "then metadata.name is null"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove() is called",
+      "then metadata.custom is undefined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "and metadata.remove is defined",
+      "when metadata.remove() is called",
+      "then metadata.id is null"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "method",
+    "spec": "remove",
+    "definition": [
+      "Given Metadata remove method test",
+      "when a metadata instance is created with data",
+      "then metadata.remove is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.immutablePropertyException",
+    "definition": [
+      "Given Exceptions immutablePropertyException static method test",
+      "then Exceptions.immutablePropertyException is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.immutablePropertyException",
+    "definition": [
+      "Given Exceptions immutablePropertyException static method test",
+      "and Exceptions.immutablePropertyException is defined",
+      "then Exceptions.immutablePropertyException is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.immutablePropertyException",
+    "definition": [
+      "Given Exceptions immutablePropertyException static method test",
+      "and Exceptions.immutablePropertyException is defined",
+      "and Exceptions.immutablePropertyException is a function",
+      "when Exceptions.immutablePropertyException(errors) is called",
+      "and error is defined",
+      "then error is an instance of ImmutablePropertyException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.immutablePropertyException",
+    "definition": [
+      "Given Exceptions immutablePropertyException static method test",
+      "and Exceptions.immutablePropertyException is defined",
+      "and Exceptions.immutablePropertyException is a function",
+      "when Exceptions.immutablePropertyException(errors) is called",
+      "and error is defined",
+      "and error is an instance of ImmutablePropertyException",
+      "then error.message is 'Property 'test' is immutable.'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.immutablePropertyException",
+    "definition": [
+      "Given Exceptions immutablePropertyException static method test",
+      "and Exceptions.immutablePropertyException is defined",
+      "and Exceptions.immutablePropertyException is a function",
+      "when Exceptions.immutablePropertyException(errors) is called",
+      "and error is defined",
+      "and error is an instance of ImmutablePropertyException",
+      "then error.name is ImmutablePropertyException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Exceptions.immutablePropertyException",
+    "definition": [
+      "Given Exceptions immutablePropertyException static method test",
+      "and Exceptions.immutablePropertyException is defined",
+      "and Exceptions.immutablePropertyException is a function",
+      "when Exceptions.immutablePropertyException(errors) is called",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Availability",
+    "definition": [
+      "Given Validate class Availability test",
+      "and Validate is imported",
+      "then Validate is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ValidationException class Instantiation test",
+      "when a new ValidationException is created",
+      "then exception is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ValidationException class Instantiation test",
+      "when a new ValidationException is created",
+      "and exception is defined",
+      "then exception is an instance of ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ValidationException class Instantiation test",
+      "when a new ValidationException is created",
+      "and exception is defined",
+      "then exception.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ValidationException class Instantiation test",
+      "when a new ValidationException is created",
+      "and exception is defined",
+      "and exception.name is defined",
+      "then exception.name is ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ValidationException class Instantiation test",
+      "when a new ValidationException is created",
+      "and exception is defined",
+      "then exception.errors is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ValidationException class Instantiation test",
+      "when a new ValidationException is created",
+      "and exception is defined",
+      "then exception.message is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ValidationException class Instantiation test",
+      "when a new ValidationException is created",
+      "and exception is defined",
+      "and exception.errors is defined",
+      "and exception.errors is an array",
+      "then exception.errors has length 1"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ValidationException class Instantiation test",
+      "when a new ValidationException is created",
+      "and exception is defined",
+      "and exception.errors is defined",
+      "and exception.errors is an array",
+      "and exception.errors has length 1",
+      "then exception.errors[0] is an instance of InvalidArgumentException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ValidationException class Instantiation test",
+      "when a new ValidationException is created",
+      "and exception is defined",
+      "and exception.errors is defined",
+      "then exception.errors is an array"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ValidationException class Instantiation test",
+      "when a new ValidationException is created",
+      "and exception is defined",
+      "and exception.message is defined",
+      "then exception.message is 'Validation failed with 1 error(s).'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.keys",
+    "definition": [
+      "Given Validate keys static method test",
+      "then Validate.keys is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.keys",
+    "definition": [
+      "Given Validate keys static method test",
+      "and Validate.keys is defined",
+      "then Validate.keys is a function"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.keys",
+    "definition": [
+      "Given Validate keys static method test",
+      "and Validate.keys is defined",
+      "and Validate.keys is a function",
+      "when Validate.keys(keys, rules) is called with invalid keys",
+      "then error is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.keys",
+    "definition": [
+      "Given Validate keys static method test",
+      "and Validate.keys is defined",
+      "and Validate.keys is a function",
+      "when Validate.keys(keys, rules) is called with invalid keys",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 2",
+      "and error.errors[1] is an instance of ImmutablePropertyException",
+      "then error.errors[1].message is \"Property 'name' is immutable.\""
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.keys",
+    "definition": [
+      "Given Validate keys static method test",
+      "and Validate.keys is defined",
+      "and Validate.keys is a function",
+      "when Validate.keys(keys, rules) is called with invalid keys",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 2",
+      "then error.errors[0] is an instance of ImmutablePropertyException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.keys",
+    "definition": [
+      "Given Validate keys static method test",
+      "and Validate.keys is defined",
+      "and Validate.keys is a function",
+      "when Validate.keys(keys, rules) is called with invalid keys",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 2",
+      "and error.errors[0] is an instance of ImmutablePropertyException",
+      "then error.errors[0].message is \"Property 'id' is immutable.\""
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.keys",
+    "definition": [
+      "Given Validate keys static method test",
+      "and Validate.keys is defined",
+      "and Validate.keys is a function",
+      "when Validate.keys(keys, rules) is called with invalid keys",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "and error.errors.length is 2",
+      "then error.errors[1] is an instance of ImmutablePropertyException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.keys",
+    "definition": [
+      "Given Validate keys static method test",
+      "and Validate.keys is defined",
+      "and Validate.keys is a function",
+      "when Validate.keys(keys, rules) is called with invalid keys",
+      "and error is defined",
+      "and error is an instance of ValidationException",
+      "then error.errors.length is 2"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.keys",
+    "definition": [
+      "Given Validate keys static method test",
+      "and Validate.keys is defined",
+      "and Validate.keys is a function",
+      "when Validate.keys(keys, rules) is called with invalid keys",
+      "and error is defined",
+      "then error is an instance of ValidationException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "static method",
+    "spec": "Validate.keys",
+    "definition": [
+      "Given Validate keys static method test",
+      "and Validate.keys is defined",
+      "and Validate.keys is a function",
+      "when Validate.keys(keys, rules) is called with valid keys",
+      "then Validate.keys returns the keys"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Availability",
+    "definition": [
+      "Given Exceptions class Availability test",
+      "and Exceptions is imported",
+      "then Exceptions is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Availability",
+    "definition": [
+      "Given UnassignedException class Availability test",
+      "and UnassignedException is imported",
+      "then UnassignedException is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Availability",
+    "definition": [
+      "Given MissMatchException class Availability test",
+      "and MissMatchException is imported",
+      "then MissMatchException is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given AssignedException class Instantiation test",
+      "when a new AssignedException is created",
+      "and exception is defined",
+      "then exception is an instance of AssignedException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given AssignedException class Instantiation test",
+      "when a new AssignedException is created",
+      "and exception is defined",
+      "then exception.message is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given AssignedException class Instantiation test",
+      "when a new AssignedException is created",
+      "and exception is defined",
+      "and exception.name is defined",
+      "then exception.name is AssignedException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given AssignedException class Instantiation test",
+      "when a new AssignedException is created",
+      "and exception is defined",
+      "and exception.message is defined",
+      "then exception.message is 'A value has already been assigned to 'type': 'hint''"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given AssignedException class Instantiation test",
+      "when a new AssignedException is created",
+      "and exception is defined",
+      "then exception.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given AssignedException class Instantiation test",
+      "when a new AssignedException is created",
+      "then exception is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Availability",
+    "definition": [
+      "Given ValidationException class Availability test",
+      "and ValidationException is imported",
+      "then ValidationException is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ImmutablePropertyException class Instantiation test",
+      "when a new ImmutablePropertyException is created",
+      "then exception is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ImmutablePropertyException class Instantiation test",
+      "when a new ImmutablePropertyException is created",
+      "and exception is defined",
+      "then exception is an instance of ImmutablePropertyException"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ImmutablePropertyException class Instantiation test",
+      "when a new ImmutablePropertyException is created",
+      "and exception is defined",
+      "then exception.name is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ImmutablePropertyException class Instantiation test",
+      "when a new ImmutablePropertyException is created",
+      "and exception is defined",
+      "and exception.message is defined",
+      "then exception.message is 'Property 'test' is immutable.'"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ImmutablePropertyException class Instantiation test",
+      "when a new ImmutablePropertyException is created",
+      "and exception is defined",
+      "then exception.message is defined"
+    ],
+    "status": "pass"
+  },
+  {
+    "type": "class",
+    "spec": "Instantiation",
+    "definition": [
+      "Given ImmutablePropertyException class Instantiation test",
+      "when a new ImmutablePropertyException is created",
+      "and exception is defined",
+      "and exception.name is defined",
+      "then exception.name is ImmutablePropertyException"
     ],
     "status": "pass"
   }
