@@ -19,3 +19,15 @@ export type UUID = string & { __uuid?: never };
  * ```
  */
 export type Name = string & { __name?: never };
+
+/**
+ * Graph contains Nodes and Edges located at specific Coordinates.
+ * @example
+ * ```ts
+ * const coordinates: Coordinates = { x: 0, y: 0 };
+ * ```
+ */
+export type Coordinates = {
+  x: number;
+  y: number;
+};
