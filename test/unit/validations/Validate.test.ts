@@ -300,7 +300,7 @@ given(`Validate match ${Type.STATIC_METHOD} test`, () => {
         () => {
           let keys: string[];
           let immutable: string;
-          let result: boolean;
+          let result;
           beforeEach(() => {
             keys = ["id", "name"];
             immutable = "type";
