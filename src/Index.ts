@@ -14,3 +14,5 @@ export { Utilities } from "./utilities/Utilities.js";
 
 export { Metadata } from "./Metadata.js";
 export type { IMetadata } from "./Metadata.js";
+
+export { Node } from "./Node.js";
