@@ -53,4 +53,31 @@ export class Node {
     ...node,
     id: crypto.randomUUID() as UUID,
   });
+
+  /**
+   * Updates a given node with new properties while preserving its `id`.
+   *
+   * @param node - The original node to update.
+   * @param patch - A partial update object containing the properties to modify.
+   * @returns A new node with the updated properties while keeping the original `id`.
+   *
+   * @remarks
+   * - The `id` is always preserved from the original node, even if included in `patch`.
+   * - This method performs a shallow merge of the `patch` properties into the `node`.
+   *
+   * @example
+   * ```ts
+   * const node = { id: "a1", coordinates: { x: 0, y: 0 } };
+   * const updatedNode = Node.update(node, { coordinates: { x: 1, y: 1 } });
+   *
+   * console.log(updatedNode);
+   * // Returns: { id: "a1", coordinates: { x: 1, y: 1 } }
+   * ```
+   * @category Utilities
+   */
+  public static update = <T extends INode>(node: T, patch: Partial<T>): T => ({
+    ...node,
+    ...patch,
+    id: node.id,
+  });
 }
