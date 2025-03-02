@@ -70,4 +70,5 @@ export const Type = {
 export const Spec = {
   AVAILABILITY: "Availability",
   INSTANTIATION: "Instantiation",
+  BEHAVIOR: "Behavior",
 };
