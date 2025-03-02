@@ -47,7 +47,7 @@ export class ImmutablePropertyException extends Exception {
  */
 export class AssignedException extends Exception {
   constructor(type: string, hint: string) {
-    super(`A value has already been assigned to ${type}: ${hint}`);
+    super(`Cannot reassign ${type}. ${hint}`);
   }
 }
 
