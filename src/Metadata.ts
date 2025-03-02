@@ -200,21 +200,21 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * ```
    */
   public update = (metadata: Partial<T>) => {
-    metadata &&
-      Validate.rules<Partial<T>>(metadata, [({ id }) => Validate.uuid(id)]);
+    metadata.id && Validate.uuid(metadata.id);
 
     !this.assigned &&
       Exceptions.unassignedException(
         "metadata",
         "Use metadata.add(metadata) instead."
       );
-    !this.match(metadata) &&
+    metadata.id &&
+      !this.match(metadata) &&
       Exceptions.missMatchException(
         "identifier",
         "get metadata.id and verify match."
       );
 
-    this.hydrate(metadata);
+    this.hydrate({ id: this._id, ...metadata });
 
     return this;
   };
@@ -230,7 +230,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * metadata.remove(); // ✅ Clears all custom properties but keeps id & name
    * ```
    */
-  public remove = <K extends keyof (Metadata<T> & T)>(keys?: K[]) => {
+  public remove = <K extends Extract<keyof T, string>>(keys?: K[]) => {
     !keys
       ? (this.reset(), this.hydrate(Metadata.normalize<T>()))
       : Validate.keys<K[]>(keys, [
