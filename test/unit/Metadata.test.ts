@@ -909,7 +909,7 @@ given(`Metadata add ${Type.METHOD} test`, () => {
             "error.message is 'A value has already been assigned to Metadata: id'",
             () => {
               expect(error.message).toBe(
-                "A value has already been assigned to metadata: Use metadata.update(metadata) instead."
+                "Cannot reassign metadata. Use metadata.update(metadata) instead."
               );
             }
           );
