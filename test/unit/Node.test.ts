@@ -59,3 +59,40 @@ given(`Node.create ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Node.clone ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", "Node.clone");
+  });
+  then("Node.clone() public static method exists", () => {
+    expect(Node.clone).toBeDefined();
+  });
+  and("Node.clone() public static method exists", () => {
+    when("Node.clone(node)", () => {
+      let node;
+      let clonedNode;
+      beforeEach(() => {
+        node = {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: { x: 0, y: 0 },
+        };
+        clonedNode = Node.clone(node);
+      });
+      then("clonedNode is defined", () => {
+        expect(clonedNode).toBeDefined();
+      });
+      and("clonedNode is defined", () => {
+        then("clonedNode is not equal to node", () => {
+          expect(clonedNode).not.toBe(node);
+        });
+        then("clonedNode.id is not equal to node.id", () => {
+          expect(clonedNode.id).not.toBe(node.id);
+        });
+        then("clonedNode.coordinates equals node.coordinates", () => {
+          expect(clonedNode.coordinates).toEqual(node.coordinates);
+        });
+      });
+    });
+  });
+});
