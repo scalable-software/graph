@@ -50,3 +50,20 @@ given(`Nodes ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
     });
   });
 });
+
+given(`Nodes create ${Type.STATIC_METHOD} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`Nodes is imported`, () => {
+    then(`Nodes.create is defined`, () => {
+      expect(Nodes.create).toBeDefined();
+    });
+    and(`Nodes.create is defined`, () => {
+      then(`Nodes.create is an instance of Function`, () => {
+        expect(Nodes.create).toBeInstanceOf(Function);
+      });
+    });
+  });
+});
