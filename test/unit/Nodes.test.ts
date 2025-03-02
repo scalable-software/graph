@@ -85,6 +85,50 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
       then("nodes is an instance of Nodes", () => {
         expect(nodes).toBeInstanceOf(Nodes);
       });
+      and("nodes is an instance of Nodes", () => {
+        then("nodes.length is 0", () => {
+          expect(nodes.length).toBe(0);
+        });
+      });
+    });
+  });
+  when("Nodes.create() is called with valid array of nodes", () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 2, y: 3 },
+        },
+      ];
+      nodes = Nodes.create(data);
+    });
+    then("nodes is defined", () => {
+      expect(nodes).toBeDefined();
+    });
+    and("nodes is defined", () => {
+      then("nodes is an instance of Nodes", () => {
+        expect(nodes).toBeInstanceOf(Nodes);
+      });
+      and("nodes is an instance of Nodes", () => {
+        then("nodes.length is data.length", () => {
+          expect(nodes.length).toBe(data.length);
+        });
+        then("nodes contains is data", () => {
+          nodes.forEach((node, index) => {
+            expect(node).toEqual(data[index]);
+          });
+        });
+      });
     });
   });
 });
