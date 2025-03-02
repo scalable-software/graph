@@ -75,7 +75,7 @@ export class Validate {
    */
   public static match = <T>(keys: T[], immutable: T): unknown =>
     keys.includes(immutable) &&
-    Exceptions.immutablePropertyException(immutable as string);
+    Exceptions.immutablePropertyException(String(immutable));
 
   /**
    * Validate id and throw if not valid UUID
