@@ -1,4 +1,4 @@
-import type { UUID, Name, Coordinates } from "./Graph.types.js";
+import type { UUID, Name, Coordinates, Offset } from "./Graph.types.js";
 
 export type INode = {
   id: UUID;
@@ -108,5 +108,34 @@ export class Node {
   ): T => ({
     ...node,
     coordinates,
+  });
+
+  /**
+   * Translates a node by applying an offset to its `coordinates`.
+   *
+   * @param node - The node to translate.
+   * @param offset - The amount to move the node along the x and y axes.
+   * @returns A new node with updated `coordinates` reflecting the translation.
+   *
+   * @remarks
+   * - The `coordinates` are modified by adding `offset.x` and `offset.y` to the existing values.
+   * - All other properties, including `id`, remain unchanged.
+   *
+   * @example
+   * ```ts
+   * const node = { id: "a1", coordinates: { x: 0, y: 0 } };
+   * const translatedNode = Node.translate(node, { x: 3, y: -2 });
+   *
+   * console.log(translatedNode);
+   * // Returns: { id: "a1", coordinates: { x: 3, y: -2 } }
+   * ```
+   * @category Utilities
+   */
+  public static translate = <T extends INode>(node: T, offset: Offset): T => ({
+    ...node,
+    coordinates: {
+      x: node.coordinates.x + offset.x,
+      y: node.coordinates.y + offset.y,
+    },
   });
 }
