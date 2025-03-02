@@ -26,3 +26,27 @@ given(`Nodes ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
     });
   });
 });
+
+given(`Nodes ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.INSTANTIATION);
+  });
+  when("a nodes instance is created", () => {
+    let nodes: Nodes<INode>;
+    beforeEach(() => {
+      nodes = new Nodes();
+    });
+    then("nodes is defined", () => {
+      expect(nodes).toBeDefined();
+    });
+    and("nodes is defined", () => {
+      then("nodes is an instance of Nodes", () => {
+        expect(nodes).toBeInstanceOf(Nodes);
+      });
+      then("nodes is an instance of Array", () => {
+        expect(nodes).toBeInstanceOf(Array);
+      });
+    });
+  });
+});
