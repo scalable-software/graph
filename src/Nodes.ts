@@ -10,10 +10,10 @@ export class Nodes<T extends INode> extends Array<T> {
    *
    * @category Factory
    */
-  public static create = <T extends INode>(node?: T): Nodes<T> & T =>
-    new Nodes<T>(node) as Nodes<T> & T;
+  public static create = <T extends INode>(nodes?: T[] | null): Nodes<T> & T =>
+    new Nodes<T>(...(nodes ?? [])) as Nodes<T> & T;
 
-  constructor(node?: T) {
-    super();
+  constructor(...nodes: T[]) {
+    super(...nodes);
   }
 }
