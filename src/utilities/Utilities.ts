@@ -2,10 +2,10 @@ export class Utilities {
   public static select = <T>(
     instance: T,
     filters: ((entry: [string, unknown]) => boolean)[]
-  ): { [key: string]: any } =>
+  ): Record<string, unknown> =>
     Object.fromEntries(
-      Object.entries(instance).filter((property) =>
-        filters.every((filter) => filter(property))
+      Object.entries(instance).filter((entry) =>
+        filters.every((filter) => filter(entry))
       )
     );
 
