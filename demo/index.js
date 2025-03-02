@@ -1,4 +1,17 @@
-import { Pin } from "@scalable.software/graph";
+import { Metadata } from "@scalable.software/graph";
 
-await Pin.Template.load("Pin.template.html");
-customElements.define(Pin.Tag, Pin);
+const metadata = Metadata.create()
+  .add({
+    id: "123e4567-e89b-12d3-a456-426614174000",
+    name: "test",
+  })
+  .update({
+    name: "test",
+    custom: "custom",
+  })
+  .remove(["custom"])
+  .update({
+    type: "type",
+  });
+
+console.log(metadata.toJSON());
