@@ -80,4 +80,33 @@ export class Node {
     ...patch,
     id: node.id,
   });
+
+  /**
+   * Moves a node to a new set of coordinates while preserving its other properties.
+   *
+   * @param node - The node to move.
+   * @param coordinates - The new coordinates to assign to the node.
+   * @returns A new node with updated `coordinates` while keeping all other properties unchanged.
+   *
+   * @remarks
+   * - This method replaces the `coordinates` property with the new value.
+   * - All other properties, including `id`, remain unchanged.
+   *
+   * @example
+   * ```ts
+   * const node = { id: "a1", coordinates: { x: 0, y: 0 } };
+   * const movedNode = Node.move(node, { x: 5, y: 5 });
+   *
+   * console.log(movedNode);
+   * // Returns: { id: "a1", coordinates: { x: 5, y: 5 } }
+   * ```
+   * @category Utilities
+   */
+  public static move = <T extends INode>(
+    node: T,
+    coordinates: Coordinates
+  ): T => ({
+    ...node,
+    coordinates,
+  });
 }
