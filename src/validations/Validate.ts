@@ -4,7 +4,7 @@
 
 import { Exception, Exceptions } from "../exceptions/Exceptions.js";
 
-import type { UUID, Name } from "../Graph.types.js";
+import type { UUID, Name, Coordinates } from "../Graph.types.js";
 
 export class Validate {
   private static applyRule =
@@ -126,6 +126,34 @@ export class Validate {
     !name || name.length < 3 || name.length > 100
       ? Exceptions.invalidArgumentException("name", "must be a valid name")
       : (name as Name);
+
+  /**
+   * Validate coordinates and throw if not valid
+   * @param coordinates - The coordinates to validate
+   * @returns The coordinates if valid
+   * @throws {InvalidArgumentException} If the coordinates are invalid or null
+   * @example
+   * ```ts
+   * Validate.coordinates({ x: 0, y: 0 });
+   * // => { x: 0, y: 0 }
+   * Validate.coordinates({ x: 0 });
+   * // => InvalidArgumentException: Invalid argument: coordinates - must be valid coordinates
+   * Validate.coordinates(null);
+   * // => InvalidArgumentException: Invalid argument: coordinates - must be valid coordinates
+   * ```
+   *
+   */
+  public static coordinates = (coordinates: Coordinates | null): Coordinates =>
+    !coordinates ||
+    !("x" in coordinates) ||
+    !("y" in coordinates) ||
+    typeof coordinates.x !== "number" ||
+    typeof coordinates.y !== "number"
+      ? Exceptions.invalidArgumentException(
+          "coordinates",
+          "must be valid coordinates"
+        )
+      : (coordinates as Coordinates);
 
   /**
    * Validate details against a set of rules and throw ValidationException if any fail
