@@ -982,9 +982,11 @@ given(`Metadata update ${Type.METHOD} test`, () => {
     type T = { custom: string } & IMetadata;
     let metadata: Metadata<T> & T;
     let data: T;
+    let id: UUID;
     beforeEach(() => {
+      id = "123e4567-e89b-12d3-a456-426614174000";
       data = {
-        id: "123e4567-e89b-12d3-a456-426614174000",
+        id,
         name: "test",
         custom: "custom",
       };
@@ -1010,6 +1012,25 @@ given(`Metadata update ${Type.METHOD} test`, () => {
           });
           then("metadata.id is data.id", () => {
             expect(metadata.id).toBe(data.id);
+          });
+          then("metadata.name is data.name", () => {
+            expect(metadata.name).toBe(data.name);
+          });
+          then("metadata.custom is data.custom", () => {
+            expect(metadata.custom).toBe(data.custom);
+          });
+        });
+        when("metadata.update(data) is called with data with no id", () => {
+          let data: Omit<T, "id">;
+          beforeEach(() => {
+            data = {
+              name: "test",
+              custom: "custom",
+            };
+            metadata.update(data);
+          });
+          then("metadata.id is id", () => {
+            expect(metadata.id).toBe(id);
           });
           then("metadata.name is data.name", () => {
             expect(metadata.name).toBe(data.name);
@@ -1105,9 +1126,9 @@ given(`Metadata remove ${Type.METHOD} test`, () => {
         });
       });
       when("metadata.remove(['custom']) is called", () => {
-        let key: keyof Metadata<T> & T;
+        let key;
         beforeEach(() => {
-          key = "custom" as keyof Metadata<T> & T;
+          key = "custom";
           metadata.remove([key]);
         });
         then("metadata.id is data.id", () => {
@@ -1121,11 +1142,11 @@ given(`Metadata remove ${Type.METHOD} test`, () => {
         });
       });
       when("metadata.remove(['id']) is called", () => {
-        let key: keyof (Metadata<T> & T);
+        let key;
         let error: Exception.ValidationException;
         beforeEach(() => {
           try {
-            key = "id" as keyof (Metadata<T> & T);
+            key = "id";
             metadata.remove([key]);
           } catch (e) {
             error = e;
@@ -1169,11 +1190,11 @@ given(`Metadata remove ${Type.METHOD} test`, () => {
         });
       });
       when("metadata.remove(['name']) is called", () => {
-        let key: keyof (Metadata<T> & T);
+        let key;
         let error: Exception.ValidationException;
         beforeEach(() => {
           try {
-            key = "name" as keyof (Metadata<T> & T);
+            key = "name";
             metadata.remove([key]);
           } catch (e) {
             error = e;
@@ -1217,7 +1238,7 @@ given(`Metadata remove ${Type.METHOD} test`, () => {
         });
       });
       when("metadata.remove(['id', 'name']) is called", () => {
-        let keys: Array<keyof (Metadata<T> & T)>;
+        let keys;
         let error: Exception.ValidationException;
         beforeEach(() => {
           try {
@@ -1391,9 +1412,9 @@ given(`Metadata workflow test`, () => {
           expect(metadata.custom).toBe(data.custom);
         });
         and("metadata.remove(keys) is called", () => {
-          let key: keyof (Metadata<T> & T);
+          let key;
           beforeEach(() => {
-            key = "custom" as keyof (Metadata<T> & T);
+            key = "custom";
             metadata.remove([key]);
           });
           then("metadata.id is data.id", () => {
@@ -1449,7 +1470,7 @@ given(`Metadata workflow test`, () => {
           name: "test",
           custom: "custom",
         })
-        .remove(["custom" as keyof (Metadata<T> & T)])
+        .remove(["custom"])
         .update({
           id: "123e4567-e89b-12d3-a456-426614174000",
           name: "test",
