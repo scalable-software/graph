@@ -273,7 +273,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
     Object.assign(this, properties);
   }
 
-  private match = (metadata: Partial<T>): boolean => this._id === metadata.id;
+  private match = ({ id }: Partial<T>): boolean => this._id === id;
 
   private reset = () =>
     Object.keys(this.customProperties).forEach((key) => delete this[key]);
