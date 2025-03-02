@@ -214,7 +214,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
         "get metadata.id and verify match."
       );
 
-    this.hydrate({ id: this._id, ...metadata });
+    this.hydrate({ id: this._id, ...this.toJSON(), ...metadata });
 
     return this;
   };
