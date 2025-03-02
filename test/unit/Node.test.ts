@@ -96,3 +96,38 @@ given(`Node.clone ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Node.update ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", "Node.update");
+  });
+  then("Node.update() public static method exists", () => {
+    expect(Node.update).toBeDefined();
+  });
+  and("Node.update() public static method exists", () => {
+    when("Node.update(node, patch)", () => {
+      let node;
+      let patch;
+      let updatedNode;
+      beforeEach(() => {
+        node = {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: { x: 0, y: 0 },
+        };
+        patch = {
+          coordinates: { x: 100, y: 400 },
+        };
+        updatedNode = Node.update(node, patch);
+      });
+      then("updatedNode is defined", () => {
+        expect(updatedNode).toBeDefined();
+      });
+      and("updatedNode is defined", () => {
+        then("updatedNode.coordinates equals patch.coordinates", () => {
+          expect(updatedNode.coordinates).toEqual(patch.coordinates);
+        });
+      });
+    });
+  });
+});
