@@ -73,8 +73,8 @@ export class Validate {
    * ```
    *
    */
-  public static match = <T>(keys: T[], immutable: string): unknown =>
-    keys.some((key) => key === immutable) &&
+  public static match = <T>(keys: T[], immutable: T): unknown =>
+    keys.includes(immutable) &&
     Exceptions.immutablePropertyException(immutable as string);
 
   /**
@@ -97,7 +97,8 @@ export class Validate {
    * ```
    */
   public static uuid = (id: string | null): UUID =>
-    !id || !/^[0-9a-fA-F-]{36}$/.test(id)
+    !id ||
+    !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
       ? Exceptions.invalidArgumentException("id", "must be a valid UUID")
       : (id as UUID);
 
