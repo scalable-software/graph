@@ -28,4 +28,29 @@ export class Node {
       id: crypto.randomUUID() as UUID,
       ...details,
     } as T);
+
+  /**
+   * Creates a clone of a given node with a new unique `id`.
+   *
+   * @param node - The node to clone.
+   * @returns A new node with the same properties as the original, but with a newly generated `id`.
+   *
+   * @remarks
+   * - The `id` is regenerated using `crypto.randomUUID()` and cast as `UUID`.
+   * - This method is useful when duplicating nodes while ensuring uniqueness.
+   *
+   * @example
+   * ```ts
+   * const originalNode = { id: "a1", coordinates: { x: 0, y:0 } };
+   * const clonedNode = Node.clone(originalNode);
+   *
+   * console.log(clonedNode);
+   * // Returns: { id: "new-generated-uuid", coordinates: { x: 0, y:0 } }
+   * ```
+   * @category Utilities
+   */
+  public static clone = <T extends INode>(node: T): T => ({
+    ...node,
+    id: crypto.randomUUID() as UUID,
+  });
 }
