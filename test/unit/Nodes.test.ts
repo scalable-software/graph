@@ -67,3 +67,24 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.AVAILABILITY} test`, () => {
     });
   });
 });
+
+given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", Spec.BEHAVIOR);
+  });
+  when("Nodes.create is called", () => {
+    let nodes: Nodes<INode>;
+    beforeEach(() => {
+      nodes = Nodes.create();
+    });
+    then("nodes is defined", () => {
+      expect(nodes).toBeDefined();
+    });
+    and("nodes is defined", () => {
+      then("nodes is an instance of Nodes", () => {
+        expect(nodes).toBeInstanceOf(Nodes);
+      });
+    });
+  });
+});
