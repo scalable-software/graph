@@ -131,3 +131,36 @@ given(`Node.update ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Node.move ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", "Node.move");
+  });
+  then("Node.move() public static method exists", () => {
+    expect(Node.move).toBeDefined();
+  });
+  and("Node.move() public static method exists", () => {
+    when("Node.move(node, coordinates)", () => {
+      let node;
+      let coordinates;
+      let updatedNode;
+      beforeEach(() => {
+        node = {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: { x: 0, y: 0 },
+        };
+        coordinates = { x: 100, y: 400 };
+        updatedNode = Node.move(node, coordinates);
+      });
+      then("updatedNode is defined", () => {
+        expect(updatedNode).toBeDefined();
+      });
+      and("updatedNode is defined", () => {
+        then("updatedNode.coordinates equals coordinates", () => {
+          expect(updatedNode.coordinates).toEqual(coordinates);
+        });
+      });
+    });
+  });
+});
