@@ -122,6 +122,106 @@ given(`Validate uuid ${Type.STATIC_METHOD} test`, () => {
   });
 });
 
+given(`Validate coordinates ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.coordinates");
+  });
+  then(`Validate.coordinates is defined`, () => {
+    expect(Validate.coordinates).toBeDefined();
+  });
+  and(`Validate.coordinates is defined`, () => {
+    then(`Validate.coordinates is a function`, () => {
+      expect(Validate.coordinates).toBeInstanceOf(Function);
+    });
+    and(`Validate.coordinates is a function`, () => {
+      when(
+        `Validate.coordinates(coordinates) is called with valid coordinates`,
+        () => {
+          let coordinates: any;
+          let result: any;
+          beforeEach(() => {
+            coordinates = { x: 0, y: 0 };
+            result = Validate.coordinates(coordinates);
+          });
+          then(`Validate.coordinates returns the coordinates`, () => {
+            expect(result).toBe(coordinates);
+          });
+        }
+      );
+      when(
+        `Validate.coordinates(coordinates) is called with invalid coordinates`,
+        () => {
+          let coordinates: any;
+          let error: Error;
+          beforeEach(() => {
+            coordinates = { x: 0 };
+            try {
+              Validate.coordinates(coordinates);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(`error is an instance of InvalidArgumentException`, () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            and(`error is an instance of InvalidArgumentException`, () => {
+              then(`error is an instance of InvalidArgumentException`, () => {
+                expect(error).toBeInstanceOf(InvalidArgumentException);
+              });
+              then(
+                `error.message is "Invalid argument: coordinates - must be valid coordinates"`,
+                () => {
+                  expect(error.message).toBe(
+                    "Invalid argument: coordinates - must be valid coordinates"
+                  );
+                }
+              );
+            });
+          });
+        }
+      );
+      when(`Validate.coordinates(coordinates) is called with null`, () => {
+        let coordinates: any;
+        let error: Error;
+        beforeEach(() => {
+          coordinates = null;
+          try {
+            Validate.coordinates(coordinates);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(InvalidArgumentException);
+          });
+          and(`error is an instance of InvalidArgumentException`, () => {
+            then(`error is an instance of InvalidArgumentException`, () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            then(
+              `error.message is "Invalid argument: coordinates - must be valid coordinates"`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: coordinates - must be valid coordinates"
+                );
+              }
+            );
+          });
+        });
+      });
+    });
+  });
+});
+
 given(`Validate name ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
