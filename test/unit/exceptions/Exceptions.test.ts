@@ -318,9 +318,7 @@ given(`AssignedException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
         then(
           "exception.message is 'A value has already been assigned to 'type': 'hint''",
           () => {
-            expect(exception.message).toBe(
-              `A value has already been assigned to ${type}: ${hint}`
-            );
+            expect(exception.message).toBe(`Cannot reassign ${type}. ${hint}`);
           }
         );
       });
@@ -653,9 +651,7 @@ given(`Exceptions assignedException ${Type.STATIC_METHOD} test`, () => {
             then(
               "error.message is 'A value has already been assigned to test: reason'",
               () => {
-                expect(error.message).toBe(
-                  "A value has already been assigned to test: reason"
-                );
+                expect(error.message).toBe("Cannot reassign test. reason");
               }
             );
           });
