@@ -164,3 +164,43 @@ given(`Node.move ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Node.translate ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", "Node.translate");
+  });
+  then("Node.translate() public static method exists", () => {
+    expect(Node.translate).toBeDefined();
+  });
+  and("Node.translate() public static method exists", () => {
+    when("Node.translate(node, offset)", () => {
+      let node;
+      let offset;
+      let updatedNode;
+      beforeEach(() => {
+        node = {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: { x: 0, y: 0 },
+        };
+        offset = { x: 100, y: 400 };
+        updatedNode = Node.translate(node, offset);
+      });
+      then("updatedNode is defined", () => {
+        expect(updatedNode).toBeDefined();
+      });
+      and("updatedNode is defined", () => {
+        then(
+          "updatedNode.coordinates equals node.coordinates plus offset",
+          () => {
+            let updateCoordinates = {
+              x: node.coordinates.x + offset.x,
+              y: node.coordinates.y + offset.y,
+            };
+            expect(updatedNode.coordinates).toEqual(updateCoordinates);
+          }
+        );
+      });
+    });
+  });
+});
