@@ -1,8 +1,8 @@
-import {
-  Exception,
-  Exceptions,
-  ImmutablePropertyException,
-} from "../exceptions/Exceptions.js";
+/**
+ * @module Validation
+ */
+
+import { Exception, Exceptions } from "../exceptions/Exceptions.js";
 
 import type { UUID, Name } from "../Graph.types.js";
 

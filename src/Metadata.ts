@@ -1,12 +1,42 @@
+/**
+ * A graph is a data structure that:
+ * - has {@link Metadata}
+ * - contains contains nodes and edges.
+ *
+ *
+ * Extension with new properties is supported.
+ * @module Graph
+ */
+
 import { Validate } from "./validations/Validate.js";
 import { Exceptions } from "./exceptions/Exceptions.js";
 import { Utilities } from "./utilities/Utilities.js";
 import type { UUID, Name } from "./Graph.types.js";
 
+/**
+ * The metadata object has an `id` and `name` property.
+ * - The `id` property is immutable.
+ * - The `name` property is mutable but gets validated.
+ */
 export type IMetadata = {
   id: UUID | null;
   name: Name | null;
 };
+
+/**
+ * Build-in support for custom type with extended properties.
+ *
+ * ```ts
+ * type CustomMetadata = IMetadata & { custom: string };
+ * const metadata = Metadata.create<CustomMetadata>();
+ *
+ * metadata.add({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test", custom: "value" });
+ *
+ * metadata.toJSON();
+ * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test", custom: "value" }
+ * ```
+ * @template T Is by default {@link IMetadata} but extends {@link IMetadata} with custom properties (see example).
+ */
 export class Metadata<T extends IMetadata = IMetadata> {
   private static normalize = <T extends IMetadata>(metadata?: T) =>
     metadata
@@ -26,7 +56,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
     ({ id: null, name: null } as T);
 
   /**
-   * Validates the metadata object, if provided, to ensure required fields are present and valid.
+   * Validate the metadata, if provided, to ensure required properties are present and valid.
    *
    * @param metadata The optional metadata object to validate.
    * @returns The validated metadata object or null if invalid.
@@ -42,6 +72,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * Metadata.validate({ id: "123", name: "" });
    * // => ValidationException: Validation failed with 2 error(s).
    * ```
+   * @category Validation
    */
   public static validate = <T extends IMetadata>(metadata?: T): T | null =>
     metadata
@@ -52,29 +83,19 @@ export class Metadata<T extends IMetadata = IMetadata> {
       : null;
 
   /**
-   * Creates a new metadata instance with appropriate return type.
-   * This is necessary to ensure the correct type is returned when using the class directly.
    *
-   * @param metadata The optional metadata object to create.
-   * @returns The new metadata instance.
+   * Factory method used to create a new metadata instance.
    *
-   * @example
-   * ```ts
-   * const metadata = Metadata.create({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
-   * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
+   * @param metadata The metadata object to hydrate the instance with.
+   * @returns A new metadata instance.
    *
-   * const metadata = Metadata.create();
-   * // { id: null, name: null }
-   *
-   * const metadata = Metadata.create({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test", type: "custom" });
-   * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test", type: "custom" }
-   * ```
+   * @category Factory
    */
   public static create = <T extends IMetadata>(metadata?: T): Metadata<T> & T =>
     new Metadata<T>(metadata) as Metadata<T> & T;
 
-  public _id: UUID | null = null;
-  public _name: Name | null = null;
+  private _id: UUID | null = null;
+  private _name: Name | null = null;
 
   /**
    * Typescript constructors cannot return a value other than the class.
@@ -88,6 +109,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * The `id` property is immutable:
    * `get` returns value
    * `set` throw exception
+   *
    * @throws {ImmutablePropertyException} The id property is immutable.
    *
    * @example
@@ -96,6 +118,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * metadata.id = "123e4567-e89b-12d3-a456-426614174000";
    * // => ImmutablePropertyException: id
    * ```
+   * @category Data
+   *
    */
   get id(): UUID | null {
     return this._id;
@@ -116,7 +140,9 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * metadata.name;
    * // => "Test"
    * ```
-   */
+   *
+   * @category Data
+   * */
   get name(): Name | null {
     return this._name;
   }
@@ -139,13 +165,15 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * metadata.assigned;
    * // => true
    * ```
+   * @category State
    */
   get assigned(): boolean {
     return this._id !== null && this._name !== null;
   }
 
   /**
-   * Retrieve required and custom properties from the metadata instance.
+   * Retrieve extended properties from the metadata instance.
+   * @category  State
    */
   get customProperties(): { [key: string]: any } {
     return Utilities.select(this, [
@@ -158,6 +186,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
 
   /**
    * Adds metadata to the instance if not already assigned.
+   *
    * @param metadata The metadata object to add.
    * @throws {AssignedException} A value has already been assigned to metadata.
    *
@@ -167,6 +196,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * metadata.add({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
    * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
    * ```
+   * @category Operations
    */
   public add = (metadata: T) => {
     metadata = Metadata.ensureId<T>(metadata);
@@ -185,6 +215,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
 
   /**
    * Updates the metadata instance with new data.
+   *
+   *
    * @param metadata The new metadata object to update.
    * @throws {UnassignedException} No value has been assigned to metadata.
    *
@@ -198,6 +230,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * metadata.update({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
    * // UnassignedException: metadata - Use metadata.add(metadata) instead.
    * ```
+   * @category Operations
    */
   public update = (metadata: Partial<T>) => {
     metadata.id && Validate.uuid(metadata.id);
@@ -229,6 +262,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * metadata.remove(["customKey"]); // ✅ Removes only "customKey"
    * metadata.remove(); // ✅ Clears all custom properties but keeps id & name
    * ```
+   * @category Operations
    */
   public remove = <K extends Extract<keyof T, string>>(keys?: K[]) => {
     !keys
@@ -250,6 +284,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * metadata.toJSON()
    * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test", custom: "value" }
    * ```
+   * @category Operations
    */
   public toJSON = (): T =>
     ({

@@ -1,3 +1,7 @@
+/**
+ * @module Utilities
+ */
+
 export class Utilities {
   public static select = <T>(
     instance: T,

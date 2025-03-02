@@ -1,4 +1,8 @@
 /**
+ * @module Exceptions
+ */
+
+/**
  * Base exception class. All custom exceptions should extend this class.
  * When using V8, the stack trace is captured.
  */
