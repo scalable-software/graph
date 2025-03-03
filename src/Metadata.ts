@@ -92,7 +92,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * @category Factory
    */
   public static create = <T extends IMetadata>(metadata?: T): Metadata<T> & T =>
-    new Metadata<T>(metadata) as Metadata<T> & T;
+    new Metadata<T>(Metadata.normalize<T>(metadata)) as Metadata<T> & T;
 
   private _id: UUID | null = null;
   private _name: Name | null = null;
@@ -101,8 +101,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * Typescript constructors cannot return a value other than the class.
    * As a workaround to support proper types, we must use a static factory method
    */
-  private constructor(metadata?: T) {
-    this.hydrate(Metadata.normalize<T>(metadata));
+  private constructor(metadata: T) {
+    this.hydrate(metadata);
   }
 
   /**
