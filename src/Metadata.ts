@@ -175,7 +175,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * Retrieve extended properties from the metadata instance.
    * @category  State
    */
-  get customProperties(): { [key: string]: any } {
+  get properties(): { [key: string]: any } {
     return Utilities.select(this, [
       ([key, value]) => !Utilities.isMethod(value),
       ([key]) => !Utilities.isConstructor(key),
@@ -240,6 +240,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
         "metadata",
         "Use metadata.add(metadata) instead."
       );
+
     metadata.id &&
       !this.match(metadata) &&
       Exceptions.missMatchException(
@@ -290,7 +291,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
     ({
       id: this._id,
       name: this._name,
-      ...this.customProperties,
+      ...this.properties,
     } as T);
 
   /**
@@ -310,5 +311,5 @@ export class Metadata<T extends IMetadata = IMetadata> {
   private match = ({ id }: Partial<T>): boolean => this._id === id;
 
   private reset = () =>
-    Object.keys(this.customProperties).forEach((key) => delete this[key]);
+    Object.keys(this.properties).forEach((key) => delete this[key]);
 }
