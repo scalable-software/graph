@@ -38,21 +38,6 @@ export type IMetadata = {
  * @template T Is by default {@link IMetadata} but extends {@link IMetadata} with custom properties (see example).
  */
 export class Metadata<T extends IMetadata = IMetadata> {
-  private static normalize = <T extends IMetadata>(metadata?: T) =>
-    metadata ? Metadata.validate<T>(metadata) : Metadata.defaults<T>();
-
-  private static ensureId = <T extends IMetadata>(
-    metadata: T | Omit<T, "id">,
-    generator: () => UUID = () => crypto.randomUUID()
-  ): T =>
-    ({
-      ...metadata,
-      id: "id" in metadata && metadata.id != null ? metadata.id : generator(),
-    } as T);
-
-  private static defaults = <T extends IMetadata>(): T =>
-    ({ id: null, name: null } as T);
-
   /**
    * Validate the metadata, if provided, to ensure required properties are present and valid.
    *
@@ -89,6 +74,21 @@ export class Metadata<T extends IMetadata = IMetadata> {
    */
   public static create = <T extends IMetadata>(metadata?: T): Metadata<T> & T =>
     new Metadata<T>(Metadata.normalize<T>(metadata)) as Metadata<T> & T;
+
+  private static defaults = <T extends IMetadata>(): T =>
+    ({ id: null, name: null } as T);
+
+  private static normalize = <T extends IMetadata>(metadata?: T) =>
+    metadata ? Metadata.validate<T>(metadata) : Metadata.defaults<T>();
+
+  private static ensureId = <T extends IMetadata>(
+    metadata: T | Omit<T, "id">,
+    generator: () => UUID = () => crypto.randomUUID()
+  ): T =>
+    ({
+      ...metadata,
+      id: "id" in metadata && metadata.id != null ? metadata.id : generator(),
+    } as T);
 
   private _id: UUID | null = null;
   private _name: Name | null = null;
