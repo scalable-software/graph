@@ -1,4 +1,4 @@
-import type { UUID, Name, Coordinates, Offset } from "./Graph.types.js";
+import type { UUID, Coordinates, Offset } from "./Graph.types.js";
 import { Validate } from "./validations/Validate.js";
 
 export type INode = {
