@@ -268,7 +268,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
   public remove = <K extends Extract<keyof T, string>>(keys?: K[]) => {
     !keys
       ? (this.reset(), this.hydrate(Metadata.normalize<T>()))
-      : Validate.keys<K[]>(keys, [
+      : Validate.rules<K[]>(keys, [
           (key) => !Validate.match(key, "id" as K),
           (key) => !Validate.match(key, "name" as K),
         ]).forEach((key) => delete this[key as keyof this]);
