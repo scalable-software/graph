@@ -72,13 +72,11 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * ```
    * @category Validation
    */
-  public static validate = <T extends IMetadata>(metadata?: T): T | null =>
-    metadata
-      ? Validate.rules<T>(metadata, [
-          ({ id }) => Validate.uuid(id),
-          ({ name }) => Validate.name(name),
-        ])
-      : null;
+  public static validate = <T extends IMetadata>(metadata: T): T =>
+    Validate.rules<T>(metadata, [
+      ({ id }) => Validate.uuid(id),
+      ({ name }) => Validate.name(name),
+    ]);
 
   /**
    *
