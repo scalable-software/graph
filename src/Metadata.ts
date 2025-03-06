@@ -39,9 +39,7 @@ export type IMetadata = {
  */
 export class Metadata<T extends IMetadata = IMetadata> {
   private static normalize = <T extends IMetadata>(metadata?: T) =>
-    metadata
-      ? Metadata.validate<T>(metadata) || Metadata.defaults<T>()
-      : Metadata.defaults<T>();
+    metadata ? Metadata.validate<T>(metadata) : Metadata.defaults<T>();
 
   private static ensureId = <T extends IMetadata>(
     metadata: T | Omit<T, "id">,
