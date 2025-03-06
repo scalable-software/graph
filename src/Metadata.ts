@@ -177,10 +177,10 @@ export class Metadata<T extends IMetadata = IMetadata> {
    */
   get properties(): { [key: string]: any } {
     return Utilities.select(this, [
-      ([key, value]) => !Utilities.isMethod(value),
-      ([key]) => !Utilities.isConstructor(key),
-      ([key]) => !Utilities.isGetterOrSetter(this, key),
-      ([key]) => !["_id", "_name"].includes(key),
+      ({ value }) => !Utilities.isMethod(value),
+      ({ key }) => !Utilities.isConstructor(key),
+      ({ key }) => !Utilities.isGetterOrSetter(this, key),
+      ({ key }) => !(["_id", "_name"] as (keyof this)[]).includes(key),
     ]);
   }
 
