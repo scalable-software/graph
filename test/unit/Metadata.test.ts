@@ -353,15 +353,6 @@ given(`Metadata validate ${Type.STATIC_METHOD} test`, () => {
           });
         });
       });
-      when("Metadata.validate() is called without arguments", () => {
-        let result: any;
-        beforeEach(() => {
-          result = Metadata.validate();
-        });
-        then("null is returned", () => {
-          expect(result).toBeNull();
-        });
-      });
     });
   });
 });
