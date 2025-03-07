@@ -9,6 +9,7 @@
  */
 
 import { Validate } from "./validations/Validate.js";
+import { Validator } from "./validations/Validator.js";
 import { Exceptions } from "./exceptions/Exceptions.js";
 import { Utilities } from "./utilities/Utilities.js";
 import type { UUID, Name } from "./Graph.types.js";
@@ -58,7 +59,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * @category Validation
    */
   public static validate = <T extends IMetadata>(metadata: T): T =>
-    Validate.rules<T>(metadata, [
+    Validator.validate<T>(metadata, [
       ({ id }) => Validate.uuid(id),
       ({ name }) => Validate.name(name),
     ]);
@@ -264,7 +265,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
   public remove = <K extends Extract<keyof T, string>>(keys?: K[]) => {
     !keys
       ? (this.reset(), this.hydrate(Metadata.normalize<T>()))
-      : Validate.rules<K[]>(keys, [
+      : Validator.validate<K[]>(keys, [
           (key) => !Validate.match(key, "id" as K),
           (key) => !Validate.match(key, "name" as K),
         ]).forEach((key) => delete this[key as keyof this]);
