@@ -7,6 +7,7 @@ const then = (description, spec) => it(`then ${description}`, spec);
 
 import { Utilities } from "../../../src/utilities/Utilities.js";
 import { Properties } from "../../../src/utilities/Properties.js";
+import { Duplicate } from "../../../src/utilities/Duplicate.js";
 
 given(`Utilities ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
@@ -31,6 +32,21 @@ given(`Utilities Properties ${Type.STATIC_PROPERTY} test`, () => {
   and(`Utilities.Properties is defined`, () => {
     then(`Utilities.Properties is Properties`, () => {
       expect(Utilities.Properties).toBe(Properties);
+    });
+  });
+});
+
+given(`Utilities Duplicate ${Type.STATIC_PROPERTY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.PROPERTY);
+    setSpecProperty("spec", "Utilities.Duplicate");
+  });
+  then(`Utilities.Duplicate is defined`, () => {
+    expect(Utilities.Duplicate).toBeDefined();
+  });
+  and(`Utilities.Duplicate is defined`, () => {
+    then(`Utilities.Duplicate is Duplicate`, () => {
+      expect(Utilities.Duplicate).toBe(Duplicate);
     });
   });
 });
