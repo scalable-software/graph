@@ -158,4 +158,23 @@ export class Validate {
           ({ coordinates }) => Validate.coordinates(coordinates),
         ]) as T)
       : null;
+
+  /**
+   * Validate an array of nodes to ensure each nodes have valid `id` and `coordinates`.
+   *
+   * @param nodes - The nodes to validate.
+   * @returns The validated nodes if successful, otherwise throws an exception.
+   *
+   * @example
+   * ```ts
+   * const nodes = [{ id: "a1", coordinates: { x: 0, y: 0 } }];
+   * Validate.nodes(nodes);
+   * // => [{ id: "a1", coordinates: { x: 0, y: 0 } }]
+   *
+   * Validate.nodes([{ id: "a1", coordinates: { x: 0 } }]);
+   * // throws ValidationException: Validation failed with 2 error(s).
+   * ```
+   */
+  public static nodes = <T extends INode>(nodes: T[]): T[] =>
+    nodes.map((node) => Validate.node(node as T) as T);
 }
