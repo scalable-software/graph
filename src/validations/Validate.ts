@@ -2,59 +2,10 @@
  * @module Validation
  */
 
-import { Exception, Exceptions } from "../exceptions/Exceptions.js";
-
+import { Exceptions } from "../exceptions/Exceptions.js";
 import type { UUID, Name, Coordinates } from "../Graph.types.js";
 
 export class Validate {
-  private static applyRule =
-    <T>(details: T) =>
-    (exceptions: Exception[], rule: (details: T) => unknown): Exception[] => {
-      try {
-        rule(details);
-      } catch (exception) {
-        exceptions.push(exception);
-      }
-      return exceptions;
-    };
-
-  private static applyRules = <T>(
-    details: T,
-    rules: ((details: T) => unknown)[]
-  ): Exception[] => rules.reduce<Exception[]>(Validate.applyRule(details), []);
-
-  private static throwIfExceptions = <T>(
-    exceptions: Exception[],
-    details: T
-  ): T =>
-    exceptions.length ? Exceptions.validationException(exceptions) : details;
-
-  /**
-   * Validate keys and throw if any rules fail
-   *
-   * @param keys - The keys to validate
-   * @param rules - The rules to apply
-   * @returns The keys if all rules pass
-   * @throws {ValidationException} If any rule fails
-   *
-   * @example
-   * ```ts
-   * Validate.keys([""id", "name""], [
-   *  (keys) => Validate.match(keys, "id"),
-   * (keys) => Validate.match(keys, "name"),
-   * ]);
-   * // throws ValidationException: Validation failed with 2 error(s).
-   *
-   * Validate.keys(["custom"], [
-   *  (keys) => Validate.match(keys, "id"),
-   * (keys) => Validate.match(keys, "name"),
-   * ])
-   * // => ["custom"]
-   * ```
-   */
-  public static keys = <T>(keys: T, rules: ((details: T) => unknown)[]) =>
-    Validate.throwIfExceptions(Validate.applyRules(keys, rules), keys);
-
   /**
    * Validate keys and throw if key is immutable
    *
@@ -154,33 +105,4 @@ export class Validate {
           "must be valid coordinates"
         )
       : (coordinates as Coordinates);
-
-  /**
-   * Validate details against a set of rules and throw ValidationException if any fail
-   *
-   * @param details - The details to validate
-   * @param rules - The rules to apply
-   * @returns The details if all rules pass
-   * @throws {ValidationException} If any rule fails
-   *
-   * @example
-   * ```ts
-   * Validate.rules({ id: "123e4567-e89b-12d3-a456-426614174000", name: "John Doe" }, [
-   *   ({ id }) => Validate.uuid(id),
-   *   ({ name }) => Validate.name(name),
-   * ]);
-   * // => { id: "123e4567-e89b-12d3-a456-426614174000", name: "John Doe" }
-   *
-   * Validate.rules({ id: "invalid", name: "J" }, [
-   *   ({ id }) => Validate.uuid(id),
-   *   ({ name }) => Validate.name(name),
-   * ]);
-   * // => ValidationException: Validation failed with 2 error(s).
-   * ```
-   */
-  public static rules = <T>(
-    details: T,
-    rules: ((details: T) => unknown)[]
-  ): T =>
-    Validate.throwIfExceptions(Validate.applyRules(details, rules), details);
 }
