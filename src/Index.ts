@@ -3,7 +3,7 @@
  * @ignore
  * */
 
-export type { UUID, Name } from "./Graph.types.js";
+export type { UUID, Name, Coordinates } from "./Graph.types.js";
 
 export { Validate } from "./validations/Validate.js";
 
