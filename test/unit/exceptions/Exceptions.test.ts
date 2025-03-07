@@ -806,3 +806,46 @@ given(`Exceptions missMatchException ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Exceptions duplicateException ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Exceptions.duplicateException");
+  });
+  then(`Exceptions.duplicateException is defined`, () => {
+    expect(Exceptions.duplicateException).toBeDefined();
+  });
+  and(`Exceptions.duplicateException is defined`, () => {
+    then(`Exceptions.duplicateException is a function`, () => {
+      expect(Exceptions.duplicateException).toBeInstanceOf(Function);
+    });
+    and(`Exceptions.duplicateException is a function`, () => {
+      when("Exceptions.duplicateException(errors) is called", () => {
+        let error: Error;
+        beforeEach(() => {
+          try {
+            Exceptions.duplicateException("test");
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of DuplicateException", () => {
+            expect(error).toBeInstanceOf(DuplicateException);
+          });
+          and("error is an instance of DuplicateException", () => {
+            then("error.name is DuplicateException", () => {
+              expect(error.name).toBe("DuplicateException");
+            });
+            then("error.message is 'Duplicate found: test'", () => {
+              expect(error.message).toBe("Duplicate found: test");
+            });
+          });
+        });
+      });
+    });
+  });
+});
