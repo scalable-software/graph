@@ -40,31 +40,6 @@ export type IMetadata = {
  */
 export class Metadata<T extends IMetadata = IMetadata> {
   /**
-   * Validate the metadata, if provided, to ensure required properties are present and valid.
-   *
-   * @param metadata The optional metadata object to validate.
-   * @returns The validated metadata object or null if invalid.
-   *
-   * @example
-   * ```ts
-   * Metadata.validate(null);
-   * // => null
-   *
-   * Metadata.validate({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
-   * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
-   *
-   * Metadata.validate({ id: "123", name: "" });
-   * // => ValidationException: Validation failed with 2 error(s).
-   * ```
-   * @category Validation
-   */
-  public static validate = <T extends IMetadata>(metadata: T): T =>
-    Validator.validate<T>(metadata, [
-      ({ id }) => Validate.uuid(id),
-      ({ name }) => Validate.name(name),
-    ]);
-
-  /**
    *
    * Factory method used to create a new metadata instance.
    *
@@ -80,7 +55,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
     ({ id: null, name: null } as T);
 
   private static normalize = <T extends IMetadata>(metadata?: T) =>
-    metadata ? Metadata.validate<T>(metadata) : Metadata.defaults<T>();
+    metadata ? Validate.metadata<T>(metadata) : Metadata.defaults<T>();
 
   private static ensureId = <T extends IMetadata>(
     metadata: T | Omit<T, "id">,
