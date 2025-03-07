@@ -3,6 +3,8 @@
  */
 
 import { Exceptions } from "../exceptions/Exceptions.js";
+import { Validator } from "./Validator.js";
+import type { IMetadata } from "../Metadata.js";
 import type { UUID, Name, Coordinates } from "../Graph.types.js";
 
 export class Validate {
@@ -105,4 +107,29 @@ export class Validate {
           "must be valid coordinates"
         )
       : (coordinates as Coordinates);
+
+  /**
+   * Validate the metadata, if provided, to ensure required properties are present and valid.
+   *
+   * @param metadata The optional metadata object to validate.
+   * @returns The validated metadata object or null if invalid.
+   *
+   * @example
+   * ```ts
+   * Validate.metadata(null);
+   * // => null
+   *
+   * Validate.metadata({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
+   * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
+   *
+   * Validate.metadata({ id: "123", name: "" });
+   * // => ValidationException: Validation failed with 2 error(s).
+   * ```
+   * @category Validation
+   */
+  public static metadata = <T extends IMetadata>(metadata: T): T =>
+    Validator.validate<T>(metadata, [
+      ({ id }) => Validate.uuid(id),
+      ({ name }) => Validate.name(name),
+    ]);
 }
