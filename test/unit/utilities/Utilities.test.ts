@@ -80,7 +80,7 @@ given(`Utilities isConstructor ${Type.STATIC_METHOD} test`, () => {
         let result;
         beforeEach(() => {
           key = "constructor";
-          result = Utilities.isConstructor(key);
+          result = Utilities.isConstructor<never>(key);
         });
         then(`result is true`, () => {
           expect(result).toBe(true);
@@ -91,7 +91,7 @@ given(`Utilities isConstructor ${Type.STATIC_METHOD} test`, () => {
             let result;
             beforeEach(() => {
               key = "not a constructor";
-              result = Utilities.isConstructor(key);
+              result = Utilities.isConstructor<never>(key);
             });
             then(`result is false`, () => {
               expect(result).toBe(false);
@@ -139,7 +139,7 @@ given(`Utilities isGetterOrSetter ${Type.STATIC_METHOD} test`, () => {
           });
 
           key = "hidden";
-          result = Utilities.isGetterOrSetter(instance, key);
+          result = Utilities.isGetterOrSetter<Example>(instance, key);
         });
 
         then(`result is true`, () => {
