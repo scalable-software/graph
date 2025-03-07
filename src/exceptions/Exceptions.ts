@@ -70,6 +70,12 @@ export class MissMatchException extends Exception {
   }
 }
 
+export class DuplicateException extends Exception {
+  constructor(duplicate: string) {
+    super(`Duplicate found: ${duplicate}`);
+  }
+}
+
 /**
  * Set of exceptions thrown via static methods.
  */
