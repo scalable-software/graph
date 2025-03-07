@@ -106,4 +106,8 @@ export class Exceptions {
   public static missMatchException = (type: string, hint: string) => {
     throw new MissMatchException(type, hint);
   };
+
+  public static duplicateException = (duplicate: string) => {
+    throw new DuplicateException(duplicate);
+  };
 }
