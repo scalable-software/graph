@@ -50,3 +50,75 @@ given(`Utilities Duplicate ${Type.STATIC_PROPERTY} test`, () => {
     });
   });
 });
+
+given(`Utilities toString ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", "Utilities.toString");
+  });
+  then(`Utilities.toString is defined`, () => {
+    expect(Utilities.toString).toBeDefined();
+  });
+  and(`Utilities.toString is defined`, () => {
+    then(`Utilities.toString is a function`, () => {
+      expect(Utilities.toString).toBeInstanceOf(Function);
+    });
+    and(`Utilities.toString is a function`, () => {
+      when(`Utilities.toString(value) is called with string`, () => {
+        let value: string;
+        let isString: boolean;
+        beforeEach(() => {
+          value = `test`;
+          isString = typeof Utilities.toString(value) === "string";
+        });
+        then(`isString is true`, () => {
+          expect(isString).toBe(true);
+        });
+      });
+      when(`Utilities.toString(value) is called with number`, () => {
+        let value: number;
+        let isString: boolean;
+        beforeEach(() => {
+          value = 42;
+          isString = typeof Utilities.toString(value) === "string";
+        });
+        then(`isString is true`, () => {
+          expect(isString).toBe(true);
+        });
+      });
+      when(`Utilities.toString(value) is called with boolean`, () => {
+        let value: boolean;
+        let isString: boolean;
+        beforeEach(() => {
+          value = true;
+          isString = typeof Utilities.toString(value) === "string";
+        });
+        then(`isString is true`, () => {
+          expect(isString).toBe(true);
+        });
+      });
+      when(`Utilities.toString(value) is called with object`, () => {
+        let value: object;
+        let isString: boolean;
+        beforeEach(() => {
+          value = { key: "value" };
+          isString = typeof Utilities.toString(value) === "string";
+        });
+        then(`isString is true`, () => {
+          expect(isString).toBe(true);
+        });
+      });
+      when(`Utilities.toString(value) is called with array`, () => {
+        let value: any[];
+        let isString: boolean;
+        beforeEach(() => {
+          value = [1, 2, 3];
+          isString = typeof Utilities.toString(value) === "string";
+        });
+        then(`isString is true`, () => {
+          expect(isString).toBe(true);
+        });
+      });
+    });
+  });
+});
