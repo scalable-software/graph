@@ -1,5 +1,6 @@
 import type { UUID, Coordinates, Offset } from "./Graph.types.js";
 import { Validate } from "./validations/Validate.js";
+import { Validator } from "./validations/Validator.js";
 
 export type INode = {
   id: UUID;
@@ -29,7 +30,7 @@ export class Node {
    */
   public static validate = <T extends INode>(node?: T): T | void =>
     node
-      ? (Validate.rules<T>(node, [
+      ? (Validator.validate<T>(node, [
           ({ id }) => Validate.uuid(id),
           ({ coordinates }) => Validate.coordinates(coordinates),
         ]) as T)
