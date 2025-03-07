@@ -1,6 +1,3 @@
-import { INode } from "src/Node.js";
-import * as help from "./Helper.js";
-
 import { Type, Spec } from "./Helper.js";
 
 const given = (description, spec) => describe(`Given ${description}`, spec);
@@ -8,7 +5,7 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import { Nodes } from "@scalable.software/graph";
+import { Nodes, type INode, Exception } from "@scalable.software/graph";
 
 given(`Nodes ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
@@ -92,7 +89,7 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
       });
     });
   });
-  when("Nodes.create() is called with valid array of nodes", () => {
+  when("Nodes.create() is called with valid nodes", () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -127,6 +124,123 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
           nodes.forEach((node, index) => {
             expect(node).toEqual(data[index]);
           });
+        });
+      });
+    });
+  });
+  when("Nodes.create() is called with invalid nodes", () => {
+    let nodes: INode[];
+    let error: Exception.Exception;
+    beforeEach(() => {
+      nodes = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d745",
+          coordinates: { x: 2, y: 3 },
+        },
+        {
+          id: "1",
+          coordinates: { x: 2, y: 3 },
+        },
+      ];
+      try {
+        nodes = Nodes.create(nodes);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("error is defined", () => {
+      expect(error).toBeDefined();
+    });
+    and("error is defined", () => {
+      then("error is an instance of Exception.ValidationException", () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
+      and("error is an instance of Exception.ValidationException", () => {
+        then("error.errors[0] is Exception.ValidationException", () => {
+          expect(error.errors[0]).toBeInstanceOf(Exception.ValidationException);
+        });
+        and("error.errors[0] is Exception.ValidationException", () => {
+          then(
+            "error.errors[0].errors[0] is Exception.InvalidArgumentException",
+            () => {
+              expect(error.errors[0].errors[0]).toBeInstanceOf(
+                Exception.InvalidArgumentException
+              );
+            }
+          );
+          and(
+            "error.errors[0].errors[0] is Exception.InvalidArgumentException",
+            () => {
+              then(
+                "error.errors[0].errors[0].message is 'Invalid argument: id'",
+                () => {
+                  expect(error.errors[0].errors[0].message).toBe(
+                    "Invalid argument: id - must be a valid UUID"
+                  );
+                }
+              );
+            }
+          );
+        });
+      });
+    });
+  });
+  when("Nodes.create() is called with duplicate nodes", () => {
+    let nodes: INode[];
+    let error: Exception.Exception;
+    beforeEach(() => {
+      nodes = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d745",
+          coordinates: { x: 2, y: 3 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d745",
+          coordinates: { x: 2, y: 3 },
+        },
+      ];
+      try {
+        nodes = Nodes.create(nodes);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("error is defined", () => {
+      expect(error).toBeDefined();
+    });
+    and("error is defined", () => {
+      then("error is an instance of Exception.ValidationException", () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
+      and("error is an instance of Exception.ValidationException", () => {
+        then("error.errors[0] is Exception.DuplicateException", () => {
+          expect(error.errors[0]).toBeInstanceOf(Exception.DuplicateException);
+        });
+        and("error.errors[0] is Exception.DuplicateException", () => {
+          then(
+            "error.errors[0].message is 'Duplicate found: ${JSON.stringify(nodes[3])}",
+            () => {
+              expect(error.errors[0].message).toBe(
+                `Duplicate found: ${JSON.stringify(nodes[3])}`
+              );
+            }
+          );
         });
       });
     });
