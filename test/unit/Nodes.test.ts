@@ -106,7 +106,7 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
           coordinates: { x: 1, y: 1 },
         },
         {
-          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d745",
           coordinates: { x: 2, y: 3 },
         },
       ];
