@@ -3,12 +3,39 @@
  */
 
 import { Exceptions } from "../exceptions/Exceptions.js";
+import { Utilities } from "../utilities/Utilities.js";
 import { Validator } from "./Validator.js";
 import type { IMetadata } from "../Metadata.js";
 import type { INode } from "../Node.js";
 import type { UUID, Name, Coordinates } from "../Graph.types.js";
 
 export class Validate {
+  /**
+   * Validate an array of items to ensure they are unique.
+   *
+   * @param items - The items to validate
+   * @param identifier - The unique identifier to check
+   * @returns The items if unique
+   * @throws {DuplicateException} If the items are not unique
+   *
+   * @example
+   * ```ts
+   * Validate.unique(["a", "b", "a"]);
+   * // => DuplicateException: Duplicate item found: "a"
+   *
+   * Validate.unique(["a", "b", "c"]);
+   * // => ["a", "b", "c"]
+   *
+   * Validate.unique([{ id: "a" }, { id: "b" }, { id: "a" }], (item) => item.id);
+   * // => DuplicateException: Duplicate item found: "a"
+   * ```
+   */
+  public static unique = (items, identifier?) =>
+    ((duplicate) =>
+      duplicate
+        ? Exceptions.duplicateException(Utilities.toString(duplicate))
+        : items)(Utilities.Duplicate.find(items, identifier));
+
   /**
    * Validate keys and throw if key is immutable
    *
