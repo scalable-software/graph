@@ -823,3 +823,155 @@ given(`Validate node ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Validate nodes ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.nodes");
+  });
+  then("Validate.nodes is defined", () => {
+    expect(Validate.nodes).toBeDefined();
+  });
+  and("Validate.nodes is defined", () => {
+    then("Validate.nodes is a function", () => {
+      expect(Validate.nodes).toBeInstanceOf(Function);
+    });
+    and("Validate.nodes is a function", () => {
+      when("Validate.nodes(nodes) called with valid nodes", () => {
+        let nodes: INode[];
+        let response: INode[];
+        let error: Error;
+        beforeEach(() => {
+          nodes = [
+            {
+              id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+              coordinates: { x: 0, y: 0 },
+            },
+            {
+              id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+              coordinates: { x: 0, y: 0 },
+            },
+          ];
+          try {
+            response = Validate.nodes(nodes) as INode[];
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is undefined", () => {
+          expect(error).toBeUndefined();
+        });
+        then("response is defined", () => {
+          expect(response).toBeDefined();
+        });
+        and("response is defined", () => {
+          then("response equals nodes", () => {
+            expect(response).toEqual(nodes);
+          });
+        });
+      });
+      when("Validate.nodes(nodes) called with invalid id in nodes", () => {
+        let nodes: INode[];
+        let response: INode[];
+        let error: ValidationException;
+        beforeEach(() => {
+          nodes = [
+            {
+              id: "invalid",
+              coordinates: { x: 0, y: 0 },
+            },
+          ];
+          try {
+            response = Validate.nodes(nodes) as INode[];
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("response is undefined", () => {
+          expect(response).toBeUndefined();
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of ValidationException", () => {
+            expect(error).toBeInstanceOf(ValidationException);
+          });
+          then("error.message is 'Validation failed with 1 error(s).'", () => {
+            expect(error.message).toBe("Validation failed with 1 error(s).");
+          });
+          then(
+            "error.errors[0] is instance of InvalidArgumentException",
+            () => {
+              expect(error.errors[0]).toBeInstanceOf(InvalidArgumentException);
+            }
+          );
+          then(
+            "error.errors[0].message is 'Invalid argument: id - must be a valid UUID'",
+            () => {
+              expect(error.errors[0].message).toBe(
+                "Invalid argument: id - must be a valid UUID"
+              );
+            }
+          );
+        });
+      });
+      when(
+        "Validate.nodes(nodes) called with invalid coordinates in nodes",
+        () => {
+          let nodes: INode[];
+          let response: INode[];
+          let error: ValidationException;
+          beforeEach(() => {
+            nodes = [
+              {
+                id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+                coordinates: { x: "invalid", y: 0 } as unknown as Coordinates,
+              },
+            ];
+            try {
+              response = Validate.nodes(nodes) as INode[];
+            } catch (e) {
+              error = e;
+            }
+          });
+          then("response is undefined", () => {
+            expect(response).toBeUndefined();
+          });
+          then("error is defined", () => {
+            expect(error).toBeDefined();
+          });
+          and("error is defined", () => {
+            then("error is an instance of ValidationException", () => {
+              expect(error).toBeInstanceOf(ValidationException);
+            });
+            then(
+              "error.message is 'Validation failed with 1 error(s).'",
+              () => {
+                expect(error.message).toBe(
+                  "Validation failed with 1 error(s)."
+                );
+              }
+            );
+            then(
+              "error.errors[0] is instance of InvalidArgumentException",
+              () => {
+                expect(error.errors[0]).toBeInstanceOf(
+                  InvalidArgumentException
+                );
+              }
+            );
+            then(
+              "error.errors[0].message is 'Invalid argument: coordinates - must be valid coordinates'",
+              () => {
+                expect(error.errors[0].message).toBe(
+                  "Invalid argument: coordinates - must be valid coordinates"
+                );
+              }
+            );
+          });
+        }
+      );
+    });
+  });
+});
