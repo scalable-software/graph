@@ -18,3 +18,93 @@ given(`Properties ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
     });
   });
 });
+
+given(`Properties select ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.ABSTRACT_CLASS);
+    setSpecProperty("spec", "Properties.select");
+  });
+  then(`Properties.select is defined`, () => {
+    expect(Properties.select).toBeDefined();
+  });
+  and(`Properties.select is defined`, () => {
+    then(`Properties.select is a function`, () => {
+      expect(Properties.select).toBeInstanceOf(Function);
+    });
+    and(`Properties.select is a function`, () => {
+      when(
+        `Properties.select(instance) is called with instance of a class`,
+        () => {
+          let result;
+          let parameters;
+          let instance;
+          beforeEach(() => {
+            parameters = { id: "123", name: "Alice" };
+            class Example {
+              private _id: string;
+              private _name: string;
+              constructor({ id, name }) {
+                this._id = id;
+                this._name = name;
+              }
+              get id() {
+                return this._id;
+              }
+              get name() {
+                return this._name;
+              }
+              test() {
+                return "test";
+              }
+            }
+            instance = new Example(parameters);
+            result = Properties.select(instance);
+          });
+          then(`result is instance`, () => {
+            expect(result).toEqual({
+              _id: parameters.id,
+              _name: parameters.name,
+            });
+          });
+        }
+      );
+      when(
+        `Properties.select(instance, [filters]) is called with instance of a class`,
+        () => {
+          let result;
+          let parameters;
+          let instance;
+          let filters;
+          beforeEach(() => {
+            parameters = { id: "123", name: "Alice" };
+            class Example {
+              private _id: string;
+              private _name: string;
+              constructor({ id, name }) {
+                this._id = id;
+                this._name = name;
+              }
+              get id() {
+                return this._id;
+              }
+              get name() {
+                return this._name;
+              }
+              test() {
+                return "test";
+              }
+            }
+            instance = new Example(parameters);
+            result = Properties.select(instance, [
+              (key) => key !== "_id",
+              (key) => key !== "_name",
+            ]);
+          });
+          then(`result is instance`, () => {
+            expect(result).toEqual({});
+          });
+        }
+      );
+    });
+  });
+});
