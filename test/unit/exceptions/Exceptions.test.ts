@@ -15,6 +15,7 @@ import {
   AssignedException,
   UnassignedException,
   MissMatchException,
+  DuplicateException,
   Exceptions,
 } from "../../../src/exceptions/Exceptions.js";
 
@@ -435,6 +436,57 @@ given(`MissMatchException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
             expect(exception.message).toBe(`${type} does not match: ${hint}`);
           }
         );
+      });
+    });
+  });
+});
+
+given(`DuplicateException ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`DuplicateException is imported`, () => {
+    then(`DuplicateException is defined`, () => {
+      expect(DuplicateException).toBeDefined();
+    });
+  });
+});
+
+given(`DuplicateException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.INSTANTIATION);
+  });
+  when("a new DuplicateException is created", () => {
+    let property: string;
+    let exception: Exception;
+    beforeEach(() => {
+      property = "test";
+      exception = new DuplicateException(property);
+    });
+    then("exception is defined", () => {
+      expect(exception).toBeDefined();
+    });
+    and("exception is defined", () => {
+      then("exception is an instance of DuplicateException", () => {
+        expect(exception).toBeInstanceOf(DuplicateException);
+      });
+      then("exception.name is defined", () => {
+        expect(exception.name).toBeDefined();
+      });
+      and("exception.name is defined", () => {
+        then("exception.name is DuplicateException", () => {
+          expect(exception.name).toBe("DuplicateException");
+        });
+      });
+      then("exception.message is defined", () => {
+        expect(exception.message).toBeDefined();
+      });
+      and("exception.message is defined", () => {
+        then("exception.message is 'Duplicate found: test'", () => {
+          expect(exception.message).toBe("Duplicate found: test");
+        });
       });
     });
   });
