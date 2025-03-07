@@ -188,6 +188,7 @@ export class Validate {
 
   /**
    * Validate an array of nodes to ensure each nodes have valid `id` and `coordinates`.
+   * Also ensures that all nodes have unique `id` and `coordinates`.
    *
    * @param nodes - The nodes to validate.
    * @returns The validated nodes if successful, otherwise throws an exception.
@@ -203,5 +204,9 @@ export class Validate {
    * ```
    */
   public static nodes = <T extends INode>(nodes: T[]): T[] =>
-    nodes.map((node) => Validate.node(node as T) as T);
+    Validator.validate<T[]>(nodes, [
+      (nodes) => nodes.map(Validate.node),
+      (nodes) => Validate.unique(nodes, (node) => node.id),
+      (nodes) => Validate.unique(nodes, (node) => node.coordinates),
+    ]);
 }
