@@ -173,11 +173,9 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * @category  State
    */
   get properties(): { [key: string]: any } {
-    return Utilities.select(this, [
-      ({ value }) => !Utilities.isMethod(value),
-      ({ key }) => !Utilities.isConstructor(key),
-      ({ key }) => !Utilities.isGetterOrSetter(this, key),
-      ({ key }) => !(["_id", "_name"] as (keyof this)[]).includes(key),
+    return Utilities.Properties.select(this, [
+      (key) => key !== "_id",
+      (key) => key !== "_name",
     ]);
   }
 
