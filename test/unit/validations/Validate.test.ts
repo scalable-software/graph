@@ -353,6 +353,118 @@ given(`Validate name ${Type.STATIC_METHOD} test`, () => {
   });
 });
 
+given(`Validate unique ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.unique");
+  });
+  then(`Validate.unique is defined`, () => {
+    expect(Validate.unique).toBeDefined();
+  });
+  and(`Validate.unique is defined`, () => {
+    then(`Validate.unique is a function`, () => {
+      expect(Validate.unique).toBeInstanceOf(Function);
+    });
+    and(`Validate.unique is a function`, () => {
+      when(`Validate.unique is called with array of unique values`, () => {
+        let array: any[];
+        let result: any[];
+        beforeEach(() => {
+          array = [1, 2, 3];
+          result = Validate.unique(array);
+        });
+        then(`Validate.unique returns the array`, () => {
+          expect(result).toBe(array);
+        });
+      });
+      when(`Validate.unique is called with array of duplicate values`, () => {
+        let array: any[];
+        let error: Error;
+        beforeEach(() => {
+          array = [1, 2, 2, 3];
+          try {
+            Validate.unique(array);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of DuplicateException`, () => {
+            expect(error).toBeInstanceOf(DuplicateException);
+          });
+          and(`error is an instance of DuplicateException`, () => {
+            then(`error.message is "Duplicate found: 2."`, () => {
+              expect(error.message).toBe("Duplicate found: 2");
+            });
+          });
+        });
+      });
+      when(
+        `Validate.unique is called with array of objects with unique ids and id extractor`,
+        () => {
+          let array: any[];
+          let result: any[];
+          let extractor: (item: any) => any;
+          beforeEach(() => {
+            extractor = (item) => item.id;
+            array = [
+              { id: 1, name: "Alice" },
+              { id: 2, name: "Bob" },
+              { id: 3, name: "Charlie" },
+            ];
+            result = Validate.unique(array, extractor);
+          });
+          then(`Validate.unique returns the array`, () => {
+            expect(result).toBe(array);
+          });
+        }
+      );
+      when(
+        `Validate.unique is called with array of objects with duplicate ids and id extractor`,
+        () => {
+          let array: any[];
+          let error: Error;
+          let extractor: (item: any) => any;
+          beforeEach(() => {
+            extractor = (item) => item.id;
+            array = [
+              { id: 1, name: "Alice" },
+              { id: 2, name: "Bob" },
+              { id: 2, name: "Charlie" },
+            ];
+            try {
+              Validate.unique(array, extractor);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(`error is an instance of DuplicateException`, () => {
+              expect(error).toBeInstanceOf(DuplicateException);
+            });
+            and(`error is an instance of DuplicateException`, () => {
+              then(
+                `error.message is "Duplicate found: {"id":2,"name":"Charlie"}"`,
+                () => {
+                  expect(error.message).toBe(
+                    'Duplicate found: {"id":2,"name":"Charlie"}'
+                  );
+                }
+              );
+            });
+          });
+        }
+      );
+    });
+  });
+});
+
 given(`Validate match ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
