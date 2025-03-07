@@ -5,6 +5,7 @@
 import { Exceptions } from "../exceptions/Exceptions.js";
 import { Validator } from "./Validator.js";
 import type { IMetadata } from "../Metadata.js";
+import type { INode } from "../Node.js";
 import type { UUID, Name, Coordinates } from "../Graph.types.js";
 
 export class Validate {
@@ -132,4 +133,29 @@ export class Validate {
       ({ id }) => Validate.uuid(id),
       ({ name }) => Validate.name(name),
     ]);
+
+  /**
+   * Validates a node to ensure it has a valid `id` and `coordinates`.
+   *
+   * @param node - The node to validate.
+   * @returns The validated node if successful, otherwise throws an exception.
+   *
+   * @example
+   * ```ts
+   * const node = { id: "a1", coordinates: { x: 0, y: 0 } };
+   * Validate.node(node);
+   * // => { id: "a1", coordinates: { x: 0, y: 0 } }
+   *
+   * Validate.node({ id: "a1", coordinates: { x: 0 } });
+   * // throws ValidationException: Validation failed with 2 error(s).
+   * ```
+   * @category Validation
+   */
+  public static node = <T extends INode>(node?: T): T | void =>
+    node
+      ? (Validator.validate<T>(node, [
+          ({ id }) => Validate.uuid(id),
+          ({ coordinates }) => Validate.coordinates(coordinates),
+        ]) as T)
+      : null;
 }
