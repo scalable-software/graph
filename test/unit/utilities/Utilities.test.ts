@@ -135,5 +135,29 @@ given(`Utilities toArray ${Type.STATIC_METHOD} test`, () => {
     then(`Utilities.toArray is a function`, () => {
       expect(Utilities.toArray).toBeInstanceOf(Function);
     });
+    and(`Utilities.toArray is a function`, () => {
+      when(`Utilities.toArray(value) is called with array`, () => {
+        let value: any[];
+        let isArray: boolean;
+        beforeEach(() => {
+          value = [1, 2, 3];
+          isArray = Array.isArray(Utilities.toArray(value));
+        });
+        then(`isArray is true`, () => {
+          expect(isArray).toBe(true);
+        });
+      });
+      when(`Utilities.toArray(value) is called with non-array`, () => {
+        let value: any;
+        let isArray: boolean;
+        beforeEach(() => {
+          value = 42;
+          isArray = Array.isArray(Utilities.toArray(value));
+        });
+        then(`isArray is true`, () => {
+          expect(isArray).toBe(true);
+        });
+      });
+    });
   });
 });
