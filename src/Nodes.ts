@@ -22,4 +22,6 @@ export class Nodes<T extends INode> extends Array<T> {
   constructor(...nodes: T[]) {
     super(...nodes);
   }
+
+  public add = (nodes: T[]) => {};
 }
