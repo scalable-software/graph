@@ -44,5 +44,24 @@ export class Utilities {
   ): string =>
     typeof input === "string" ? String(input) : JSON.stringify(input);
 
-  public static toArray = () => {};
+  /**
+   * Converts a single value or an array of values to an array.
+   * - If the input is an array, it remains unchanged.
+   * - If the input is not an array, it is wrapped in an array.
+   *
+   * @template T The input type.
+   * @param {T | T[]} input The value to convert.
+   * @returns {T[]} The array containing the input value(s).
+   *
+   * @example
+   * ```ts
+   * Utilities.toArray("Hello, world!");
+   * // => ["Hello, world!"]
+   *
+   * Utilities.toArray([1, 2, 3]);
+   * // => [1, 2, 3]
+   * ```
+   */
+  public static toArray = <T>(input: T | T[]): T[] =>
+    Array.isArray(input) ? input : [input];
 }
