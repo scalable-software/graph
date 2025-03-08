@@ -246,3 +246,19 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
     });
   });
 });
+
+given(`nodes.add ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`nodes instance is created`, () => {
+    let nodes: Nodes<INode>;
+    beforeEach(() => {
+      nodes = new Nodes();
+    });
+    then(`nodes.add is defined`, () => {
+      expect(nodes.add).toBeDefined();
+    });
+  });
+});
