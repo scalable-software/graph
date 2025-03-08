@@ -46,17 +46,17 @@ export class Validate {
    *
    * @example
    * ```ts
-   * Validate.match(["id", "name"], "id");
+   * Validate.includes(["id", "name"], "id");
    * // => ImmutablePropertyException: "Property 'id' is immutable."
    *
-   * Validate.match(["id", "name"], "type");
+   * Validate.includes(["id", "name"], "type");
    * // => false
    * ```
    *
    */
-  public static match = <T>(keys: T[], immutable: T): unknown =>
-    keys.includes(immutable) &&
-    Exceptions.immutablePropertyException(String(immutable));
+  public static immutable = <T>(items: T[], value: T): unknown =>
+    !items.includes(value) ||
+    Exceptions.immutablePropertyException(String(value));
 
   /**
    * Validate id and throw if not valid UUID

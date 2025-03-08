@@ -465,21 +465,21 @@ given(`Validate unique ${Type.STATIC_METHOD} test`, () => {
   });
 });
 
-given(`Validate match ${Type.STATIC_METHOD} test`, () => {
+given(`Validate immutable ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", "Validate.match");
+    setSpecProperty("spec", "Validate.immutable");
   });
-  then(`Validate.match is defined`, () => {
-    expect(Validate.match).toBeDefined();
+  then(`Validate.immutable is defined`, () => {
+    expect(Validate.immutable).toBeDefined();
   });
-  and(`Validate.match is defined`, () => {
-    then(`Validate.match is a function`, () => {
-      expect(Validate.match).toBeInstanceOf(Function);
+  and(`Validate.immutable is defined`, () => {
+    then(`Validate.immutable is a function`, () => {
+      expect(Validate.immutable).toBeInstanceOf(Function);
     });
-    and(`Validate.match is a function`, () => {
+    and(`Validate.immutable is a function`, () => {
       when(
-        `Validate.match(keys, immutable) is called with a matching key`,
+        `Validate.immutable(keys, immutable) is called with a matching key`,
         () => {
           let keys: string[];
           let immutable: string;
@@ -488,7 +488,7 @@ given(`Validate match ${Type.STATIC_METHOD} test`, () => {
             keys = ["id", "name"];
             immutable = "id";
             try {
-              Validate.match(keys, immutable);
+              Validate.immutable(keys, immutable);
             } catch (e) {
               error = e;
             }
@@ -512,7 +512,7 @@ given(`Validate match ${Type.STATIC_METHOD} test`, () => {
         }
       );
       when(
-        `Validate.match(keys, immutable) is called with a non-matching key`,
+        `Validate.immutable(keys, immutable) is called with a non-matching key`,
         () => {
           let keys: string[];
           let immutable: string;
@@ -520,10 +520,10 @@ given(`Validate match ${Type.STATIC_METHOD} test`, () => {
           beforeEach(() => {
             keys = ["id", "name"];
             immutable = "type";
-            result = Validate.match(keys, immutable);
+            result = Validate.immutable(keys, immutable);
           });
-          then(`Validate.match returns false`, () => {
-            expect(result).toBe(false);
+          then(`Validate.immutable returns true`, () => {
+            expect(result).toBe(true);
           });
         }
       );

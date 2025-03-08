@@ -239,8 +239,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
     !keys
       ? (this.reset(), this.hydrate(Metadata.normalize<T>()))
       : Validator.validate<K[]>(keys, [
-          (key) => !Validate.match(key, "id" as K),
-          (key) => !Validate.match(key, "name" as K),
+          (key) => Validate.immutable(key, "id" as K),
+          (key) => Validate.immutable(key, "name" as K),
         ]).forEach((key) => delete this[key as keyof this]);
 
     return this;
