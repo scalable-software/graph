@@ -122,3 +122,18 @@ given(`Utilities toString ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Utilities toArray ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", "Utilities.toArray");
+  });
+  then(`Utilities.toArray is defined`, () => {
+    expect(Utilities.toArray).toBeDefined();
+  });
+  and(`Utilities.toArray is defined`, () => {
+    then(`Utilities.toArray is a function`, () => {
+      expect(Utilities.toArray).toBeInstanceOf(Function);
+    });
+  });
+});
