@@ -43,4 +43,6 @@ export class Utilities {
     input: Exclude<T, symbol | bigint | ((...args: any[]) => any)>
   ): string =>
     typeof input === "string" ? String(input) : JSON.stringify(input);
+
+  public static toArray = () => {};
 }
