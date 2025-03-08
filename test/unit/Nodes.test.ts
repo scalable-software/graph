@@ -300,6 +300,24 @@ given(`nodes.add ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
           });
         });
       });
+      when(`nodes.add called with valid node`, () => {
+        let data: INode;
+        beforeEach(() => {
+          data = {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { x: 0, y: 0 },
+          };
+          nodes.add(data);
+        });
+        then(`nodes.length is 1`, () => {
+          expect(nodes.length).toBe(1);
+        });
+        and(`nodes.length is 1`, () => {
+          then(`nodes contains data`, () => {
+            expect(nodes[0]).toEqual(data);
+          });
+        });
+      });
     });
   });
 });
