@@ -1,5 +1,6 @@
 import { INode } from "./Node.js";
 import { Validate } from "./validations/Validate.js";
+import { Utilities } from "./utilities/Utilities.js";
 
 export class Nodes<T extends INode> extends Array<T> {
   /**
@@ -23,8 +24,8 @@ export class Nodes<T extends INode> extends Array<T> {
     super(...nodes);
   }
 
-  public add = (nodes: T[]): this => {
-    this.push(...nodes);
+  public add = (nodes: T | T[]): this => {
+    this.push(...Utilities.toArray<T>(nodes));
     return this;
   };
 }
