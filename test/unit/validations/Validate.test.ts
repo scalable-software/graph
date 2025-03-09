@@ -477,6 +477,119 @@ given(`Validate distinct ${Type.STATIC_METHOD} test`, () => {
     then(`Validate.distinct is a function`, () => {
       expect(Validate.distinct).toBeInstanceOf(Function);
     });
+    and(`Validate.distinct is a function`, () => {
+      when(`Validate.distinct is called with two unique sets`, () => {
+        let sets: [any[], any[]];
+        let result: any[];
+        beforeEach(() => {
+          const one = [1, 2, 3];
+          const two = [4, 5, 6];
+          sets = [one, two];
+          result = Validate.distinct(sets);
+        });
+        then(`Validate.unique returns the array`, () => {
+          expect(result).toBe(sets[1]);
+        });
+      });
+      when(`Validate.distinct is called with two sets`, () => {
+        let sets: [any[], any[]];
+        let error: Error;
+        beforeEach(() => {
+          const one = [1, 2, 3];
+          const two = [3, 4, 5];
+          sets = [one, two];
+          try {
+            Validate.distinct(sets);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of DuplicateException`, () => {
+            expect(error).toBeInstanceOf(DuplicateException);
+          });
+          and(`error is an instance of DuplicateException`, () => {
+            then(`error.message is "Duplicate found: 3."`, () => {
+              expect(error.message).toBe("Duplicate found: 3");
+            });
+          });
+        });
+      });
+      when(
+        `Validate.distinct is called with two sets with unique ids and id extractor`,
+        () => {
+          let sets: [any[], any[]];
+          let result: any[];
+          let extractor: (item: any) => any;
+          beforeEach(() => {
+            extractor = (item) => item.id;
+            const one = [
+              { id: 1, name: "Alice" },
+              { id: 2, name: "Bob" },
+              { id: 3, name: "Charlie" },
+            ];
+            const two = [
+              { id: 4, name: "David" },
+              { id: 5, name: "Edward" },
+              { id: 6, name: "Frank" },
+            ];
+            sets = [one, two];
+            result = Validate.distinct(sets, extractor);
+          });
+          then(`Validate.unique returns the array`, () => {
+            expect(result).toBe(sets[1]);
+          });
+        }
+      );
+      when(
+        `Validate.distinct is called with two sets with matching ids and id extractor`,
+        () => {
+          let sets: [any[], any[]];
+          let error: Error;
+          let extractor: (item: any) => any;
+          beforeEach(() => {
+            extractor = (item) => item.id;
+            const one = [
+              { id: 1, name: "Alice" },
+              { id: 2, name: "Bob" },
+              { id: 3, name: "Charlie" },
+            ];
+            const two = [
+              { id: 3, name: "David" },
+              { id: 4, name: "Edward" },
+              { id: 5, name: "Frank" },
+            ];
+            sets = [one, two];
+            try {
+              Validate.distinct(sets, extractor);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(`error is an instance of DuplicateException`, () => {
+              expect(error).toBeInstanceOf(DuplicateException);
+            });
+            and(`error is an instance of DuplicateException`, () => {
+              then(
+                `error.message is "Duplicate found: {"id":3,"name":"David"}"`,
+                () => {
+                  expect(error.message).toBe(
+                    'Duplicate found: {"id":3,"name":"David"}'
+                  );
+                }
+              );
+            });
+          });
+        }
+      );
+    });
   });
 });
 
