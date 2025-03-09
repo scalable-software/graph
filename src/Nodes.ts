@@ -2,6 +2,7 @@ import { type INode } from "./Node.js";
 import { Validate } from "./validations/Validate.js";
 import { Validator } from "./validations/Validator.js";
 import { Utilities } from "./utilities/Utilities.js";
+import { type UUID } from "./Graph.types.js";
 
 export class Nodes<T extends INode> extends Array<T> {
   /**
@@ -41,7 +42,10 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
-  public remove = () => {};
+  public remove = (id: UUID): Nodes<T> => {
+    this.splice(Utilities.Index.byId(this, id), 1);
+    return this;
+  };
 
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
