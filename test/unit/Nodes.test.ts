@@ -598,6 +598,31 @@ given(`nodes.remove ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
           expect(nodes.find((node) => node.id === id)).toBeUndefined();
         });
       });
+      when(`nodes.remove called with invalid id`, () => {
+        let id: UUID;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = "1";
+          try {
+            nodes.remove(id);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of Exception.NotFoundException`, () => {
+            expect(error).toBeInstanceOf(Exception.NotFoundException);
+          });
+          and(`error is an instance of Exception.NotFoundException`, () => {
+            then(`error.message is 'Not found: id 1'`, () => {
+              expect(error.message).toBe("Not found: id 1");
+            });
+          });
+        });
+      });
     });
   });
 });
