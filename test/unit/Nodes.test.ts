@@ -300,6 +300,39 @@ given(`nodes.add ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
           });
         });
       });
+      when(`nodes.add called with nodes having no ids`, () => {
+        let data: Omit<INode, "id">[];
+        let result: INode[];
+        let error: Exception.Exception;
+        beforeEach(() => {
+          data = [
+            {
+              coordinates: { x: 0, y: 0 },
+            },
+            {
+              coordinates: { x: 1, y: 1 },
+            },
+          ];
+          try {
+            nodes.add(data);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is undefined`, () => {
+          expect(error).toBeUndefined();
+        });
+        then(`nodes.length is equal to data.length`, () => {
+          expect(nodes.length).toBe(data.length);
+        });
+        and(`nodes.length is equal to data.length`, () => {
+          then(`each node in node has an id`, () => {
+            nodes.forEach((node) => {
+              expect(node.id).toBeDefined();
+            });
+          });
+        });
+      });
       when(`nodes.add called with duplicate nodes`, () => {
         let data: INode[];
         let error: Exception.Exception;
