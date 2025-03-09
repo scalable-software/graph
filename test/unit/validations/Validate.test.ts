@@ -32,6 +32,16 @@ given(`Validate ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
+given(`Validate id ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.id");
+  });
+  then(`Validate.id is defined`, () => {
+    expect(Validate.id).toBeDefined();
+  });
+});
+
 given(`Validate uuid ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
