@@ -22,4 +22,6 @@ export class Index {
    */
   public static byReference = <T>(items: T[], item: T): number =>
     items.indexOf(item);
+
+  public static byId = () => {};
 }
