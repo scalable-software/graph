@@ -42,6 +42,14 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
+  /**
+   * Removes a node from the `Nodes` by its id or throw NotFoundException.
+   *
+   * @param {UUID} id - The id of the node to be removed.
+   * @throws {NotFoundException} If the node with the given ID does not exist in the collection.
+   * @returns {Nodes<T>} The modified `Nodes<T>` instance, allowing method chaining.
+   *
+   */
   public remove = (id: UUID): Nodes<T> => {
     this.splice(Validate.id(this, id), 1);
     return this;
