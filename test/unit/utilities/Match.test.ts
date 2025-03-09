@@ -18,3 +18,18 @@ given(`Match ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
     });
   });
 });
+
+given(`Match find ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", "Match.find");
+  });
+  then(`Match.find is defined`, () => {
+    expect(Match.find).toBeDefined();
+  });
+  and(`Match.find is defined`, () => {
+    then(`Match.find is a function`, () => {
+      expect(Match.find).toBeInstanceOf(Function);
+    });
+  });
+});
