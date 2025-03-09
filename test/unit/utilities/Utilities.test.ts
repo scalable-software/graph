@@ -79,6 +79,51 @@ given(`Utilities.idify ${Type.STATIC_METHOD} test`, () => {
     then("Utilities.idify is a function", () => {
       expect(Utilities.idify).toBeInstanceOf(Function);
     });
+    and("Utilities.idify is a function", () => {
+      when("Utilities.idify(array) where items in array have ids", () => {
+        let items: { id: string; name: string }[];
+        let result: { id: string; name: string }[];
+        beforeEach(() => {
+          items = [
+            { id: "a1", name: "Item A" },
+            { id: "b2", name: "Item B" },
+          ];
+          result = Utilities.idify(items);
+        });
+        then("result is the same as items", () => {
+          expect(result).toEqual(items);
+        });
+      });
+      when("Utilities.idify(array) where items in array don`t have ids", () => {
+        type T = { id: string; name: string };
+        let items: Omit<T, "id">[];
+        let result: T[];
+        beforeEach(() => {
+          items = [{ name: "Item A" }, { name: "Item B" }];
+          result = Utilities.idify<T>(items);
+        });
+        then("result contains items with id", () => {
+          result.forEach((item) => {
+            expect(item.id).toBeDefined();
+          });
+        });
+      });
+      when("Utilities.idify(array) where items in array have ids", () => {
+        type T = { id: string; name: string };
+        let items: Omit<T, "id">[] | T[];
+        let result: T[];
+        beforeEach(() => {
+          items = [
+            { id: "1", name: "Item A" },
+            { id: "2", name: "Item B" },
+          ];
+          result = Utilities.idify<T>(items);
+        });
+        then("result contains items", () => {
+          expect(result).toEqual(items as T[]);
+        });
+      });
+    });
   });
 });
 
