@@ -60,9 +60,9 @@ export class Validator {
    * // => ValidationException: Validation failed with 2 error(s).
    * ```
    */
-  public static compare = <T>(
-    entities: [T[], T[]],
-    validators: ((entities: [T[], T[]]) => unknown)[]
+  public static compare = <T, C extends T>(
+    entities: [C[], T[]],
+    validators: ((entities: [C[], T[]]) => unknown)[]
   ): T[] =>
     ((exceptions) =>
       exceptions.length
