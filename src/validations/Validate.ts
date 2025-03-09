@@ -36,6 +36,8 @@ export class Validate {
         ? Exceptions.duplicateException(Utilities.toString(duplicate))
         : items)(Utilities.Duplicate.find(items, identifier));
 
+  public static distinct = () => {};
+
   /**
    * Validate keys and throw if key is immutable
    *
