@@ -36,7 +36,30 @@ export class Validate {
         ? Exceptions.duplicateException(Utilities.toString(duplicate))
         : items)(Utilities.Duplicate.find(items, identifier));
 
-  public static distinct = () => {};
+  /**
+   * Validate an sets of existing and new entities to ensure the new entities are distinct.
+   *
+   * @param sets - The sets existing and new entities to validate
+   * @param identifier - The unique identifier to check
+   * @returns The new entities if distinct
+   * @throws {DuplicateException} If the sets are not distinct
+   *
+   * @example
+   * ```ts
+   * const sets = [[1, 2, 3], [3, 4, 5]];
+   * Validate.distinct(sets);
+   * // => DuplicateException: Duplicate item found: "3"
+   *
+   * const sets = [[{ id: "a" }, { id: "b" }], [{ id: "c" }, { id: "d" }]];
+   * Validate.distinct(sets, (item) => item.id);
+   * // => [{ id: "c" }, { id: "d" }]
+   * ```
+   */
+  public static distinct = (sets, identifier?) =>
+    ((match) =>
+      match
+        ? Exceptions.duplicateException(Utilities.toString(match))
+        : sets[1])(Utilities.Match.find(sets, identifier));
 
   /**
    * Validate keys and throw if key is immutable
