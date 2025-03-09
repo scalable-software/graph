@@ -11,7 +11,33 @@ export class Utilities {
   public static Duplicate = Duplicate;
   public static Match = Match;
 
-  public static idify = () => {};
+  /**
+   * Ensures that every item in a collection has an `id` property.
+   * If an item already has an `id`, it remains unchanged; otherwise, a new `id` is generated.
+   *
+   * @param items - An array of objects, some of which may lack an `id` property.
+   * @param generator - A function that generates unique `id` values (default: `crypto.randomUUID()`).
+   * @returns A new array where each object has a unique `id`.
+   *
+   * @remarks
+   * - The generator function should return a unique string identifier.
+   * - Items that already have an `id` are left unchanged.
+   *
+   * @example
+   * ```ts
+   * const items = [{ name: "Item A" }, { id: "b2", name: "Item B" }];
+   *
+   * Utilities.idify(items);
+   * // Returns: [{ id: "generated-id", name: "Item A" }, { id: "b2", name: "Item B" }]
+   * ```
+   */
+  public static idify = <T>(
+    items: Omit<T, "id">[] | T[],
+    generator: () => string = () => crypto.randomUUID()
+  ): T[] =>
+    items.map((item) =>
+      "id" in item ? (item as T) : ({ id: generator(), ...item } as T)
+    );
 
   /**
    * Converts a supported input value to a string representation.
