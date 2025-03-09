@@ -9,6 +9,7 @@ import { Utilities } from "../../../src/utilities/Utilities.js";
 import { Properties } from "../../../src/utilities/Properties.js";
 import { Duplicate } from "../../../src/utilities/Duplicate.js";
 import { Match } from "../../../src/utilities/Match.js";
+import { Index } from "../../../src/utilities/Index.js";
 
 given(`Utilities ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
@@ -63,6 +64,21 @@ given(`Utilities Match ${Type.STATIC_PROPERTY} test`, () => {
   and(`Utilities.Match is defined`, () => {
     then(`Utilities.Match is Match`, () => {
       expect(Utilities.Match).toBe(Match);
+    });
+  });
+});
+
+given(`Utilities Index ${Type.STATIC_PROPERTY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.PROPERTY);
+    setSpecProperty("spec", "Utilities.Index");
+  });
+  then(`Utilities.Index is defined`, () => {
+    expect(Utilities.Index).toBeDefined();
+  });
+  and(`Utilities.Index is defined`, () => {
+    then(`Utilities.Index is Index`, () => {
+      expect(Utilities.Index).toBe(Index);
     });
   });
 });
