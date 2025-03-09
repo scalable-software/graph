@@ -115,4 +115,8 @@ export class Exceptions {
   public static duplicateException = (duplicate: string) => {
     throw new DuplicateException(duplicate);
   };
+
+  public static notFoundException = (type: string, hint: string) => {
+    throw new NotFoundException(type, hint);
+  };
 }
