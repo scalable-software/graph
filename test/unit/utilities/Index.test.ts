@@ -31,5 +31,35 @@ given(`Index byReference ${Type.STATIC_METHOD} test`, () => {
     then(`Index.byReference is a function`, () => {
       expect(Index.byReference).toBeInstanceOf(Function);
     });
+    and("Index.byReference is a function", () => {
+      when("Index.byReference(array, item) where item is valid", () => {
+        let obj1: { id: string };
+        let obj2: { id: string };
+        let items: { id: string }[];
+        let result: number;
+        beforeEach(() => {
+          obj1 = { id: "a1" };
+          obj2 = { id: "b2" };
+          items = [obj1, obj2];
+          result = Index.byReference(items, obj1);
+        });
+        then("result is the index of the matching item", () => {
+          expect(result).toEqual(0);
+        });
+      });
+      when("Index.byReference(array, item) where item is invalid", () => {
+        let obj1: { id: string };
+        let items: { id: string }[];
+        let result: number;
+        beforeEach(() => {
+          obj1 = { id: "a1" };
+          items = [obj1];
+          result = Index.byReference(items, { id: "a1" });
+        });
+        then("result is -1", () => {
+          expect(result).toEqual(-1);
+        });
+      });
+    });
   });
 });
