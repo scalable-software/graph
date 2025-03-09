@@ -37,7 +37,37 @@ export class Validator {
       Validator.process(entity, validators)
     );
 
-  public static compare = () => {};
+  /**
+   * Compare two sets of entities against a set of validators and throw ValidationException if any fail
+   *
+   * @param entities - The entities to compare
+   * @param validators - The validators to process
+   * @returns The second set of entities if all validators pass
+   * @throws {ValidationException} If any validator fails
+   *
+   * @example
+   * ```ts
+   * const sets = [[
+   *  { id: "123e4567-e89b-12d3-a456-426614174000", name: "John Doe" },
+   * ], [
+   *  { id: "123e4567-e89b-12d3-a456-426614174000", name: "Jane Doe" },
+   * ]]
+   *
+   * Validator.compare(sets, [
+   *   (sets) => Validate.distinct(sets, (node) => node.id),
+   *   (sets) => Validate.distinct(sets, (node) => node.name),
+   * ])
+   * // => ValidationException: Validation failed with 2 error(s).
+   * ```
+   */
+  public static compare = <T>(
+    entities: [T[], T[]],
+    validators: ((entities: [T[], T[]]) => unknown)[]
+  ): T[] =>
+    ((exceptions) =>
+      exceptions.length
+        ? Exceptions.validationException(exceptions)
+        : entities[1])(Validator.process(entities, validators));
 
   private static process = <T>(
     entity: T | [T[], T[]],
