@@ -43,7 +43,7 @@ export class Nodes<T extends INode> extends Array<T> {
   };
 
   public remove = (id: UUID): Nodes<T> => {
-    this.splice(Utilities.Index.byId(this, id), 1);
+    this.splice(Validate.id(this, id), 1);
     return this;
   };
 
