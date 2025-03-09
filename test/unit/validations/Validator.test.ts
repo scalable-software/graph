@@ -285,3 +285,18 @@ given(`Validator validate ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Validator compare ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validator.compare");
+  });
+  then(`Validator.compare is defined`, () => {
+    expect(Validator.compare).toBeDefined();
+  });
+  and(`Validator.compare is defined`, () => {
+    then(`Validator.compare is a function`, () => {
+      expect(Validator.compare).toBeInstanceOf(Function);
+    });
+  });
+});
