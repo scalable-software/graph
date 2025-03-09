@@ -37,9 +37,11 @@ export class Validator {
       Validator.process(entity, validators)
     );
 
+  public static compare = () => {};
+
   private static process = <T>(
-    entity: T,
-    validators: ((entity: T) => unknown)[]
+    entity: T | [T[], T[]],
+    validators: ((entity: T | [T[], T[]]) => unknown)[]
   ): Exception[] =>
     validators.reduce<Exception[]>((exceptions, validate) => {
       try {
