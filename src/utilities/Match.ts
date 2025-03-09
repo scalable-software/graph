@@ -1,1 +1,3 @@
-export class Match {}
+export class Match {
+  public static find = () => {};
+}
