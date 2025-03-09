@@ -16,6 +16,7 @@ import {
   UnassignedException,
   MissMatchException,
   DuplicateException,
+  NotFoundException,
   Exceptions,
 } from "../../../src/exceptions/Exceptions.js";
 
@@ -486,6 +487,59 @@ given(`DuplicateException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
       and("exception.message is defined", () => {
         then("exception.message is 'Duplicate found: test'", () => {
           expect(exception.message).toBe("Duplicate found: test");
+        });
+      });
+    });
+  });
+});
+
+given(`NotFoundException ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`NotFoundException is imported`, () => {
+    then(`NotFoundException is defined`, () => {
+      expect(NotFoundException).toBeDefined();
+    });
+  });
+});
+
+given(`NotFoundException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.INSTANTIATION);
+  });
+  when("a new NotFoundException is created", () => {
+    let item: string;
+    let hint: string;
+    let exception: Exception;
+    beforeEach(() => {
+      item = "item";
+      hint = "hint";
+      exception = new NotFoundException(item, hint);
+    });
+    then("exception is defined", () => {
+      expect(exception).toBeDefined();
+    });
+    and("exception is defined", () => {
+      then("exception is an instance of NotFoundException", () => {
+        expect(exception).toBeInstanceOf(NotFoundException);
+      });
+      then("exception.name is defined", () => {
+        expect(exception.name).toBeDefined();
+      });
+      and("exception.name is defined", () => {
+        then("exception.name is NotFoundException", () => {
+          expect(exception.name).toBe("NotFoundException");
+        });
+      });
+      then("exception.message is defined", () => {
+        expect(exception.message).toBeDefined();
+      });
+      and("exception.message is defined", () => {
+        then("exception.message is 'Not found: item hint'", () => {
+          expect(exception.message).toBe("Not found: item hint");
         });
       });
     });
