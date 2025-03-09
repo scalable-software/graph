@@ -125,5 +125,67 @@ given(`Index find ${Type.STATIC_METHOD} test`, () => {
     then(`Index.find is a function`, () => {
       expect(Index.find).toBeInstanceOf(Function);
     });
+    and("Index.find is a function", () => {
+      when("Index.find(array, id) where id is valid", () => {
+        let items: { id: string; name: string }[];
+        let id: string;
+        let result: number;
+        beforeEach(() => {
+          items = [
+            { id: "a1", name: "Item A" },
+            { id: "b2", name: "Item B" },
+          ];
+          id = "b2";
+          result = Index.find(items, id);
+        });
+        then("result is the index of the matching item", () => {
+          expect(result).toEqual(1);
+        });
+      });
+      when("Index.find(array, id) where id is invalid", () => {
+        let items: { id: string; name: string }[];
+        let id: string;
+        let result: number;
+        beforeEach(() => {
+          items = [
+            { id: "a1", name: "Item A" },
+            { id: "b2", name: "Item B" },
+          ];
+          id = "c3";
+          result = Index.find(items, id);
+        });
+        then("result is -1", () => {
+          expect(result).toEqual(-1);
+        });
+      });
+      when("Index.find(array, item) where item is valid", () => {
+        let obj1: { id: string };
+        let obj2: { id: string };
+        let items: { id: string }[];
+        let result: number;
+        beforeEach(() => {
+          obj1 = { id: "a1" };
+          obj2 = { id: "b2" };
+          items = [obj1, obj2];
+          result = Index.find(items, obj1);
+        });
+        then("result is the index of the matching item", () => {
+          expect(result).toEqual(0);
+        });
+      });
+      when("Index.find(array, item) where item is invalid", () => {
+        let obj1: { id: string };
+        let items: { id: string }[];
+        let result: number;
+        beforeEach(() => {
+          obj1 = { id: "a1" };
+          items = [obj1];
+          result = Index.find(items, { id: "a1" });
+        });
+        then("result is -1", () => {
+          expect(result).toEqual(-1);
+        });
+      });
+    });
   });
 });
