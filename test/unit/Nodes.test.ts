@@ -5,7 +5,8 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import { Nodes, type INode, Exception } from "@scalable.software/graph";
+import { Nodes, Exception } from "@scalable.software/graph";
+import type { INode, UUID } from "@scalable.software/graph";
 
 given(`Nodes ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
@@ -585,6 +586,18 @@ given(`nodes.remove ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
     });
     then(`nodes.remove is defined`, () => {
       expect(nodes.remove).toBeDefined();
+    });
+    and(`nodes.remove is defined`, () => {
+      when(`nodes.remove called with valid id`, () => {
+        let id: UUID;
+        beforeEach(() => {
+          id = data[0].id;
+          nodes.remove(id);
+        });
+        then(`nodes does not contain node with id`, () => {
+          expect(nodes.find((node) => node.id === id)).toBeUndefined();
+        });
+      });
     });
   });
 });
