@@ -1,5 +1,34 @@
 export class Index {
-  public static find = () => {};
+  /**
+   * Finds the index of an item in a items either by its `id` property or by reference.
+   *
+   * @param items - An array of objects, each containing an `id` property.
+   * @param target - Either an `id` string to match against the `id` property,
+   *                 or a reference to an object within the collection.
+   * @returns The index of the matching item in the array, or `-1` if not found.
+   *
+   * @remarks
+   * - If `target` is a string, it searches for an object with a matching `id`.
+   * - If `target` is an object, it searches by reference using `indexOf`.
+   *
+   * @example
+   * ```ts
+   * const obj1 = { id: "a1", name: "Item A" };
+   * const obj2 = { id: "b2", name: "Item B" };
+   * const items = [obj1, obj2];
+   *
+   * Index.find(items, "b2");         // Returns 1 (matches by id)
+   * Index.find(items, obj1);         // Returns 0 (matches by reference)
+   * Index.find(items, { id: "a1" }); // Returns -1 (different reference)
+   * ```
+   */
+  public static find = <T extends { id: string }>(
+    items: T[],
+    target: string | T
+  ): number =>
+    typeof target === "string"
+      ? Index.byId(items, target)
+      : Index.byReference(items, target);
 
   /**
    * Finds the index of a specific item in a collection by reference comparison.
