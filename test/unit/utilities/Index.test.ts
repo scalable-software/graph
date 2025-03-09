@@ -76,5 +76,39 @@ given(`Index byId ${Type.STATIC_METHOD} test`, () => {
     then(`Index.byId is a function`, () => {
       expect(Index.byId).toBeInstanceOf(Function);
     });
+    and("Index.byId is a function", () => {
+      when("Index.byId(array, id) where id is valid", () => {
+        let items: { id: string; name: string }[];
+        let id: string;
+        let result: number;
+        beforeEach(() => {
+          items = [
+            { id: "a1", name: "Item A" },
+            { id: "b2", name: "Item B" },
+          ];
+          id = "b2";
+          result = Index.byId(items, id);
+        });
+        then("result is the index of the matching item", () => {
+          expect(result).toEqual(1);
+        });
+      });
+      when("Index.byId(array, id) where id is invalid", () => {
+        let items: { id: string; name: string }[];
+        let id: string;
+        let result: number;
+        beforeEach(() => {
+          items = [
+            { id: "a1", name: "Item A" },
+            { id: "b2", name: "Item B" },
+          ];
+          id = "c3";
+          result = Index.byId(items, id);
+        });
+        then("result is -1", () => {
+          expect(result).toEqual(-1);
+        });
+      });
+    });
   });
 });
