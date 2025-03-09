@@ -18,3 +18,18 @@ given(`Index ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
     });
   });
 });
+
+given(`Index byReference ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Index.byReference");
+  });
+  then(`Index.byReference is defined`, () => {
+    expect(Index.byReference).toBeDefined();
+  });
+  and(`Index.byReference is defined`, () => {
+    then(`Index.byReference is a function`, () => {
+      expect(Index.byReference).toBeInstanceOf(Function);
+    });
+  });
+});
