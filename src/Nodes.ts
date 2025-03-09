@@ -1,5 +1,6 @@
 import { type INode } from "./Node.js";
 import { Validate } from "./validations/Validate.js";
+import { Validator } from "./validations/Validator.js";
 import { Utilities } from "./utilities/Utilities.js";
 
 export class Nodes<T extends INode> extends Array<T> {
@@ -25,7 +26,16 @@ export class Nodes<T extends INode> extends Array<T> {
   }
 
   public add = (nodes: T | T[]): this => {
-    this.push(...Validate.nodes<T>(Utilities.toArray<T>(nodes)));
+    this.push(...this.validate(Validate.nodes<T>(Utilities.toArray<T>(nodes))));
     return this;
   };
+
+  private validate = (nodes: T[]): T[] =>
+    Validator.compare(
+      [this, nodes],
+      [
+        (sets) => Validate.distinct(sets, (node) => node.id),
+        (sets) => Validate.distinct(sets, (node) => node.coordinates),
+      ]
+    );
 }
