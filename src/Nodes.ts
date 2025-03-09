@@ -26,16 +26,17 @@ export class Nodes<T extends INode> extends Array<T> {
   }
 
   public add = (nodes: T | T[]): this => {
-    this.push(...this.validate(Validate.nodes<T>(Utilities.toArray<T>(nodes))));
+    this.push(...this.validate(Utilities.toArray<T>(nodes)));
     return this;
   };
 
   private validate = (nodes: T[]): T[] =>
-    Validator.compare(
-      [this, nodes],
-      [
-        (sets) => Validate.distinct(sets, (node) => node.id),
-        (sets) => Validate.distinct(sets, (node) => node.coordinates),
-      ]
-    );
+    ((nodes) =>
+      Validator.compare(
+        [this, nodes],
+        [
+          (sets) => Validate.distinct(sets, (node) => node.id),
+          (sets) => Validate.distinct(sets, (node) => node.coordinates),
+        ]
+      ))(Validate.nodes<T>(nodes));
 }
