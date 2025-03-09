@@ -63,3 +63,18 @@ given(`Index byReference ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Index byId ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Index.byId");
+  });
+  then(`Index.byId is defined`, () => {
+    expect(Index.byId).toBeDefined();
+  });
+  and(`Index.byId is defined`, () => {
+    then(`Index.byId is a function`, () => {
+      expect(Index.byId).toBeInstanceOf(Function);
+    });
+  });
+});
