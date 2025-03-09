@@ -11,6 +11,7 @@ import {
   InvalidArgumentException,
   ValidationException,
   DuplicateException,
+  NotFoundException,
 } from "../../../src/exceptions/Exceptions.js";
 
 import type {
@@ -39,6 +40,55 @@ given(`Validate id ${Type.STATIC_METHOD} test`, () => {
   });
   then(`Validate.id is defined`, () => {
     expect(Validate.id).toBeDefined();
+  });
+  and(`Validate.id is defined`, () => {
+    when(`Validate.id(items, id) is called with items and valid id`, () => {
+      type Item = { id: string };
+      let items: Item[];
+      let id: UUID;
+      let index: number;
+      beforeEach(() => {
+        items = [{ id: "1" }, { id: "2" }, { id: "3" }];
+        id = "1";
+        index = Validate.id(items, id);
+      });
+      then(`index is defined`, () => {
+        expect(index).toBeDefined();
+      });
+      and(`index is defined`, () => {
+        then(`index is 0`, () => {
+          expect(index).toBe(0);
+        });
+      });
+    });
+    when(`Validate.id(items, id) is called with items and invalid id`, () => {
+      type Item = { id: string };
+      let items: Item[];
+      let id: UUID;
+      let error: Error;
+      beforeEach(() => {
+        items = [{ id: "1" }, { id: "2" }, { id: "3" }];
+        id = "4";
+        try {
+          Validate.id(items, id);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of NotFoundException`, () => {
+          expect(error).toBeInstanceOf(NotFoundException);
+        });
+        and(`error is an instance of NotFoundException`, () => {
+          then(`error.message is "Not found: id 4"`, () => {
+            expect(error.message).toBe("Not found: id 4");
+          });
+        });
+      });
+    });
   });
 });
 
