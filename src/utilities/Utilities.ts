@@ -11,6 +11,8 @@ export class Utilities {
   public static Duplicate = Duplicate;
   public static Match = Match;
 
+  public static idify = () => {};
+
   /**
    * Converts a supported input value to a string representation.
    * - If the input is a string, it remains unchanged.
