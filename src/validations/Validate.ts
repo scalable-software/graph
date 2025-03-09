@@ -83,7 +83,31 @@ export class Validate {
     !items.includes(value) ||
     Exceptions.immutablePropertyException(String(value));
 
-  public static id = () => {};
+  /**
+   * Returns index of item with id in items if found
+   * throw NotFoundException if no item in items has matching id
+   *
+   * @param items - The items to search
+   * @param id - The id to find
+   * @returns The index of the id if found
+   * @throws {NotFoundException} If the id is not found
+   *
+   * @example
+   * ```ts
+   * const items = [{ id: "a" }, { id: "b" }, { id: "c" }];
+   * Validate.id(items, "b");
+   * // => 1
+   *
+   * Validate.id(items, "d");
+   * // => NotFoundException: id not found: "d"
+   * ```
+   *
+   */
+  public static id = <T extends { id: UUID }>(items: T[], id: UUID): number =>
+    ((index) =>
+      index !== -1 ? index : Exceptions.notFoundException("id", id))(
+      Utilities.Index.byId<T>(items, id)
+    );
 
   /**
    * Validate id and throw if not valid UUID
