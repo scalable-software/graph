@@ -1,4 +1,4 @@
-import { INode } from "./Node.js";
+import { type INode } from "./Node.js";
 import { Validate } from "./validations/Validate.js";
 import { Utilities } from "./utilities/Utilities.js";
 
