@@ -67,6 +67,21 @@ given(`Utilities Match ${Type.STATIC_PROPERTY} test`, () => {
   });
 });
 
+given(`Utilities.idify ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Utilities.idify");
+  });
+  then("Utilities.idify is defined", () => {
+    expect(Utilities.idify).toBeDefined();
+  });
+  and("Utilities.idify is defined", () => {
+    then("Utilities.idify is a function", () => {
+      expect(Utilities.idify).toBeInstanceOf(Function);
+    });
+  });
+});
+
 given(`Utilities toString ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
