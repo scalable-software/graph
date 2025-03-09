@@ -271,7 +271,7 @@ given(`nodes.add ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
   and(`nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
-      nodes = new Nodes();
+      nodes = Nodes.create();
     });
     and(`nodes.add is defined`, () => {
       when(`nodes.add called with valid nodes`, () => {
@@ -300,6 +300,45 @@ given(`nodes.add ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
           });
         });
       });
+      when(`nodes.add called with duplicate nodes`, () => {
+        let data: INode[];
+        let error: Exception.Exception;
+        beforeEach(() => {
+          data = [
+            {
+              id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+              coordinates: { x: 0, y: 0 },
+            },
+            {
+              id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+              coordinates: { x: 0, y: 0 },
+            },
+          ];
+          try {
+            nodes.add(data);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of Exception.ValidationException`, () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+          and(`error is an instance of Exception.ValidationException`, () => {
+            then(
+              `error.message is 'Validation failed with 2 error(s).'`,
+              () => {
+                expect(error.message).toBe(
+                  "Validation failed with 2 error(s)."
+                );
+              }
+            );
+          });
+        });
+      });
       when(`nodes.add called with valid node`, () => {
         let data: INode;
         beforeEach(() => {
@@ -318,6 +357,90 @@ given(`nodes.add ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
           });
         });
       });
+      when(`nodes.add called with nodes having invalid id`, () => {
+        let data: INode[];
+        let error: Exception.Exception;
+        beforeEach(() => {
+          data = [
+            {
+              id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+              coordinates: { x: 0, y: 0 },
+            },
+            {
+              id: "1",
+              coordinates: { x: 1, y: 1 },
+            },
+          ];
+          try {
+            nodes.add(data);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of Exception.ValidationException`, () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+          and(`error is an instance of Exception.ValidationException`, () => {
+            then(
+              `error.message is 'Validation failed with 1 error(s).'`,
+              () => {
+                expect(error.message).toBe(
+                  "Validation failed with 1 error(s)."
+                );
+              }
+            );
+          });
+        });
+      });
+      when(
+        `nodes.add called with nodes having invalid string x coordinates`,
+        () => {
+          let data: INode[];
+          let error: Exception.Exception;
+          beforeEach(() => {
+            data = [
+              {
+                id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+                coordinates: { x: 0, y: 0 },
+              },
+              {
+                id: "a5f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a2d",
+                coordinates: { x: "1" as unknown as number, y: 0 },
+              },
+            ];
+            try {
+              nodes.add(data);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of Exception.ValidationException`,
+              () => {
+                expect(error).toBeInstanceOf(Exception.ValidationException);
+              }
+            );
+            and(`error is an instance of Exception.ValidationException`, () => {
+              then(
+                `error.message is 'Validation failed with 1 error(s).'`,
+                () => {
+                  expect(error.message).toBe(
+                    "Validation failed with 1 error(s)."
+                  );
+                }
+              );
+            });
+          });
+        }
+      );
     });
   });
 });
