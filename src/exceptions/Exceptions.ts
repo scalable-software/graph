@@ -75,6 +75,12 @@ export class DuplicateException extends Exception {
   }
 }
 
+export class NotFoundException extends Exception {
+  constructor(type: string, hint: string) {
+    super(`Not found: ${type} ${hint}`);
+  }
+}
+
 /**
  * Set of exceptions thrown via static methods.
  */
