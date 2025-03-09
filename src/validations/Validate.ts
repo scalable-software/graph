@@ -83,6 +83,8 @@ export class Validate {
     !items.includes(value) ||
     Exceptions.immutablePropertyException(String(value));
 
+  public static id = () => {};
+
   /**
    * Validate id and throw if not valid UUID
    *
