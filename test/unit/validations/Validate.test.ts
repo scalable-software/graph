@@ -465,6 +465,21 @@ given(`Validate unique ${Type.STATIC_METHOD} test`, () => {
   });
 });
 
+given(`Validate distinct ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.distinct");
+  });
+  then(`Validate.distinct is defined`, () => {
+    expect(Validate.distinct).toBeDefined();
+  });
+  and(`Validate.distinct is defined`, () => {
+    then(`Validate.distinct is a function`, () => {
+      expect(Validate.distinct).toBeInstanceOf(Function);
+    });
+  });
+});
+
 given(`Validate immutable ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
