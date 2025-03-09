@@ -903,3 +903,46 @@ given(`Exceptions duplicateException ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Exceptions notFoundException ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Exceptions.notFoundException");
+  });
+  then(`Exceptions.notFoundException is defined`, () => {
+    expect(Exceptions.notFoundException).toBeDefined();
+  });
+  and(`Exceptions.notFoundException is defined`, () => {
+    then(`Exceptions.notFoundException is a function`, () => {
+      expect(Exceptions.notFoundException).toBeInstanceOf(Function);
+    });
+    and(`Exceptions.notFoundException is a function`, () => {
+      when("Exceptions.notFoundException(errors) is called", () => {
+        let error: Error;
+        beforeEach(() => {
+          try {
+            Exceptions.notFoundException("test", "hint");
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of NotFoundException", () => {
+            expect(error).toBeInstanceOf(NotFoundException);
+          });
+          and("error is an instance of NotFoundException", () => {
+            then("error.name is NotFoundException", () => {
+              expect(error.name).toBe("NotFoundException");
+            });
+            then("error.message is 'Not found: test hint'", () => {
+              expect(error.message).toBe("Not found: test hint");
+            });
+          });
+        });
+      });
+    });
+  });
+});
