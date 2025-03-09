@@ -4,10 +4,12 @@
 
 import { Properties } from "./Properties.js";
 import { Duplicate } from "./Duplicate.js";
+import { Match } from "./Match.js";
 
 export class Utilities {
   public static Properties = Properties;
   public static Duplicate = Duplicate;
+  public static Match = Match;
 
   /**
    * Converts a supported input value to a string representation.
