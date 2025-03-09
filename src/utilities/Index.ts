@@ -1,4 +1,6 @@
 export class Index {
+  public static find = () => {};
+
   /**
    * Finds the index of a specific item in a collection by reference comparison.
    *
