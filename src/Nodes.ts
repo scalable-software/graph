@@ -25,8 +25,19 @@ export class Nodes<T extends INode> extends Array<T> {
     super(...nodes);
   }
 
+  /**
+   * Adds new nodes to the `Nodes` collection while ensuring unique IDs and coordinates.
+   * If a node does not have an `id`, it will be automatically assigned one.
+   *
+   * @template N - A type extending `T` or an object omitting the `id` field.
+   * @param {N | N[]} nodes - A single node or an array of nodes to be added.
+   * @throws {Error} If a node with the same ID or coordinates already exists in the collection.
+   * @returns {Nodes<T>} The modified `Nodes<T>` instance, allowing method chaining.
+   */
   public add = <N extends T | Omit<T, "id">>(nodes: N | N[]): Nodes<T> => {
-    this.push(...this.validate(Utilities.idify(Utilities.toArray<N>(nodes))));
+    this.push(
+      ...this.validate(Utilities.idify<T>(Utilities.toArray<N>(nodes)))
+    );
     return this;
   };
 
