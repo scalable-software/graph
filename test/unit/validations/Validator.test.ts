@@ -11,6 +11,7 @@ import { Validator } from "../../../src/validations/Validator.js";
 import {
   InvalidArgumentException,
   ValidationException,
+  DuplicateException,
 } from "../../../src/exceptions/Exceptions.js";
 
 given(`Validator ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
@@ -297,6 +298,202 @@ given(`Validator compare ${Type.STATIC_METHOD} test`, () => {
   and(`Validator.compare is defined`, () => {
     then(`Validator.compare is a function`, () => {
       expect(Validator.compare).toBeInstanceOf(Function);
+    });
+    and(`Validator.compare is a function`, () => {
+      when(
+        `Validator.compare(sets, validators) is called two unique sets`,
+        () => {
+          let sets: [any[], any[]];
+          let result: any;
+          let error: ValidationException;
+          beforeEach(() => {
+            const one = [
+              { id: "1", name: "Alpha" },
+              { id: "2", name: "Beta" },
+              { id: "3", name: "Gamma" },
+            ];
+
+            const two = [
+              { id: "4", name: "Delta" },
+              { id: "5", name: "Epsilon" },
+            ];
+
+            sets = [one, two];
+            try {
+              result = Validator.compare(sets, [
+                (sets) => Validate.distinct(sets),
+              ]);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`result is defined`, () => {
+            expect(result).toBeDefined();
+          });
+          and(`result is defined`, () => {
+            then(`result is the second set`, () => {
+              expect(result).toEqual(sets[1]);
+            });
+          });
+          then(`error is undefined`, () => {
+            expect(error).toBeUndefined();
+          });
+        }
+      );
+      when(
+        `Validator.compare(sets, validators) is called with duplicate sets`,
+        () => {
+          let sets: [any[], any[]];
+          let result: any;
+          let error: ValidationException;
+          beforeEach(() => {
+            const one = [
+              { id: "1", name: "Alpha" },
+              { id: "2", name: "Beta" },
+              { id: "3", name: "Gamma" },
+            ];
+
+            const two = [
+              { id: "1", name: "Alpha" },
+              { id: "2", name: "Beta" },
+              { id: "3", name: "Gamma" },
+            ];
+
+            sets = [one, two];
+            try {
+              result = Validator.compare(sets, [
+                (sets) => Validate.distinct(sets),
+              ]);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`result is undefined`, () => {
+            expect(result).toBeUndefined();
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(`error is an instance of ValidationException`, () => {
+              expect(error).toBeInstanceOf(ValidationException);
+            });
+            and(`error is an instance of ValidationException`, () => {
+              then(`error.errors.length is 1`, () => {
+                expect(error.errors.length).toBe(1);
+              });
+              and(`error.errors.length is 1`, () => {
+                then(
+                  `error.errors[0] is an instance of DuplicateException`,
+                  () => {
+                    expect(error.errors[0]).toBeInstanceOf(DuplicateException);
+                  }
+                );
+                and(
+                  `error.errors[0] is an instance of DuplicateException`,
+                  () => {
+                    then(
+                      `error.errors[0].message is "Duplicate found: {"id":"1","name":"Alpha"}"`,
+                      () => {
+                        expect(error.errors[0].message).toBe(
+                          `Duplicate found: {"id":"1","name":"Alpha"}`
+                        );
+                      }
+                    );
+                  }
+                );
+              });
+            });
+          });
+        }
+      );
+      when(
+        `Validator.compare(sets, validators) is called with duplicate sets using multiple validators`,
+        () => {
+          let sets: [any[], any[]];
+          let result: any;
+          let error: ValidationException;
+          beforeEach(() => {
+            const one = [
+              { id: "1", name: "Alpha" },
+              { id: "2", name: "Beta" },
+              { id: "3", name: "Gamma" },
+            ];
+
+            const two = [
+              { id: "1", name: "Alpha" },
+              { id: "2", name: "Beta" },
+              { id: "3", name: "Gamma" },
+            ];
+
+            sets = [one, two];
+            try {
+              result = Validator.compare(sets, [
+                (sets) => Validate.distinct(sets, (node) => node.id),
+                (sets) => Validate.distinct(sets, (node) => node.name),
+              ]);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`result is undefined`, () => {
+            expect(result).toBeUndefined();
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(`error is an instance of ValidationException`, () => {
+              expect(error).toBeInstanceOf(ValidationException);
+            });
+            and(`error is an instance of ValidationException`, () => {
+              then(`error.errors.length is 2`, () => {
+                expect(error.errors.length).toBe(2);
+              });
+              and(`error.errors.length is 2`, () => {
+                then(
+                  `error.errors[0] is an instance of DuplicateException`,
+                  () => {
+                    expect(error.errors[0]).toBeInstanceOf(DuplicateException);
+                  }
+                );
+                and(
+                  `error.errors[0] is an instance of DuplicateException`,
+                  () => {
+                    then(
+                      `error.errors[0].message is "Duplicate found: {"id":"1","name":"Alpha"}"`,
+                      () => {
+                        expect(error.errors[0].message).toBe(
+                          `Duplicate found: {"id":"1","name":"Alpha"}`
+                        );
+                      }
+                    );
+                  }
+                );
+                then(
+                  `error.errors[1] is an instance of DuplicateException`,
+                  () => {
+                    expect(error.errors[1]).toBeInstanceOf(DuplicateException);
+                  }
+                );
+                and(
+                  `error.errors[1] is an instance of DuplicateException`,
+                  () => {
+                    then(
+                      `error.errors[1].message is "Duplicate found: {"id":"1","name":"Alpha"}"`,
+                      () => {
+                        expect(error.errors[1].message).toBe(
+                          `Duplicate found: {"id":"1","name":"Alpha"}`
+                        );
+                      }
+                    );
+                  }
+                );
+              });
+            });
+          });
+        }
+      );
     });
   });
 });
