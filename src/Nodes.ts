@@ -25,7 +25,7 @@ export class Nodes<T extends INode> extends Array<T> {
   }
 
   public add = (nodes: T | T[]): this => {
-    this.push(...Utilities.toArray<T>(nodes));
+    this.push(...Validate.nodes<T>(Utilities.toArray<T>(nodes)));
     return this;
   };
 }
