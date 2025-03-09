@@ -1,1 +1,3 @@
-export class Index {}
+export class Index {
+  public static byReference = () => {};
+}
