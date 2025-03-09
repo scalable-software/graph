@@ -112,3 +112,18 @@ given(`Index byId ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Index find ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Index.find");
+  });
+  then(`Index.find is defined`, () => {
+    expect(Index.find).toBeDefined();
+  });
+  and(`Index.find is defined`, () => {
+    then(`Index.find is a function`, () => {
+      expect(Index.find).toBeInstanceOf(Function);
+    });
+  });
+});
