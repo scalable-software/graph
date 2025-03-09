@@ -1,3 +1,5 @@
+import { UUID } from "../Graph.types.js";
+
 export class Index {
   /**
    * Finds the index of an item in a items either by its `id` property or by reference.
@@ -22,7 +24,7 @@ export class Index {
    * Index.find(items, { id: "a1" }); // Returns -1 (different reference)
    * ```
    */
-  public static find = <T extends { id: string }>(
+  public static find = <T extends { id: UUID }>(
     items: T[],
     target: string | T
   ): number =>
@@ -72,7 +74,7 @@ export class Index {
    * Index.byId(items, "c3"); // Returns -1 (not found)
    * ```
    */
-  public static byId = <T extends { id: string }>(
+  public static byId = <T extends { id: UUID }>(
     items: T[],
     id: string
   ): number => items.findIndex((item) => item.id === id);
