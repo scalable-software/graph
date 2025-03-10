@@ -136,7 +136,8 @@ export class Validate {
       Utilities.Index.byId<T>(items, id)
     );
 
-  public static index = () => {};
+  public static index = (index: number): number =>
+    index !== -1 ? index : Exceptions.invalidIndexException();
 
   /**
    * Validate id and throw if not valid UUID
