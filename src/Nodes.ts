@@ -101,6 +101,8 @@ export class Nodes<T extends INode> extends Array<T> {
       Validate.coordinates(coordinates)
     );
 
+  public move = () => {};
+
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
       Validator.compare(
