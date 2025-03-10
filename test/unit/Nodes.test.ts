@@ -675,3 +675,35 @@ given(`nodes.remove ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
     });
   });
 });
+
+given(`nodes.findById ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", Spec.BEHAVIOR);
+  });
+  and(`nodes instance is created with nodes`, () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+      ];
+      nodes = Nodes.create(data);
+    });
+    then(`nodes.findById is defined`, () => {
+      expect(nodes.findById).toBeDefined();
+    });
+    and(`nodes.findById is defined`, () => {
+      then(`nodes.findById is an instance of Function`, () => {
+        expect(nodes.findById).toBeInstanceOf(Function);
+      });
+    });
+  });
+});
