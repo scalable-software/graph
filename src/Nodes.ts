@@ -55,7 +55,27 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
-  public findById = () => {};
+  /**
+   * Searches for a node in the `Nodes` collection using its unique identifier.
+   *
+   * @param {UUID} id - The unique identifier of the node to find.
+   * @returns {T | undefined} The matching node if found, otherwise `undefined`.
+   *
+   * @example
+   * ```typescript
+   * const data = [
+   *     {
+   *         id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+   *         coordinates: { x: 0, y: 0 },
+   *     }];
+   * const nodes = Nodes.create(data);
+   *
+   * const node = nodes.findById("d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d");
+   * console.log(node); // { id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", coordinates: { x: 0, y: 0 } }
+   * ```
+   */
+  public findById = (id: UUID): T | undefined =>
+    this.find((node) => node.id === id);
 
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
