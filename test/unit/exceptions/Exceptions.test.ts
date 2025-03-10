@@ -18,6 +18,7 @@ import {
   DuplicateException,
   NotFoundException,
   Exceptions,
+  InvalidIndexException,
 } from "../../../src/exceptions/Exceptions.js";
 
 given(`Exception ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
@@ -540,6 +541,57 @@ given(`NotFoundException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
       and("exception.message is defined", () => {
         then("exception.message is 'Not found: item hint'", () => {
           expect(exception.message).toBe("Not found: item hint");
+        });
+      });
+    });
+  });
+});
+
+given(`InvalidIndexException ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`InvalidIndexException is imported`, () => {
+    then(`InvalidIndexException is defined`, () => {
+      expect(InvalidIndexException).toBeDefined();
+    });
+  });
+});
+
+given(`InvalidIndexException ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.CLASS);
+    setSpecProperty("spec", Spec.INSTANTIATION);
+  });
+  when("a new InvalidIndexException is created", () => {
+    let exception: Exception;
+    beforeEach(() => {
+      exception = new InvalidIndexException();
+    });
+    then("exception is defined", () => {
+      expect(exception).toBeDefined();
+    });
+    and("exception is defined", () => {
+      then("exception is an instance of InvalidIndexException", () => {
+        expect(exception).toBeInstanceOf(InvalidIndexException);
+      });
+      then("exception.name is defined", () => {
+        expect(exception.name).toBeDefined();
+      });
+      and("exception.name is defined", () => {
+        then("exception.name is InvalidIndexException", () => {
+          expect(exception.name).toBe("InvalidIndexException");
+        });
+      });
+      then("exception.message is defined", () => {
+        expect(exception.message).toBeDefined();
+      });
+      and("exception.message is defined", () => {
+        then("exception.message is 'Not found: item hint'", () => {
+          expect(exception.message).toBe(
+            "Invalid index: index is out of bounds"
+          );
         });
       });
     });
