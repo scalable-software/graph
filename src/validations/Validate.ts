@@ -130,11 +130,15 @@ export class Validate {
   public static exist = <T extends { id: UUID }>(
     items: T[],
     id: UUID
-  ): number =>
-    ((index) =>
-      index !== -1 ? index : Exceptions.notFoundException("id", id))(
-      Utilities.Index.byId<T>(items, id)
-    );
+  ): number => {
+    const index = Utilities.Index.byId<T>(items, id);
+    try {
+      Validate.index(index);
+    } catch (error) {
+      throw Exceptions.notFoundException("id", id);
+    }
+    return index;
+  };
 
   public static index = (index: number): number =>
     index !== -1 ? index : Exceptions.invalidIndexException();
