@@ -12,6 +12,7 @@ import {
   ValidationException,
   DuplicateException,
   NotFoundException,
+  InvalidIndexException,
 } from "../../../src/exceptions/Exceptions.js";
 
 import type {
@@ -162,6 +163,64 @@ given(`Validate index ${Type.STATIC_METHOD} test`, () => {
   and(`Validate.index is defined`, () => {
     then(`Validate.index is a function`, () => {
       expect(Validate.index).toBeInstanceOf(Function);
+    });
+    when(`Validate.index called with number 0`, () => {
+      let index: number;
+      let result: number;
+      let error: Error;
+      beforeEach(() => {
+        index = 0;
+        try {
+          result = Validate.index(index);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is undefined`, () => {
+        expect(error).toBeUndefined();
+      });
+      then(`result is defined`, () => {
+        expect(result).toBeDefined();
+      });
+      and(`result is defined`, () => {
+        then(`result is 0`, () => {
+          expect(result).toBe(0);
+        });
+      });
+    });
+    when(`Validate.index called with number -1`, () => {
+      let index: number;
+      let result: number;
+      let error: Error;
+      beforeEach(() => {
+        index = -1;
+        try {
+          result = Validate.index(index);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`result is undefined`, () => {
+        expect(result).toBeUndefined();
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of InvalidIndexException`, () => {
+          expect(error).toBeInstanceOf(InvalidIndexException);
+        });
+        and(`error is an instance of InvalidIndexException`, () => {
+          then(
+            `error.message is "Invalid index: index is out of bounds"`,
+            () => {
+              expect(error.message).toBe(
+                "Invalid index: index is out of bounds"
+              );
+            }
+          );
+        });
+      });
     });
   });
 });
