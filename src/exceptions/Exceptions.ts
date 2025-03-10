@@ -130,4 +130,8 @@ export class Exceptions {
   public static notFoundException = (type: string, hint: string) => {
     throw new NotFoundException(type, hint);
   };
+
+  public static invalidIndexException = () => {
+    throw new InvalidIndexException();
+  };
 }
