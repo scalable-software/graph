@@ -86,6 +86,12 @@ export class NotFoundException extends Exception {
   }
 }
 
+export class InvalidIndexException extends Exception {
+  constructor() {
+    super(`Invalid index: index is out of bounds`);
+  }
+}
+
 /**
  * Set of exceptions thrown via static methods.
  */
