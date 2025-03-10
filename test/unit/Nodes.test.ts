@@ -756,5 +756,41 @@ given(`nodes.findById ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
         expect(result).toBeUndefined();
       });
     });
+    when(`nodes.findById called with invalid id`, () => {
+      let id: UUID;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        id = "1";
+        try {
+          nodes.findById(id);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          }
+        );
+        and(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            then(
+              `error.message is 'Invalid argument: id - must be a valid UUID'`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: id - must be a valid UUID"
+                );
+              }
+            );
+          }
+        );
+      });
+    });
   });
 });
