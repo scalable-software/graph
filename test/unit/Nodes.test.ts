@@ -6,7 +6,7 @@ const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
 import { Nodes, Exception } from "@scalable.software/graph";
-import type { INode, UUID } from "@scalable.software/graph";
+import type { INode, UUID, Coordinates } from "@scalable.software/graph";
 
 given(`Nodes ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
@@ -829,3 +829,54 @@ given(
     });
   }
 );
+
+given(`nodes.findByCoordinates ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", Spec.BEHAVIOR);
+  });
+  and(`nodes instance is created with nodes`, () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+      ];
+      nodes = Nodes.create(data);
+    });
+    when(`nodes.findByCoordinates called with existing coordinates`, () => {
+      let coordinates: Coordinates;
+      let result: INode;
+      beforeEach(() => {
+        coordinates = data[0].coordinates;
+        result = nodes.findByCoordinates(coordinates);
+      });
+      then(`result is defined`, () => {
+        expect(result).toBeDefined();
+      });
+      and(`result is defined`, () => {
+        then(`result is equal to data[0]`, () => {
+          expect(result).toEqual(data[0]);
+        });
+      });
+    });
+    when(`nodes.findByCoordinates called with unknown coordinates`, () => {
+      let coordinates: Coordinates;
+      let result: INode;
+      beforeEach(() => {
+        coordinates = { x: 2, y: 2 };
+        result = nodes.findByCoordinates(coordinates);
+      });
+      then(`result is undefined`, () => {
+        expect(result).toBeUndefined();
+      });
+    });
+  });
+});
