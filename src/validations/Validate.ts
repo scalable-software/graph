@@ -135,7 +135,7 @@ export class Validate {
     try {
       Validate.index(index);
     } catch (error) {
-      throw Exceptions.notFoundException("id", id);
+      Exceptions.notFoundException("id", id);
     }
     return index;
   };
