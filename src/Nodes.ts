@@ -2,7 +2,7 @@ import { type INode } from "./Node.js";
 import { Validate } from "./validations/Validate.js";
 import { Validator } from "./validations/Validator.js";
 import { Utilities } from "./utilities/Utilities.js";
-import { type UUID } from "./Graph.types.js";
+import { type UUID, Coordinates } from "./Graph.types.js";
 
 export class Nodes<T extends INode> extends Array<T> {
   /**
@@ -77,8 +77,10 @@ export class Nodes<T extends INode> extends Array<T> {
   public findById = (id: UUID): T | undefined =>
     ((id) => this.find((node) => node.id === id))(Validate.uuid(id));
 
-  public findByCoordinates = (coordinates: T["coordinates"]): T | undefined =>
-    this.find((node) => node.coordinates === coordinates);
+  public findByCoordinates = (coordinates: Coordinates): T | undefined =>
+    ((coordinates) => this.find((node) => node.coordinates === coordinates))(
+      Validate.coordinates(coordinates)
+    );
 
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
