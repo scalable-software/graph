@@ -599,12 +599,48 @@ given(`nodes.remove ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
           expect(error).toBeDefined();
         });
         and(`error is defined`, () => {
+          then(
+            `error is an instance of Exception.InvalidArgumentException`,
+            () => {
+              expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+            }
+          );
+          and(
+            `error is an instance of Exception.InvalidArgumentException`,
+            () => {
+              then(
+                `error.message is 'Invalid argument: id - must be a valid UUID'`,
+                () => {
+                  expect(error.message).toBe(
+                    "Invalid argument: id - must be a valid UUID"
+                  );
+                }
+              );
+            }
+          );
+        });
+      });
+      when(`nodes.remove called with unknown id`, () => {
+        let id: UUID;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = "453a4547-e89b-12d3-a456-426614174011";
+          try {
+            nodes.remove(id);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
           then(`error is an instance of Exception.NotFoundException`, () => {
             expect(error).toBeInstanceOf(Exception.NotFoundException);
           });
           and(`error is an instance of Exception.NotFoundException`, () => {
-            then(`error.message is 'Not found: id 1'`, () => {
-              expect(error.message).toBe("Not found: id 1");
+            then(`error.message is 'Not found: ${id}'`, () => {
+              expect(error.message).toBe(`Not found: id ${id}`);
             });
           });
         });
