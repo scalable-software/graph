@@ -878,5 +878,41 @@ given(`nodes.findByCoordinates ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
         expect(result).toBeUndefined();
       });
     });
+    when(`nodes.findByCoordinates called with invalid coordinates`, () => {
+      let coordinates: Coordinates;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        coordinates = { x: "1" as unknown as number, y: 1 };
+        try {
+          nodes.findByCoordinates(coordinates);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          }
+        );
+        and(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            then(
+              `error.message is 'Invalid argument: coordinates - must be a valid Coordinates'`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: coordinates - must be valid coordinates"
+                );
+              }
+            );
+          }
+        );
+      });
+    });
   });
 });
