@@ -83,14 +83,29 @@ export class Validate {
     !items.includes(value) ||
     Exceptions.immutablePropertyException(String(value));
 
-  public static index = <T extends { id: UUID }>(
-    items: T[],
-    id: UUID
-  ): number =>
-    ((index) =>
-      index !== -1 ? index : Exceptions.notFoundException("id", id))(
-      Utilities.Index.byId<T>(items, id)
-    );
+  /**
+   * Validate id and throw if invalid or not found in items
+   *
+   * @param items - The items to search
+   * @param id - The id to find
+   * @returns The index of item with id if found
+   * @throws {NotFoundException} If the id is not found
+   *
+   * @example
+   * ```ts
+   * const items = [{ id: "453a4547-e89b-12d3-a456-426614174011" }];
+   * Validate.id(items, "453a4547-e89b-12d3-a456-426614174011");
+   * // => 0
+   *
+   * Validate.id(items, "123e4567-e89b-12d3-a456-426614174000");
+   * // => NotFoundException: id not found: "123e4567-e89b-12d3-a456-426614174000"
+   *
+   * Validate.id(items, "invalid");
+   * // => InvalidArgumentException: Invalid argument: id - must be a valid UUID
+   * ```
+   */
+  public static id = <T extends { id: UUID }>(items: T[], id: UUID): number =>
+    Validate.index(items, Validate.uuid(id));
 
   /**
    * Returns index of item with id in items if found
@@ -112,7 +127,10 @@ export class Validate {
    * ```
    *
    */
-  public static id = <T extends { id: UUID }>(items: T[], id: UUID): number =>
+  public static index = <T extends { id: UUID }>(
+    items: T[],
+    id: UUID
+  ): number =>
     ((index) =>
       index !== -1 ? index : Exceptions.notFoundException("id", id))(
       Utilities.Index.byId<T>(items, id)
