@@ -151,6 +151,21 @@ given(`Validate id ${Type.STATIC_METHOD} test`, () => {
   });
 });
 
+given(`Validate index ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.index");
+  });
+  then(`Validate.index is defined`, () => {
+    expect(Validate.index).toBeDefined();
+  });
+  and(`Validate.index is defined`, () => {
+    then(`Validate.index is a function`, () => {
+      expect(Validate.index).toBeInstanceOf(Function);
+    });
+  });
+});
+
 given(`Validate exist ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
