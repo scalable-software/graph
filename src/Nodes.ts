@@ -75,7 +75,7 @@ export class Nodes<T extends INode> extends Array<T> {
    * ```
    */
   public findById = (id: UUID): T | undefined =>
-    this.find((node) => node.id === id);
+    ((id) => this.find((node) => node.id === id))(Validate.uuid(id));
 
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
