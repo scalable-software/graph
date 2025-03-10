@@ -77,6 +77,8 @@ export class Nodes<T extends INode> extends Array<T> {
   public findById = (id: UUID): T | undefined =>
     ((id) => this.find((node) => node.id === id))(Validate.uuid(id));
 
+  public findByCoordinates = () => {};
+
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
       Validator.compare(
