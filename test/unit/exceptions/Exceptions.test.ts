@@ -998,3 +998,51 @@ given(`Exceptions notFoundException ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Exceptions invalidIndexException ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Exceptions.invalidIndexException");
+  });
+  then(`Exceptions.invalidIndexException is defined`, () => {
+    expect(Exceptions.invalidIndexException).toBeDefined();
+  });
+  and(`Exceptions.invalidIndexException is defined`, () => {
+    then(`Exceptions.invalidIndexException is a function`, () => {
+      expect(Exceptions.invalidIndexException).toBeInstanceOf(Function);
+    });
+    and(`Exceptions.invalidIndexException is a function`, () => {
+      when("Exceptions.invalidIndexException() is called", () => {
+        let error: Error;
+        beforeEach(() => {
+          try {
+            Exceptions.invalidIndexException();
+          } catch (e) {
+            error = e;
+          }
+        });
+        then("error is defined", () => {
+          expect(error).toBeDefined();
+        });
+        and("error is defined", () => {
+          then("error is an instance of InvalidIndexException", () => {
+            expect(error).toBeInstanceOf(InvalidIndexException);
+          });
+          and("error is an instance of InvalidIndexException", () => {
+            then("error.name is InvalidIndexException", () => {
+              expect(error.name).toBe("InvalidIndexException");
+            });
+            then(
+              "error.message is 'Invalid index: index is out of bounds'",
+              () => {
+                expect(error.message).toBe(
+                  "Invalid index: index is out of bounds"
+                );
+              }
+            );
+          });
+        });
+      });
+    });
+  });
+});
