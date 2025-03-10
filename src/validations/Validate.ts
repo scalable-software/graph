@@ -105,7 +105,7 @@ export class Validate {
    * ```
    */
   public static id = <T extends { id: UUID }>(items: T[], id: UUID): number =>
-    Validate.index(items, Validate.uuid(id));
+    Validate.exist(items, Validate.uuid(id));
 
   /**
    * Returns index of item with id in items if found
@@ -119,15 +119,15 @@ export class Validate {
    * @example
    * ```ts
    * const items = [{ id: "a" }, { id: "b" }, { id: "c" }];
-   * Validate.id(items, "b");
+   * Validate.exist(items, "b");
    * // => 1
    *
-   * Validate.id(items, "d");
+   * Validate.exist(items, "d");
    * // => NotFoundException: id not found: "d"
    * ```
    *
    */
-  public static index = <T extends { id: UUID }>(
+  public static exist = <T extends { id: UUID }>(
     items: T[],
     id: UUID
   ): number =>

@@ -151,16 +151,16 @@ given(`Validate id ${Type.STATIC_METHOD} test`, () => {
   });
 });
 
-given(`Validate index ${Type.STATIC_METHOD} test`, () => {
+given(`Validate exist ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", "Validate.index");
+    setSpecProperty("spec", "Validate.exist");
   });
-  then(`Validate.index is defined`, () => {
-    expect(Validate.index).toBeDefined();
+  then(`Validate.exist is defined`, () => {
+    expect(Validate.exist).toBeDefined();
   });
-  and(`Validate.index is defined`, () => {
-    when(`Validate.index(items, id) is called with items and valid id`, () => {
+  and(`Validate.exist is defined`, () => {
+    when(`Validate.exist(items, id) is called with items and valid id`, () => {
       type Item = { id: string };
       let items: Item[];
       let id: UUID;
@@ -168,7 +168,7 @@ given(`Validate index ${Type.STATIC_METHOD} test`, () => {
       beforeEach(() => {
         items = [{ id: "1" }, { id: "2" }, { id: "3" }];
         id = "1";
-        index = Validate.index(items, id);
+        index = Validate.exist(items, id);
       });
       then(`index is defined`, () => {
         expect(index).toBeDefined();
@@ -180,7 +180,7 @@ given(`Validate index ${Type.STATIC_METHOD} test`, () => {
       });
     });
     when(
-      `Validate.index(items, id) is called with items and invalid id`,
+      `Validate.exist(items, id) is called with items and invalid id`,
       () => {
         type Item = { id: string };
         let items: Item[];
@@ -190,7 +190,7 @@ given(`Validate index ${Type.STATIC_METHOD} test`, () => {
           items = [{ id: "1" }, { id: "2" }, { id: "3" }];
           id = "4";
           try {
-            Validate.index(items, id);
+            Validate.exist(items, id);
           } catch (e) {
             error = e;
           }
