@@ -77,6 +77,25 @@ export class Nodes<T extends INode> extends Array<T> {
   public findById = (id: UUID): T | undefined =>
     ((id) => this.find((node) => node.id === id))(Validate.uuid(id));
 
+  /**
+   * Searches for a node in the `Nodes` collection using its coordinates.
+   *
+   * @param {Coordinates} coordinates - The coordinates of the node to find.
+   * @returns {T | undefined} The matching node if found, otherwise `undefined`.
+   *
+   * @example
+   * ```typescript
+   * const data = [
+   *     {
+   *         id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+   *         coordinates: { x: 0, y: 0 },
+   *     }];
+   * const nodes = Nodes.create(data);
+   *
+   * const node = nodes.findByCoordinates({ x: 0, y: 0 });
+   * console.log(node); // { id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", coordinates: { x: 0, y: 0 } }
+   * ```
+   */
   public findByCoordinates = (coordinates: Coordinates): T | undefined =>
     ((coordinates) => this.find((node) => node.coordinates === coordinates))(
       Validate.coordinates(coordinates)
