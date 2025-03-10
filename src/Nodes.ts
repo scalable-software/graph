@@ -55,6 +55,8 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
+  public findById = () => {};
+
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
       Validator.compare(
