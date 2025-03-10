@@ -83,6 +83,15 @@ export class Validate {
     !items.includes(value) ||
     Exceptions.immutablePropertyException(String(value));
 
+  public static index = <T extends { id: UUID }>(
+    items: T[],
+    id: UUID
+  ): number =>
+    ((index) =>
+      index !== -1 ? index : Exceptions.notFoundException("id", id))(
+      Utilities.Index.byId<T>(items, id)
+    );
+
   /**
    * Returns index of item with id in items if found
    * throw NotFoundException if no item in items has matching id

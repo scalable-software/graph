@@ -92,6 +92,68 @@ given(`Validate id ${Type.STATIC_METHOD} test`, () => {
   });
 });
 
+given(`Validate index ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.index");
+  });
+  then(`Validate.index is defined`, () => {
+    expect(Validate.index).toBeDefined();
+  });
+  and(`Validate.index is defined`, () => {
+    when(`Validate.index(items, id) is called with items and valid id`, () => {
+      type Item = { id: string };
+      let items: Item[];
+      let id: UUID;
+      let index: number;
+      beforeEach(() => {
+        items = [{ id: "1" }, { id: "2" }, { id: "3" }];
+        id = "1";
+        index = Validate.index(items, id);
+      });
+      then(`index is defined`, () => {
+        expect(index).toBeDefined();
+      });
+      and(`index is defined`, () => {
+        then(`index is 0`, () => {
+          expect(index).toBe(0);
+        });
+      });
+    });
+    when(
+      `Validate.index(items, id) is called with items and invalid id`,
+      () => {
+        type Item = { id: string };
+        let items: Item[];
+        let id: UUID;
+        let error: Error;
+        beforeEach(() => {
+          items = [{ id: "1" }, { id: "2" }, { id: "3" }];
+          id = "4";
+          try {
+            Validate.index(items, id);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of NotFoundException`, () => {
+            expect(error).toBeInstanceOf(NotFoundException);
+          });
+          and(`error is an instance of NotFoundException`, () => {
+            then(`error.message is "Not found: id 4"`, () => {
+              expect(error.message).toBe("Not found: id 4");
+            });
+          });
+        });
+      }
+    );
+  });
+});
+
 given(`Validate uuid ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
