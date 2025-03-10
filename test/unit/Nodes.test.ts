@@ -166,30 +166,16 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
       });
       and("error is an instance of Exception.ValidationException", () => {
         then("error.errors[0] is Exception.ValidationException", () => {
-          expect(error.errors[0]).toBeInstanceOf(Exception.ValidationException);
+          expect(error.errors[0]).toBeInstanceOf(
+            Exception.InvalidArgumentException
+          );
         });
-        and("error.errors[0] is Exception.ValidationException", () => {
-          then(
-            "error.errors[0].errors[0] is Exception.InvalidArgumentException",
-            () => {
-              expect(error.errors[0].errors[0]).toBeInstanceOf(
-                Exception.InvalidArgumentException
-              );
-            }
-          );
-          and(
-            "error.errors[0].errors[0] is Exception.InvalidArgumentException",
-            () => {
-              then(
-                "error.errors[0].errors[0].message is 'Invalid argument: id'",
-                () => {
-                  expect(error.errors[0].errors[0].message).toBe(
-                    "Invalid argument: id - must be a valid UUID"
-                  );
-                }
-              );
-            }
-          );
+        and("error.errors[0] is Exception.InvalidArgumentException", () => {
+          then("error.errors[0].message is 'Invalid argument: id'", () => {
+            expect(error.errors[0].message).toBe(
+              "Invalid argument: id - must be a valid UUID"
+            );
+          });
         });
       });
     });

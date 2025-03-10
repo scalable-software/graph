@@ -31,8 +31,13 @@ export class InvalidArgumentException extends Exception {
  */
 export class ValidationException extends Exception {
   constructor(errors: Exception[]) {
-    super(`Validation failed with ${errors.length} error(s).`);
-    this.errors = errors;
+    // Flatten nested ValidationExceptions by extracting their errors
+    const flattenedErrors = errors.flatMap((error) =>
+      error instanceof ValidationException ? error.errors : error
+    );
+
+    super(`Validation failed with ${flattenedErrors.length} error(s).`);
+    this.errors = flattenedErrors;
   }
 }
 

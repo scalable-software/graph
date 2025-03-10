@@ -1200,22 +1200,17 @@ given(`Validate nodes ${Type.STATIC_METHOD} test`, () => {
           then("error.message is 'Validation failed with 1 error(s).'", () => {
             expect(error.message).toBe("Validation failed with 1 error(s).");
           });
-          then("error.errors[0] is instance of ValidationException", () => {
-            expect(error.errors[0]).toBeInstanceOf(ValidationException);
-          });
-          and("error.errors[0] is instance of ValidationException", () => {
+          then(
+            "error.errors[0] is instance of InvalidArgumentException",
+            () => {
+              expect(error.errors[0]).toBeInstanceOf(InvalidArgumentException);
+            }
+          );
+          and("error.errors[0] is instance of InvalidArgumentException", () => {
             then(
-              "error.errors[0].errors[0] is instance of InvalidArgumentException",
+              "error.errors[0].message is 'Invalid argument: id - must be a valid UUID'",
               () => {
-                expect(error.errors[0].errors[0]).toBeInstanceOf(
-                  InvalidArgumentException
-                );
-              }
-            );
-            then(
-              "error.errors[0].errors[0].message is 'Invalid argument: id - must be a valid UUID'",
-              () => {
-                expect(error.errors[0].errors[0].message).toBe(
+                expect(error.errors[0].message).toBe(
                   "Invalid argument: id - must be a valid UUID"
                 );
               }
@@ -1253,22 +1248,17 @@ given(`Validate nodes ${Type.STATIC_METHOD} test`, () => {
           then("error.message is 'Validation failed with 1 error(s).'", () => {
             expect(error.message).toBe("Validation failed with 1 error(s).");
           });
-          then("error.errors[0] is instance of ValidationException", () => {
-            expect(error.errors[0]).toBeInstanceOf(ValidationException);
-          });
-          and("error.errors[0] is instance of ValidationException", () => {
+          then(
+            "error.errors[0] is instance of InvalidArgumentException",
+            () => {
+              expect(error.errors[0]).toBeInstanceOf(InvalidArgumentException);
+            }
+          );
+          and("error.errors[0] is instance of InvalidArgumentException", () => {
             then(
-              "error.errors[0].errors[0] is instance of InvalidArgumentException",
+              "error.errors[0].message is 'Invalid argument: coordinates - must be valid coordinates'",
               () => {
-                expect(error.errors[0].errors[0]).toBeInstanceOf(
-                  InvalidArgumentException
-                );
-              }
-            );
-            then(
-              "error.errors[0].errors[0].message is 'Invalid argument: coordinates - must be valid coordinates'",
-              () => {
-                expect(error.errors[0].errors[0].message).toBe(
+                expect(error.errors[0].message).toBe(
                   "Invalid argument: coordinates - must be valid coordinates"
                 );
               }
