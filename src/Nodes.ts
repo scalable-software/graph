@@ -101,7 +101,12 @@ export class Nodes<T extends INode> extends Array<T> {
       Validate.coordinates(coordinates)
     );
 
-  public move = () => {};
+  public move = (id: UUID, coordinates: Coordinates): Nodes<T> => {
+    ((node) => (node.coordinates = coordinates))(
+      this.find((node) => node.id === id)
+    );
+    return this;
+  };
 
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
