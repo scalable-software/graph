@@ -663,13 +663,18 @@ given(`nodes.remove ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(`error is an instance of Exception.NotFoundException`, () => {
-          expect(error).toBeInstanceOf(Exception.NotFoundException);
+        then(`error is an instance of Exception.InvalidIndexException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidIndexException);
         });
-        and(`error is an instance of Exception.NotFoundException`, () => {
-          then(`error.message is 'Not found: ${id}'`, () => {
-            expect(error.message).toBe(`Not found: id ${id}`);
-          });
+        and(`error is an instance of Exception.InvalidIndexException`, () => {
+          then(
+            `error.message is 'Invalid index: index is out of bounds'`,
+            () => {
+              expect(error.message).toBe(
+                `Invalid index: index is out of bounds`
+              );
+            }
+          );
         });
       });
     });

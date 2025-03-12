@@ -51,7 +51,7 @@ export class Nodes<T extends INode> extends Array<T> {
    *
    */
   public remove = (id: UUID): Nodes<T> => {
-    this.splice(Validate.id<T>(this, id), 1);
+    this.splice(this.index(id), 1);
     return this;
   };
 
@@ -117,4 +117,7 @@ export class Nodes<T extends INode> extends Array<T> {
           (sets) => Validate.distinct(sets, (node) => node.coordinates),
         ]
       ))(Validate.nodes<T>(nodes));
+
+  private index = (id: UUID): number =>
+    Validate.index(Utilities.Index.byId<T>(this, Validate.uuid(id)));
 }
