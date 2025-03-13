@@ -36,8 +36,8 @@ export class Nodes<T extends INode> extends Array<T> {
    * @returns {Nodes<T>} The modified `Nodes<T>` instance, allowing method chaining.
    */
   public add = <N extends T | Omit<T, "id">>(nodes: N | N[]): Nodes<T> => {
-    this.push(
-      ...this.validate(Utilities.idify<T>(Utilities.toArray<N>(nodes)))
+    ((nodes) => this.push(...nodes))(
+      this.validate(Utilities.idify<T>(Utilities.toArray<N>(nodes)))
     );
     return this;
   };
