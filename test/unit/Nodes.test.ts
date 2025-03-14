@@ -1324,3 +1324,114 @@ given(`nodes.translate ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
     });
   });
 });
+
+given(`nodes.translate ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", Spec.BEHAVIOR);
+  });
+  and(`nodes instance is created with nodes`, () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+      ];
+      nodes = Nodes.create(data);
+    });
+    when(`nodes.translate called with valid ids and offset`, () => {
+      let ids: UUID[];
+      let offset: Offset;
+      beforeEach(() => {
+        ids = [data[0].id, data[1].id];
+        offset = { x: 1, y: 1 };
+        nodes.translate(ids, offset);
+      });
+      then(`nodes[0].coordinates is { x: 1, y: 1 }`, () => {
+        expect(nodes[0].coordinates).toEqual({ x: 1, y: 1 });
+      });
+      and(`nodes[0].coordinates is { x: 1, y: 1 }`, () => {
+        then(`nodes[1].coordinates is { x: 2, y: 2 }`, () => {
+          expect(nodes[1].coordinates).toEqual({ x: 2, y: 2 });
+        });
+      });
+    });
+    when(`nodes.translate called with valid ids and invalid offset`, () => {
+      let ids: UUID[];
+      let offset: Offset;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        ids = [data[0].id, data[1].id];
+        offset = { x: "1" as unknown as number, y: 1 };
+        try {
+          nodes.translate(ids, offset);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          }
+        );
+        and(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            then(
+              `error.message is 'Invalid argument: offset - must be valid offset'`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: offset - must be valid offset"
+                );
+              }
+            );
+          }
+        );
+      });
+    });
+    when(`nodes.translate called with unknown ids and valid offset`, () => {
+      let ids: UUID[];
+      let offset: Offset;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        ids = ["453a4547-e89b-12d3-a456-426614174011"];
+        offset = { x: 1, y: 1 };
+        try {
+          nodes.translate(ids, offset);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of Exception.InvalidIndexException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidIndexException);
+        });
+        and(`error is an instance of Exception.InvalidIndexException`, () => {
+          then(
+            `error.message is 'Invalid index: index is out of bounds'`,
+            () => {
+              expect(error.message).toBe(
+                `Invalid index: index is out of bounds`
+              );
+            }
+          );
+        });
+      });
+    });
+  });
+});
