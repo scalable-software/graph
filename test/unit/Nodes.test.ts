@@ -1341,10 +1341,22 @@ given(`nodes.translate ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
         },
         {
           id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
-          coordinates: { x: 1, y: 1 },
+          coordinates: { x: 2, y: 2 },
         },
       ];
       nodes = Nodes.create(data);
+    });
+    when(`nodes.translate called with valid id and offset`, () => {
+      let ids: UUID[];
+      let offset: Offset;
+      beforeEach(() => {
+        ids = data[0].id as any;
+        offset = { x: 1, y: 1 };
+        nodes.translate(ids, offset);
+      });
+      then(`nodes[0].coordinates is { x: 1, y: 1 }`, () => {
+        expect(nodes[0].coordinates).toEqual({ x: 1, y: 1 });
+      });
     });
     when(`nodes.translate called with valid ids and offset`, () => {
       let ids: UUID[];
@@ -1357,10 +1369,8 @@ given(`nodes.translate ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
       then(`nodes[0].coordinates is { x: 1, y: 1 }`, () => {
         expect(nodes[0].coordinates).toEqual({ x: 1, y: 1 });
       });
-      and(`nodes[0].coordinates is { x: 1, y: 1 }`, () => {
-        then(`nodes[1].coordinates is { x: 2, y: 2 }`, () => {
-          expect(nodes[1].coordinates).toEqual({ x: 2, y: 2 });
-        });
+      then(`nodes[1].coordinates is { x: 2, y: 2 }`, () => {
+        expect(nodes[1].coordinates).toEqual({ x: 3, y: 3 });
       });
     });
     when(`nodes.translate called with valid ids and invalid offset`, () => {
