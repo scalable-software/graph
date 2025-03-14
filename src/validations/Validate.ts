@@ -7,7 +7,7 @@ import { Utilities } from "../utilities/Utilities.js";
 import { Validator } from "./Validator.js";
 import type { IMetadata } from "../Metadata.js";
 import type { INode } from "../Node.js";
-import type { UUID, Name, Coordinates } from "../Graph.types.js";
+import type { UUID, Name, Coordinates, Offset } from "../Graph.types.js";
 
 export class Validate {
   /**
@@ -197,6 +197,8 @@ export class Validate {
     !name || name.length < 3 || name.length > 100
       ? Exceptions.invalidArgumentException("name", "must be a valid name")
       : (name as Name);
+
+  public static offset = () => {};
 
   /**
    * Validate coordinates and throw if not valid
