@@ -153,6 +153,13 @@ export class Nodes<T extends INode> extends Array<T> {
       Validate.coordinates(coordinates)
     );
 
+  /**
+   * Move a node to a new position.
+   *
+   * @param {UUID} id - The unique identifier of the node to move.
+   * @param {Coordinates} coordinates - The new coordinates of the node.
+   * @returns {Nodes<T>} The modified `Nodes<T>` instance, allowing method chaining.
+   */
   public move = (id: UUID, coordinates: Coordinates): Nodes<T> => {
     ((id, coordinates) =>
       this.apply(id, (node) => Node.move(node, coordinates)))(
@@ -162,6 +169,13 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
+  /**
+   * Translates the nodes in the collection by the specified offset.
+   *
+   * @param {UUID | UUID[]} targets - The unique identifier(s) of the node(s) to be translated.
+   * @param {Offset} offset - The offset to apply to the node(s).
+   * @returns {Nodes<T>} The modified `Nodes<T>` instance, allowing method chaining.
+   */
   public translate = (targets: UUID | UUID[], offset: Offset): Nodes<T> => {
     ((nodes) =>
       this.immutable
@@ -172,6 +186,11 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
+  /**
+   * Converts the `Nodes` collection into a JSON-compatible array.
+   *
+   * @returns {T[]} An array representation of the nodes.
+   */
   public toJSON = (): T[] => [...this];
 
   private apply = (id: UUID, transform: (node: T) => T): T =>
