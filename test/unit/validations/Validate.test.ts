@@ -287,6 +287,16 @@ given(`Validate exist ${Type.STATIC_METHOD} test`, () => {
   });
 });
 
+given(`Validate flag ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.exist");
+  });
+  then(`Validate.flag is defined`, () => {
+    expect(Validate.flag).toBeDefined();
+  });
+});
+
 given(`Validate uuid ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
