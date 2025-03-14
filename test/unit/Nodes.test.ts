@@ -380,6 +380,52 @@ given(`Nodes translate ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
       });
     });
   });
+  when("Nodes.translate(nodes, offset) is called with invalid offset", () => {
+    let nodes: INode[];
+    let offset: Offset;
+    let results: INode[];
+    let error: Exception.Exception;
+    beforeEach(() => {
+      nodes = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d745",
+          coordinates: { x: 2, y: 3 },
+        },
+      ];
+      offset = { x: "1" as unknown as number, y: 1 };
+      try {
+        results = Nodes.translate(nodes, offset);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is defined`, () => {
+      expect(error).toBeDefined();
+    });
+    and(`error is defined`, () => {
+      then(`error is an instance of Exception.InvalidArgumentException`, () => {
+        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+      });
+      and(`error is an instance of Exception.InvalidArgumentException`, () => {
+        then(
+          `error.message is 'Invalid argument: offset - must be valid offset'`,
+          () => {
+            expect(error.message).toBe(
+              "Invalid argument: offset - must be valid offset"
+            );
+          }
+        );
+      });
+    });
+  });
 });
 
 given(`Node immutable ${Type.ACCESSOR} ${Spec.AVAILABILITY} test`, () => {
