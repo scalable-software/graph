@@ -184,7 +184,9 @@ export class Nodes<T extends INode> extends Array<T> {
       this.immutable
         ? this.forEach((node) => this.clone(node, nodes[node.id] || node))
         : this.forEach((node) => this.mutate(node, nodes[node.id] || node)))(
-      Utilities.toTuple(Nodes.translate(this.getValidNodes(targets), offset))
+      Utilities.toTuple(
+        Nodes.translate(this.getValidNodes(targets), Validate.offset(offset))
+      )
     );
     return this;
   };
