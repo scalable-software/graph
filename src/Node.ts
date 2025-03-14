@@ -1,3 +1,12 @@
+/**
+ * A graph is a data structure that:
+ * - has {@link Node}
+ * - contains contains nodes and edges.
+ *
+ * Extension with new properties is supported.
+ * @module Graph
+ */
+
 import type { UUID, Coordinates, Offset } from "./Graph.types.js";
 
 export type INode = {
