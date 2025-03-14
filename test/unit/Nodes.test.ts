@@ -274,6 +274,74 @@ given(`Node immutable ${Type.ACCESSOR} ${Spec.BEHAVIOR} test`, () => {
         expect(nodes.immutable).toBeFalsy();
       });
     });
+    when(`nodes.immutable is set to number`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          nodes.immutable = 1 as any;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          }
+        );
+        and(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            then(
+              `error.message is 'Invalid argument: flag - must be a boolean'`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: flag - must be a boolean"
+                );
+              }
+            );
+          }
+        );
+      });
+    });
+    when(`nodes.immutable is set to string`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          nodes.immutable = "test" as any;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          }
+        );
+        and(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            then(
+              `error.message is 'Invalid argument: flag - must be a boolean'`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: flag - must be a boolean"
+                );
+              }
+            );
+          }
+        );
+      });
+    });
   });
 });
 
