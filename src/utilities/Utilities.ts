@@ -96,4 +96,6 @@ export class Utilities {
    */
   public static toArray = <T>(input: T | T[]): T[] =>
     Array.isArray(input) ? input : [input];
+
+  public static toTuple = () => {};
 }
