@@ -146,6 +146,8 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
+  public translate = () => {};
+
   private apply = (id: UUID, transform: (node: T) => T): T =>
     ((node) =>
       this.immutable
