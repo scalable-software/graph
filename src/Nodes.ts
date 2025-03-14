@@ -1,4 +1,13 @@
-import { type INode } from "./Node.js";
+/**
+ * A graph is a data structure that:
+ * - has {@link Nodes}
+ * - contains contains nodes and edges.
+ *
+ * Extension with new properties is supported.
+ * @module Graph
+ */
+
+import { Node, type INode } from "./Node.js";
 import { Validate } from "./validations/Validate.js";
 import { Validator } from "./validations/Validator.js";
 import { Utilities } from "./utilities/Utilities.js";
@@ -102,14 +111,24 @@ export class Nodes<T extends INode> extends Array<T> {
     );
 
   public move = (id: UUID, coordinates: Coordinates): Nodes<T> => {
-    ((node) => (node.coordinates = coordinates))(
-      this.find((node) => node.id === id)
+    ((id, coordinates) =>
+      this.apply(id, (node) => Node.move(node, coordinates)))(
+      Validate.uuid(id),
+      Validate.coordinates(coordinates)
     );
     return this;
   };
 
+  private apply = (id: UUID, transform: (node: T) => T): T =>
+    ((node) => this.clone(node, transform(node)))(this.getValidNode(id));
+
+  private clone = ({ id }: T, updatedNode: T): T =>
+    (this[this.getValidIndex(id)] = updatedNode);
+
   private getValidIndex = (id: UUID): number =>
     Validate.index(Utilities.Index.byId<T>(this, id));
+
+  private getValidNode = (id: UUID): T => this.at(this.getValidIndex(id));
 
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
