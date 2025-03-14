@@ -26,7 +26,19 @@ export class Nodes<T extends INode> extends Array<T> {
   public static create = <T extends INode>(nodes?: T[] | null): Nodes<T> & T =>
     new Nodes<T>(...this.normalize<T>(nodes)) as Nodes<T> & T;
 
-  public static translate = () => {};
+  /**
+   * Applies a translation (offset) to all nodes in the given array.
+   * Each node's position is adjusted by the specified offset value.
+   *
+   * @template T - A type extending INode.
+   * @param {T[]} nodes - The array of nodes to be translated.
+   * @param {Offset} offset - The offset to apply to each node.
+   * @returns {T[]} A new array of nodes with updated coordinates.
+   */
+  public static translate = <T extends INode>(
+    nodes: T[],
+    offset: Offset
+  ): T[] => nodes.map((node) => Node.translate(node, offset));
 
   private static defaults = <T extends INode>(): T[] => [];
 
