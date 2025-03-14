@@ -1671,3 +1671,35 @@ given(`nodes.translate ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
     });
   });
 });
+
+given(`nodes.toJSON ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`nodes instance is created with nodes`, () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+      ];
+      nodes = Nodes.create(data);
+    });
+    then(`nodes.toJSON is defined`, () => {
+      expect(nodes.toJSON).toBeDefined();
+    });
+    and(`nodes.toJSON is defined`, () => {
+      then(`nodes.toJSON is an instance of Function`, () => {
+        expect(nodes.toJSON).toBeInstanceOf(Function);
+      });
+    });
+  });
+});
