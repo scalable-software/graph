@@ -149,9 +149,12 @@ export class Nodes<T extends INode> extends Array<T> {
    * ```
    */
   public findByCoordinates = (coordinates: Coordinates): T | undefined =>
-    ((coordinates) => this.find((node) => node.coordinates === coordinates))(
-      Validate.coordinates(coordinates)
-    );
+    ((coordinates) =>
+      this.find(
+        (node) =>
+          node.coordinates.x === coordinates.x &&
+          node.coordinates.y === coordinates.y
+      ))(Validate.coordinates(coordinates));
 
   /**
    * Move a node to a new position.
