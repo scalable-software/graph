@@ -143,7 +143,10 @@ export class Validate {
   public static index = (index: number): number =>
     index !== -1 ? index : Exceptions.invalidIndexException();
 
-  public static flag = () => {};
+  public static flag = (flag: boolean): boolean =>
+    typeof flag !== "boolean"
+      ? Exceptions.invalidArgumentException("flag", "must be a boolean")
+      : flag;
 
   /**
    * Validate id and throw if not valid UUID
