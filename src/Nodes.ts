@@ -146,7 +146,7 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
-  public translate = (targets: UUID[], offset: Offset): Nodes<T> => {
+  public translate = (targets: UUID | UUID[], offset: Offset): Nodes<T> => {
     ((nodes) =>
       this.immutable
         ? this.forEach((node) => this.clone(node, nodes[node.id] || node))
@@ -173,8 +173,8 @@ export class Nodes<T extends INode> extends Array<T> {
 
   private getValidNode = (id: UUID): T => this.at(this.getValidIndex(id));
 
-  private getValidNodes = (ids: UUID[]): T[] =>
-    ids.map((id) => this.getValidNode(id));
+  private getValidNodes = (ids: UUID | UUID[]): T[] =>
+    Utilities.toArray<UUID>(ids).map((id) => this.getValidNode(id));
 
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
