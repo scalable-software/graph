@@ -619,6 +619,21 @@ given(`Validate coordinates ${Type.STATIC_METHOD} test`, () => {
   });
 });
 
+given(`Validate coordinates ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.coordinates");
+  });
+  then(`Validate.coordinates is defined`, () => {
+    expect(Validate.coordinates).toBeDefined();
+  });
+  and(`Validate.coordinates is defined`, () => {
+    then(`Validate.coordinates is a function`, () => {
+      expect(Validate.coordinates).toBeInstanceOf(Function);
+    });
+  });
+});
+
 given(`Validate name ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
