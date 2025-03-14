@@ -198,7 +198,29 @@ export class Validate {
       ? Exceptions.invalidArgumentException("name", "must be a valid name")
       : (name as Name);
 
-  public static offset = () => {};
+  /**
+   * Validate offset and throw if not valid
+   * @param offset - The offset to validate
+   * @returns The offset if valid
+   * @throws {InvalidArgumentException} If the offset are invalid or null
+   * @example
+   * ```ts
+   * Validate.offset({ x: 0, y: 0 });
+   * // => { x: 0, y: 0 }
+   * Validate.offset({ x: 0 });
+   * // => InvalidArgumentException: Invalid argument: offset - must be valid offset
+   * Validate.offset(null);
+   * // => InvalidArgumentException: Invalid argument: offset - must be valid offset
+   * ```
+   */
+  public static offset = (offset: Offset | null): Offset =>
+    !offset ||
+    !("x" in offset) ||
+    !("y" in offset) ||
+    typeof offset.x !== "number" ||
+    typeof offset.y !== "number"
+      ? Exceptions.invalidArgumentException("offset", "must be valid offset")
+      : (offset as Offset);
 
   /**
    * Validate coordinates and throw if not valid
