@@ -1,3 +1,7 @@
+/**
+ * @module Utilities
+ */
+
 export class Properties {
   /**
    * Selects instance properties, applying optional filters to exclude certain keys.

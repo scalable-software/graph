@@ -1,3 +1,7 @@
+/**
+ * @module Utilities
+ */
+
 export class Match {
   /**
    * Finds the first item in candidateItems that matches an item in sourceItems.

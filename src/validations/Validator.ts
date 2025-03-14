@@ -1,3 +1,7 @@
+/**
+ * @module Validation
+ */
+
 import {
   Exceptions,
   Exception,

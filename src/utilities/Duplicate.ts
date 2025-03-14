@@ -1,3 +1,7 @@
+/**
+ * @module Utilities
+ */
+
 export class Duplicate {
   /**
    * Finds the first duplicate item in an array.

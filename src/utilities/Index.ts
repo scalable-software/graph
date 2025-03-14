@@ -1,3 +1,7 @@
+/**
+ * @module Utilities
+ */
+
 import { UUID } from "../Graph.types.js";
 
 export class Index {
