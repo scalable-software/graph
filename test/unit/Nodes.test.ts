@@ -1,4 +1,4 @@
-import { Type, Spec } from "./Helper.js";
+import { Type, Spec, hasSetter } from "./Helper.js";
 
 const given = (description, spec) => describe(`Given ${description}`, spec);
 const and = (description, spec) => describe(`and ${description}`, spec);
@@ -229,6 +229,49 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
             }
           );
         });
+      });
+    });
+  });
+});
+
+given(`Node immutable ${Type.ACCESSOR} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.ACCESSOR);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`nodes instance is created`, () => {
+    let nodes: Nodes<INode>;
+    beforeEach(() => {
+      nodes = new Nodes();
+    });
+    then(`nodes.immutable getter is defined`, () => {
+      expect(nodes.immutable).toBeDefined();
+    });
+    then(`nodes.immutable setter is defined`, () => {
+      expect(hasSetter(nodes, "immutable")).toBeTruthy();
+    });
+  });
+});
+
+given(`Node immutable ${Type.ACCESSOR} ${Spec.BEHAVIOR} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.ACCESSOR);
+    setSpecProperty("spec", Spec.BEHAVIOR);
+  });
+  and(`nodes instance is created`, () => {
+    let nodes: Nodes<INode>;
+    beforeEach(() => {
+      nodes = new Nodes();
+    });
+    then(`nodes.immutable is by default true`, () => {
+      expect(nodes.immutable).toBeTruthy();
+    });
+    when(`nodes.immutable is set to false`, () => {
+      beforeEach(() => {
+        nodes.immutable = false;
+      });
+      then(`nodes.immutable is false`, () => {
+        expect(nodes.immutable).toBeFalsy();
       });
     });
   });
