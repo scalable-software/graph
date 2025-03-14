@@ -78,6 +78,14 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
+  /**
+   * Updates a node in the `Nodes` collection by applying partial updates to its properties.
+   * If the node is not found, an error is thrown.
+   *
+   * @param {UUID} id - The unique identifier of the node to update.
+   * @param {Partial<T>} patch - An object containing the properties to update.
+   * @returns {Nodes<T>} The modified `Nodes<T>` instance, allowing method chaining.
+   */
   public update = (id: UUID, details: Partial<T>): Nodes<T> => {
     ((id, details) => this.apply(id, (node) => Node.update(node, details)))(
       Validate.uuid(id),
