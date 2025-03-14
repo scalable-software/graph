@@ -129,10 +129,16 @@ export class Nodes<T extends INode> extends Array<T> {
   };
 
   private apply = (id: UUID, transform: (node: T) => T): T =>
-    ((node) => this.clone(node, transform(node)))(this.getValidNode(id));
+    ((node) =>
+      this.immutable
+        ? this.clone(node, transform(node))
+        : this.mutate(node, transform(node)))(this.getValidNode(id));
 
   private clone = ({ id }: T, updatedNode: T): T =>
     (this[this.getValidIndex(id)] = updatedNode);
+
+  private mutate = (node: T, updatedNode: T): T =>
+    Object.assign(node, updatedNode);
 
   private getValidIndex = (id: UUID): number =>
     Validate.index(Utilities.Index.byId<T>(this, id));
