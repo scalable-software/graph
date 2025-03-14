@@ -6,7 +6,12 @@ const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
 import { Nodes, Exception } from "@scalable.software/graph";
-import type { INode, UUID, Coordinates } from "@scalable.software/graph";
+import type {
+  INode,
+  UUID,
+  Coordinates,
+  Offset,
+} from "@scalable.software/graph";
 
 given(`Nodes ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
@@ -246,6 +251,55 @@ given(`Nodes translate ${Type.STATIC_METHOD} ${Spec.AVAILABILITY} test`, () => {
     and(`Nodes.translate is defined`, () => {
       then(`Nodes.translate is an instance of Function`, () => {
         expect(Nodes.translate).toBeInstanceOf(Function);
+      });
+    });
+  });
+});
+
+given(`Nodes translate ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", Spec.BEHAVIOR);
+  });
+  when("Nodes.translate(nodes, offset) is called with array of nodes", () => {
+    let nodes: INode[];
+    let offset: Offset;
+    let results: INode[];
+    beforeEach(() => {
+      nodes = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+      ];
+      offset = { x: 1, y: 1 };
+      results = Nodes.translate(nodes, offset);
+    });
+    then(`results is defined`, () => {
+      expect(results).toBeDefined();
+    });
+    and(`results is defined`, () => {
+      then(`results is an instance of Array`, () => {
+        expect(results).toBeInstanceOf(Array);
+      });
+      and(`results is an instance of Array`, () => {
+        then(`results.length is nodes.length`, () => {
+          expect(results.length).toBe(nodes.length);
+        });
+        then(`results contains translated nodes`, () => {
+          results.forEach((node, index) => {
+            expect(node.coordinates.x).toBe(
+              nodes[index].coordinates.x + offset.x
+            );
+            expect(node.coordinates.y).toBe(
+              nodes[index].coordinates.y + offset.y
+            );
+          });
+        });
       });
     });
   });
