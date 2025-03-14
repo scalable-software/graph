@@ -303,6 +303,83 @@ given(`Nodes translate ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
       });
     });
   });
+  when("Nodes.translate(nodes, offset) is called with empty array", () => {
+    let nodes: INode[];
+    let offset: Offset;
+    let results: INode[];
+    beforeEach(() => {
+      nodes = [];
+      offset = { x: 1, y: 1 };
+      results = Nodes.translate(nodes, offset);
+    });
+    then(`results is defined`, () => {
+      expect(results).toBeDefined();
+    });
+    and(`results is defined`, () => {
+      then(`results is an instance of Array`, () => {
+        expect(results).toBeInstanceOf(Array);
+      });
+      and(`results is an instance of Array`, () => {
+        then(`results.length is 0`, () => {
+          expect(results.length).toBe(0);
+        });
+      });
+    });
+  });
+  when("Nodes.translate(nodes, offset) is called with invalid nodes", () => {
+    let nodes: INode[];
+    let offset: Offset;
+    let results: INode[];
+    let error: Exception.Exception;
+    beforeEach(() => {
+      nodes = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d745",
+          coordinates: { x: 2, y: 3 },
+        },
+        {
+          id: "1",
+          coordinates: { x: 2, y: 3 },
+        },
+      ];
+      offset = { x: 1, y: 1 };
+      try {
+        results = Nodes.translate(nodes, offset);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is defined`, () => {
+      expect(error).toBeDefined();
+    });
+    and(`error is defined`, () => {
+      then(`error is an instance of Exception.ValidationException`, () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
+      and(`error is an instance of Exception.ValidationException`, () => {
+        then(`error.errors[0] is Exception.InvalidArgumentException`, () => {
+          expect(error.errors[0]).toBeInstanceOf(
+            Exception.InvalidArgumentException
+          );
+        });
+        and(`error.errors[0] is Exception.InvalidArgumentException`, () => {
+          then(`error.errors[0].message is 'Invalid argument: id'`, () => {
+            expect(error.errors[0].message).toBe(
+              "Invalid argument: id - must be a valid UUID"
+            );
+          });
+        });
+      });
+    });
+  });
 });
 
 given(`Node immutable ${Type.ACCESSOR} ${Spec.AVAILABILITY} test`, () => {
