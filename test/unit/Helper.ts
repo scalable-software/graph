@@ -60,6 +60,7 @@ export const Type = {
   CONSTRUCTOR: "constructor",
   PROPERTY: "property",
   METHOD: "method",
+  ACCESSOR: "accessor",
   STATIC_PROPERTY: "static property",
   STATIC_METHOD: "static method",
   GETTER: "getter",
