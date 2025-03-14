@@ -11,7 +11,7 @@ import { Node, type INode } from "./Node.js";
 import { Validate } from "./validations/Validate.js";
 import { Validator } from "./validations/Validator.js";
 import { Utilities } from "./utilities/Utilities.js";
-import { type UUID, Coordinates } from "./Graph.types.js";
+import type { UUID, Coordinates, Offset } from "./Graph.types.js";
 
 export class Nodes<T extends INode> extends Array<T> {
   /**
@@ -25,6 +25,8 @@ export class Nodes<T extends INode> extends Array<T> {
    */
   public static create = <T extends INode>(nodes?: T[] | null): Nodes<T> & T =>
     new Nodes<T>(...this.normalize<T>(nodes)) as Nodes<T> & T;
+
+  public static translate = () => {};
 
   private static defaults = <T extends INode>(): T[] => [];
 
