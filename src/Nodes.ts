@@ -73,7 +73,7 @@ export class Nodes<T extends INode> extends Array<T> {
    */
   public add = <N extends T | Omit<T, "id">>(nodes: N | N[]): Nodes<T> => {
     ((nodes) => this.push(...nodes))(
-      this.validate(Utilities.idify<T>(Utilities.toArray<N>(nodes)))
+      this.validateNodes(Utilities.idify<T>(Utilities.toArray<N>(nodes)))
     );
     return this;
   };
@@ -182,7 +182,7 @@ export class Nodes<T extends INode> extends Array<T> {
   public translate = (targets: UUID | UUID[], offset: Offset): Nodes<T> => {
     ((nodes, offset) =>
       this.applies(Utilities.toTuple(Nodes.translate(nodes, offset))))(
-      this.getValidNodes(this.validateIds(targets)),
+      this.getValidNodes(this.validateIds(Utilities.toArray<UUID>(targets))),
       Validate.offset(offset)
     );
     return this;
@@ -221,15 +221,15 @@ export class Nodes<T extends INode> extends Array<T> {
   private getValidNodes = (ids: UUID[]): T[] =>
     ids.map((id) => this.getValidNode(id));
 
-  private validateIds = (ids: UUID | UUID[]): UUID[] =>
-    Utilities.toArray<UUID>(ids).map((id) => Validate.uuid(id));
+  private validateIds = (ids: UUID[]): UUID[] =>
+    ids.map((id) => Validate.uuid(id));
 
   private validateDetails = (details: Partial<T>): Partial<T> => {
     details.coordinates && Validate.coordinates(details.coordinates);
     return details;
   };
 
-  private validate = (nodes: T[]): T[] =>
+  private validateNodes = (nodes: T[]): T[] =>
     ((nodes) =>
       Validator.compare(
         [this, nodes],
