@@ -78,7 +78,13 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
-  public update = () => {};
+  public update = (id: UUID, details: Partial<T>): Nodes<T> => {
+    ((id, details) => this.apply(id, (node) => Node.update(node, details)))(
+      Validate.uuid(id),
+      details
+    );
+    return this;
+  };
 
   /**
    * Removes a node from the `Nodes` by its id or throw NotFoundException.
