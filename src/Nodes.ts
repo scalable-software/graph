@@ -146,7 +146,15 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
-  public translate = () => {};
+  public translate = (targets: UUID[], offset: Offset): Nodes<T> => {
+    ((nodes) =>
+      this.immutable
+        ? this.forEach((node) => this.clone(node, nodes[node.id] || node))
+        : this.forEach((node) => this.mutate(node, nodes[node.id] || node)))(
+      Utilities.toTuple(Nodes.translate(this.getValidNodes(targets), offset))
+    );
+    return this;
+  };
 
   private apply = (id: UUID, transform: (node: T) => T): T =>
     ((node) =>
@@ -164,6 +172,9 @@ export class Nodes<T extends INode> extends Array<T> {
     Validate.index(Utilities.Index.byId<T>(this, id));
 
   private getValidNode = (id: UUID): T => this.at(this.getValidIndex(id));
+
+  private getValidNodes = (ids: UUID[]): T[] =>
+    ids.map((id) => this.getValidNode(id));
 
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
