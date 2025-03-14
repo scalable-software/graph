@@ -295,6 +295,134 @@ given(`Validate flag ${Type.STATIC_METHOD} test`, () => {
   then(`Validate.flag is defined`, () => {
     expect(Validate.flag).toBeDefined();
   });
+  and(`Validate.flag is defined`, () => {
+    then(`Validate.flag is a function`, () => {
+      expect(Validate.flag).toBeInstanceOf(Function);
+    });
+    and(`Validate.flag is a function`, () => {
+      when(`Validate.flag(flag) is called with true`, () => {
+        let flag: boolean;
+        let result: boolean;
+        beforeEach(() => {
+          flag = true;
+          result = Validate.flag(flag);
+        });
+        then(`result is true`, () => {
+          expect(result).toBe(true);
+        });
+      });
+      when(`Validate.flag(flag) is called with false`, () => {
+        let flag: boolean;
+        let result: boolean;
+        beforeEach(() => {
+          flag = false;
+          result = Validate.flag(flag);
+        });
+        then(`result is false`, () => {
+          expect(result).toBe(false);
+        });
+      });
+      when(`Validate.flag(flag) is called with null`, () => {
+        let flag: boolean;
+        let error: Error;
+        beforeEach(() => {
+          flag = null;
+          try {
+            Validate.flag(flag);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(InvalidArgumentException);
+          });
+          and(`error is an instance of InvalidArgumentException`, () => {
+            then(`error is an instance of InvalidArgumentException`, () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            then(
+              `error.message is "Invalid argument: flag - must be a boolean"`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: flag - must be a boolean"
+                );
+              }
+            );
+          });
+        });
+      });
+      when(`Validate.flag(flag) is called with number`, () => {
+        let flag: boolean;
+        let error: Error;
+        beforeEach(() => {
+          flag = 1 as any;
+          try {
+            Validate.flag(flag);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(InvalidArgumentException);
+          });
+          and(`error is an instance of InvalidArgumentException`, () => {
+            then(`error is an instance of InvalidArgumentException`, () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            then(
+              `error.message is "Invalid argument: flag - must be a boolean"`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: flag - must be a boolean"
+                );
+              }
+            );
+          });
+        });
+      });
+      when(`Validate.flag(flag) is called with string`, () => {
+        let flag: boolean;
+        let error: Error;
+        beforeEach(() => {
+          flag = "true" as any;
+          try {
+            Validate.flag(flag);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(InvalidArgumentException);
+          });
+          and(`error is an instance of InvalidArgumentException`, () => {
+            then(`error is an instance of InvalidArgumentException`, () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            then(
+              `error.message is "Invalid argument: flag - must be a boolean"`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: flag - must be a boolean"
+                );
+              }
+            );
+          });
+        });
+      });
+    });
+  });
 });
 
 given(`Validate uuid ${Type.STATIC_METHOD} test`, () => {
