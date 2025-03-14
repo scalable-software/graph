@@ -266,5 +266,24 @@ given(`Utilities toTuple ${Type.STATIC_METHOD} test`, () => {
     then(`Utilities.toTuple is a function`, () => {
       expect(Utilities.toTuple).toBeInstanceOf(Function);
     });
+    and(`Utilities.toTuple is a function`, () => {
+      when(`Utilities.toTuple(items) is called with items`, () => {
+        let items: { id: string; name: string }[];
+        let result: Record<string, { id: string; name: string }>;
+        beforeEach(() => {
+          items = [
+            { id: "a1", name: "Item A" },
+            { id: "b2", name: "Item B" },
+          ];
+          result = Utilities.toTuple(items);
+        });
+        then(`result is a record`, () => {
+          expect(result).toEqual({
+            a1: { id: "a1", name: "Item A" },
+            b2: { id: "b2", name: "Item B" },
+          });
+        });
+      });
+    });
   });
 });
