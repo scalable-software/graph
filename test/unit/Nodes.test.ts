@@ -234,6 +234,23 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
   });
 });
 
+given(`Nodes translate ${Type.STATIC_METHOD} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`Nodes is imported`, () => {
+    then(`Nodes.translate is defined`, () => {
+      expect(Nodes.translate).toBeDefined();
+    });
+    and(`Nodes.translate is defined`, () => {
+      then(`Nodes.translate is an instance of Function`, () => {
+        expect(Nodes.translate).toBeInstanceOf(Function);
+      });
+    });
+  });
+});
+
 given(`Node immutable ${Type.ACCESSOR} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.ACCESSOR);
