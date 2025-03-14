@@ -253,3 +253,18 @@ given(`Utilities toArray ${Type.STATIC_METHOD} test`, () => {
     });
   });
 });
+
+given(`Utilities toTuple ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", "Utilities.toTuple");
+  });
+  then(`Utilities.toTuple is defined`, () => {
+    expect(Utilities.toTuple).toBeDefined();
+  });
+  and(`Utilities.toTuple is defined`, () => {
+    then(`Utilities.toTuple is a function`, () => {
+      expect(Utilities.toTuple).toBeInstanceOf(Function);
+    });
+  });
+});
