@@ -172,6 +172,8 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
+  public toJSON = () => {};
+
   private apply = (id: UUID, transform: (node: T) => T): T =>
     ((node) =>
       this.immutable
