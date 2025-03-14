@@ -1358,6 +1358,44 @@ given(`nodes.translate ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
         expect(nodes[0].coordinates).toEqual({ x: 1, y: 1 });
       });
     });
+    when(`nodes.translate called with invalid id and valid offset`, () => {
+      let ids: UUID[];
+      let offset: Offset;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        ids = ["1"];
+        offset = { x: 1, y: 1 };
+        try {
+          nodes.translate(ids, offset);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          }
+        );
+        and(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            then(
+              `error.message is 'Invalid argument: id - must be a valid UUID'`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: id - must be a valid UUID"
+                );
+              }
+            );
+          }
+        );
+      });
+    });
     when(`nodes.translate called with valid ids and offset`, () => {
       let ids: UUID[];
       let offset: Offset;
