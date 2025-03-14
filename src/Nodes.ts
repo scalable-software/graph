@@ -174,7 +174,9 @@ export class Nodes<T extends INode> extends Array<T> {
   private getValidNode = (id: UUID): T => this.at(this.getValidIndex(id));
 
   private getValidNodes = (ids: UUID | UUID[]): T[] =>
-    Utilities.toArray<UUID>(ids).map((id) => this.getValidNode(id));
+    Utilities.toArray<UUID>(ids).map((id) =>
+      this.getValidNode(Validate.uuid(id))
+    );
 
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
