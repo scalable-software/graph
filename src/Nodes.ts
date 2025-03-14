@@ -172,7 +172,7 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
-  public toJSON = () => {};
+  public toJSON = (): T[] => [...this];
 
   private apply = (id: UUID, transform: (node: T) => T): T =>
     ((node) =>
