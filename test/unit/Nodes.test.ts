@@ -854,6 +854,22 @@ given(`nodes.add ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
   });
 });
 
+given(`nodes.update ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", Spec.AVAILABILITY);
+  });
+  and(`nodes instance is created`, () => {
+    let nodes: Nodes<INode>;
+    beforeEach(() => {
+      nodes = new Nodes();
+    });
+    then(`nodes.update is defined`, () => {
+      expect(nodes.update).toBeDefined();
+    });
+  });
+});
+
 given(`nodes.remove ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
