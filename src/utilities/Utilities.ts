@@ -97,5 +97,26 @@ export class Utilities {
   public static toArray = <T>(input: T | T[]): T[] =>
     Array.isArray(input) ? input : [input];
 
-  public static toTuple = () => {};
+  /**
+   * Transforms an array of objects into an object where each key is the value
+   * of the object's `id` property, and the corresponding value is the object itself.
+   *
+   * @param items - An array of objects, each containing a unique `id` property.
+   * @returns A record where keys are `id` values and values are the corresponding objects.
+   *
+   * @example
+   * ```ts
+   * const items = [
+   *   { id: "a1", name: "Item A" },
+   *   { id: "b2", name: "Item B" },
+   * ];
+   *
+   * const result = Utilities.keyById(items);
+   * // Returns: { "a1": { id: "a1", name: "Item A" }, "b2": { id: "b2", name: "Item B" } }
+   * ```
+   */
+  public static toTuple = <T extends { id: string }>(
+    items: T[]
+  ): Record<string, T> =>
+    Object.fromEntries(items.map((item: T) => [item.id, item]));
 }
