@@ -39,8 +39,9 @@ export class Nodes<T extends INode> extends Array<T> {
     nodes: T[],
     offset: Offset
   ): T[] =>
-    ((nodes) => nodes.map((node) => Node.translate(node, offset)))(
-      Validate.nodes<T>(nodes)
+    ((nodes, offset) => nodes.map((node) => Node.translate(node, offset)))(
+      Validate.nodes<T>(nodes),
+      Validate.offset(offset)
     );
 
   private static defaults = <T extends INode>(): T[] => [];
