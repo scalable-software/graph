@@ -31,8 +31,17 @@ export class Nodes<T extends INode> extends Array<T> {
   private static normalize = <T extends INode>(nodes?: T[]): T[] =>
     nodes ? Validate.nodes<T>(nodes) : Nodes.defaults<T>();
 
+  private _immutable = true;
+
   constructor(...nodes: T[]) {
     super(...nodes);
+  }
+
+  get immutable(): boolean {
+    return this._immutable;
+  }
+  set immutable(immutable: boolean) {
+    this._immutable = immutable;
   }
 
   /**
