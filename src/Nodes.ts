@@ -78,6 +78,8 @@ export class Nodes<T extends INode> extends Array<T> {
     return this;
   };
 
+  public update = () => {};
+
   /**
    * Removes a node from the `Nodes` by its id or throw NotFoundException.
    *
