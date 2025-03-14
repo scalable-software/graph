@@ -81,7 +81,7 @@ export class Nodes<T extends INode> extends Array<T> {
   public update = (id: UUID, details: Partial<T>): Nodes<T> => {
     ((id, details) => this.apply(id, (node) => Node.update(node, details)))(
       Validate.uuid(id),
-      details
+      this.validateDetails(details)
     );
     return this;
   };
@@ -186,6 +186,11 @@ export class Nodes<T extends INode> extends Array<T> {
 
   private validateIds = (ids: UUID | UUID[]): UUID[] =>
     Utilities.toArray<UUID>(ids).map((id) => Validate.uuid(id));
+
+  private validateDetails = (details: Partial<T>): Partial<T> => {
+    details.coordinates && Validate.coordinates(details.coordinates);
+    return details;
+  };
 
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
