@@ -949,6 +949,7 @@ given(`nodes.update ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
       let error: Exception.Exception;
       beforeEach(() => {
         id = "453a4547-e89b-12d3-a456-426614174011";
+        details = { coordinates: { x: 1, y: 1 } };
         try {
           nodes.update(id, details);
         } catch (e) {
@@ -974,6 +975,70 @@ given(`nodes.update ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
         });
       });
     });
+    when(
+      `nodes.update called with valid id and details with invalid coordinates`,
+      () => {
+        let id: UUID;
+        let details: Partial<INode>;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = data[0].id;
+          details = { coordinates: { x: "1" as unknown as number, y: 1 } };
+          try {
+            nodes.update(id, details);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(
+            `error is an instance of Exception.InvalidArgumentException`,
+            () => {
+              expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+            }
+          );
+          and(
+            `error is an instance of Exception.InvalidArgumentException`,
+            () => {
+              then(`error.message is 'Invalid argument: coordinates'`, () => {
+                expect(error.message).toBe(
+                  "Invalid argument: coordinates - must be valid coordinates"
+                );
+              });
+            }
+          );
+        });
+      }
+    );
+    when(
+      `nodes.update called with valid id and details with no coordinates`,
+      () => {
+        let id: UUID;
+        let details: Partial<INode>;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = data[0].id;
+          details = { name: "test" } as any;
+          try {
+            nodes.update(id, details);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is undefined`, () => {
+          expect(error).toBeUndefined();
+        });
+        then(`node with id is updated with details`, () => {
+          expect(nodes.find((node) => node.id === id)).toEqual({
+            ...data[0],
+            ...details,
+          });
+        });
+      }
+    );
   });
 });
 
