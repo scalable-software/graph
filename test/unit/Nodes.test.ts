@@ -870,6 +870,113 @@ given(`nodes.update ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
+given(`nodes.update ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.METHOD);
+    setSpecProperty("spec", Spec.BEHAVIOR);
+  });
+  and(`nodes instance is created with nodes`, () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+      ];
+      nodes = Nodes.create(data);
+    });
+    when(`nodes.update called with valid id details`, () => {
+      let id: UUID;
+      let details: Partial<INode>;
+      beforeEach(() => {
+        id = data[0].id;
+        details = { coordinates: { x: 1, y: 1 } };
+        nodes.update(id, details);
+      });
+      then(`node with id is updated with details`, () => {
+        expect(nodes.find((node) => node.id === id)).toEqual({
+          ...data[0],
+          ...details,
+        });
+      });
+    });
+    when(`nodes.update called with invalid id and valid details`, () => {
+      let id: UUID;
+      let details: Partial<INode>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        id = "1";
+        try {
+          nodes.update(id, details);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          }
+        );
+        and(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            then(
+              `error.message is 'Invalid argument: id - must be a valid UUID'`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: id - must be a valid UUID"
+                );
+              }
+            );
+          }
+        );
+      });
+    });
+    when(`nodes.update called with unknown id and valid details`, () => {
+      let id: UUID;
+      let details: Partial<INode>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        id = "453a4547-e89b-12d3-a456-426614174011";
+        try {
+          nodes.update(id, details);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of Exception.InvalidIndexException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidIndexException);
+        });
+        and(`error is an instance of Exception.InvalidIndexException`, () => {
+          then(
+            `error.message is 'Invalid index: index is out of bounds'`,
+            () => {
+              expect(error.message).toBe(
+                `Invalid index: index is out of bounds`
+              );
+            }
+          );
+        });
+      });
+    });
+  });
+});
+
 given(`nodes.remove ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
