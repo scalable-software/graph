@@ -84,28 +84,25 @@ export class Validate {
     Exceptions.immutablePropertyException(String(value));
 
   /**
-   * Validate id and throw if invalid or not found in items
+   * Validate a single of multiple ids to ensure they are valid UUIDs.
    *
-   * @param items - The items to search
-   * @param id - The id to find
-   * @returns The index of item with id if found
-   * @throws {NotFoundException} If the id is not found
+   * @param ids - The id or ids to validate
+   * @returns The id or ids if valid
+   * @throws {InvalidArgumentException} If the id or ids are invalid or null
    *
    * @example
    * ```ts
-   * const items = [{ id: "453a4547-e89b-12d3-a456-426614174011" }];
-   * Validate.id(items, "453a4547-e89b-12d3-a456-426614174011");
-   * // => 0
+   * Validate.id("123e4567-e89b-12d3-a456-426614174000");
+   * // => "123e4567-e89b-12d3-a456-426614174000"
    *
-   * Validate.id(items, "123e4567-e89b-12d3-a456-426614174000");
-   * // => NotFoundException: id not found: "123e4567-e89b-12d3-a456-426614174000"
-   *
-   * Validate.id(items, "invalid");
+   * Validate.id(["123e4567-e89b-12d3-a456-426614174000", "invalid"]);
    * // => InvalidArgumentException: Invalid argument: id - must be a valid UUID
    * ```
    */
-  public static id = <T extends { id: UUID }>(items: T[], id: UUID): number =>
-    Validate.exist(items, Validate.uuid(id));
+  public static id = (ids: UUID | UUID[]): UUID | UUID[] =>
+    Array.isArray(ids)
+      ? ids.map((id) => Validate.uuid(id))
+      : Validate.uuid(ids);
 
   /**
    * Returns index of item with id in items if found

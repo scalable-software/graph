@@ -34,124 +34,6 @@ given(`Validate ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`Validate id ${Type.STATIC_METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", "Validate.id");
-  });
-  then(`Validate.id is defined`, () => {
-    expect(Validate.id).toBeDefined();
-  });
-  and(`Validate.id is defined`, () => {
-    then(`Validate.id is a function`, () => {
-      expect(Validate.id).toBeInstanceOf(Function);
-    });
-    and(`Validate.id is a function`, () => {
-      when(`Validate.id(items, id) is called with items and valid id`, () => {
-        type Item = { id: UUID };
-        let items: Item[];
-        let id: UUID;
-        let result: number;
-        let error: Error;
-        beforeEach(() => {
-          items = [{ id: "123e4567-e89b-12d3-a456-426614174000" }];
-          id = "123e4567-e89b-12d3-a456-426614174000";
-          try {
-            result = Validate.id(items, id);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then(`error is undefined`, () => {
-          expect(error).toBeUndefined();
-        });
-        then(`result is defined`, () => {
-          expect(result).toBeDefined();
-        });
-        and(`result is defined`, () => {
-          then(`result is 0`, () => {
-            expect(result).toBe(0);
-          });
-        });
-      });
-      when(`Validate.id(items, id) is called with items and invalid id`, () => {
-        type Item = { id: UUID };
-        let items: Item[];
-        let id: UUID;
-        let result: number;
-        let error: Error;
-        beforeEach(() => {
-          items = [{ id: "123e4567-e89b-12d3-a456-426614174000" }];
-          id = "1";
-          try {
-            result = Validate.id(items, id);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then(`result is undefined`, () => {
-          expect(result).toBeUndefined();
-        });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
-        });
-        and(`error is defined`, () => {
-          then(`error is an instance of InvalidArgumentException`, () => {
-            expect(error).toBeInstanceOf(InvalidArgumentException);
-          });
-          and(`error is an instance of InvalidArgumentException`, () => {
-            then(
-              `error.message is "Invalid argument: id - must be a valid UUID"`,
-              () => {
-                expect(error.message).toBe(
-                  "Invalid argument: id - must be a valid UUID"
-                );
-              }
-            );
-          });
-        });
-      });
-      when(`Validate.id(items, id) is called with items and unknown id`, () => {
-        type Item = { id: UUID };
-        let items: Item[];
-        let id: UUID;
-        let result: number;
-        let error: Error;
-        beforeEach(() => {
-          items = [{ id: "123e4567-e89b-12d3-a456-426614174000" }];
-          id = "453a4547-e89b-12d3-a456-426614174011";
-          try {
-            result = Validate.id(items, id);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then(`result is undefined`, () => {
-          expect(result).toBeUndefined();
-        });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
-        });
-        and(`error is defined`, () => {
-          then(`error is an instance of NotFoundException`, () => {
-            expect(error).toBeInstanceOf(NotFoundException);
-          });
-          and(`error is an instance of NotFoundException`, () => {
-            then(
-              `error.message is "Invalid argument: id - must be a valid UUID"`,
-              () => {
-                expect(error.message).toBe(
-                  "Not found: id 453a4547-e89b-12d3-a456-426614174011"
-                );
-              }
-            );
-          });
-        });
-      });
-    });
-  });
-});
-
 given(`Validate index ${Type.STATIC_METHOD} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
@@ -284,6 +166,158 @@ given(`Validate exist ${Type.STATIC_METHOD} test`, () => {
         });
       }
     );
+  });
+});
+
+given(`Validate id ${Type.STATIC_METHOD} test`, () => {
+  beforeEach(() => {
+    setSpecProperty("type", Type.STATIC_METHOD);
+    setSpecProperty("spec", "Validate.id");
+  });
+  then(`Validate.id is defined`, () => {
+    expect(Validate.id).toBeDefined();
+  });
+  and(`Validate.id is defined`, () => {
+    then(`Validate.id is a function`, () => {
+      expect(Validate.id).toBeInstanceOf(Function);
+    });
+    and(`Validate.id is a function`, () => {
+      when(`Validate.id(id) is called with a valid UUID`, () => {
+        let id: string;
+        let result: UUID | UUID[];
+        beforeEach(() => {
+          id = "123e4567-e89b-12d3-a456-426614174000";
+          result = Validate.id(id);
+        });
+        then(`Validate.id returns the id`, () => {
+          expect(result).toBe(id);
+        });
+      });
+      when(`Validate.id(id) is called with an array of valid UUIDs`, () => {
+        let id: string[];
+        let result: UUID | UUID[];
+        beforeEach(() => {
+          id = [
+            "123e4567-e89b-12d3-a456-426614174000",
+            "123e4567-e89b-12d3-a456-426614174001",
+          ];
+          result = Validate.id(id);
+        });
+        then(`Validate.id returns the id`, () => {
+          expect(result).toEqual(id);
+        });
+      });
+      when(`Validate.id(id) is called with an array of invalid UUIDs`, () => {
+        let id: string[];
+        let error: Error;
+        beforeEach(() => {
+          id = ["invalid", "invalid"];
+          try {
+            Validate.id(id);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(InvalidArgumentException);
+          });
+          and(`error is an instance of InvalidArgumentException`, () => {
+            then(`error is an instance of InvalidArgumentException`, () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            then(
+              `error.message is "Invalid argument: id - must be a valid UUID"`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: id - must be a valid UUID"
+                );
+              }
+            );
+          });
+        });
+      });
+      when(`Validate.id(id) is called with an empty array`, () => {
+        let id: string[];
+        let result: UUID | UUID[];
+        beforeEach(() => {
+          id = [];
+          result = Validate.id(id);
+        });
+        then(`Validate.id returns the id`, () => {
+          expect(result).toEqual(id);
+        });
+      });
+      when(`Validate.id(id) is called with an invalid UUID`, () => {
+        let id: string;
+        let error: Error;
+        beforeEach(() => {
+          id = "invalid";
+          try {
+            Validate.id(id);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(InvalidArgumentException);
+          });
+          and(`error is an instance of InvalidArgumentException`, () => {
+            then(`error is an instance of InvalidArgumentException`, () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            then(
+              `error.message is "Invalid argument: id - must be a valid UUID"`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: id - must be a valid UUID"
+                );
+              }
+            );
+          });
+        });
+      });
+      when(`Validate.id(id) is called with null`, () => {
+        let id: string;
+        let error: Error;
+        beforeEach(() => {
+          id = null;
+          try {
+            Validate.id(id);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(InvalidArgumentException);
+          });
+          and(`error is an instance of InvalidArgumentException`, () => {
+            then(`error is an instance of InvalidArgumentException`, () => {
+              expect(error).toBeInstanceOf(InvalidArgumentException);
+            });
+            then(
+              `error.message is "Invalid argument: id - must be a valid UUID"`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: id - must be a valid UUID"
+                );
+              }
+            );
+          });
+        });
+      });
+    });
   });
 });
 
