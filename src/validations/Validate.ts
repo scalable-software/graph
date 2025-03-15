@@ -83,6 +83,9 @@ export class Validate {
     !items.includes(value) ||
     Exceptions.immutablePropertyException(String(value));
 
+  public static many = <T>(item: T | T[], validator: (T) => T) =>
+    Array.isArray(item) ? item.map((item) => validator(item)) : validator(item);
+
   /**
    * Validate a single of multiple ids to ensure they are valid UUIDs.
    *
@@ -99,10 +102,14 @@ export class Validate {
    * // => InvalidArgumentException: Invalid argument: id - must be a valid UUID
    * ```
    */
-  public static id = (ids: UUID | UUID[]): UUID | UUID[] =>
-    Array.isArray(ids)
-      ? ids.map((id) => Validate.uuid(id))
-      : Validate.uuid(ids);
+  public static id = <T extends { id: UUID }>(
+    nodes: T[],
+    ids: UUID | UUID[]
+  ): UUID | UUID[] => {
+    Validate.many(ids, (id) => Validate.uuid(id));
+    Validate.many(ids, (id) => Validate.exist(nodes, id));
+    return ids;
+  };
 
   /**
    * Returns index of item with id in items if found
@@ -127,14 +134,13 @@ export class Validate {
   public static exist = <T extends { id: UUID }>(
     items: T[],
     id: UUID
-  ): number => {
-    const index = Utilities.Index.byId<T>(items, id);
+  ): UUID => {
     try {
-      Validate.index(index);
+      Validate.index(Utilities.Index.byId<T>(items, id));
     } catch (error) {
       Exceptions.notFoundException("id", id);
     }
-    return index;
+    return id;
   };
 
   public static index = (index: number): number =>
@@ -296,6 +302,13 @@ export class Validate {
           ({ coordinates }) => Validate.coordinates(coordinates),
         ]) as T)
       : null;
+
+  public static nodeDetails = <T extends { coordinates: Coordinates }>(
+    details: Partial<T>
+  ): Partial<T> => {
+    details.coordinates && Validate.coordinates(details.coordinates);
+    return details;
+  };
 
   /**
    * Validate an array of nodes to ensure each nodes have valid `id` and `coordinates`.

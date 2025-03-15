@@ -120,18 +120,18 @@ given(`Validate exist ${Type.STATIC_METHOD} test`, () => {
       type Item = { id: string };
       let items: Item[];
       let id: UUID;
-      let index: number;
+      let result: UUID;
       beforeEach(() => {
         items = [{ id: "1" }, { id: "2" }, { id: "3" }];
         id = "1";
-        index = Validate.exist(items, id);
+        result = Validate.exist(items, id);
       });
-      then(`index is defined`, () => {
-        expect(index).toBeDefined();
+      then(`result is defined`, () => {
+        expect(result).toBeDefined();
       });
-      and(`index is defined`, () => {
-        then(`index is 0`, () => {
-          expect(index).toBe(0);
+      and(`result is defined`, () => {
+        then(`result is id`, () => {
+          expect(result).toBe(id);
         });
       });
     });
@@ -187,7 +187,7 @@ given(`Validate id ${Type.STATIC_METHOD} test`, () => {
         let result: UUID | UUID[];
         beforeEach(() => {
           id = "123e4567-e89b-12d3-a456-426614174000";
-          result = Validate.id(id);
+          result = Validate.id([{ id }], id);
         });
         then(`Validate.id returns the id`, () => {
           expect(result).toBe(id);
@@ -201,19 +201,20 @@ given(`Validate id ${Type.STATIC_METHOD} test`, () => {
             "123e4567-e89b-12d3-a456-426614174000",
             "123e4567-e89b-12d3-a456-426614174001",
           ];
-          result = Validate.id(id);
+          result = Validate.id([{ id: id[0] }, { id: id[1] }], id);
         });
         then(`Validate.id returns the id`, () => {
           expect(result).toEqual(id);
         });
       });
       when(`Validate.id(id) is called with an array of invalid UUIDs`, () => {
-        let id: string[];
+        type Node = { id: string };
+        let id: UUID[];
         let error: Error;
         beforeEach(() => {
-          id = ["invalid", "invalid"];
+          id = ["invalid", "invalid"] as UUID[];
           try {
-            Validate.id(id);
+            Validate.id([{ id: id[0] }], id);
           } catch (e) {
             error = e;
           }
@@ -245,7 +246,7 @@ given(`Validate id ${Type.STATIC_METHOD} test`, () => {
         let result: UUID | UUID[];
         beforeEach(() => {
           id = [];
-          result = Validate.id(id);
+          result = Validate.id([], id);
         });
         then(`Validate.id returns the id`, () => {
           expect(result).toEqual(id);
@@ -257,7 +258,7 @@ given(`Validate id ${Type.STATIC_METHOD} test`, () => {
         beforeEach(() => {
           id = "invalid";
           try {
-            Validate.id(id);
+            Validate.id([], id);
           } catch (e) {
             error = e;
           }
@@ -290,7 +291,7 @@ given(`Validate id ${Type.STATIC_METHOD} test`, () => {
         beforeEach(() => {
           id = null;
           try {
-            Validate.id(id);
+            Validate.id([], id);
           } catch (e) {
             error = e;
           }
@@ -311,6 +312,65 @@ given(`Validate id ${Type.STATIC_METHOD} test`, () => {
               () => {
                 expect(error.message).toBe(
                   "Invalid argument: id - must be a valid UUID"
+                );
+              }
+            );
+          });
+        });
+      });
+      when(`Validate.id(id, nodes) is called with valid id and nodes`, () => {
+        type Node = { id: string };
+        let id: UUID | UUID[];
+        let nodes: Node[];
+        let result: UUID | UUID[];
+        beforeEach(() => {
+          id = "123e4567-e89b-12d3-a456-426614174000";
+          nodes = [
+            { id: "123e4567-e89b-12d3-a456-426614174000" },
+            { id: "123e4567-e89b-12d3-a456-426614174001" },
+            { id: "123e4567-e89b-12d3-a456-426614174001" },
+          ];
+          result = Validate.id(nodes, id);
+        });
+        then(`Validate.id returns the node`, () => {
+          expect(result).toBe(id);
+        });
+      });
+      when(`Validate.id(id, nodes) is called with valid id and nodes`, () => {
+        type Node = { id: string };
+        let id: UUID | UUID[];
+        let nodes: Node[];
+        let result: UUID | UUID[];
+        let error: Error;
+        beforeEach(() => {
+          id = "123e4567-e89b-12d3-a456-426614174020";
+          nodes = [
+            { id: "123e4567-e89b-12d3-a456-426614174000" },
+            { id: "123e4567-e89b-12d3-a456-426614174001" },
+            { id: "123e4567-e89b-12d3-a456-426614174001" },
+          ];
+          try {
+            result = Validate.id(nodes, id);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`results is undefined`, () => {
+          expect(result).toBeUndefined();
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of NotFoundException`, () => {
+            expect(error).toBeInstanceOf(NotFoundException);
+          });
+          and(`error is an instance of NotFoundException`, () => {
+            then(
+              `error.message is "Not found: id 123e4567-e89b-12d3-a456-426614174020"`,
+              () => {
+                expect(error.message).toBe(
+                  "Not found: id 123e4567-e89b-12d3-a456-426614174020"
                 );
               }
             );
