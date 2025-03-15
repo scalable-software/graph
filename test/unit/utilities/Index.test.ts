@@ -1,4 +1,4 @@
-import { Type, Spec } from "../Helper.js";
+import { Type, Test } from "../Helper.js";
 
 const given = (description, spec) => describe(`Given ${description}`, spec);
 const and = (description, spec) => describe(`and ${description}`, spec);
@@ -7,10 +7,10 @@ const then = (description, spec) => it(`then ${description}`, spec);
 
 import { Index } from "../../../src/utilities/Index.js";
 
-given(`Index ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
+given(`Index ${Type.ABSTRACT_CLASS} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.ABSTRACT_CLASS);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`Index is imported`, () => {
     then(`Index is defined`, () => {

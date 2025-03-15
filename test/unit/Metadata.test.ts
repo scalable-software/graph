@@ -1,6 +1,6 @@
 import * as help from "./Helper.js";
 
-import { Type, Spec } from "./Helper.js";
+import { Type, Test } from "./Helper.js";
 
 const given = (description, spec) => describe(`Given ${description}`, spec);
 const and = (description, spec) => describe(`and ${description}`, spec);
@@ -12,10 +12,10 @@ import type { UUID, Name } from "@scalable.software/graph";
 import { Metadata, Exception } from "@scalable.software/graph";
 import type { IMetadata } from "@scalable.software/graph";
 
-given(`Metadata ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+given(`Metadata ${Type.CLASS} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`Metadata is imported`, () => {
     then(`Metadata is defined`, () => {
@@ -137,10 +137,10 @@ given(`Metadata create ${Type.STATIC_METHOD} test`, () => {
   });
 });
 
-given(`Metadata ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+given(`Metadata ${Type.CLASS} ${Test.INSTANTIATION} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Spec.INSTANTIATION);
+    setSpecProperty("spec", Test.INSTANTIATION);
   });
   when("a metadata instance is created using Metadata.create()", () => {
     let metadata: Metadata;

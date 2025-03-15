@@ -1,4 +1,4 @@
-import { Type, Spec } from "../Helper.js";
+import { Type, Test } from "../Helper.js";
 
 const given = (description, spec) => describe(`Given ${description}`, spec);
 const and = (description, spec) => describe(`and ${description}`, spec);
@@ -11,10 +11,10 @@ import { Duplicate } from "../../../src/utilities/Duplicate.js";
 import { Match } from "../../../src/utilities/Match.js";
 import { Index } from "../../../src/utilities/Index.js";
 
-given(`Utilities ${Type.ABSTRACT_CLASS} ${Spec.AVAILABILITY} test`, () => {
+given(`Utilities ${Type.ABSTRACT_CLASS} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.ABSTRACT_CLASS);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`Utilities is imported`, () => {
     then(`Utilities is defined`, () => {
@@ -98,7 +98,7 @@ given(`Utilities.idify ${Type.STATIC_METHOD} test`, () => {
     and("Utilities.idify is a function", () => {
       when("Utilities.idify(array) where items in array have ids", () => {
         let items: { id: string; name: string }[];
-        let result: { id: string; name: string }[];
+        let result;
         beforeEach(() => {
           items = [
             { id: "a1", name: "Item A" },
@@ -113,7 +113,7 @@ given(`Utilities.idify ${Type.STATIC_METHOD} test`, () => {
       when("Utilities.idify(array) where items in array don`t have ids", () => {
         type T = { id: string; name: string };
         let items: Omit<T, "id">[];
-        let result: T[];
+        let result;
         beforeEach(() => {
           items = [{ name: "Item A" }, { name: "Item B" }];
           result = Utilities.idifies<T>(items);
@@ -127,7 +127,7 @@ given(`Utilities.idify ${Type.STATIC_METHOD} test`, () => {
       when("Utilities.idify(array) where items in array have ids", () => {
         type T = { id: string; name: string };
         let items: Omit<T, "id">[] | T[];
-        let result: T[];
+        let result;
         beforeEach(() => {
           items = [
             { id: "1", name: "Item A" },

@@ -1,4 +1,4 @@
-import { Type, Spec, hasSetter } from "./Helper.js";
+import { Type, Test, hasSetter } from "./Helper.js";
 
 const given = (description, spec) => describe(`Given ${description}`, spec);
 const and = (description, spec) => describe(`and ${description}`, spec);
@@ -13,10 +13,10 @@ import type {
   Offset,
 } from "@scalable.software/graph";
 
-given(`Nodes ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+given(`Nodes ${Type.CLASS} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`Nodes is imported`, () => {
     then(`Nodes is defined`, () => {
@@ -30,15 +30,15 @@ given(`Nodes ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`Nodes ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
+given(`Nodes ${Type.CLASS} ${Test.INSTANTIATION} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Spec.INSTANTIATION);
+    setSpecProperty("spec", Test.INSTANTIATION);
   });
   when("a nodes instance is created", () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
-      nodes = new Nodes();
+      nodes = Nodes.create();
     });
     then("nodes is defined", () => {
       expect(nodes).toBeDefined();
@@ -54,10 +54,10 @@ given(`Nodes ${Type.CLASS} ${Spec.INSTANTIATION} test`, () => {
   });
 });
 
-given(`Nodes create ${Type.STATIC_METHOD} ${Spec.AVAILABILITY} test`, () => {
+given(`Nodes create ${Type.STATIC_METHOD} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`Nodes is imported`, () => {
     then(`Nodes.create is defined`, () => {
@@ -71,10 +71,10 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
+given(`Nodes create ${Type.STATIC_METHOD} ${Test.BEHAVIOR} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", Spec.BEHAVIOR);
+    setSpecProperty("spec", Test.BEHAVIOR);
   });
   when("Nodes.create is called", () => {
     let nodes: Nodes<INode>;
@@ -239,15 +239,15 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
   });
 });
 
-given(`Node immutable ${Type.ACCESSOR} ${Spec.AVAILABILITY} test`, () => {
+given(`Node immutable ${Type.ACCESSOR} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.ACCESSOR);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
-      nodes = new Nodes();
+      nodes = Nodes.create();
     });
     then(`nodes.immutable getter is defined`, () => {
       expect(nodes.immutable).toBeDefined();
@@ -258,15 +258,15 @@ given(`Node immutable ${Type.ACCESSOR} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`Node immutable ${Type.ACCESSOR} ${Spec.BEHAVIOR} test`, () => {
+given(`Node immutable ${Type.ACCESSOR} ${Test.BEHAVIOR} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.ACCESSOR);
-    setSpecProperty("spec", Spec.BEHAVIOR);
+    setSpecProperty("spec", Test.BEHAVIOR);
   });
   and(`nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
-      nodes = new Nodes();
+      nodes = Nodes.create();
     });
     then(`nodes.immutable is by default true`, () => {
       expect(nodes.immutable).toBeTruthy();
@@ -350,15 +350,15 @@ given(`Node immutable ${Type.ACCESSOR} ${Spec.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.add ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
+given(`nodes.add ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
-      nodes = new Nodes();
+      nodes = Nodes.create();
     });
     then(`nodes.add is defined`, () => {
       expect(nodes.add).toBeDefined();
@@ -366,10 +366,10 @@ given(`nodes.add ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.add ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
+given(`nodes.add ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.BEHAVIOR);
+    setSpecProperty("spec", Test.BEHAVIOR);
   });
   and(`nodes instance is created`, () => {
     let nodes: Nodes<INode>;
@@ -665,15 +665,15 @@ given(`nodes.add ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.update ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
+given(`nodes.update ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
-      nodes = new Nodes();
+      nodes = Nodes.create();
     });
     then(`nodes.update is defined`, () => {
       expect(nodes.update).toBeDefined();
@@ -681,10 +681,10 @@ given(`nodes.update ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.update ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
+given(`nodes.update ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.BEHAVIOR);
+    setSpecProperty("spec", Test.BEHAVIOR);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
@@ -853,10 +853,10 @@ given(`nodes.update ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.remove ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
+given(`nodes.remove ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
@@ -885,10 +885,10 @@ given(`nodes.remove ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.remove ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
+given(`nodes.remove ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.BEHAVIOR);
+    setSpecProperty("spec", Test.BEHAVIOR);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
@@ -985,10 +985,10 @@ given(`nodes.remove ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.findById ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
+given(`nodes.findById ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
@@ -1017,10 +1017,10 @@ given(`nodes.findById ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.findById ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
+given(`nodes.findById ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.BEHAVIOR);
+    setSpecProperty("spec", Test.BEHAVIOR);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
@@ -1105,11 +1105,11 @@ given(`nodes.findById ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
 });
 
 given(
-  `nodes.findByCoordinates ${Type.METHOD} ${Spec.AVAILABILITY} test`,
+  `nodes.findByCoordinates ${Type.METHOD} ${Test.AVAILABILITY} test`,
   () => {
     beforeEach(() => {
       setSpecProperty("type", Type.METHOD);
-      setSpecProperty("spec", Spec.AVAILABILITY);
+      setSpecProperty("spec", Test.AVAILABILITY);
     });
     and(`nodes instance is created with nodes`, () => {
       let nodes: Nodes<INode>;
@@ -1139,10 +1139,10 @@ given(
   }
 );
 
-given(`nodes.findByCoordinates ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
+given(`nodes.findByCoordinates ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.BEHAVIOR);
+    setSpecProperty("spec", Test.BEHAVIOR);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
@@ -1226,10 +1226,10 @@ given(`nodes.findByCoordinates ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.move ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
+given(`nodes.move ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
@@ -1258,10 +1258,10 @@ given(`nodes.move ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.move ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
+given(`nodes.move ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.BEHAVIOR);
+    setSpecProperty("spec", Test.BEHAVIOR);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
@@ -1292,10 +1292,10 @@ given(`nodes.move ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.translate ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
+given(`nodes.translate ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
@@ -1324,10 +1324,10 @@ given(`nodes.translate ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.translate ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
+given(`nodes.translate ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.BEHAVIOR);
+    setSpecProperty("spec", Test.BEHAVIOR);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
@@ -1483,10 +1483,10 @@ given(`nodes.translate ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.toJSON ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
+given(`nodes.toJSON ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
@@ -1515,10 +1515,10 @@ given(`nodes.toJSON ${Type.METHOD} ${Spec.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.toJSON ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
+given(`nodes.toJSON ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Spec.BEHAVIOR);
+    setSpecProperty("spec", Test.BEHAVIOR);
   });
   and(`nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;

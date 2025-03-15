@@ -1,4 +1,4 @@
-import { Type, Spec } from "../Helper.js";
+import { Type, Test } from "../Helper.js";
 
 const given = (description, spec) => describe(`Given ${description}`, spec);
 const and = (description, spec) => describe(`and ${description}`, spec);
@@ -14,10 +14,10 @@ import {
   DuplicateException,
 } from "../../../src/exceptions/Exceptions.js";
 
-given(`Validator ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+given(`Validator ${Type.CLASS} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`Validator is imported`, () => {
     then(`Validator is defined`, () => {

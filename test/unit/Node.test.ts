@@ -1,4 +1,4 @@
-import { Type, Spec } from "./Helper.js";
+import { Type, Test } from "./Helper.js";
 
 const given = (description, spec) => describe(`Given ${description}`, spec);
 const and = (description, spec) => describe(`and ${description}`, spec);
@@ -7,10 +7,10 @@ const then = (description, spec) => it(`then ${description}`, spec);
 
 import { Node, type INode, Exception } from "@scalable.software/graph";
 
-given(`Node ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+given(`Node ${Type.CLASS} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`Node is imported`, () => {
     then(`Node is defined`, () => {
