@@ -24,16 +24,20 @@ export class Nodes<T extends INode> extends Array<T> {
    * @category Factory
    */
   public static create = <T extends INode>(nodes?: T[] | null): Nodes<T> & T =>
-    new Nodes<T>(...this.normalize<T>(nodes)) as Nodes<T> & T;
+    new Nodes<T>(...Nodes.normalize<T>(nodes)) as Nodes<T> & T;
 
   private static defaults = <T extends INode>(): T[] => [];
 
   private static normalize = <T extends INode>(nodes?: T[]): T[] =>
-    nodes ? Validate.nodes<T>(nodes) : Nodes.defaults<T>();
+    nodes ? Validate.nodes(nodes) : Nodes.defaults();
 
   private _immutable = true;
 
-  constructor(...nodes: T[]) {
+  /**
+   * Typescript constructors cannot return a value other than the class.
+   * As a workaround to support proper types, we must use a static factory method
+   */
+  private constructor(...nodes: T[]) {
     super(...nodes);
   }
 
@@ -58,10 +62,8 @@ export class Nodes<T extends INode> extends Array<T> {
    * @throws {Error} If a node with the same ID or coordinates already exists in the collection.
    * @returns {Nodes<T>} The modified `Nodes<T>` instance, allowing method chaining.
    */
-  public add = <N extends T | Omit<T, "id">>(nodes: N | N[]): Nodes<T> => {
-    ((nodes) => this.push(...nodes))(
-      this.validate(Utilities.idify<T>(Utilities.toArray<N>(nodes)))
-    );
+  public add = (nodes: T | Omit<T, "id"> | (T | Omit<T, "id">)[]): Nodes<T> => {
+    ((nodes) => this.push(...nodes))(this.validate(Utilities.normalize(nodes)));
     return this;
   };
 
@@ -185,17 +187,17 @@ export class Nodes<T extends INode> extends Array<T> {
 
   private node = (id: UUID): T => this.at(Utilities.Index.byId<T>(this, id));
 
-  private apply = (id: UUID, transform: (node: T) => T): T =>
-    ((node) =>
-      this.immutable
-        ? this.clone(node, transform(node))
-        : this.mutate(node, transform(node)))(this.node(id));
-
   private clone = ({ id }: T, updatedNode: T): T =>
     (this[this.index(id)] = updatedNode);
 
   private mutate = (node: T, updatedNode: T): T =>
     Object.assign(node, updatedNode);
+
+  private apply = (id: UUID, transform: (node: T) => T): T =>
+    ((node) =>
+      this.immutable
+        ? this.clone(node, transform(node))
+        : this.mutate(node, transform(node)))(this.node(id));
 
   private validate = (nodes: T[]): T[] =>
     ((nodes) =>
