@@ -89,11 +89,11 @@ given(`Utilities.idify ${Type.STATIC_METHOD} test`, () => {
     setSpecProperty("spec", "Utilities.idify");
   });
   then("Utilities.idify is defined", () => {
-    expect(Utilities.idify).toBeDefined();
+    expect(Utilities.idifies).toBeDefined();
   });
   and("Utilities.idify is defined", () => {
     then("Utilities.idify is a function", () => {
-      expect(Utilities.idify).toBeInstanceOf(Function);
+      expect(Utilities.idifies).toBeInstanceOf(Function);
     });
     and("Utilities.idify is a function", () => {
       when("Utilities.idify(array) where items in array have ids", () => {
@@ -104,7 +104,7 @@ given(`Utilities.idify ${Type.STATIC_METHOD} test`, () => {
             { id: "a1", name: "Item A" },
             { id: "b2", name: "Item B" },
           ];
-          result = Utilities.idify(items);
+          result = Utilities.idifies(items);
         });
         then("result is the same as items", () => {
           expect(result).toEqual(items);
@@ -116,7 +116,7 @@ given(`Utilities.idify ${Type.STATIC_METHOD} test`, () => {
         let result: T[];
         beforeEach(() => {
           items = [{ name: "Item A" }, { name: "Item B" }];
-          result = Utilities.idify<T>(items);
+          result = Utilities.idifies<T>(items);
         });
         then("result contains items with id", () => {
           result.forEach((item) => {
@@ -133,7 +133,7 @@ given(`Utilities.idify ${Type.STATIC_METHOD} test`, () => {
             { id: "1", name: "Item A" },
             { id: "2", name: "Item B" },
           ];
-          result = Utilities.idify<T>(items);
+          result = Utilities.idifies<T>(items);
         });
         then("result contains items", () => {
           expect(result).toEqual(items as T[]);

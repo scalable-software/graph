@@ -6,12 +6,17 @@ import { Properties } from "./Properties.js";
 import { Duplicate } from "./Duplicate.js";
 import { Match } from "./Match.js";
 import { Index } from "./Index.js";
+import { UUID } from "../Graph.types.js";
 
 export class Utilities {
   public static Properties = Properties;
   public static Duplicate = Duplicate;
   public static Match = Match;
   public static Index = Index;
+
+  public static normalize = <T extends { id: string }>(
+    nodes: T | Omit<T, "id"> | (T | Omit<T, "id">)[]
+  ): T[] => Utilities.idifies<T>(Utilities.toArray(nodes)) as T[];
 
   /**
    * Ensures that every item in a collection has an `id` property.
@@ -33,13 +38,40 @@ export class Utilities {
    * // Returns: [{ id: "generated-id", name: "Item A" }, { id: "b2", name: "Item B" }]
    * ```
    */
-  public static idify = <T>(
-    items: Omit<T, "id">[] | T[],
-    generator: () => string = () => crypto.randomUUID()
-  ): T[] =>
-    items.map((item) =>
-      "id" in item ? (item as T) : ({ id: generator(), ...item } as T)
-    );
+  public static idifies = <T extends { id: string }>(
+    items: T | Omit<T, "id"> | Omit<T, "id">[] | T[],
+    generator?: () => string
+  ): T | T[] =>
+    Array.isArray(items)
+      ? items.map((item) => Utilities.idify<T>(item, generator))
+      : Utilities.idify<T>(items, generator);
+
+  /**
+   * Ensures that an object has an `id` property.
+   * If the object already has an `id`, it remains unchanged; otherwise, a new `id` is generated.
+   *
+   * @param item - An object that may lack an `id` property.
+   * @param generator - A function that generates unique `id` values (default: `crypto.randomUUID()`).
+   * @returns The object with a unique `id`.
+   *
+   * @remarks
+   * - The generator function should return a unique string identifier.
+   * - Items that already have an `id` are left unchanged.
+   *
+   * @example
+   * ```ts
+   * const item = { name: "Item A" };
+   * Utilities.idify(item);
+   * // Returns: { id: "generated-id", name: "Item A" }
+   * ```
+   */
+  public static idify = <T extends { id: string }>(
+    item: T | Omit<T, "id">,
+    generator: () => UUID = () => crypto.randomUUID()
+  ): T =>
+    "id" in item && item.id != null
+      ? item
+      : ({ id: generator(), ...item } as T);
 
   /**
    * Converts a supported input value to a string representation.
