@@ -54,17 +54,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
   private static defaults = <T extends IMetadata>(): T =>
     ({ id: null, name: null } as T);
 
-  private static normalize = <T extends IMetadata>(metadata?: T) =>
-    metadata ? Validate.metadata<T>(metadata) : Metadata.defaults<T>();
-
-  private static ensureId = <T extends IMetadata>(
-    metadata: T | Omit<T, "id">,
-    generator: () => UUID = () => crypto.randomUUID()
-  ): T =>
-    ({
-      ...metadata,
-      id: "id" in metadata && metadata.id != null ? metadata.id : generator(),
-    } as T);
+  private static normalize = <T extends IMetadata>(metadata?: T): T =>
+    metadata ? Validate.metadata(metadata) : Metadata.defaults();
 
   private _id: UUID | null = null;
   private _name: Name | null = null;
@@ -169,17 +160,12 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * @category Operations
    */
   public add = (metadata: T) => {
-    metadata = Metadata.ensureId<T>(metadata);
-    metadata = Metadata.normalize<T>(metadata);
+    this.validateUnassigned();
 
-    this.assigned &&
-      Exceptions.assignedException(
-        "metadata",
-        "Use metadata.update(metadata) instead."
-      );
+    metadata = Utilities.idify<T>(metadata);
+    metadata = Validate.metadata<T>(metadata);
 
     this.hydrate(metadata);
-
     return this;
   };
 
@@ -203,23 +189,14 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * @category Operations
    */
   public update = (metadata: Partial<T>) => {
+    this.validateAssigned();
+    this.validateMatch(metadata);
+
     metadata.id && Validate.uuid(metadata.id);
 
-    !this.assigned &&
-      Exceptions.unassignedException(
-        "metadata",
-        "Use metadata.add(metadata) instead."
-      );
+    metadata = { ...this.toJSON(), ...metadata };
 
-    metadata.id &&
-      !this.match(metadata) &&
-      Exceptions.missMatchException(
-        "identifier",
-        "get metadata.id and verify match."
-      );
-
-    this.hydrate({ id: this._id, ...this.toJSON(), ...metadata });
-
+    this.hydrate(metadata);
     return this;
   };
 
@@ -282,4 +259,26 @@ export class Metadata<T extends IMetadata = IMetadata> {
 
   private reset = () =>
     Object.keys(this.properties).forEach((key) => delete this[key]);
+
+  private validateUnassigned = () =>
+    this.assigned &&
+    Exceptions.assignedException(
+      "metadata",
+      "Use metadata.update(metadata) instead."
+    );
+
+  private validateAssigned = () =>
+    !this.assigned &&
+    Exceptions.unassignedException(
+      "metadata",
+      "Use metadata.add(metadata) instead."
+    );
+
+  private validateMatch = (metadata: Partial<T>) =>
+    metadata.id &&
+    !this.match(metadata) &&
+    Exceptions.missMatchException(
+      "identifier",
+      "get metadata.id and verify match."
+    );
 }
