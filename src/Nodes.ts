@@ -179,10 +179,12 @@ export class Nodes<T extends INode> extends Array<T> {
    * @param {Offset} offset - The offset to apply to the node(s).
    * @returns {Nodes<T>} The modified `Nodes<T>` instance, allowing method chaining.
    */
-  public translate = (targets: UUID | UUID[], offset: Offset): Nodes<T> => {
-    ((nodes, offset) =>
-      this.applies(Utilities.toTuple(Nodes.translate(nodes, offset))))(
-      this.getValidNodes(this.validateIds(Utilities.toArray<UUID>(targets))),
+  public translate = (id: UUID, offset: Offset): Nodes<T> => {
+    ((ids, offset) =>
+      ids.forEach((id) =>
+        this.apply(id, (node) => Node.translate(node, offset))
+      ))(
+      this.validateIds(Utilities.toArray<UUID>(id)),
       Validate.offset(offset)
     );
     return this;
@@ -201,11 +203,6 @@ export class Nodes<T extends INode> extends Array<T> {
         ? this.clone(node, transform(node))
         : this.mutate(node, transform(node)))(this.getValidNode(id));
 
-  private applies = (nodes: Record<UUID, T>) =>
-    this.immutable
-      ? this.forEach((node) => this.clone(node, nodes[node.id] || node))
-      : this.forEach((node) => this.mutate(node, nodes[node.id] || node));
-
   private clone = ({ id }: T, updatedNode: T): T =>
     (this[this.getValidIndex(id)] = updatedNode);
 
@@ -217,9 +214,6 @@ export class Nodes<T extends INode> extends Array<T> {
 
   private getValidNode = (id: UUID): T =>
     this.at(this.getValidIndex(Validate.uuid(id)));
-
-  private getValidNodes = (ids: UUID[]): T[] =>
-    ids.map((id) => this.getValidNode(id));
 
   private validateIds = (ids: UUID[]): UUID[] =>
     ids.map((id) => Validate.uuid(id));
