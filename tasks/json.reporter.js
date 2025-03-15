@@ -24,10 +24,11 @@ function jsonReporter(config) {
     { description, suite, success, properties }
   ) =>
     results.push({
+      context: properties.context || "",
       type: properties.type,
-      spec: properties.spec,
-      definition: [...suite, description],
-      status: success === true ? "pass" : "fail",
+      test: properties.test || properties.spec,
+      definition: `${suite.join(", ")}, ${description}`,
+      status: success === true,
     });
 }
 
