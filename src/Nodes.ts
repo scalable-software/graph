@@ -26,24 +26,6 @@ export class Nodes<T extends INode> extends Array<T> {
   public static create = <T extends INode>(nodes?: T[] | null): Nodes<T> & T =>
     new Nodes<T>(...this.normalize<T>(nodes)) as Nodes<T> & T;
 
-  /**
-   * Applies a translation (offset) to all nodes in the given array.
-   * Each node's position is adjusted by the specified offset value.
-   *
-   * @template T - A type extending INode.
-   * @param {T[]} nodes - The array of nodes to be translated.
-   * @param {Offset} offset - The offset to apply to each node.
-   * @returns {T[]} A new array of nodes with updated coordinates.
-   */
-  public static translate = <T extends INode>(
-    nodes: T[],
-    offset: Offset
-  ): T[] =>
-    ((nodes, offset) => nodes.map((node) => Node.translate(node, offset)))(
-      Validate.nodes<T>(nodes),
-      Validate.offset(offset)
-    );
-
   private static defaults = <T extends INode>(): T[] => [];
 
   private static normalize = <T extends INode>(nodes?: T[]): T[] =>
@@ -55,6 +37,11 @@ export class Nodes<T extends INode> extends Array<T> {
     super(...nodes);
   }
 
+  /**
+   * A flag indicating whether to give precedence to performance or memory usage.
+   * - `true`, the nodes in the collection is immutable: operations return new instances of a nodes.
+   * - `false`, the nodes in the collection is mutable: operations modify the instance in place.
+   */
   get immutable(): boolean {
     return this._immutable;
   }
@@ -73,7 +60,7 @@ export class Nodes<T extends INode> extends Array<T> {
    */
   public add = <N extends T | Omit<T, "id">>(nodes: N | N[]): Nodes<T> => {
     ((nodes) => this.push(...nodes))(
-      this.validateNodes(Utilities.idify<T>(Utilities.toArray<N>(nodes)))
+      this.validate(Utilities.idify<T>(Utilities.toArray<N>(nodes)))
     );
     return this;
   };
@@ -88,8 +75,8 @@ export class Nodes<T extends INode> extends Array<T> {
    */
   public update = (id: UUID, details: Partial<T>): Nodes<T> => {
     ((id, details) => this.apply(id, (node) => Node.update(node, details)))(
-      Validate.uuid(id),
-      this.validateDetails(details)
+      Validate.id(this, id) as UUID,
+      Validate.nodeDetails(details)
     );
     return this;
   };
@@ -103,7 +90,7 @@ export class Nodes<T extends INode> extends Array<T> {
    *
    */
   public remove = (id: UUID): Nodes<T> => {
-    ((id) => this.splice(this.getValidIndex(id), 1))(Validate.uuid(id));
+    ((id) => this.splice(this.index(id), 1))(Validate.id(this, id) as UUID);
     return this;
   };
 
@@ -166,7 +153,7 @@ export class Nodes<T extends INode> extends Array<T> {
   public move = (id: UUID, coordinates: Coordinates): Nodes<T> => {
     ((id, coordinates) =>
       this.apply(id, (node) => Node.move(node, coordinates)))(
-      Validate.uuid(id),
+      Validate.id(this, id) as UUID,
       Validate.coordinates(coordinates)
     );
     return this;
@@ -179,14 +166,11 @@ export class Nodes<T extends INode> extends Array<T> {
    * @param {Offset} offset - The offset to apply to the node(s).
    * @returns {Nodes<T>} The modified `Nodes<T>` instance, allowing method chaining.
    */
-  public translate = (id: UUID, offset: Offset): Nodes<T> => {
-    ((ids, offset) =>
-      ids.forEach((id) =>
+  public translate = (id: UUID | UUID[], offset: Offset): Nodes<T> => {
+    ((id, offset) =>
+      Utilities.toArray(id).forEach((id) =>
         this.apply(id, (node) => Node.translate(node, offset))
-      ))(
-      this.validateIds(Utilities.toArray<UUID>(id)),
-      Validate.offset(offset)
-    );
+      ))(Validate.id(this, id), Validate.offset(offset));
     return this;
   };
 
@@ -197,33 +181,23 @@ export class Nodes<T extends INode> extends Array<T> {
    */
   public toJSON = (): T[] => [...this];
 
+  private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
+
+  private node = (id: UUID): T => this.at(Utilities.Index.byId<T>(this, id));
+
   private apply = (id: UUID, transform: (node: T) => T): T =>
     ((node) =>
       this.immutable
         ? this.clone(node, transform(node))
-        : this.mutate(node, transform(node)))(this.getValidNode(id));
+        : this.mutate(node, transform(node)))(this.node(id));
 
   private clone = ({ id }: T, updatedNode: T): T =>
-    (this[this.getValidIndex(id)] = updatedNode);
+    (this[this.index(id)] = updatedNode);
 
   private mutate = (node: T, updatedNode: T): T =>
     Object.assign(node, updatedNode);
 
-  private getValidIndex = (id: UUID): number =>
-    Validate.index(Utilities.Index.byId<T>(this, id));
-
-  private getValidNode = (id: UUID): T =>
-    this.at(this.getValidIndex(Validate.uuid(id)));
-
-  private validateIds = (ids: UUID[]): UUID[] =>
-    ids.map((id) => Validate.uuid(id));
-
-  private validateDetails = (details: Partial<T>): Partial<T> => {
-    details.coordinates && Validate.coordinates(details.coordinates);
-    return details;
-  };
-
-  private validateNodes = (nodes: T[]): T[] =>
+  private validate = (nodes: T[]): T[] =>
     ((nodes) =>
       Validator.compare(
         [this, nodes],

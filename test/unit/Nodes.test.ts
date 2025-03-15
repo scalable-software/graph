@@ -239,195 +239,6 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
   });
 });
 
-given(`Nodes translate ${Type.STATIC_METHOD} ${Spec.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", Spec.AVAILABILITY);
-  });
-  and(`Nodes is imported`, () => {
-    then(`Nodes.translate is defined`, () => {
-      expect(Nodes.translate).toBeDefined();
-    });
-    and(`Nodes.translate is defined`, () => {
-      then(`Nodes.translate is an instance of Function`, () => {
-        expect(Nodes.translate).toBeInstanceOf(Function);
-      });
-    });
-  });
-});
-
-given(`Nodes translate ${Type.STATIC_METHOD} ${Spec.BEHAVIOR} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", Spec.BEHAVIOR);
-  });
-  when("Nodes.translate(nodes, offset) is called with array of nodes", () => {
-    let nodes: INode[];
-    let offset: Offset;
-    let results: INode[];
-    beforeEach(() => {
-      nodes = [
-        {
-          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-          coordinates: { x: 0, y: 0 },
-        },
-        {
-          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
-          coordinates: { x: 1, y: 1 },
-        },
-      ];
-      offset = { x: 1, y: 1 };
-      results = Nodes.translate(nodes, offset);
-    });
-    then(`results is defined`, () => {
-      expect(results).toBeDefined();
-    });
-    and(`results is defined`, () => {
-      then(`results is an instance of Array`, () => {
-        expect(results).toBeInstanceOf(Array);
-      });
-      and(`results is an instance of Array`, () => {
-        then(`results.length is nodes.length`, () => {
-          expect(results.length).toBe(nodes.length);
-        });
-        then(`results contains translated nodes`, () => {
-          results.forEach((node, index) => {
-            expect(node.coordinates.x).toBe(
-              nodes[index].coordinates.x + offset.x
-            );
-            expect(node.coordinates.y).toBe(
-              nodes[index].coordinates.y + offset.y
-            );
-          });
-        });
-      });
-    });
-  });
-  when("Nodes.translate(nodes, offset) is called with empty array", () => {
-    let nodes: INode[];
-    let offset: Offset;
-    let results: INode[];
-    beforeEach(() => {
-      nodes = [];
-      offset = { x: 1, y: 1 };
-      results = Nodes.translate(nodes, offset);
-    });
-    then(`results is defined`, () => {
-      expect(results).toBeDefined();
-    });
-    and(`results is defined`, () => {
-      then(`results is an instance of Array`, () => {
-        expect(results).toBeInstanceOf(Array);
-      });
-      and(`results is an instance of Array`, () => {
-        then(`results.length is 0`, () => {
-          expect(results.length).toBe(0);
-        });
-      });
-    });
-  });
-  when("Nodes.translate(nodes, offset) is called with invalid nodes", () => {
-    let nodes: INode[];
-    let offset: Offset;
-    let results: INode[];
-    let error: Exception.Exception;
-    beforeEach(() => {
-      nodes = [
-        {
-          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-          coordinates: { x: 0, y: 0 },
-        },
-        {
-          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
-          coordinates: { x: 1, y: 1 },
-        },
-        {
-          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d745",
-          coordinates: { x: 2, y: 3 },
-        },
-        {
-          id: "1",
-          coordinates: { x: 2, y: 3 },
-        },
-      ];
-      offset = { x: 1, y: 1 };
-      try {
-        results = Nodes.translate(nodes, offset);
-      } catch (e) {
-        error = e;
-      }
-    });
-    then(`error is defined`, () => {
-      expect(error).toBeDefined();
-    });
-    and(`error is defined`, () => {
-      then(`error is an instance of Exception.ValidationException`, () => {
-        expect(error).toBeInstanceOf(Exception.ValidationException);
-      });
-      and(`error is an instance of Exception.ValidationException`, () => {
-        then(`error.errors[0] is Exception.InvalidArgumentException`, () => {
-          expect(error.errors[0]).toBeInstanceOf(
-            Exception.InvalidArgumentException
-          );
-        });
-        and(`error.errors[0] is Exception.InvalidArgumentException`, () => {
-          then(`error.errors[0].message is 'Invalid argument: id'`, () => {
-            expect(error.errors[0].message).toBe(
-              "Invalid argument: id - must be a valid UUID"
-            );
-          });
-        });
-      });
-    });
-  });
-  when("Nodes.translate(nodes, offset) is called with invalid offset", () => {
-    let nodes: INode[];
-    let offset: Offset;
-    let results: INode[];
-    let error: Exception.Exception;
-    beforeEach(() => {
-      nodes = [
-        {
-          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-          coordinates: { x: 0, y: 0 },
-        },
-        {
-          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
-          coordinates: { x: 1, y: 1 },
-        },
-        {
-          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d745",
-          coordinates: { x: 2, y: 3 },
-        },
-      ];
-      offset = { x: "1" as unknown as number, y: 1 };
-      try {
-        results = Nodes.translate(nodes, offset);
-      } catch (e) {
-        error = e;
-      }
-    });
-    then(`error is defined`, () => {
-      expect(error).toBeDefined();
-    });
-    and(`error is defined`, () => {
-      then(`error is an instance of Exception.InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
-      });
-      and(`error is an instance of Exception.InvalidArgumentException`, () => {
-        then(
-          `error.message is 'Invalid argument: offset - must be valid offset'`,
-          () => {
-            expect(error.message).toBe(
-              "Invalid argument: offset - must be valid offset"
-            );
-          }
-        );
-      });
-    });
-  });
-});
-
 given(`Node immutable ${Type.ACCESSOR} ${Spec.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.ACCESSOR);
@@ -960,15 +771,15 @@ given(`nodes.update ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(`error is an instance of Exception.InvalidIndexException`, () => {
-          expect(error).toBeInstanceOf(Exception.InvalidIndexException);
+        then(`error is an instance of Exception.NotFoundException`, () => {
+          expect(error).toBeInstanceOf(Exception.NotFoundException);
         });
-        and(`error is an instance of Exception.InvalidIndexException`, () => {
+        and(`error is an instance of Exception.NotFoundException`, () => {
           then(
-            `error.message is 'Invalid index: index is out of bounds'`,
+            `error.message is 'Not found: id 453a4547-e89b-12d3-a456-426614174011'`,
             () => {
               expect(error.message).toBe(
-                `Invalid index: index is out of bounds`
+                `Not found: id 453a4547-e89b-12d3-a456-426614174011`
               );
             }
           );
@@ -1156,15 +967,15 @@ given(`nodes.remove ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(`error is an instance of Exception.InvalidIndexException`, () => {
-          expect(error).toBeInstanceOf(Exception.InvalidIndexException);
+        then(`error is an instance of Exception.NotFoundException`, () => {
+          expect(error).toBeInstanceOf(Exception.NotFoundException);
         });
-        and(`error is an instance of Exception.InvalidIndexException`, () => {
+        and(`error is an instance of Exception.NotFoundException`, () => {
           then(
-            `error.message is 'Invalid index: index is out of bounds'`,
+            `error.message is 'Not found: id 453a4547-e89b-12d3-a456-426614174011'`,
             () => {
               expect(error.message).toBe(
-                `Invalid index: index is out of bounds`
+                `Not found: id 453a4547-e89b-12d3-a456-426614174011`
               );
             }
           );
@@ -1654,15 +1465,15 @@ given(`nodes.translate ${Type.METHOD} ${Spec.BEHAVIOR} test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(`error is an instance of Exception.InvalidIndexException`, () => {
-          expect(error).toBeInstanceOf(Exception.InvalidIndexException);
+        then(`error is an instance of Exception.NotFoundException`, () => {
+          expect(error).toBeInstanceOf(Exception.NotFoundException);
         });
-        and(`error is an instance of Exception.InvalidIndexException`, () => {
+        and(`error is an instance of Exception.NotFoundException`, () => {
           then(
-            `error.message is 'Invalid index: index is out of bounds'`,
+            `error.message is 'Not found: id 453a4547-e89b-12d3-a456-426614174011'`,
             () => {
               expect(error.message).toBe(
-                `Invalid index: index is out of bounds`
+                `Not found: id 453a4547-e89b-12d3-a456-426614174011`
               );
             }
           );
