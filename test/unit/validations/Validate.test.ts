@@ -1,4 +1,4 @@
-import { Type, Spec } from "../Helper.js";
+import { Type, Test } from "../Helper.js";
 
 const given = (description, spec) => describe(`Given ${description}`, spec);
 const and = (description, spec) => describe(`and ${description}`, spec);
@@ -22,10 +22,10 @@ import type {
   INode,
 } from "@scalable.software/graph";
 
-given(`Validate ${Type.CLASS} ${Spec.AVAILABILITY} test`, () => {
+given(`Validate ${Type.CLASS} ${Test.AVAILABILITY} test`, () => {
   beforeEach(() => {
     setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Spec.AVAILABILITY);
+    setSpecProperty("spec", Test.AVAILABILITY);
   });
   and(`Validate is imported`, () => {
     then(`Validate is defined`, () => {
