@@ -25,9 +25,10 @@ given(`Node class availability test`, () => {
 });
 
 given(`Node.create static method availability test`, () => {
-  and(`Node is defined`, () => {});
-  then("Node.create public static method exists", () => {
-    expect(Node.create).toBeDefined();
+  and(`Node is defined`, () => {
+    then("Node.create public static method exists", () => {
+      expect(Node.create).toBeDefined();
+    });
   });
 });
 
