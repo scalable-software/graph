@@ -1,6 +1,15 @@
-import { Type, Test, hasSetter } from "./Helper.js";
+import * as help from "./Helper.js";
 
-const given = (description, spec) => describe(`Given ${description}`, spec);
+const given = (description, spec) =>
+  describe(`Given ${description}`, () => {
+    beforeEach(() => {
+      const { context, type, test } = help.metadata(description);
+      setSpecProperty("context", context);
+      setSpecProperty("type", type);
+      setSpecProperty("test", test);
+    });
+    spec();
+  });
 const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
@@ -13,11 +22,7 @@ import type {
   Offset,
 } from "@scalable.software/graph";
 
-given(`Nodes ${Type.CLASS} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
+given(`Nodes class availability test`, () => {
   and(`Nodes is imported`, () => {
     then(`Nodes is defined`, () => {
       expect(Nodes).toBeDefined();
@@ -30,11 +35,7 @@ given(`Nodes ${Type.CLASS} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`Nodes ${Type.CLASS} ${Test.INSTANTIATION} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Test.INSTANTIATION);
-  });
+given(`Nodes class instantiation test`, () => {
   when("a nodes instance is created", () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
@@ -54,11 +55,7 @@ given(`Nodes ${Type.CLASS} ${Test.INSTANTIATION} test`, () => {
   });
 });
 
-given(`Nodes create ${Type.STATIC_METHOD} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
+given(`Nodes.create static method availability test`, () => {
   and(`Nodes is imported`, () => {
     then(`Nodes.create is defined`, () => {
       expect(Nodes.create).toBeDefined();
@@ -71,11 +68,7 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`Nodes create ${Type.STATIC_METHOD} ${Test.BEHAVIOR} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", Test.BEHAVIOR);
-  });
+given(`Nodes.create static method behavior test`, () => {
   when("Nodes.create is called", () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
@@ -239,12 +232,8 @@ given(`Nodes create ${Type.STATIC_METHOD} ${Test.BEHAVIOR} test`, () => {
   });
 });
 
-given(`Node immutable ${Type.ACCESSOR} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.ACCESSOR);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
-  and(`nodes instance is created`, () => {
+given(`Node.immutable accessor availability test`, () => {
+  and(`a nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
       nodes = Nodes.create();
@@ -253,17 +242,13 @@ given(`Node immutable ${Type.ACCESSOR} ${Test.AVAILABILITY} test`, () => {
       expect(nodes.immutable).toBeDefined();
     });
     then(`nodes.immutable setter is defined`, () => {
-      expect(hasSetter(nodes, "immutable")).toBeTruthy();
+      expect(help.hasSetter(nodes, "immutable")).toBeTruthy();
     });
   });
 });
 
-given(`Node immutable ${Type.ACCESSOR} ${Test.BEHAVIOR} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.ACCESSOR);
-    setSpecProperty("spec", Test.BEHAVIOR);
-  });
-  and(`nodes instance is created`, () => {
+given(`Node.immutable accessor behavior test`, () => {
+  and(`a nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
       nodes = Nodes.create();
@@ -350,12 +335,8 @@ given(`Node immutable ${Type.ACCESSOR} ${Test.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.add ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
-  and(`nodes instance is created`, () => {
+given(`nodes.add method availability test`, () => {
+  and(`a nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
       nodes = Nodes.create();
@@ -366,134 +347,160 @@ given(`nodes.add ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.add ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.BEHAVIOR);
-  });
-  and(`nodes instance is created`, () => {
+given(`nodes.add method behavior test`, () => {
+  and(`a nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
       nodes = Nodes.create();
     });
-    and(`nodes.add is defined`, () => {
-      when(`nodes.add called with valid nodes`, () => {
-        let data: INode[];
-        beforeEach(() => {
-          data = [
-            {
-              id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-              coordinates: { x: 0, y: 0 },
-            },
-            {
-              id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
-              coordinates: { x: 1, y: 1 },
-            },
-          ];
-          nodes.add(data);
-        });
-        then(`nodes.length is data.length`, () => {
-          expect(nodes.length).toBe(data.length);
-        });
-        and(`nodes.length is data.length`, () => {
-          then(`nodes contains data`, () => {
-            nodes.forEach((node, index) => {
-              expect(node).toEqual(data[index]);
-            });
-          });
-        });
-      });
-      when(`nodes.add called with nodes having no ids`, () => {
-        let data: Omit<INode, "id">[];
-        let result: INode[];
-        let error: Exception.Exception;
-        beforeEach(() => {
-          data = [
-            {
-              coordinates: { x: 0, y: 0 },
-            },
-            {
-              coordinates: { x: 1, y: 1 },
-            },
-          ];
-          try {
-            nodes.add(data);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then(`error is undefined`, () => {
-          expect(error).toBeUndefined();
-        });
-        then(`nodes.length is equal to data.length`, () => {
-          expect(nodes.length).toBe(data.length);
-        });
-        and(`nodes.length is equal to data.length`, () => {
-          then(`each node in node has an id`, () => {
-            nodes.forEach((node) => {
-              expect(node.id).toBeDefined();
-            });
-          });
-        });
-      });
-      when(`nodes.add called with duplicate nodes`, () => {
-        let data: INode[];
-        let error: Exception.Exception;
-        beforeEach(() => {
-          data = [
-            {
-              id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-              coordinates: { x: 0, y: 0 },
-            },
-            {
-              id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-              coordinates: { x: 0, y: 0 },
-            },
-          ];
-          try {
-            nodes.add(data);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
-        });
-        and(`error is defined`, () => {
-          then(`error is an instance of Exception.ValidationException`, () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
-          });
-          and(`error is an instance of Exception.ValidationException`, () => {
-            then(
-              `error.message is 'Validation failed with 2 error(s).'`,
-              () => {
-                expect(error.message).toBe(
-                  "Validation failed with 2 error(s)."
-                );
-              }
-            );
-          });
-        });
-      });
-      when(`nodes.add called with valid node`, () => {
-        let data: INode;
-        beforeEach(() => {
-          data = {
+    when(`nodes.add called with valid nodes`, () => {
+      let data: INode[];
+      beforeEach(() => {
+        data = [
+          {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             coordinates: { x: 0, y: 0 },
-          };
-          nodes.add(data);
-        });
-        then(`nodes.length is 1`, () => {
-          expect(nodes.length).toBe(1);
-        });
-        and(`nodes.length is 1`, () => {
-          then(`nodes contains data`, () => {
-            expect(nodes[0]).toEqual(data);
+          },
+          {
+            id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+            coordinates: { x: 1, y: 1 },
+          },
+        ];
+        nodes.add(data);
+      });
+      then(`nodes.length is data.length`, () => {
+        expect(nodes.length).toBe(data.length);
+      });
+      and(`nodes.length is data.length`, () => {
+        then(`nodes contains data`, () => {
+          nodes.forEach((node, index) => {
+            expect(node).toEqual(data[index]);
           });
         });
       });
-      when(`nodes.add called with nodes having invalid id`, () => {
+    });
+    when(`nodes.add called with nodes having no ids`, () => {
+      let data: Omit<INode, "id">[];
+      let result: INode[];
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = [
+          {
+            coordinates: { x: 0, y: 0 },
+          },
+          {
+            coordinates: { x: 1, y: 1 },
+          },
+        ];
+        try {
+          nodes.add(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is undefined`, () => {
+        expect(error).toBeUndefined();
+      });
+      then(`nodes.length is equal to data.length`, () => {
+        expect(nodes.length).toBe(data.length);
+      });
+      and(`nodes.length is equal to data.length`, () => {
+        then(`each node in node has an id`, () => {
+          nodes.forEach((node) => {
+            expect(node.id).toBeDefined();
+          });
+        });
+      });
+    });
+    when(`nodes.add called with duplicate nodes`, () => {
+      let data: INode[];
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = [
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { x: 0, y: 0 },
+          },
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { x: 0, y: 0 },
+          },
+        ];
+        try {
+          nodes.add(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of Exception.ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+        and(`error is an instance of Exception.ValidationException`, () => {
+          then(`error.message is 'Validation failed with 2 error(s).'`, () => {
+            expect(error.message).toBe("Validation failed with 2 error(s).");
+          });
+        });
+      });
+    });
+    when(`nodes.add called with valid node`, () => {
+      let data: INode;
+      beforeEach(() => {
+        data = {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        };
+        nodes.add(data);
+      });
+      then(`nodes.length is 1`, () => {
+        expect(nodes.length).toBe(1);
+      });
+      and(`nodes.length is 1`, () => {
+        then(`nodes contains data`, () => {
+          expect(nodes[0]).toEqual(data);
+        });
+      });
+    });
+    when(`nodes.add called with nodes having invalid id`, () => {
+      let data: INode[];
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = [
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { x: 0, y: 0 },
+          },
+          {
+            id: "1",
+            coordinates: { x: 1, y: 1 },
+          },
+        ];
+        try {
+          nodes.add(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of Exception.ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+        and(`error is an instance of Exception.ValidationException`, () => {
+          then(`error.message is 'Validation failed with 1 error(s).'`, () => {
+            expect(error.message).toBe("Validation failed with 1 error(s).");
+          });
+        });
+      });
+    });
+    when(
+      `nodes.add called with nodes having invalid string x coordinates`,
+      () => {
         let data: INode[];
         let error: Exception.Exception;
         beforeEach(() => {
@@ -503,8 +510,8 @@ given(`nodes.add ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
               coordinates: { x: 0, y: 0 },
             },
             {
-              id: "1",
-              coordinates: { x: 1, y: 1 },
+              id: "a5f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a2d",
+              coordinates: { x: "1" as unknown as number, y: 0 },
             },
           ];
           try {
@@ -531,53 +538,8 @@ given(`nodes.add ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
             );
           });
         });
-      });
-      when(
-        `nodes.add called with nodes having invalid string x coordinates`,
-        () => {
-          let data: INode[];
-          let error: Exception.Exception;
-          beforeEach(() => {
-            data = [
-              {
-                id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-                coordinates: { x: 0, y: 0 },
-              },
-              {
-                id: "a5f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a2d",
-                coordinates: { x: "1" as unknown as number, y: 0 },
-              },
-            ];
-            try {
-              nodes.add(data);
-            } catch (e) {
-              error = e;
-            }
-          });
-          then(`error is defined`, () => {
-            expect(error).toBeDefined();
-          });
-          and(`error is defined`, () => {
-            then(
-              `error is an instance of Exception.ValidationException`,
-              () => {
-                expect(error).toBeInstanceOf(Exception.ValidationException);
-              }
-            );
-            and(`error is an instance of Exception.ValidationException`, () => {
-              then(
-                `error.message is 'Validation failed with 1 error(s).'`,
-                () => {
-                  expect(error.message).toBe(
-                    "Validation failed with 1 error(s)."
-                  );
-                }
-              );
-            });
-          });
-        }
-      );
-    });
+      }
+    );
   });
   and(`nodes instance is created with nodes`, () => {
     let data: INode[];
@@ -595,68 +557,61 @@ given(`nodes.add ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
       ];
       nodes = Nodes.create(data);
     });
-    and(`nodes.add is defined`, () => {
-      when(`nodes.add called with new valid nodes`, () => {
-        let data: INode[];
-        beforeEach(() => {
-          data = [
-            {
-              id: "2e9c2b68-7d53-4e99-b6c3-2f98a1e4d745",
-              coordinates: { x: 2, y: 2 },
-            },
-            {
-              id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d745",
-              coordinates: { x: 2, y: 3 },
-            },
-          ];
-          nodes.add(data);
-        });
-        then(`nodes.length is 4`, () => {
-          expect(nodes.length).toBe(4);
-        });
+    when(`nodes.add called with new valid nodes`, () => {
+      let data: INode[];
+      beforeEach(() => {
+        data = [
+          {
+            id: "2e9c2b68-7d53-4e99-b6c3-2f98a1e4d745",
+            coordinates: { x: 2, y: 2 },
+          },
+          {
+            id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d745",
+            coordinates: { x: 2, y: 3 },
+          },
+        ];
+        nodes.add(data);
       });
-      when(`nodes.add called with existing valid nodes`, () => {
-        let data: INode[];
-        let error: Exception.Exception;
-        beforeEach(() => {
-          data = [
-            {
-              id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-              coordinates: { x: 0, y: 0 },
-            },
-            {
-              id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
-              coordinates: { x: 1, y: 1 },
-            },
-          ];
-          try {
-            nodes.add(data);
-          } catch (e) {
-            error = e;
-          }
+      then(`nodes.length is 4`, () => {
+        expect(nodes.length).toBe(4);
+      });
+    });
+    when(`nodes.add called with existing valid nodes`, () => {
+      let data: INode[];
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = [
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { x: 0, y: 0 },
+          },
+          {
+            id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+            coordinates: { x: 1, y: 1 },
+          },
+        ];
+        try {
+          nodes.add(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of Exception.ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
-        });
-        and(`error is defined`, () => {
-          then(`error is an instance of Exception.ValidationException`, () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
+        and(`error is an instance of Exception.ValidationException`, () => {
+          then(`error.message is 'Validation failed with 2 error(s).'`, () => {
+            expect(error.message).toBe("Validation failed with 2 error(s).");
           });
-          and(`error is an instance of Exception.ValidationException`, () => {
-            then(
-              `error.message is 'Validation failed with 2 error(s).'`,
-              () => {
-                expect(error.message).toBe(
-                  "Validation failed with 2 error(s)."
-                );
-              }
-            );
-            and(`error.message is 'Validation failed with 2 error(s).'`, () => {
-              then(`error.errors[0] is Exception.DuplicateException`, () => {
-                expect(error.errors[0]).toBeInstanceOf(
-                  Exception.DuplicateException
-                );
-              });
+          and(`error.message is 'Validation failed with 2 error(s).'`, () => {
+            then(`error.errors[0] is Exception.DuplicateException`, () => {
+              expect(error.errors[0]).toBeInstanceOf(
+                Exception.DuplicateException
+              );
             });
           });
         });
@@ -665,12 +620,8 @@ given(`nodes.add ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.update ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
-  and(`nodes instance is created`, () => {
+given(`nodes.update method availability test`, () => {
+  and(`a nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
       nodes = Nodes.create();
@@ -681,12 +632,8 @@ given(`nodes.update ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.update ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.BEHAVIOR);
-  });
-  and(`nodes instance is created with nodes`, () => {
+given(`nodes.update method behavior test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -853,12 +800,8 @@ given(`nodes.update ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.remove ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
-  and(`nodes instance is created with nodes`, () => {
+given(`nodes.remove method availability test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -885,12 +828,8 @@ given(`nodes.remove ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.remove ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.BEHAVIOR);
-  });
-  and(`nodes instance is created with nodes`, () => {
+given(`nodes.remove method behavior test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -985,12 +924,8 @@ given(`nodes.remove ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.findById ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
-  and(`nodes instance is created with nodes`, () => {
+given(`nodes.findById method availability test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1017,12 +952,8 @@ given(`nodes.findById ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.findById ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.BEHAVIOR);
-  });
-  and(`nodes instance is created with nodes`, () => {
+given(`nodes.findById method behavior test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1104,47 +1035,36 @@ given(`nodes.findById ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   });
 });
 
-given(
-  `nodes.findByCoordinates ${Type.METHOD} ${Test.AVAILABILITY} test`,
-  () => {
+given(`nodes.findByCoordinates method availability test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
     beforeEach(() => {
-      setSpecProperty("type", Type.METHOD);
-      setSpecProperty("spec", Test.AVAILABILITY);
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 1, y: 1 },
+        },
+      ];
+      nodes = Nodes.create(data);
     });
-    and(`nodes instance is created with nodes`, () => {
-      let nodes: Nodes<INode>;
-      let data: INode[];
-      beforeEach(() => {
-        data = [
-          {
-            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { x: 0, y: 0 },
-          },
-          {
-            id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
-            coordinates: { x: 1, y: 1 },
-          },
-        ];
-        nodes = Nodes.create(data);
-      });
-      then(`nodes.findByCoordinates is defined`, () => {
-        expect(nodes.findByCoordinates).toBeDefined();
-      });
-      and(`nodes.findByCoordinates is defined`, () => {
-        then(`nodes.findByCoordinates is an instance of Function`, () => {
-          expect(nodes.findByCoordinates).toBeInstanceOf(Function);
-        });
+    then(`nodes.findByCoordinates is defined`, () => {
+      expect(nodes.findByCoordinates).toBeDefined();
+    });
+    and(`nodes.findByCoordinates is defined`, () => {
+      then(`nodes.findByCoordinates is an instance of Function`, () => {
+        expect(nodes.findByCoordinates).toBeInstanceOf(Function);
       });
     });
-  }
-);
-
-given(`nodes.findByCoordinates ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.BEHAVIOR);
   });
-  and(`nodes instance is created with nodes`, () => {
+});
+
+given(`nodes.findByCoordinates method behavior test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1226,12 +1146,8 @@ given(`nodes.findByCoordinates ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.move ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
-  and(`nodes instance is created with nodes`, () => {
+given(`nodes.move method availability test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1258,12 +1174,8 @@ given(`nodes.move ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.move ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.BEHAVIOR);
-  });
-  and(`nodes instance is created with nodes`, () => {
+given(`nodes.move method behavior test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1292,12 +1204,8 @@ given(`nodes.move ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.translate ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
-  and(`nodes instance is created with nodes`, () => {
+given(`nodes.translate method availability test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1324,12 +1232,8 @@ given(`nodes.translate ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.translate ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.BEHAVIOR);
-  });
-  and(`nodes instance is created with nodes`, () => {
+given(`nodes.translate method behavior test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1483,12 +1387,8 @@ given(`nodes.translate ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
   });
 });
 
-given(`nodes.toJSON ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
-  and(`nodes instance is created with nodes`, () => {
+given(`nodes.toJSON method availability test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1515,12 +1415,8 @@ given(`nodes.toJSON ${Type.METHOD} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`nodes.toJSON ${Type.METHOD} ${Test.BEHAVIOR} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", Test.BEHAVIOR);
-  });
-  and(`nodes instance is created with nodes`, () => {
+given(`nodes.toJSON method behavior test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
