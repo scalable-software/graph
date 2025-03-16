@@ -1,24 +1,22 @@
-import { Type, Test } from "../Helper.js";
+import * as help from "../Helper.js";
 
-const given = (description, spec) => describe(`Given ${description}`, spec);
+const given = (description, spec) =>
+  describe(`Given ${description}`, () => {
+    beforeEach(() => {
+      const { context, type, test } = help.metadata(description);
+      setSpecProperty("context", context);
+      setSpecProperty("type", type);
+      setSpecProperty("test", test);
+    });
+    spec();
+  });
 const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import { Validate } from "../../../src/validations/Validate.js";
-import { Validator } from "../../../src/validations/Validator.js";
+import { Validate, Validator, Exception } from "@scalable.software/graph";
 
-import {
-  InvalidArgumentException,
-  ValidationException,
-  DuplicateException,
-} from "../../../src/exceptions/Exceptions.js";
-
-given(`Validator ${Type.CLASS} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
+given(`Validator class availability test`, () => {
   and(`Validator is imported`, () => {
     then(`Validator is defined`, () => {
       expect(Validator).toBeDefined();
@@ -26,11 +24,7 @@ given(`Validator ${Type.CLASS} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`Validator validate ${Type.STATIC_METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", "Validator.validate");
-  });
+given(`Validator.validate static method availability test`, () => {
   then(`Validator.validate is defined`, () => {
     expect(Validator.validate).toBeDefined();
   });
@@ -38,260 +32,146 @@ given(`Validator validate ${Type.STATIC_METHOD} test`, () => {
     then(`Validator.validate is a function`, () => {
       expect(Validator.validate).toBeInstanceOf(Function);
     });
-    and(`Validator.validate is a function`, () => {
-      when(
-        `Validator.validate(entity, validators) is called with valid entity`,
-        () => {
-          let entity: any;
-          let validators: any[];
-          let result: any;
-          let error: ValidationException;
-          beforeEach(() => {
-            entity = {
-              id: "123e4567-e89b-12d3-a456-426614174000",
-              name: "John Doe",
-            };
-            validators = [
-              ({ id }) => Validate.uuid(id),
-              ({ name }) => Validate.name(name),
-            ];
+  });
+});
 
-            try {
-              result = Validator.validate(entity, validators);
-            } catch (e) {
-              error = e;
-            }
-          });
-          then(`result is defined`, () => {
-            expect(result).toBeDefined();
-          });
-          then(`Validator.validate returns the entity`, () => {
-            expect(result).toBe(entity);
-          });
-          then(`error is undefined`, () => {
-            expect(error).toBeUndefined();
-          });
+given(`Validator.validate static method behavior test`, () => {
+  when(`Validator.validate is called with entity and validators`, () => {
+    let entity: any;
+    let validators: any[];
+    let result: any;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      entity = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "John Doe",
+      };
+      validators = [
+        ({ id }) => Validate.uuid(id),
+        ({ name }) => Validate.name(name),
+      ];
+
+      try {
+        result = Validator.validate(entity, validators);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`result is defined`, () => {
+      expect(result).toBeDefined();
+    });
+    then(`Validator.validate returns the entity`, () => {
+      expect(result).toBe(entity);
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+  });
+  when(
+    `Validator.validate is called with invalid entity.id and validators`,
+    () => {
+      let entity: any;
+      let validators: any[];
+      let result: any;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        entity = {
+          id: "invalid",
+          name: "John Doe",
+        };
+        validators = [
+          ({ id }) => Validate.uuid(id),
+          ({ name }) => Validate.name(name),
+        ];
+        try {
+          result = Validator.validate(entity, validators);
+        } catch (e) {
+          error = e;
         }
-      );
-      when(
-        `Validator.validate(entity, validators) is called with invalid entity.id`,
-        () => {
-          let entity: any;
-          let validators: any[];
-          let result: any;
-          let error: ValidationException;
-          beforeEach(() => {
-            entity = {
-              id: "invalid",
-              name: "John Doe",
-            };
-            validators = [
-              ({ id }) => Validate.uuid(id),
-              ({ name }) => Validate.name(name),
-            ];
-            try {
-              result = Validator.validate(entity, validators);
-            } catch (e) {
-              error = e;
-            }
-          });
-          then(`result is undefined`, () => {
-            expect(result).toBeUndefined();
-          });
-          then(`error is defined`, () => {
-            expect(error).toBeDefined();
-          });
-          and(`error is defined`, () => {
-            then(`error is an instance of ValidationException`, () => {
-              expect(error).toBeInstanceOf(ValidationException);
-            });
-            and(`error is an instance of ValidationException`, () => {
-              then(`error.errors.length is 1`, () => {
-                expect(error.errors.length).toBe(1);
-              });
-              and(`error.errors.length is 1`, () => {
-                then(
-                  `error.errors[0] is an instance of InvalidArgumentException`,
-                  () => {
-                    expect(error.errors[0]).toBeInstanceOf(
-                      InvalidArgumentException
-                    );
-                  }
-                );
-                and(
-                  `error.errors[0] is an instance of InvalidArgumentException`,
-                  () => {
-                    then(
-                      `error.errors[0].message is "Invalid argument: id - must be a valid UUID"`,
-                      () => {
-                        expect(error.errors[0].message).toBe(
-                          "Invalid argument: id - must be a valid UUID"
-                        );
-                      }
-                    );
-                  }
-                );
-              });
-            });
-          });
+      });
+      then(`result is undefined`, () => {
+        expect(result).toBeUndefined();
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    }
+  );
+  when(
+    `Validate.validate is called with invalid entity.name and validators`,
+    () => {
+      let entity: any;
+      let validators: any[];
+      let result: any;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        entity = {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "J",
+        };
+        validators = [
+          ({ id }) => Validate.uuid(id),
+          ({ name }) => Validate.name(name),
+        ];
+        try {
+          result = Validator.validate(entity, validators);
+        } catch (e) {
+          error = e;
         }
-      );
-      when(
-        `Validate.validate(entity, validators) is called with invalid entity.name`,
-        () => {
-          let entity: any;
-          let validators: any[];
-          let result: any;
-          let error: ValidationException;
-          beforeEach(() => {
-            entity = {
-              id: "123e4567-e89b-12d3-a456-426614174000",
-              name: "J",
-            };
-            validators = [
-              ({ id }) => Validate.uuid(id),
-              ({ name }) => Validate.name(name),
-            ];
-            try {
-              result = Validator.validate(entity, validators);
-            } catch (e) {
-              error = e;
-            }
-          });
-          then(`result is undefined`, () => {
-            expect(result).toBeUndefined();
-          });
-          then(`error is defined`, () => {
-            expect(error).toBeDefined();
-          });
-          and(`error is defined`, () => {
-            then(`error is an instance of ValidationException`, () => {
-              expect(error).toBeInstanceOf(ValidationException);
-            });
-            and(`error is an instance of ValidationException`, () => {
-              then(`error.errors.length is 1`, () => {
-                expect(error.errors.length).toBe(1);
-              });
-              and(`error.errors.length is 1`, () => {
-                then(
-                  `error.errors[0] is an instance of InvalidArgumentException`,
-                  () => {
-                    expect(error.errors[0]).toBeInstanceOf(
-                      InvalidArgumentException
-                    );
-                  }
-                );
-                and(
-                  `error.errors[0] is an instance of InvalidArgumentException`,
-                  () => {
-                    then(
-                      `error.errors[0].message is "Invalid argument: name - must be a valid name"`,
-                      () => {
-                        expect(error.errors[0].message).toBe(
-                          "Invalid argument: name - must be a valid name"
-                        );
-                      }
-                    );
-                  }
-                );
-              });
-            });
-          });
-        }
-      );
-      when(
-        `Validate.validate(entity, validators) is called with invalid entity`,
-        () => {
-          let entity: any;
-          let validators: any[];
-          let result: any;
-          let error: ValidationException;
-          beforeEach(() => {
-            entity = {
-              id: "invalid",
-              name: "J",
-            };
-            validators = [
-              ({ id }) => Validate.uuid(id),
-              ({ name }) => Validate.name(name),
-            ];
-            try {
-              result = Validator.validate(entity, validators);
-            } catch (e) {
-              error = e;
-            }
-          });
-          then(`result is undefined`, () => {
-            expect(result).toBeUndefined();
-          });
-          then(`error is defined`, () => {
-            expect(error).toBeDefined();
-          });
-          and(`error is defined`, () => {
-            then(`error is an instance of ValidationException`, () => {
-              expect(error).toBeInstanceOf(ValidationException);
-            });
-            and(`error is an instance of ValidationException`, () => {
-              then(`error.errors.length is 2`, () => {
-                expect(error.errors.length).toBe(2);
-              });
-              and(`error.errors.length is 2`, () => {
-                then(
-                  `error.errors[0] is an instance of InvalidArgumentException`,
-                  () => {
-                    expect(error.errors[0]).toBeInstanceOf(
-                      InvalidArgumentException
-                    );
-                  }
-                );
-                and(
-                  `error.errors[0] is an instance of InvalidArgumentException`,
-                  () => {
-                    then(
-                      `error.errors[0].message is "Invalid argument: id - must be a valid UUID"`,
-                      () => {
-                        expect(error.errors[0].message).toBe(
-                          "Invalid argument: id - must be a valid UUID"
-                        );
-                      }
-                    );
-                  }
-                );
-                then(
-                  `error.errors[1] is an instance of InvalidArgumentException`,
-                  () => {
-                    expect(error.errors[1]).toBeInstanceOf(
-                      InvalidArgumentException
-                    );
-                  }
-                );
-                and(
-                  `error.errors[1] is an instance of InvalidArgumentException`,
-                  () => {
-                    then(
-                      `error.errors[1].message is "Invalid argument: name - must be a valid name"`,
-                      () => {
-                        expect(error.errors[1].message).toBe(
-                          "Invalid argument: name - must be a valid name"
-                        );
-                      }
-                    );
-                  }
-                );
-              });
-            });
-          });
-        }
-      );
+      });
+      then(`result is undefined`, () => {
+        expect(result).toBeUndefined();
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    }
+  );
+  when(`Validate.validate is called with invalid entity and validators`, () => {
+    let entity: any;
+    let validators: any[];
+    let result: any;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      entity = {
+        id: "invalid",
+        name: "J",
+      };
+      validators = [
+        ({ id }) => Validate.uuid(id),
+        ({ name }) => Validate.name(name),
+      ];
+      try {
+        result = Validator.validate(entity, validators);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`result is undefined`, () => {
+      expect(result).toBeUndefined();
+    });
+    then(`error is defined`, () => {
+      expect(error).toBeDefined();
+    });
+    and(`error is defined`, () => {
+      then(`error is an instance of ValidationException`, () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
     });
   });
 });
 
-given(`Validator compare ${Type.STATIC_METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", "Validator.compare");
-  });
+given(`Validator.compare static method availability test`, () => {
   then(`Validator.compare is defined`, () => {
     expect(Validator.compare).toBeDefined();
   });
@@ -299,201 +179,121 @@ given(`Validator compare ${Type.STATIC_METHOD} test`, () => {
     then(`Validator.compare is a function`, () => {
       expect(Validator.compare).toBeInstanceOf(Function);
     });
-    and(`Validator.compare is a function`, () => {
-      when(
-        `Validator.compare(sets, validators) is called two unique sets`,
-        () => {
-          let sets: [any[], any[]];
-          let result: any;
-          let error: ValidationException;
-          beforeEach(() => {
-            const one = [
-              { id: "1", name: "Alpha" },
-              { id: "2", name: "Beta" },
-              { id: "3", name: "Gamma" },
-            ];
+  });
+});
 
-            const two = [
-              { id: "4", name: "Delta" },
-              { id: "5", name: "Epsilon" },
-            ];
+given(`Validator compare static method behavior test`, () => {
+  when(`Validator.compare is called two unique sets and validators`, () => {
+    let sets: [any[], any[]];
+    let result: any;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      const one = [
+        { id: "1", name: "Alpha" },
+        { id: "2", name: "Beta" },
+        { id: "3", name: "Gamma" },
+      ];
 
-            sets = [one, two];
-            try {
-              result = Validator.compare(sets, [
-                (sets) => Validate.distinct(sets),
-              ]);
-            } catch (e) {
-              error = e;
-            }
-          });
-          then(`result is defined`, () => {
-            expect(result).toBeDefined();
-          });
-          and(`result is defined`, () => {
-            then(`result is the second set`, () => {
-              expect(result).toEqual(sets[1]);
-            });
-          });
-          then(`error is undefined`, () => {
-            expect(error).toBeUndefined();
-          });
-        }
-      );
-      when(
-        `Validator.compare(sets, validators) is called with duplicate sets`,
-        () => {
-          let sets: [any[], any[]];
-          let result: any;
-          let error: ValidationException;
-          beforeEach(() => {
-            const one = [
-              { id: "1", name: "Alpha" },
-              { id: "2", name: "Beta" },
-              { id: "3", name: "Gamma" },
-            ];
+      const two = [
+        { id: "4", name: "Delta" },
+        { id: "5", name: "Epsilon" },
+      ];
 
-            const two = [
-              { id: "1", name: "Alpha" },
-              { id: "2", name: "Beta" },
-              { id: "3", name: "Gamma" },
-            ];
-
-            sets = [one, two];
-            try {
-              result = Validator.compare(sets, [
-                (sets) => Validate.distinct(sets),
-              ]);
-            } catch (e) {
-              error = e;
-            }
-          });
-          then(`result is undefined`, () => {
-            expect(result).toBeUndefined();
-          });
-          then(`error is defined`, () => {
-            expect(error).toBeDefined();
-          });
-          and(`error is defined`, () => {
-            then(`error is an instance of ValidationException`, () => {
-              expect(error).toBeInstanceOf(ValidationException);
-            });
-            and(`error is an instance of ValidationException`, () => {
-              then(`error.errors.length is 1`, () => {
-                expect(error.errors.length).toBe(1);
-              });
-              and(`error.errors.length is 1`, () => {
-                then(
-                  `error.errors[0] is an instance of DuplicateException`,
-                  () => {
-                    expect(error.errors[0]).toBeInstanceOf(DuplicateException);
-                  }
-                );
-                and(
-                  `error.errors[0] is an instance of DuplicateException`,
-                  () => {
-                    then(
-                      `error.errors[0].message is "Duplicate found: {"id":"1","name":"Alpha"}"`,
-                      () => {
-                        expect(error.errors[0].message).toBe(
-                          `Duplicate found: {"id":"1","name":"Alpha"}`
-                        );
-                      }
-                    );
-                  }
-                );
-              });
-            });
-          });
-        }
-      );
-      when(
-        `Validator.compare(sets, validators) is called with duplicate sets using multiple validators`,
-        () => {
-          let sets: [any[], any[]];
-          let result: any;
-          let error: ValidationException;
-          beforeEach(() => {
-            const one = [
-              { id: "1", name: "Alpha" },
-              { id: "2", name: "Beta" },
-              { id: "3", name: "Gamma" },
-            ];
-
-            const two = [
-              { id: "1", name: "Alpha" },
-              { id: "2", name: "Beta" },
-              { id: "3", name: "Gamma" },
-            ];
-
-            sets = [one, two];
-            try {
-              result = Validator.compare(sets, [
-                (sets) => Validate.distinct(sets, (node) => node.id),
-                (sets) => Validate.distinct(sets, (node) => node.name),
-              ]);
-            } catch (e) {
-              error = e;
-            }
-          });
-          then(`result is undefined`, () => {
-            expect(result).toBeUndefined();
-          });
-          then(`error is defined`, () => {
-            expect(error).toBeDefined();
-          });
-          and(`error is defined`, () => {
-            then(`error is an instance of ValidationException`, () => {
-              expect(error).toBeInstanceOf(ValidationException);
-            });
-            and(`error is an instance of ValidationException`, () => {
-              then(`error.errors.length is 2`, () => {
-                expect(error.errors.length).toBe(2);
-              });
-              and(`error.errors.length is 2`, () => {
-                then(
-                  `error.errors[0] is an instance of DuplicateException`,
-                  () => {
-                    expect(error.errors[0]).toBeInstanceOf(DuplicateException);
-                  }
-                );
-                and(
-                  `error.errors[0] is an instance of DuplicateException`,
-                  () => {
-                    then(
-                      `error.errors[0].message is "Duplicate found: {"id":"1","name":"Alpha"}"`,
-                      () => {
-                        expect(error.errors[0].message).toBe(
-                          `Duplicate found: {"id":"1","name":"Alpha"}`
-                        );
-                      }
-                    );
-                  }
-                );
-                then(
-                  `error.errors[1] is an instance of DuplicateException`,
-                  () => {
-                    expect(error.errors[1]).toBeInstanceOf(DuplicateException);
-                  }
-                );
-                and(
-                  `error.errors[1] is an instance of DuplicateException`,
-                  () => {
-                    then(
-                      `error.errors[1].message is "Duplicate found: {"id":"1","name":"Alpha"}"`,
-                      () => {
-                        expect(error.errors[1].message).toBe(
-                          `Duplicate found: {"id":"1","name":"Alpha"}`
-                        );
-                      }
-                    );
-                  }
-                );
-              });
-            });
-          });
-        }
-      );
+      sets = [one, two];
+      try {
+        result = Validator.compare(sets, [(sets) => Validate.distinct(sets)]);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`result is defined`, () => {
+      expect(result).toBeDefined();
+    });
+    and(`result is defined`, () => {
+      then(`result is the second set`, () => {
+        expect(result).toEqual(sets[1]);
+      });
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
     });
   });
+  when(`Validator.compare is called with duplicate sets and validators`, () => {
+    let sets: [any[], any[]];
+    let result: any;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      const one = [
+        { id: "1", name: "Alpha" },
+        { id: "2", name: "Beta" },
+        { id: "3", name: "Gamma" },
+      ];
+
+      const two = [
+        { id: "1", name: "Alpha" },
+        { id: "2", name: "Beta" },
+        { id: "3", name: "Gamma" },
+      ];
+
+      sets = [one, two];
+      try {
+        result = Validator.compare(sets, [(sets) => Validate.distinct(sets)]);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`result is undefined`, () => {
+      expect(result).toBeUndefined();
+    });
+    then(`error is defined`, () => {
+      expect(error).toBeDefined();
+    });
+    and(`error is defined`, () => {
+      then(`error is an instance of ValidationException`, () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
+    });
+  });
+  when(
+    `Validator.compare is called with duplicate sets and multiple validators`,
+    () => {
+      let sets: [any[], any[]];
+      let result: any;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        const one = [
+          { id: "1", name: "Alpha" },
+          { id: "2", name: "Beta" },
+          { id: "3", name: "Gamma" },
+        ];
+
+        const two = [
+          { id: "1", name: "Alpha" },
+          { id: "2", name: "Beta" },
+          { id: "3", name: "Gamma" },
+        ];
+
+        sets = [one, two];
+        try {
+          result = Validator.compare(sets, [
+            (sets) => Validate.distinct(sets, (node) => node.id),
+            (sets) => Validate.distinct(sets, (node) => node.name),
+          ]);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`result is undefined`, () => {
+        expect(result).toBeUndefined();
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    }
+  );
 });
