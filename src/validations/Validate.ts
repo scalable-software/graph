@@ -64,8 +64,8 @@ export class Validate {
   /**
    * Validate keys and throw if key is immutable
    *
-   * @param keys - The keys to validate
-   * @param immutable - The immutable key to check
+   * @param items - The keys to validate
+   * @param value - The immutable key to check
    * @returns True if the key is immutable
    * @throws {ImmutablePropertyException} If the key is immutable
    *

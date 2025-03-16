@@ -8,8 +8,7 @@ export class Match {
    * - Returns the first match encountered, or `undefined` if none are found.
    *
    * @template T The input type.
-   * @param {T[]} sourceItems - The array to search for matches.
-   * @param {T[]} candidateItems - The array to search for matches.
+   * @param {[T[], T[]]} sets - tuple of source and candidate items.
    * @param {(item: T) => unknown} [extractor]
    *   Function to extract a unique key for each item.
    *  Defaults to returning the item itself.

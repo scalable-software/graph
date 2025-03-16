@@ -10,9 +10,9 @@ import {
 
 export class Validator {
   /**
-   * Validate details against a set of validators and throw ValidationException if any fail
+   * Validate entity against a set of validators and throw ValidationException if any fail
    *
-   * @param details - The details to validate
+   * @param entity - The details to validate
    * @param validators - The validators to process
    * @returns The details if all validators pass
    * @throws {ValidationException} If any validator fails

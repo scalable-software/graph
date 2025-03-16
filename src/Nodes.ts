@@ -18,7 +18,7 @@ export class Nodes<T extends INode> extends Array<T> {
    *
    * Factory method used to create a new instance of an container of nodes.
    *
-   * @param node object with minimum properties of an INode.
+   * @param nodes object with minimum properties of an INode.
    * @returns A new Nodes instance.
    *
    * @category Factory
@@ -72,7 +72,7 @@ export class Nodes<T extends INode> extends Array<T> {
    * If the node is not found, an error is thrown.
    *
    * @param {UUID} id - The unique identifier of the node to update.
-   * @param {Partial<T>} patch - An object containing the properties to update.
+   * @param {Partial<T>} details - An object containing the properties to update.
    * @returns {Nodes<T>} The modified `Nodes<T>` instance, allowing method chaining.
    */
   public update = (id: UUID, details: Partial<T>): Nodes<T> => {
@@ -164,7 +164,7 @@ export class Nodes<T extends INode> extends Array<T> {
   /**
    * Translates the nodes in the collection by the specified offset.
    *
-   * @param {UUID | UUID[]} targets - The unique identifier(s) of the node(s) to be translated.
+   * @param {UUID | UUID[]} id - The unique identifier(s) of the node(s) to be translated.
    * @param {Offset} offset - The offset to apply to the node(s).
    * @returns {Nodes<T>} The modified `Nodes<T>` instance, allowing method chaining.
    */
