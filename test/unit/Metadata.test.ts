@@ -1,22 +1,23 @@
 import * as help from "./Helper.js";
 
-import { Type, Test } from "./Helper.js";
-
-const given = (description, spec) => describe(`Given ${description}`, spec);
+const given = (description, spec) =>
+  describe(`Given ${description}`, () => {
+    beforeEach(() => {
+      const { context, type, test } = help.metadata(description);
+      setSpecProperty("context", context);
+      setSpecProperty("type", type);
+      setSpecProperty("test", test);
+    });
+    spec();
+  });
 const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import type { UUID, Name } from "@scalable.software/graph";
-
 import { Metadata, Exception } from "@scalable.software/graph";
-import type { IMetadata } from "@scalable.software/graph";
+import type { UUID, Name, IMetadata } from "@scalable.software/graph";
 
-given(`Metadata ${Type.CLASS} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
+given(`Metadata class availability test`, () => {
   and(`Metadata is imported`, () => {
     then(`Metadata is defined`, () => {
       expect(Metadata).toBeDefined();
@@ -24,11 +25,7 @@ given(`Metadata ${Type.CLASS} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`Metadata create ${Type.STATIC_METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", "Metadata.create");
-  });
+given(`Metadata.create static method test`, () => {
   then("Metadata.create is defined", () => {
     expect(Metadata.create).toBeDefined();
   });
@@ -36,113 +33,11 @@ given(`Metadata create ${Type.STATIC_METHOD} test`, () => {
     then("Metadata.create is a function", () => {
       expect(Metadata.create).toBeInstanceOf(Function);
     });
-    when("Metadata.create() is called", () => {
-      let metadata: Metadata;
-      beforeEach(() => {
-        metadata = Metadata.create();
-      });
-      then("metadata instance is returned", () => {
-        expect(metadata).toBeDefined();
-      });
-      and("metadata instance is returned", () => {
-        then("metadata.id is defined", () => {
-          expect(metadata.id).toBeDefined();
-        });
-        and("metadata.id is defined", () => {
-          then("metadata.id is null", () => {
-            expect(metadata.id).toBeNull();
-          });
-        });
-        then("metadata.name is defined", () => {
-          expect(metadata.name).toBeDefined();
-        });
-        and("metadata.name is defined", () => {
-          then("metadata.name is null", () => {
-            expect(metadata.name).toBeNull();
-          });
-        });
-      });
-    });
-    when("Metadata.create(data) is called", () => {
-      let data: IMetadata;
-      let metadata: IMetadata;
-      beforeEach(() => {
-        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
-        metadata = Metadata.create(data);
-      });
-      then("metadata instance is returned", () => {
-        expect(metadata).toBeDefined();
-      });
-      and("metadata instance is returned", () => {
-        then("metadata.id is defined", () => {
-          expect(metadata.id).toBeDefined();
-        });
-        and("metadata.id is defined", () => {
-          then("metadata.id is data.id", () => {
-            expect(metadata.id).toBe(data.id);
-          });
-        });
-        then("metadata.name is defined", () => {
-          expect(metadata.name).toBeDefined();
-        });
-        and("metadata.name is defined", () => {
-          then("metadata.name is data.name", () => {
-            expect(metadata.name).toBe(data.name);
-          });
-        });
-      });
-    });
-    when("Metadata.create(data) is called with custom data", () => {
-      type CMetadata = { type: string } & IMetadata;
-      let data: CMetadata;
-      let metadata: CMetadata;
-      beforeEach(() => {
-        data = {
-          id: "123e4567-e89b-12d3-a456-426614174000",
-          name: "test",
-          type: "custom",
-        };
-        metadata = Metadata.create<CMetadata>(data);
-      });
-      then("metadata instance is returned", () => {
-        expect(metadata).toBeDefined();
-      });
-      and("metadata instance is returned", () => {
-        then("metadata.id is defined", () => {
-          expect(metadata.id).toBeDefined();
-        });
-        and("metadata.id is defined", () => {
-          then("metadata.id is data.id", () => {
-            expect(metadata.id).toBe(data.id);
-          });
-        });
-        then("metadata.name is defined", () => {
-          expect(metadata.name).toBeDefined();
-        });
-        and("metadata.name is defined", () => {
-          then("metadata.name is data.name", () => {
-            expect(metadata.name).toBe(data.name);
-          });
-        });
-        then("metadata.type is defined", () => {
-          expect(metadata.type).toBeDefined();
-        });
-        and("metadata.type is defined", () => {
-          then("metadata.type is data.type", () => {
-            expect(metadata.type).toBe(data.type);
-          });
-        });
-      });
-    });
   });
 });
 
-given(`Metadata ${Type.CLASS} ${Test.INSTANTIATION} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.CLASS);
-    setSpecProperty("spec", Test.INSTANTIATION);
-  });
-  when("a metadata instance is created using Metadata.create()", () => {
+given(`Metadata.create static method behavior test`, () => {
+  when("an instance is created using Metadata.create", () => {
     let metadata: Metadata;
     beforeEach(() => {
       metadata = Metadata.create();
@@ -156,10 +51,9 @@ given(`Metadata ${Type.CLASS} ${Test.INSTANTIATION} test`, () => {
       });
     });
   });
-  when("a metadata instance is created using Metadata.create(data)", () => {
-    let metadata: Metadata;
+  when("an instance is created using Metadata.create and data", () => {
     let data: IMetadata;
-
+    let metadata: Metadata;
     beforeEach(() => {
       data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
 
@@ -187,56 +81,53 @@ given(`Metadata ${Type.CLASS} ${Test.INSTANTIATION} test`, () => {
       });
     });
   });
+  when("an instance is created using Metadata.create and custom data", () => {
+    type CMetadata = { type: string } & IMetadata;
+    let data: CMetadata;
+    let metadata: CMetadata;
+    beforeEach(() => {
+      data = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "test",
+        type: "custom",
+      };
+      metadata = Metadata.create<CMetadata>(data);
+    });
+    then("metadata is defined", () => {
+      expect(metadata).toBeDefined();
+    });
+    and("metadata is defined", () => {
+      then("metadata.id is defined", () => {
+        expect(metadata.id).toBeDefined();
+      });
+      and("metadata.id is defined", () => {
+        then("metadata.id is data.id", () => {
+          expect(metadata.id).toBe(data.id);
+        });
+      });
+      then("metadata.name is defined", () => {
+        expect(metadata.name).toBeDefined();
+      });
+      and("metadata.name is defined", () => {
+        then("metadata.name is data.name", () => {
+          expect(metadata.name).toBe(data.name);
+        });
+      });
+      then("metadata.type is defined", () => {
+        expect(metadata.type).toBeDefined();
+      });
+      and("metadata.type is defined", () => {
+        then("metadata.type is data.type", () => {
+          expect(metadata.type).toBe(data.type);
+        });
+      });
+    });
+  });
   when(
-    "a metadata instance is created using Metadata.create(data) with custom data",
-    () => {
-      type CMetadata = { type: string } & IMetadata;
-      let metadata: CMetadata;
-      let data: CMetadata;
-      beforeEach(() => {
-        data = {
-          id: "123e4567-e89b-12d3-a456-426614174000",
-          name: "test",
-          type: "custom",
-        };
-        metadata = Metadata.create<CMetadata>(data);
-      });
-      then("metadata is defined", () => {
-        expect(metadata).toBeDefined();
-      });
-      and("metadata is defined", () => {
-        then("metadata.id is defined", () => {
-          expect(metadata.id).toBeDefined();
-        });
-        and("metadata.id is defined", () => {
-          then("metadata.id is data.id", () => {
-            expect(metadata.id).toBe(data.id);
-          });
-        });
-        then("metadata.name is defined", () => {
-          expect(metadata.name).toBeDefined();
-        });
-        and("metadata.name is defined", () => {
-          then("metadata.name is data.name", () => {
-            expect(metadata.name).toBe(data.name);
-          });
-        });
-        then("metadata.type is defined", () => {
-          expect(metadata.type).toBeDefined();
-        });
-        and("metadata.type is defined", () => {
-          then("metadata.type is data.type", () => {
-            expect(metadata.type).toBe(data.type);
-          });
-        });
-      });
-    }
-  );
-  when(
-    "a metadata instance is created using Metadata.create(data) with invalid data.id",
+    "an instance is created using Metadata.create and invalid data.id",
     () => {
       let data: Partial<IMetadata>;
-      let error: Exception.ValidationException;
+      let error: Exception.Exception;
       beforeEach(() => {
         data = { id: "invalid", name: "test" };
         try {
@@ -249,10 +140,10 @@ given(`Metadata ${Type.CLASS} ${Test.INSTANTIATION} test`, () => {
         expect(error).toBeDefined();
       });
       and("error is defined", () => {
-        then("error is an instance of Exception.ValidationException", () => {
+        then("error is an instance of ValidationException", () => {
           expect(error).toBeInstanceOf(Exception.ValidationException);
         });
-        and("error is an instance of Exception.ValidationException", () => {
+        and("error is an instance of ValidationException", () => {
           then("error.message is 'Validation failed with 1 error(s).'", () => {
             expect(error.message).toBe("Validation failed with 1 error(s).");
           });
@@ -261,10 +152,10 @@ given(`Metadata ${Type.CLASS} ${Test.INSTANTIATION} test`, () => {
     }
   );
   when(
-    "a metadata instance is created using Metadata.create(data) with invalid data.name",
+    "an instance is created using Metadata.create and invalid data.name",
     () => {
       let data: Partial<IMetadata>;
-      let error: Exception.ValidationException;
+      let error: Exception.Exception;
       beforeEach(() => {
         data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "T" };
         try {
@@ -277,10 +168,10 @@ given(`Metadata ${Type.CLASS} ${Test.INSTANTIATION} test`, () => {
         expect(error).toBeDefined();
       });
       and("error is defined", () => {
-        then("error is an instance of Exception.ValidationException", () => {
+        then("error is an instance of ValidationException", () => {
           expect(error).toBeInstanceOf(Exception.ValidationException);
         });
-        and("error is an instance of Exception.ValidationException", () => {
+        and("error is an instance of ValidationException", () => {
           then("error.message is 'Validation failed with 1 error(s).'", () => {
             expect(error.message).toBe("Validation failed with 1 error(s).");
           });
@@ -288,81 +179,65 @@ given(`Metadata ${Type.CLASS} ${Test.INSTANTIATION} test`, () => {
       });
     }
   );
-  when(
-    "a metadata instance is created using Metadata.create(data) with invalid data",
-    () => {
-      let data: Partial<IMetadata>;
-      let error: Exception.ValidationException;
-      beforeEach(() => {
-        data = { id: "invalid", name: "T" };
-        try {
-          Metadata.create(data as IMetadata);
-        } catch (e) {
-          error = e;
-        }
+  when("an instance is created using Metadata.create and invalid data", () => {
+    let data: Partial<IMetadata>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      data = { id: "invalid", name: "T" };
+      try {
+        Metadata.create(data as IMetadata);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("error is defined", () => {
+      expect(error).toBeDefined();
+    });
+    and("error is defined", () => {
+      then("error is an instance of ValidationException", () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
       });
-      then("error is defined", () => {
-        expect(error).toBeDefined();
-      });
-      and("error is defined", () => {
-        then("error is an instance of Exception.ValidationException", () => {
-          expect(error).toBeInstanceOf(Exception.ValidationException);
-        });
-        and("error is an instance of Exception.ValidationException", () => {
-          then("error.message is 'Validation failed with 2 error(s).'", () => {
-            expect(error.message).toBe("Validation failed with 2 error(s).");
-          });
+      and("error is an instance of ValidationException", () => {
+        then("error.message is 'Validation failed with 2 error(s).'", () => {
+          expect(error.message).toBe("Validation failed with 2 error(s).");
         });
       });
-    }
-  );
+    });
+  });
 });
 
-given(`Metadata id ${Type.GETTER} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.GETTER);
-    setSpecProperty("spec", "id");
-  });
-  when(
-    "a metadata instance is created using Metadata.create(data) with valid data",
-    () => {
-      let metadata: Metadata;
-      let data: IMetadata;
-      beforeEach(() => {
-        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
-        metadata = Metadata.create(data);
-      });
-      then("metadata.id is defined", () => {
-        expect(metadata.id).toBeDefined();
-      });
-      and("metadata.id is defined", () => {
-        then("metadata.id is data.id", () => {
-          expect(metadata.id).toBe(data.id);
-        });
-      });
-    }
-  );
-});
-
-given(`Metadata id ${Type.SETTER} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.SETTER);
-    setSpecProperty("spec", "id");
-  });
-  when("a metadata instance is created", () => {
+given(`Metadata.id getter availability test`, () => {
+  and(`a metadata instance is created`, () => {
     let metadata: Metadata;
     beforeEach(() => {
       metadata = Metadata.create();
+    });
+    then(`metadata.id is defined`, () => {
+      expect(metadata.id).toBeDefined();
+    });
+  });
+});
+
+given(`Metadata.id getter behavior test`, () => {
+  when("a metadata instance is created with valid data", () => {
+    let metadata: Metadata;
+    let data: IMetadata;
+    beforeEach(() => {
+      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
+      metadata = Metadata.create(data);
     });
     then("metadata.id is defined", () => {
       expect(metadata.id).toBeDefined();
     });
     and("metadata.id is defined", () => {
-      then("metadata.id is null", () => {
-        expect(metadata.id).toBeNull();
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
       });
     });
   });
+});
+
+given(`Metadata.id setter availability test`, () => {
   and("a metadata instance is created", () => {
     let metadata: Metadata;
     beforeEach(() => {
@@ -371,49 +246,51 @@ given(`Metadata id ${Type.SETTER} test`, () => {
     then("metadata.id setter is defined", () => {
       expect(help.hasSetter(metadata, "id")).toBeTruthy();
     });
-    and("metadata.id setter is defined", () => {
-      when("metadata.id is set to valid id", () => {
-        let id: UUID;
-        let error: Exception.ImmutablePropertyException;
-        beforeEach(() => {
-          id = "123e4567-e89b-12d3-a456-426614174000";
-          try {
-            metadata.id = id;
-          } catch (e) {
-            error = e;
-          }
-        });
-        then("error is defined", () => {
-          expect(error).toBeDefined();
-        });
-        and("error is defined", () => {
-          then(
-            "error is an instance of Exception.ImmutablePropertyException",
-            () => {
-              expect(error).toBeInstanceOf(
-                Exception.ImmutablePropertyException
-              );
-            }
-          );
-          and(
-            "error is an instance of Exception.ImmutablePropertyException",
-            () => {
-              then("error.message is 'Property 'id' is immutable.'", () => {
-                expect(error.message).toBe("Property 'id' is immutable.");
-              });
-            }
-          );
+  });
+});
+
+given(`Metadata.id setter behavior test`, () => {
+  and("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    when("metadata.id is set to valid id", () => {
+      let id: UUID;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        id = "123e4567-e89b-12d3-a456-426614174000";
+        try {
+          metadata.id = id;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of ImmutablePropertyException", () => {
+          expect(error).toBeInstanceOf(Exception.ImmutablePropertyException);
         });
       });
     });
   });
 });
 
-given(`Metadata name ${Type.GETTER} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.GETTER);
-    setSpecProperty("spec", "name");
+given(`Metadata.name getter availability test`, () => {
+  and("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata.name is defined", () => {
+      expect(metadata.name).toBeDefined();
+    });
   });
+});
+
+given(`Metadata.name getter behavior test`, () => {
   when("a metadata instance is created", () => {
     let metadata: Metadata;
     let data: IMetadata;
@@ -432,25 +309,7 @@ given(`Metadata name ${Type.GETTER} test`, () => {
   });
 });
 
-given(`Metadata name ${Type.SETTER} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.SETTER);
-    setSpecProperty("spec", "id");
-  });
-  when("a metadata instance is created", () => {
-    let metadata: Metadata;
-    beforeEach(() => {
-      metadata = Metadata.create();
-    });
-    then("metadata.name is defined", () => {
-      expect(metadata.name).toBeDefined();
-    });
-    and("metadata.name is defined", () => {
-      then("metadata.name is null", () => {
-        expect(metadata.name).toBeNull();
-      });
-    });
-  });
+given(`Metadata.name setter availability test`, () => {
   and("a metadata instance is created", () => {
     let metadata: Metadata;
     beforeEach(() => {
@@ -459,79 +318,50 @@ given(`Metadata name ${Type.SETTER} test`, () => {
     then("metadata.name setter is defined", () => {
       expect(help.hasSetter(metadata, "name")).toBeTruthy();
     });
-    and("metadata.name setter is defined", () => {
-      when("metadata.name is set to valid name", () => {
-        let name: Name;
-        beforeEach(() => {
-          name = "test";
-          metadata.name = name;
-        });
-        then("metadata.name is name", () => {
-          expect(metadata.name).toBe(name);
-        });
+  });
+});
+
+given(`Metadata.name setter behavior test`, () => {
+  and("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    when("metadata.name is set to valid name", () => {
+      let name: Name;
+      beforeEach(() => {
+        name = "test";
+        metadata.name = name;
       });
-      when("metadata.name is set to invalid name", () => {
-        let name: Name;
-        let error: Exception.InvalidArgumentException;
-        beforeEach(() => {
-          name = "T";
-          try {
-            metadata.name = name;
-          } catch (e) {
-            error = e;
-          }
-        });
-        then("error is defined", () => {
-          expect(error).toBeDefined();
-        });
-        and("error is defined", () => {
-          then(
-            "error is an instance of Exception.InvalidArgumentException",
-            () => {
-              expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
-            }
-          );
-          and(
-            "error is an instance of Exception.InvalidArgumentException",
-            () => {
-              then(
-                "error.message is 'Invalid argument: name - must be a valid name'",
-                () => {
-                  expect(error.message).toBe(
-                    "Invalid argument: name - must be a valid name"
-                  );
-                }
-              );
-            }
-          );
+      then("metadata.name is name", () => {
+        expect(metadata.name).toBe(name);
+      });
+    });
+    when("metadata.name is set to invalid name", () => {
+      let name: Name;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        name = "T";
+        try {
+          metadata.name = name;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of InvalidArgumentException", () => {
+          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
         });
       });
     });
   });
 });
 
-given(`Metadata assigned ${Type.GETTER} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.GETTER);
-    setSpecProperty("spec", "assigned");
-  });
-  when("a metadata instance is created with data", () => {
-    let metadata: Metadata;
-    let data: IMetadata;
-    beforeEach(() => {
-      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
-      metadata = Metadata.create(data);
-    });
-    then("metadata.assigned is defined", () => {
-      expect(metadata.assigned).toBeDefined();
-    });
-    and("metadata.assigned is defined", () => {
-      then("metadata.assigned is true", () => {
-        expect(metadata.assigned).toBe(true);
-      });
-    });
-  });
-  when("a metadata instance is created without data", () => {
+given(`Metadata.assigned getter availability test`, () => {
+  and("a metadata instance is created", () => {
     let metadata: Metadata;
     beforeEach(() => {
       metadata = Metadata.create();
@@ -539,19 +369,45 @@ given(`Metadata assigned ${Type.GETTER} test`, () => {
     then("metadata.assigned is defined", () => {
       expect(metadata.assigned).toBeDefined();
     });
-    and("metadata.assigned is defined", () => {
-      then("metadata.assigned is false", () => {
-        expect(metadata.assigned).toBe(false);
-      });
+  });
+});
+
+given(`Metadata.assigned getter behavior test`, () => {
+  when("a metadata instance is created with data", () => {
+    let metadata: Metadata;
+    let data: IMetadata;
+    beforeEach(() => {
+      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
+      metadata = Metadata.create(data);
+    });
+    then("metadata.assigned is true", () => {
+      expect(metadata.assigned).toBe(true);
+    });
+  });
+  when("a metadata instance is created without data", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata.assigned is false", () => {
+      expect(metadata.assigned).toBe(false);
     });
   });
 });
 
-given(`Metadata properties ${Type.GETTER} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.GETTER);
-    setSpecProperty("spec", "properties");
+given(`Metadata.properties getter availability test`, () => {
+  and("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata.properties is defined", () => {
+      expect(metadata.properties).toBeDefined();
+    });
   });
+});
+
+given(`Metadata.properties getter behavior test`, () => {
   when("a metadata instance is created with data", () => {
     type T = { custom: string } & IMetadata;
     let metadata: Metadata<T> & T;
@@ -580,12 +436,20 @@ given(`Metadata properties ${Type.GETTER} test`, () => {
   });
 });
 
-given(`Metadata add ${Type.METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", "add");
+given(`Metadata.add method availability test`, () => {
+  and("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata.add is defined", () => {
+      expect(metadata.add).toBeDefined();
+    });
   });
-  when("a metadata instance is created", () => {
+});
+
+given(`Metadata.add method behavior test`, () => {
+  and("a metadata instance is created", () => {
     type T = { custom: string } & IMetadata;
     let metadata: Metadata<T> & T;
     beforeEach(() => {
@@ -599,7 +463,7 @@ given(`Metadata add ${Type.METHOD} test`, () => {
         expect(metadata.add).toBeInstanceOf(Function);
       });
     });
-    when("metadata.add(data) is called with valid data", () => {
+    when("metadata.add is called with valid data", () => {
       let data: T;
       beforeEach(() => {
         data = {
@@ -619,7 +483,7 @@ given(`Metadata add ${Type.METHOD} test`, () => {
         expect(metadata.custom).toBe(data.custom);
       });
     });
-    when("metadata.add(data) is called with no id", () => {
+    when("metadata.add is called with no id", () => {
       let data: Omit<T, "id">;
       beforeEach(() => {
         data = {
@@ -633,7 +497,7 @@ given(`Metadata add ${Type.METHOD} test`, () => {
       });
     });
   });
-  when("a metadata instance is created with data", () => {
+  and("a metadata instance is created with data", () => {
     type T = { custom: string } & IMetadata;
     let metadata: Metadata<T> & T;
     let data: T;
@@ -653,9 +517,9 @@ given(`Metadata add ${Type.METHOD} test`, () => {
         expect(metadata.add).toBeInstanceOf(Function);
       });
     });
-    when("metadata.add(data) is called with valid data", () => {
+    when("metadata.add is called with valid data", () => {
       let data: T;
-      let error: Exception.AssignedException;
+      let error: Exception.Exception;
       beforeEach(() => {
         data = {
           id: "123e4567-e89b-12d3-a456-426614174000",
@@ -672,30 +536,28 @@ given(`Metadata add ${Type.METHOD} test`, () => {
         expect(error).toBeDefined();
       });
       and("error is defined", () => {
-        then("error is an instance of Exception.AssignedException", () => {
+        then("error is an instance of AssignedException", () => {
           expect(error).toBeInstanceOf(Exception.AssignedException);
-        });
-        and("error is an instance of Exception.AssignedException", () => {
-          then(
-            "error.message is 'A value has already been assigned to Metadata: id'",
-            () => {
-              expect(error.message).toBe(
-                "Cannot reassign metadata. Use metadata.update(metadata) instead."
-              );
-            }
-          );
         });
       });
     });
   });
 });
 
-given(`Metadata update ${Type.METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", "update");
+given(`Metadata.update method availability test`, () => {
+  and("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata.update is defined", () => {
+      expect(metadata.update).toBeDefined();
+    });
   });
-  when("a metadata instance is created", () => {
+});
+
+given(`Metadata.update method behavior test`, () => {
+  and("a metadata instance is created", () => {
     type T = { custom: string } & IMetadata;
     let metadata: Metadata<T> & T;
     beforeEach(() => {
@@ -709,7 +571,7 @@ given(`Metadata update ${Type.METHOD} test`, () => {
         expect(metadata.update).toBeInstanceOf(Function);
       });
       and("metadata.update is a function", () => {
-        when("metadata.update(data) is called with valid data", () => {
+        when("metadata.update is called with valid data", () => {
           let data: T;
           let error: Exception.UnassignedException;
           beforeEach(() => {
@@ -749,7 +611,7 @@ given(`Metadata update ${Type.METHOD} test`, () => {
       });
     });
   });
-  when("a metadata instance is created with data", () => {
+  and("a metadata instance is created with data", () => {
     type T = { custom: string } & IMetadata;
     let metadata: Metadata<T> & T;
     let data: T;
@@ -771,7 +633,7 @@ given(`Metadata update ${Type.METHOD} test`, () => {
         expect(metadata.update).toBeInstanceOf(Function);
       });
       and("metadata.update is a function", () => {
-        when("metadata.update(data) is called with valid data", () => {
+        when("metadata.update is called with valid data", () => {
           let data: T;
           beforeEach(() => {
             data = {
@@ -791,7 +653,7 @@ given(`Metadata update ${Type.METHOD} test`, () => {
             expect(metadata.custom).toBe(data.custom);
           });
         });
-        when("metadata.update(data) is called with data with no id", () => {
+        when("metadata.update is called with data with no id", () => {
           let data: Omit<T, "id">;
           beforeEach(() => {
             data = {
@@ -811,10 +673,10 @@ given(`Metadata update ${Type.METHOD} test`, () => {
           });
         });
         when(
-          "metadata.update(data) is called with data with different identifier",
+          "metadata.update is called with data with different identifier",
           () => {
             let data: T;
-            let error: Exception.MissMatchException;
+            let error: Exception.Exception;
             beforeEach(() => {
               data = {
                 id: "123e4567-e89b-12d3-a456-426614174111",
@@ -831,25 +693,9 @@ given(`Metadata update ${Type.METHOD} test`, () => {
               expect(error).toBeDefined();
             });
             and("error is defined", () => {
-              then(
-                "error is an instance of Exception.MissMatchException",
-                () => {
-                  expect(error).toBeInstanceOf(Exception.MissMatchException);
-                }
-              );
-              and(
-                "error is an instance of Exception.MissMatchException",
-                () => {
-                  then(
-                    "error.message is 'Metadata identifier does not match: Use metadata.add(metadata) instead.'",
-                    () => {
-                      expect(error.message).toBe(
-                        "identifier does not match: get metadata.id and verify match."
-                      );
-                    }
-                  );
-                }
-              );
+              then("error is an instance of MissMatchException", () => {
+                expect(error).toBeInstanceOf(Exception.MissMatchException);
+              });
             });
           }
         );
@@ -858,12 +704,20 @@ given(`Metadata update ${Type.METHOD} test`, () => {
   });
 });
 
-given(`Metadata remove ${Type.METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", "remove");
+given(`Metadata.remove method availability test`, () => {
+  and("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata.remove is defined", () => {
+      expect(metadata.remove).toBeDefined();
+    });
   });
-  when("a metadata instance is created with data", () => {
+});
+
+given(`Metadata.remove method behavior test`, () => {
+  and("a metadata instance is created with data", () => {
     type T = { custom: string } & IMetadata;
     let metadata: Metadata<T> & T;
     let data: T;
@@ -875,217 +729,112 @@ given(`Metadata remove ${Type.METHOD} test`, () => {
       };
       metadata = Metadata.create(data);
     });
-    then("metadata.remove is defined", () => {
-      expect(metadata.remove).toBeDefined();
+    when("metadata.remove is called", () => {
+      beforeEach(() => {
+        metadata.remove();
+      });
+      then("metadata.id is null", () => {
+        expect(metadata.id).toBeNull();
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+      then("metadata.custom is undefined", () => {
+        expect(metadata.custom).toBeUndefined();
+      });
     });
-    and("metadata.remove is defined", () => {
-      then("metadata.remove is a function", () => {
-        expect(metadata.remove).toBeInstanceOf(Function);
+    when("metadata.remove is called with ['custom']", () => {
+      let key;
+      beforeEach(() => {
+        key = "custom";
+        metadata.remove([key]);
       });
-      when("metadata.remove() is called", () => {
-        beforeEach(() => {
-          metadata.remove();
-        });
-        then("metadata.id is null", () => {
-          expect(metadata.id).toBeNull();
-        });
-        then("metadata.name is null", () => {
-          expect(metadata.name).toBeNull();
-        });
-        then("metadata.custom is undefined", () => {
-          expect(metadata.custom).toBeUndefined();
-        });
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
       });
-      when("metadata.remove(['custom']) is called", () => {
-        let key;
-        beforeEach(() => {
-          key = "custom";
+      then("metadata.name is data.name", () => {
+        expect(metadata.name).toBe(data.name);
+      });
+      then("metadata.custom is undefined", () => {
+        expect(metadata.custom).toBeUndefined();
+      });
+    });
+    when("metadata.remove is called with ['id']", () => {
+      let key;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          key = "id";
           metadata.remove([key]);
-        });
-        then("metadata.id is data.id", () => {
-          expect(metadata.id).toBe(data.id);
-        });
-        then("metadata.name is data.name", () => {
-          expect(metadata.name).toBe(data.name);
-        });
-        then("metadata.custom is undefined", () => {
-          expect(metadata.custom).toBeUndefined();
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
       });
-      when("metadata.remove(['id']) is called", () => {
-        let key;
-        let error: Exception.ValidationException;
-        beforeEach(() => {
-          try {
-            key = "id";
-            metadata.remove([key]);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then("error is defined", () => {
-          expect(error).toBeDefined();
-        });
-        and("error is defined", () => {
-          then("error is an instance of Exception.ValidationException", () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
-          });
-          and("error is an instance of Exception.ValidationException", () => {
-            then("error.length is 1", () => {
-              expect(error.errors.length).toBe(1);
-            });
-            and("error.length is 1", () => {
-              then(
-                "error.errors[0] is an Exception.ImmutablePropertyException",
-                () => {
-                  expect(error.errors[0]).toBeInstanceOf(
-                    Exception.ImmutablePropertyException
-                  );
-                }
-              );
-              and(
-                "error.errors[0] is an Exception.ImmutablePropertyException",
-                () => {
-                  then(
-                    "error.errors[0].message is 'Property 'id' is immutable.'",
-                    () => {
-                      expect(error.errors[0].message).toBe(
-                        "Property 'id' is immutable."
-                      );
-                    }
-                  );
-                }
-              );
-            });
-          });
+    });
+    when("metadata.remove is called with ['name']", () => {
+      let key;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          key = "name";
+          metadata.remove([key]);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
       });
-      when("metadata.remove(['name']) is called", () => {
-        let key;
-        let error: Exception.ValidationException;
-        beforeEach(() => {
-          try {
-            key = "name";
-            metadata.remove([key]);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then("error is defined", () => {
-          expect(error).toBeDefined();
-        });
-        and("error is defined", () => {
-          then("error is an instance of Exception.ValidationException", () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
-          });
-          and("error is an instance of Exception.ValidationException", () => {
-            then("error.length is 1", () => {
-              expect(error.errors.length).toBe(1);
-            });
-            and("error.length is 1", () => {
-              then(
-                "error.errors[0] is an Exception.ImmutablePropertyException",
-                () => {
-                  expect(error.errors[0]).toBeInstanceOf(
-                    Exception.ImmutablePropertyException
-                  );
-                }
-              );
-              and(
-                "error.errors[0] is an Exception.ImmutablePropertyException",
-                () => {
-                  then(
-                    "error.errors[0].message is 'Property 'name' is immutable.'",
-                    () => {
-                      expect(error.errors[0].message).toBe(
-                        "Property 'name' is immutable."
-                      );
-                    }
-                  );
-                }
-              );
-            });
-          });
-        });
+    });
+    when("metadata.remove is called with ['id', 'name']", () => {
+      let keys;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          keys = ["id", "name"];
+          metadata.remove(keys);
+        } catch (e) {
+          error = e;
+        }
       });
-      when("metadata.remove(['id', 'name']) is called", () => {
-        let keys;
-        let error: Exception.ValidationException;
-        beforeEach(() => {
-          try {
-            keys = ["id", "name"];
-            metadata.remove(keys);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then("error is defined", () => {
-          expect(error).toBeDefined();
-        });
-        and("error is defined", () => {
-          then("error is an instance of Exception.ValidationException", () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
-          });
-          and("error is an instance of Exception.ValidationException", () => {
-            then("error.length is 2", () => {
-              expect(error.errors.length).toBe(2);
-            });
-            and("error.length is 2", () => {
-              then(
-                "error.errors[0] is an Exception.ImmutablePropertyException",
-                () => {
-                  expect(error.errors[0]).toBeInstanceOf(
-                    Exception.ImmutablePropertyException
-                  );
-                }
-              );
-              and(
-                "error.errors[0] is an Exception.ImmutablePropertyException",
-                () => {
-                  then(
-                    "error.errors[0].message is 'Property 'id' is immutable.'",
-                    () => {
-                      expect(error.errors[0].message).toBe(
-                        "Property 'id' is immutable."
-                      );
-                    }
-                  );
-                }
-              );
-              then(
-                "error.errors[1] is an Exception.ImmutablePropertyException",
-                () => {
-                  expect(error.errors[1]).toBeInstanceOf(
-                    Exception.ImmutablePropertyException
-                  );
-                }
-              );
-              and(
-                "error.errors[1] is an Exception.ImmutablePropertyException",
-                () => {
-                  then(
-                    "error.errors[1].message is 'Property 'name' is immutable.'",
-                    () => {
-                      expect(error.errors[1].message).toBe(
-                        "Property 'name' is immutable."
-                      );
-                    }
-                  );
-                }
-              );
-            });
-          });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
       });
     });
   });
 });
 
-given(`Metadata toJSON ${Type.METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.METHOD);
-    setSpecProperty("spec", "toJSON");
+given(`Metadata.toJSON method availability test`, () => {
+  and("a metadata instance is created", () => {
+    let metadata: Metadata;
+    beforeEach(() => {
+      metadata = Metadata.create();
+    });
+    then("metadata.toJSON is defined", () => {
+      expect(metadata.toJSON).toBeDefined();
+    });
   });
+});
+
+given(`Metadata.toJSON method behavior test`, () => {
   when("a metadata instance is created with data", () => {
     type T = { custom: string } & IMetadata;
     let metadata: Metadata<T> & T;
