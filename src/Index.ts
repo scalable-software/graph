@@ -6,6 +6,7 @@
 export type { UUID, Name, Coordinates, Offset } from "./Graph.types.js";
 
 export { Validate } from "./validations/Validate.js";
+export { Validator } from "./validations/Validator.js";
 
 export { Exceptions } from "./exceptions/Exceptions.js";
 export * as Exception from "./exceptions/Exceptions.js";
