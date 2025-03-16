@@ -1,17 +1,22 @@
-import { Type, Test } from "../Helper.js";
+import * as help from "../Helper.js";
 
-const given = (description, spec) => describe(`Given ${description}`, spec);
+const given = (description, spec) =>
+  describe(`Given ${description}`, () => {
+    beforeEach(() => {
+      const { context, type, test } = help.metadata(description);
+      setSpecProperty("context", context);
+      setSpecProperty("type", type);
+      setSpecProperty("test", test);
+    });
+    spec();
+  });
 const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
 import { Properties } from "../../../src/utilities/Properties.js";
 
-given(`Properties ${Type.ABSTRACT_CLASS} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.ABSTRACT_CLASS);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
+given(`Properties class availability test`, () => {
   and(`Properties is imported`, () => {
     then(`Properties is defined`, () => {
       expect(Properties).toBeDefined();
@@ -19,11 +24,7 @@ given(`Properties ${Type.ABSTRACT_CLASS} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`Properties select ${Type.STATIC_METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.ABSTRACT_CLASS);
-    setSpecProperty("spec", "Properties.select");
-  });
+given(`Properties.select static method availability test`, () => {
   then(`Properties.select is defined`, () => {
     expect(Properties.select).toBeDefined();
   });
@@ -31,80 +32,77 @@ given(`Properties select ${Type.STATIC_METHOD} test`, () => {
     then(`Properties.select is a function`, () => {
       expect(Properties.select).toBeInstanceOf(Function);
     });
-    and(`Properties.select is a function`, () => {
-      when(
-        `Properties.select(instance) is called with instance of a class`,
-        () => {
-          let result;
-          let parameters;
-          let instance;
-          beforeEach(() => {
-            parameters = { id: "123", name: "Alice" };
-            class Example {
-              private _id: string;
-              private _name: string;
-              constructor({ id, name }) {
-                this._id = id;
-                this._name = name;
-              }
-              get id() {
-                return this._id;
-              }
-              get name() {
-                return this._name;
-              }
-              test() {
-                return "test";
-              }
-            }
-            instance = new Example(parameters);
-            result = Properties.select(instance);
-          });
-          then(`result is instance`, () => {
-            expect(result).toEqual({
-              _id: parameters.id,
-              _name: parameters.name,
-            });
-          });
+  });
+});
+
+given(`Properties.select static method behavior test`, () => {
+  when(`Properties.select is called with instance of a class`, () => {
+    let result;
+    let parameters;
+    let instance;
+    beforeEach(() => {
+      parameters = { id: "123", name: "Alice" };
+      class Example {
+        private _id: string;
+        private _name: string;
+        constructor({ id, name }) {
+          this._id = id;
+          this._name = name;
         }
-      );
-      when(
-        `Properties.select(instance, [filters]) is called with instance of a class`,
-        () => {
-          let result;
-          let parameters;
-          let instance;
-          let filters;
-          beforeEach(() => {
-            parameters = { id: "123", name: "Alice" };
-            class Example {
-              private _id: string;
-              private _name: string;
-              constructor({ id, name }) {
-                this._id = id;
-                this._name = name;
-              }
-              get id() {
-                return this._id;
-              }
-              get name() {
-                return this._name;
-              }
-              test() {
-                return "test";
-              }
-            }
-            instance = new Example(parameters);
-            result = Properties.select(instance, [
-              (key) => key !== "_id",
-              (key) => key !== "_name",
-            ]);
-          });
-          then(`result is instance`, () => {
-            expect(result).toEqual({});
-          });
+        get id() {
+          return this._id;
         }
-      );
+        get name() {
+          return this._name;
+        }
+        test() {
+          return "test";
+        }
+      }
+      instance = new Example(parameters);
+      result = Properties.select(instance);
+    });
+    then(`result is instance`, () => {
+      expect(result).toEqual({
+        _id: parameters.id,
+        _name: parameters.name,
+      });
     });
   });
+  when(
+    `Properties.select is called with instance of a class and filters`,
+    () => {
+      let result;
+      let parameters;
+      let instance;
+      beforeEach(() => {
+        parameters = { id: "123", name: "Alice" };
+        class Example {
+          private _id: string;
+          private _name: string;
+          constructor({ id, name }) {
+            this._id = id;
+            this._name = name;
+          }
+          get id() {
+            return this._id;
+          }
+          get name() {
+            return this._name;
+          }
+          test() {
+            return "test";
+          }
+        }
+        instance = new Example(parameters);
+        result = Properties.select(instance, [
+          (key) => key !== "_id",
+          (key) => key !== "_name",
+        ]);
+      });
+      then(`result is instance`, () => {
+        expect(result).toEqual({});
+      });
+    }
+  );
 });

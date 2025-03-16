@@ -1,17 +1,22 @@
-import { Type, Test } from "../Helper.js";
+import * as help from "../Helper.js";
 
-const given = (description, spec) => describe(`Given ${description}`, spec);
+const given = (description, spec) =>
+  describe(`Given ${description}`, () => {
+    beforeEach(() => {
+      const { context, type, test } = help.metadata(description);
+      setSpecProperty("context", context);
+      setSpecProperty("type", type);
+      setSpecProperty("test", test);
+    });
+    spec();
+  });
 const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
 import { Index } from "../../../src/utilities/Index.js";
 
-given(`Index ${Type.ABSTRACT_CLASS} ${Test.AVAILABILITY} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.ABSTRACT_CLASS);
-    setSpecProperty("spec", Test.AVAILABILITY);
-  });
+given(`Index class availability test`, () => {
   and(`Index is imported`, () => {
     then(`Index is defined`, () => {
       expect(Index).toBeDefined();
@@ -19,11 +24,7 @@ given(`Index ${Type.ABSTRACT_CLASS} ${Test.AVAILABILITY} test`, () => {
   });
 });
 
-given(`Index byReference ${Type.STATIC_METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", "Index.byReference");
-  });
+given(`Index.byReference static method availability test`, () => {
   then(`Index.byReference is defined`, () => {
     expect(Index.byReference).toBeDefined();
   });
@@ -31,44 +32,40 @@ given(`Index byReference ${Type.STATIC_METHOD} test`, () => {
     then(`Index.byReference is a function`, () => {
       expect(Index.byReference).toBeInstanceOf(Function);
     });
-    and("Index.byReference is a function", () => {
-      when("Index.byReference(array, item) where item is valid", () => {
-        let obj1: { id: string };
-        let obj2: { id: string };
-        let items: { id: string }[];
-        let result: number;
-        beforeEach(() => {
-          obj1 = { id: "a1" };
-          obj2 = { id: "b2" };
-          items = [obj1, obj2];
-          result = Index.byReference(items, obj1);
-        });
-        then("result is the index of the matching item", () => {
-          expect(result).toEqual(0);
-        });
-      });
-      when("Index.byReference(array, item) where item is invalid", () => {
-        let obj1: { id: string };
-        let items: { id: string }[];
-        let result: number;
-        beforeEach(() => {
-          obj1 = { id: "a1" };
-          items = [obj1];
-          result = Index.byReference(items, { id: "a1" });
-        });
-        then("result is -1", () => {
-          expect(result).toEqual(-1);
-        });
-      });
+  });
+});
+
+given(`Index.byReference static method behavior test`, () => {
+  when("Index.byReference called with items and valid item", () => {
+    let items: { id: string }[];
+    let item: { id: string };
+    let result: number;
+    beforeEach(() => {
+      item = { id: "a1" };
+      const obj2 = { id: "b2" };
+      items = [item, obj2];
+      result = Index.byReference(items, item);
+    });
+    then("result is the index of the matching item", () => {
+      expect(result).toEqual(0);
+    });
+  });
+  when("Index.byReference called with items and invalid item", () => {
+    let item: { id: string };
+    let items: { id: string }[];
+    let result: number;
+    beforeEach(() => {
+      item = { id: "a1" };
+      items = [item];
+      result = Index.byReference(items, { id: "a1" });
+    });
+    then("result is -1", () => {
+      expect(result).toEqual(-1);
     });
   });
 });
 
-given(`Index byId ${Type.STATIC_METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", "Index.byId");
-  });
+given(`Index.byId static method availability test`, () => {
   then(`Index.byId is defined`, () => {
     expect(Index.byId).toBeDefined();
   });
@@ -76,48 +73,45 @@ given(`Index byId ${Type.STATIC_METHOD} test`, () => {
     then(`Index.byId is a function`, () => {
       expect(Index.byId).toBeInstanceOf(Function);
     });
-    and("Index.byId is a function", () => {
-      when("Index.byId(array, id) where id is valid", () => {
-        let items: { id: string; name: string }[];
-        let id: string;
-        let result: number;
-        beforeEach(() => {
-          items = [
-            { id: "a1", name: "Item A" },
-            { id: "b2", name: "Item B" },
-          ];
-          id = "b2";
-          result = Index.byId(items, id);
-        });
-        then("result is the index of the matching item", () => {
-          expect(result).toEqual(1);
-        });
-      });
-      when("Index.byId(array, id) where id is invalid", () => {
-        let items: { id: string; name: string }[];
-        let id: string;
-        let result: number;
-        beforeEach(() => {
-          items = [
-            { id: "a1", name: "Item A" },
-            { id: "b2", name: "Item B" },
-          ];
-          id = "c3";
-          result = Index.byId(items, id);
-        });
-        then("result is -1", () => {
-          expect(result).toEqual(-1);
-        });
-      });
+  });
+});
+
+given(`Index.byId static method behavior test`, () => {
+  when("Index.byId called with items and valid id", () => {
+    let items: { id: string; name: string }[];
+    let id: string;
+    let result: number;
+    beforeEach(() => {
+      items = [
+        { id: "a1", name: "Item A" },
+        { id: "b2", name: "Item B" },
+      ];
+      id = "b2";
+      result = Index.byId(items, id);
+    });
+    then("result is the index of the matching item", () => {
+      expect(result).toEqual(1);
+    });
+  });
+  when("Index.byId called with items and invalid id", () => {
+    let items: { id: string; name: string }[];
+    let id: string;
+    let result: number;
+    beforeEach(() => {
+      items = [
+        { id: "a1", name: "Item A" },
+        { id: "b2", name: "Item B" },
+      ];
+      id = "c3";
+      result = Index.byId(items, id);
+    });
+    then("result is -1", () => {
+      expect(result).toEqual(-1);
     });
   });
 });
 
-given(`Index find ${Type.STATIC_METHOD} test`, () => {
-  beforeEach(() => {
-    setSpecProperty("type", Type.STATIC_METHOD);
-    setSpecProperty("spec", "Index.find");
-  });
+given(`Index.find static method availability test`, () => {
   then(`Index.find is defined`, () => {
     expect(Index.find).toBeDefined();
   });
@@ -125,67 +119,67 @@ given(`Index find ${Type.STATIC_METHOD} test`, () => {
     then(`Index.find is a function`, () => {
       expect(Index.find).toBeInstanceOf(Function);
     });
-    and("Index.find is a function", () => {
-      when("Index.find(array, id) where id is valid", () => {
-        let items: { id: string; name: string }[];
-        let id: string;
-        let result: number;
-        beforeEach(() => {
-          items = [
-            { id: "a1", name: "Item A" },
-            { id: "b2", name: "Item B" },
-          ];
-          id = "b2";
-          result = Index.find(items, id);
-        });
-        then("result is the index of the matching item", () => {
-          expect(result).toEqual(1);
-        });
-      });
-      when("Index.find(array, id) where id is invalid", () => {
-        let items: { id: string; name: string }[];
-        let id: string;
-        let result: number;
-        beforeEach(() => {
-          items = [
-            { id: "a1", name: "Item A" },
-            { id: "b2", name: "Item B" },
-          ];
-          id = "c3";
-          result = Index.find(items, id);
-        });
-        then("result is -1", () => {
-          expect(result).toEqual(-1);
-        });
-      });
-      when("Index.find(array, item) where item is valid", () => {
-        let obj1: { id: string };
-        let obj2: { id: string };
-        let items: { id: string }[];
-        let result: number;
-        beforeEach(() => {
-          obj1 = { id: "a1" };
-          obj2 = { id: "b2" };
-          items = [obj1, obj2];
-          result = Index.find(items, obj1);
-        });
-        then("result is the index of the matching item", () => {
-          expect(result).toEqual(0);
-        });
-      });
-      when("Index.find(array, item) where item is invalid", () => {
-        let obj1: { id: string };
-        let items: { id: string }[];
-        let result: number;
-        beforeEach(() => {
-          obj1 = { id: "a1" };
-          items = [obj1];
-          result = Index.find(items, { id: "a1" });
-        });
-        then("result is -1", () => {
-          expect(result).toEqual(-1);
-        });
-      });
+  });
+});
+
+given(`Index.find static method behavior test`, () => {
+  when("Index.find is called with items and valid id", () => {
+    let items: { id: string; name: string }[];
+    let id: string;
+    let result: number;
+    beforeEach(() => {
+      items = [
+        { id: "a1", name: "Item A" },
+        { id: "b2", name: "Item B" },
+      ];
+      id = "b2";
+      result = Index.find(items, id);
+    });
+    then("result is the index of the matching item", () => {
+      expect(result).toEqual(1);
+    });
+  });
+  when("Index.find is called with items and invalid id", () => {
+    let items: { id: string; name: string }[];
+    let id: string;
+    let result: number;
+    beforeEach(() => {
+      items = [
+        { id: "a1", name: "Item A" },
+        { id: "b2", name: "Item B" },
+      ];
+      id = "c3";
+      result = Index.find(items, id);
+    });
+    then("result is -1", () => {
+      expect(result).toEqual(-1);
+    });
+  });
+  when("Index.find is called with items and valid item", () => {
+    let item: { id: string };
+    let items: { id: string }[];
+    let result: number;
+    beforeEach(() => {
+      item = { id: "a1" };
+      const obj2 = { id: "b2" };
+      items = [item, obj2];
+      result = Index.find(items, item);
+    });
+    then("result is the index of the matching item", () => {
+      expect(result).toEqual(0);
+    });
+  });
+  when("Index.find is called with items and invalid item", () => {
+    let item: { id: string };
+    let items: { id: string }[];
+    let result: number;
+    beforeEach(() => {
+      item = { id: "a1" };
+      items = [item];
+      result = Index.find(items, { id: "a1" });
+    });
+    then("result is -1", () => {
+      expect(result).toEqual(-1);
     });
   });
 });
