@@ -9,6 +9,7 @@
  */
 
 import { Validate } from "./validations/Validate.js";
+import { Validator } from "./validations/Validator.js";
 import { Exceptions } from "./exceptions/Exceptions.js";
 import { Utilities } from "./utilities/Utilities.js";
 import type { UUID, Name } from "./Graph.types.js";
@@ -38,50 +39,6 @@ export type IMetadata = {
  * @template T Is by default {@link IMetadata} but extends {@link IMetadata} with custom properties (see example).
  */
 export class Metadata<T extends IMetadata = IMetadata> {
-  private static normalize = <T extends IMetadata>(metadata?: T) =>
-    metadata
-      ? Metadata.validate<T>(metadata) || Metadata.defaults<T>()
-      : Metadata.defaults<T>();
-
-  private static ensureId = <T extends IMetadata>(
-    metadata: T | Omit<T, "id">,
-    generator: () => UUID = () => crypto.randomUUID()
-  ): T =>
-    ({
-      ...metadata,
-      id: "id" in metadata && metadata.id != null ? metadata.id : generator(),
-    } as T);
-
-  private static defaults = <T extends IMetadata>(): T =>
-    ({ id: null, name: null } as T);
-
-  /**
-   * Validate the metadata, if provided, to ensure required properties are present and valid.
-   *
-   * @param metadata The optional metadata object to validate.
-   * @returns The validated metadata object or null if invalid.
-   *
-   * @example
-   * ```ts
-   * Metadata.validate(null);
-   * // => null
-   *
-   * Metadata.validate({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
-   * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
-   *
-   * Metadata.validate({ id: "123", name: "" });
-   * // => ValidationException: Validation failed with 2 error(s).
-   * ```
-   * @category Validation
-   */
-  public static validate = <T extends IMetadata>(metadata?: T): T | null =>
-    metadata
-      ? Validate.rules<T>(metadata, [
-          ({ id }) => Validate.uuid(id),
-          ({ name }) => Validate.name(name),
-        ])
-      : null;
-
   /**
    *
    * Factory method used to create a new metadata instance.
@@ -92,7 +49,13 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * @category Factory
    */
   public static create = <T extends IMetadata>(metadata?: T): Metadata<T> & T =>
-    new Metadata<T>(metadata) as Metadata<T> & T;
+    new Metadata<T>(Metadata.normalize<T>(metadata)) as Metadata<T> & T;
+
+  private static defaults = <T extends IMetadata>(): T =>
+    ({ id: null, name: null } as T);
+
+  private static normalize = <T extends IMetadata>(metadata?: T): T =>
+    metadata ? Validate.metadata(metadata) : Metadata.defaults();
 
   private _id: UUID | null = null;
   private _name: Name | null = null;
@@ -101,8 +64,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * Typescript constructors cannot return a value other than the class.
    * As a workaround to support proper types, we must use a static factory method
    */
-  private constructor(metadata?: T) {
-    this.hydrate(Metadata.normalize<T>(metadata));
+  private constructor(metadata: T) {
+    this.hydrate(metadata);
   }
 
   /**
@@ -175,12 +138,10 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * Retrieve extended properties from the metadata instance.
    * @category  State
    */
-  get customProperties(): { [key: string]: any } {
-    return Utilities.select(this, [
-      ([key, value]) => !Utilities.isMethod(value),
-      ([key]) => !Utilities.isConstructor(key),
-      ([key]) => !Utilities.isGetterOrSetter(this, key),
-      ([key]) => !["_id", "_name"].includes(key),
+  get properties(): { [key: string]: any } {
+    return Utilities.Properties.select(this, [
+      (key) => key !== "_id",
+      (key) => key !== "_name",
     ]);
   }
 
@@ -199,17 +160,12 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * @category Operations
    */
   public add = (metadata: T) => {
-    metadata = Metadata.ensureId<T>(metadata);
-    metadata = Metadata.normalize<T>(metadata);
+    this.validateUnassigned();
 
-    this.assigned &&
-      Exceptions.assignedException(
-        "metadata",
-        "Use metadata.update(metadata) instead."
-      );
+    metadata = Utilities.idify<T>(metadata);
+    metadata = Validate.metadata<T>(metadata);
 
     this.hydrate(metadata);
-
     return this;
   };
 
@@ -233,22 +189,14 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * @category Operations
    */
   public update = (metadata: Partial<T>) => {
+    this.validateAssigned();
+    this.validateMatch(metadata);
+
     metadata.id && Validate.uuid(metadata.id);
 
-    !this.assigned &&
-      Exceptions.unassignedException(
-        "metadata",
-        "Use metadata.add(metadata) instead."
-      );
-    metadata.id &&
-      !this.match(metadata) &&
-      Exceptions.missMatchException(
-        "identifier",
-        "get metadata.id and verify match."
-      );
+    metadata = { ...this.toJSON(), ...metadata };
 
-    this.hydrate({ id: this._id, ...this.toJSON(), ...metadata });
-
+    this.hydrate(metadata);
     return this;
   };
 
@@ -267,9 +215,9 @@ export class Metadata<T extends IMetadata = IMetadata> {
   public remove = <K extends Extract<keyof T, string>>(keys?: K[]) => {
     !keys
       ? (this.reset(), this.hydrate(Metadata.normalize<T>()))
-      : Validate.keys<K[]>(keys, [
-          (key) => !Validate.match(key, "id" as K),
-          (key) => !Validate.match(key, "name" as K),
+      : Validator.validate<K[]>(keys, [
+          (key) => Validate.immutable(key, "id" as K),
+          (key) => Validate.immutable(key, "name" as K),
         ]).forEach((key) => delete this[key as keyof this]);
 
     return this;
@@ -290,7 +238,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
     ({
       id: this._id,
       name: this._name,
-      ...this.customProperties,
+      ...this.properties,
     } as T);
 
   /**
@@ -310,5 +258,27 @@ export class Metadata<T extends IMetadata = IMetadata> {
   private match = ({ id }: Partial<T>): boolean => this._id === id;
 
   private reset = () =>
-    Object.keys(this.customProperties).forEach((key) => delete this[key]);
+    Object.keys(this.properties).forEach((key) => delete this[key]);
+
+  private validateUnassigned = () =>
+    this.assigned &&
+    Exceptions.assignedException(
+      "metadata",
+      "Use metadata.update(metadata) instead."
+    );
+
+  private validateAssigned = () =>
+    !this.assigned &&
+    Exceptions.unassignedException(
+      "metadata",
+      "Use metadata.add(metadata) instead."
+    );
+
+  private validateMatch = (metadata: Partial<T>) =>
+    metadata.id &&
+    !this.match(metadata) &&
+    Exceptions.missMatchException(
+      "identifier",
+      "get metadata.id and verify match."
+    );
 }

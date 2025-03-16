@@ -7,6 +7,7 @@
  * When using V8, the stack trace is captured.
  */
 export abstract class Exception extends Error {
+  public errors: Exception[];
   constructor(message: string) {
     super(message);
     this.name = this.constructor.name;
@@ -29,11 +30,14 @@ export class InvalidArgumentException extends Exception {
  * Exception thrown when validation of arguments fails.
  */
 export class ValidationException extends Exception {
-  public errors: Exception[];
-
   constructor(errors: Exception[]) {
-    super(`Validation failed with ${errors.length} error(s).`);
-    this.errors = errors;
+    // Flatten nested ValidationExceptions by extracting their errors
+    const flattenedErrors = errors.flatMap((error) =>
+      error instanceof ValidationException ? error.errors : error
+    );
+
+    super(`Validation failed with ${flattenedErrors.length} error(s).`);
+    this.errors = flattenedErrors;
   }
 }
 
@@ -70,6 +74,24 @@ export class MissMatchException extends Exception {
   }
 }
 
+export class DuplicateException extends Exception {
+  constructor(duplicate: string) {
+    super(`Duplicate found: ${duplicate}`);
+  }
+}
+
+export class NotFoundException extends Exception {
+  constructor(type: string, hint: string) {
+    super(`Not found: ${type} ${hint}`);
+  }
+}
+
+export class InvalidIndexException extends Exception {
+  constructor() {
+    super(`Invalid index: index is out of bounds`);
+  }
+}
+
 /**
  * Set of exceptions thrown via static methods.
  */
@@ -99,5 +121,17 @@ export class Exceptions {
 
   public static missMatchException = (type: string, hint: string) => {
     throw new MissMatchException(type, hint);
+  };
+
+  public static duplicateException = (duplicate: string) => {
+    throw new DuplicateException(duplicate);
+  };
+
+  public static notFoundException = (type: string, hint: string) => {
+    throw new NotFoundException(type, hint);
+  };
+
+  public static invalidIndexException = () => {
+    throw new InvalidIndexException();
   };
 }

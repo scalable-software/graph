@@ -60,14 +60,32 @@ export const Type = {
   CONSTRUCTOR: "constructor",
   PROPERTY: "property",
   METHOD: "method",
+  ACCESSOR: "accessor",
   STATIC_PROPERTY: "static property",
   STATIC_METHOD: "static method",
   GETTER: "getter",
   SETTER: "setter",
-  ABSTRACT_CLASS: "abstract_class",
+  ABSTRACT_CLASS: "abstract class",
 };
 
-export const Spec = {
-  AVAILABILITY: "Availability",
-  INSTANTIATION: "Instantiation",
+export const Test = {
+  AVAILABILITY: "availability",
+  INSTANTIATION: "instantiation",
+  BEHAVIOR: "behavior",
+};
+
+export const Report = {
+  Type: "type",
+  Test: "test",
+  Context: "context",
+};
+
+export const metadata = (str) => {
+  const parts = str.trim().split(/\s+/);
+
+  return {
+    context: parts[0],
+    type: parts.slice(1, -2).join(" "),
+    test: parts[parts.length - 2],
+  };
 };
