@@ -182,3 +182,11 @@ given(`Edge.clone static method behavior test`, () => {
     });
   });
 });
+
+given(`Edge.update static method availability test`, () => {
+  and(`Edge is defined`, () => {
+    then("Edge.update public static method exists", () => {
+      expect(Edge.update).toBeDefined();
+    });
+  });
+});
