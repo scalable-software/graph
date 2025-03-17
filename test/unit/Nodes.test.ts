@@ -397,6 +397,45 @@ given(`nodes.add method behavior test`, () => {
         });
       });
     });
+    when(`nodes.add called with undefined argument`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          nodes.add();
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          }
+        );
+      });
+    });
+    when(`nodes.add called with null argument`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          nodes.add(null);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of InvalidArgumentException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        });
+      });
+    });
     when(`nodes.add called with nodes having no ids`, () => {
       let data: Omit<INode, "id">[];
       let result: INode[];
