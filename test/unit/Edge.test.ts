@@ -23,3 +23,11 @@ given(`Edge class availability test`, () => {
     });
   });
 });
+
+given(`Edge.create static method availability test`, () => {
+  and(`Edge is defined`, () => {
+    then("Edge.create public static method exists", () => {
+      expect(Edge.create).toBeDefined();
+    });
+  });
+});
