@@ -84,5 +84,35 @@ export class Edge {
       id: crypto.randomUUID() as UUID,
     } as T);
 
-  public static update = () => {};
+  /**
+   * Updates a given edge with new properties while preserving its `id`.
+   *
+   * @param edge - The original edge to update.
+   * @param patch - A partial update object containing the properties to modify.
+   * @returns A new edge with the updated properties while keeping the original `id`.
+   *
+   * @remarks
+   * - The `id` is always preserved from the original edge, even if included in `patch`.
+   * - This method performs a shallow merge of the `patch` properties into the `edge`.
+   *
+   * @example
+   * ```ts
+   * const edge = {
+   *    id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+   *    source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+   *    target: "43c6679a-fd9d-4036-b1ab-af0b932fc814",
+   *    coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   * };
+   *
+   * const updatedEdge = Edge.update(edge, { coordinates: { start: { x: 1, y: 1 }, end: { x: 2, y: 2} } });
+   * console.log(updatedEdge);
+   * // Returns: { ...edge, coordinates: { start: { x: 1, y: 1 }, end: { x: 4, y: 4 } }, id: edge.id }
+   * ```
+   * @category Utilities
+   */
+  public static update = <T extends IEdge>(edge: T, patch: Partial<T>): T => ({
+    ...edge,
+    ...patch,
+    id: edge.id,
+  });
 }
