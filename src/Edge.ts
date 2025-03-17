@@ -52,5 +52,35 @@ export class Edge {
       ...details,
     } as T);
 
-  public static clone = () => {};
+  /**
+   * Creates a clone of a given edge with a new unique `id`.
+   *
+   * @param edge - The edge to clone.
+   * @returns A new edge with the same properties as the original, but with a newly generated `id`.
+   *
+   * @remarks
+   * - The `id` is regenerated using `crypto.randomUUID()` and cast as `UUID`.
+   * - This method is useful when duplicating edges while ensuring uniqueness.
+   *
+   * @example
+   * ```ts
+   * const originalEdge = {
+   *     id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+   *     source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+   *     target: "43c6679a-fd9d-4036-b1ab-af0b932fc814",
+   *     coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   * }
+   *
+   * const clonedEdge = Edge.clone(originalEdge);
+   *
+   * console.log(clonedEdge);
+   * // Returns: { id: "new-generated-uuid", ...originalEdge }
+   * ```
+   * @category Utilities
+   */
+  public static clone = <T extends IEdge>(edge: T): T =>
+    ({
+      ...edge,
+      id: crypto.randomUUID() as UUID,
+    } as T);
 }
