@@ -51,4 +51,6 @@ export class Edge {
       id: crypto.randomUUID() as UUID,
       ...details,
     } as T);
+
+  public static clone = () => {};
 }
