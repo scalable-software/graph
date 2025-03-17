@@ -93,6 +93,17 @@ given(`Validate.index static method behavior test`, () => {
   });
 });
 
+given(`Validate.notNull static method availability test`, () => {
+  then(`Validate.notNull is defined`, () => {
+    expect(Validate.notNull).toBeDefined();
+  });
+  and(`Validate.notNull is defined`, () => {
+    then(`Validate.notNull is a function`, () => {
+      expect(Validate.notNull).toBeInstanceOf(Function);
+    });
+  });
+});
+
 given(`Validate.exist static method availability test`, () => {
   then(`Validate.exist is defined`, () => {
     expect(Validate.exist).toBeDefined();
