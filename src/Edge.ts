@@ -10,4 +10,6 @@
 /**
  * The `Edge` class provides utility methods for working with edges.
  */
-export class Edge {}
+export class Edge {
+  public static create = () => {};
+}
