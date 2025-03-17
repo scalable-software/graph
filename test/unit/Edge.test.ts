@@ -147,3 +147,38 @@ given(`Edge.clone static method availability test`, () => {
     });
   });
 });
+
+given(`Edge.clone static method behavior test`, () => {
+  when("Edge.clone called with node", () => {
+    let edge: IEdge;
+    let clonedEdge: IEdge;
+    beforeEach(() => {
+      edge = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        target: "43c6679a-fd9d-4036-b1ab-af0b932fc814",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      };
+      clonedEdge = Edge.clone(edge);
+    });
+
+    then("clonedEdge is defined", () => {
+      expect(clonedEdge).toBeDefined();
+    });
+
+    and("clonedEdge is defined", () => {
+      then("clonedEdge is not equal to edge", () => {
+        expect(clonedEdge).not.toBe(edge);
+      });
+      then("clonedEdge.id is not equal to edge.id", () => {
+        expect(clonedEdge.id).not.toBe(edge.id);
+      });
+      then("clonedEdge.coordinates.start equals edge.coordinates.start", () => {
+        expect(clonedEdge.coordinates.start).toEqual(edge.coordinates.start);
+      });
+      then("clonedEdge.coordinates.end equals edge.coordinates.end", () => {
+        expect(clonedEdge.coordinates.end).toEqual(edge.coordinates.end);
+      });
+    });
+  });
+});
