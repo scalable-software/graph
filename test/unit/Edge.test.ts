@@ -190,3 +190,54 @@ given(`Edge.update static method availability test`, () => {
     });
   });
 });
+
+given(`Edge.update static method behavior test`, () => {
+  when("Edge.update called with node and patch", () => {
+    let edge: IEdge;
+    let patch;
+    let updatedEdge;
+    beforeEach(() => {
+      edge = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        target: "43c6679a-fd9d-4036-b1ab-af0b932fc814",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      };
+      patch = {
+        coordinates: { start: { x: 1, y: 1 }, end: { x: 2, y: 2 } },
+      };
+      updatedEdge = Edge.update(edge, patch);
+    });
+    then("updatedEdge is defined", () => {
+      expect(updatedEdge).toBeDefined();
+    });
+    and("updatedEdge is defined", () => {
+      then("updatedEdge.id equals edge.id", () => {
+        expect(updatedEdge.id).toEqual(edge.id);
+      });
+      then("updatedEdge.source equals edge.source", () => {
+        expect(updatedEdge.source).toEqual(edge.source);
+      });
+      then("updatedEdge.target equals edge.target", () => {
+        expect(updatedEdge.target).toEqual(edge.target);
+      });
+      then("updatedEdge.coordinates is defined", () => {
+        expect(updatedEdge.coordinates).toBeDefined();
+      });
+
+      and("updatedEdge.coordinates is defined", () => {
+        then(
+          "updatedEdge.coordinates.start equals patch.coordinates.start",
+          () => {
+            expect(updatedEdge.coordinates.start).toEqual(
+              patch.coordinates.start
+            );
+          }
+        );
+        then("updatedEdge.coordinates.end equals patch.coordinates.end", () => {
+          expect(updatedEdge.coordinates.end).toEqual(patch.coordinates.end);
+        });
+      });
+    });
+  });
+});
