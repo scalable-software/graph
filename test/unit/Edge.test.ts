@@ -139,3 +139,11 @@ given(`Edge.create static method behavior test`, () => {
     });
   });
 });
+
+given(`Edge.clone static method availability test`, () => {
+  and(`Edge is defined`, () => {
+    then("Edge.clone public static method exists", () => {
+      expect(Edge.clone).toBeDefined();
+    });
+  });
+});
