@@ -15,6 +15,20 @@ import type { UUID, Coordinates, Offset } from "./Graph.types.js";
 
 export class Nodes<T extends INode> extends Array<T> {
   /**
+   * Each node can be accessed via index notation.
+   *
+   * @param {number} n - The index of the node to retrieve.
+   * @returns {T} The node at the specified index.
+   *
+   * @example
+   * ```typescript
+   * const nodes = Nodes.create([node]);
+   * nodes[0]; // node
+   * ```
+   */
+  [n: number]: T;
+
+  /**
    *
    * Factory method used to create a new instance of an container of nodes.
    *
