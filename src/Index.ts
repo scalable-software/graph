@@ -22,3 +22,4 @@ export type { INode } from "./Node.js";
 export { Nodes } from "./Nodes.js";
 
 export { Edge } from "./Edge.js";
+export type { IEdge } from "./Edge.js";
