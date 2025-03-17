@@ -104,6 +104,81 @@ given(`Validate.notNull static method availability test`, () => {
   });
 });
 
+given(`Validate.notNull static method behavior test`, () => {
+  when(`Validate.notNull called with value`, () => {
+    let value: any;
+    let result: number;
+    let error: Error;
+    beforeEach(() => {
+      value = 0;
+      try {
+        result = Validate.notNull(value);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`result is defined`, () => {
+      expect(result).toBeDefined();
+    });
+    and(`result is defined`, () => {
+      then(`result is value`, () => {
+        expect(result).toBe(value);
+      });
+    });
+  });
+  when(`Validate.notNull called with undefined`, () => {
+    let value: any;
+    let result: number;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      value = undefined;
+      try {
+        result = Validate.notNull(value);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`result is undefined`, () => {
+      expect(result).toBeUndefined();
+    });
+    then(`error is defined`, () => {
+      expect(error).toBeDefined();
+    });
+    and(`error is defined`, () => {
+      then(`error is an instance of InvalidArgumentException`, () => {
+        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+      });
+    });
+  });
+  when(`Validate.notNull called with null`, () => {
+    let value: any;
+    let result: number;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      value = null;
+      try {
+        result = Validate.notNull(value);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`result is undefined`, () => {
+      expect(result).toBeUndefined();
+    });
+    then(`error is defined`, () => {
+      expect(error).toBeDefined();
+    });
+    and(`error is defined`, () => {
+      then(`error is an instance of InvalidArgumentException`, () => {
+        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+      });
+    });
+  });
+});
+
 given(`Validate.exist static method availability test`, () => {
   then(`Validate.exist is defined`, () => {
     expect(Validate.exist).toBeDefined();
