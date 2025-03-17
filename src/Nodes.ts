@@ -23,8 +23,8 @@ export class Nodes<T extends INode> extends Array<T> {
    *
    * @category Factory
    */
-  public static create = <T extends INode>(nodes?: T[] | null): Nodes<T> & T =>
-    new Nodes<T>(...Nodes.normalize<T>(nodes)) as Nodes<T> & T;
+  public static create = <T extends INode>(nodes?: T[] | null): Nodes<T> =>
+    new Nodes<T>(...Nodes.normalize<T>(nodes)) as Nodes<T>;
 
   private static defaults = <T extends INode>(): T[] => [];
 
