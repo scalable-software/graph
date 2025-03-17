@@ -146,6 +146,11 @@ export class Validate {
   public static index = (index: number): number =>
     index !== -1 ? index : Exceptions.invalidIndexException();
 
+  public static notNull = <T>(value: T): T =>
+    value === undefined || value === null
+      ? Exceptions.invalidArgumentException("", "operation requires argument")
+      : value;
+
   public static flag = (flag: boolean): boolean =>
     typeof flag !== "boolean"
       ? Exceptions.invalidArgumentException("flag", "must be a boolean")

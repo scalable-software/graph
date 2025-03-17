@@ -379,6 +379,64 @@ given(`nodes.add method behavior test`, () => {
         });
       });
     });
+    when(`nodes.add called with valid node`, () => {
+      let data: INode;
+      beforeEach(() => {
+        data = {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        };
+        nodes.add(data);
+      });
+      then(`nodes.length is 1`, () => {
+        expect(nodes.length).toBe(1);
+      });
+      and(`nodes.length is 1`, () => {
+        then(`nodes contains data`, () => {
+          expect(nodes[0]).toEqual(data);
+        });
+      });
+    });
+    when(`nodes.add called with undefined argument`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          // @ts-ignore
+          nodes.add();
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          }
+        );
+      });
+    });
+    when(`nodes.add called with null argument`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          nodes.add(null);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of InvalidArgumentException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        });
+      });
+    });
     when(`nodes.add called with nodes having no ids`, () => {
       let data: Omit<INode, "id">[];
       let result: INode[];
@@ -446,25 +504,7 @@ given(`nodes.add method behavior test`, () => {
         });
       });
     });
-    when(`nodes.add called with valid node`, () => {
-      let data: INode;
-      beforeEach(() => {
-        data = {
-          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-          coordinates: { x: 0, y: 0 },
-        };
-        nodes.add(data);
-      });
-      then(`nodes.length is 1`, () => {
-        expect(nodes.length).toBe(1);
-      });
-      and(`nodes.length is 1`, () => {
-        then(`nodes contains data`, () => {
-          expect(nodes[0]).toEqual(data);
-        });
-      });
-    });
-    when(`nodes.add called with nodes having invalid id`, () => {
+    when(`nodes.add called with nodes with invalid id`, () => {
       let data: INode[];
       let error: Exception.Exception;
       beforeEach(() => {
@@ -498,48 +538,40 @@ given(`nodes.add method behavior test`, () => {
         });
       });
     });
-    when(
-      `nodes.add called with nodes having invalid string x coordinates`,
-      () => {
-        let data: INode[];
-        let error: Exception.Exception;
-        beforeEach(() => {
-          data = [
-            {
-              id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-              coordinates: { x: 0, y: 0 },
-            },
-            {
-              id: "a5f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a2d",
-              coordinates: { x: "1" as unknown as number, y: 0 },
-            },
-          ];
-          try {
-            nodes.add(data);
-          } catch (e) {
-            error = e;
-          }
+    when(`nodes.add called with nodes with invalid x coordinates`, () => {
+      let data: INode[];
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = [
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { x: 0, y: 0 },
+          },
+          {
+            id: "a5f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a2d",
+            coordinates: { x: "1" as unknown as number, y: 0 },
+          },
+        ];
+        try {
+          nodes.add(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of Exception.ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
-        });
-        and(`error is defined`, () => {
-          then(`error is an instance of Exception.ValidationException`, () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
-          });
-          and(`error is an instance of Exception.ValidationException`, () => {
-            then(
-              `error.message is 'Validation failed with 1 error(s).'`,
-              () => {
-                expect(error.message).toBe(
-                  "Validation failed with 1 error(s)."
-                );
-              }
-            );
+        and(`error is an instance of Exception.ValidationException`, () => {
+          then(`error.message is 'Validation failed with 1 error(s).'`, () => {
+            expect(error.message).toBe("Validation failed with 1 error(s).");
           });
         });
-      }
-    );
+      });
+    });
   });
   and(`nodes instance is created with nodes`, () => {
     let data: INode[];
