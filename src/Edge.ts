@@ -83,4 +83,6 @@ export class Edge {
       ...edge,
       id: crypto.randomUUID() as UUID,
     } as T);
+
+  public static update = () => {};
 }
