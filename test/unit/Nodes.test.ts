@@ -401,6 +401,7 @@ given(`nodes.add method behavior test`, () => {
       let error: Exception.Exception;
       beforeEach(() => {
         try {
+          // @ts-ignore
           nodes.add();
         } catch (e) {
           error = e;
