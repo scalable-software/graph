@@ -116,5 +116,42 @@ export class Edge {
     id: edge.id,
   });
 
-  public static move = () => {};
+  /**
+   * Moves a edge's start, end or both to a new set of coordinates while preserving its other properties.
+   *
+   * @param edge - The edge to move.
+   * @param coordinates - The new start, end or both set of coordinates to assign to the edge.
+   * @returns A new edge with updated `coordinates` while keeping all other properties unchanged.
+   *
+   * @remarks
+   * - This method replaces the `coordinates` property with the new value.
+   * - All other properties, including `id`, remain unchanged.
+   *
+   * @example
+   * ```ts
+   * const edge = {
+   *   id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+   *   source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+   *   target: "43c6679a-fd9d-4036-b1ab-af0b932fc814",
+   *   coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   * };
+   *
+   * const movedEdge = Edge.move(edge, { start: { x: 5, y: 5 }, end: { x: 6, y: 6 } });
+   *
+   * console.log(movedEdge);
+   * // Returns: { id: "15b6679a-fd9d-4036-b1ab-af0b932fc903", source: "15b6679a-fd9d-4036-b1ab-af0b932fc903", target: "43c6679a-fd9d-4036-b1ab-af0b932fc814", coordinates: { start: { x: 5, y: 5 }, end: { x: 6, y: 6 } } }
+   * ```
+   *
+   * @category Utilities
+   */
+  public static move = <T extends IEdge>(
+    edge: T,
+    coordinates: Partial<{ start: Coordinates; end: Coordinates }>
+  ): T => ({
+    ...edge,
+    coordinates: {
+      start: coordinates.start ?? edge.coordinates.start,
+      end: coordinates.end ?? edge.coordinates.end,
+    },
+  });
 }
