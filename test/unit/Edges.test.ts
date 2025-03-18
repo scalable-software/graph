@@ -49,3 +49,16 @@ given(`Edges class instantiation test`, () => {
     });
   });
 });
+
+given(`Edges.create static method availability test`, () => {
+  and(`Edges is imported`, () => {
+    then(`Edges.create is defined`, () => {
+      expect(Edges.create).toBeDefined();
+    });
+    and(`Edges.create is defined`, () => {
+      then(`Edges.create is an instance of Function`, () => {
+        expect(Edges.create).toBeInstanceOf(Function);
+      });
+    });
+  });
+});
