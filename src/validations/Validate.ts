@@ -314,6 +314,7 @@ export class Validate {
       ? (Validator.validate<T>(edge, [
           ({ id }) => Validate.uuid(id),
           ({ source }) => Validate.uuid(source),
+          ({ target }) => Validate.uuid(target),
         ]) as T)
       : null;
 
