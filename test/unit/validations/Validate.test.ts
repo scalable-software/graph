@@ -1384,6 +1384,36 @@ given(`Validate.edge static method behavior test`, () => {
       });
     });
   });
+  when("Validate.edge called with invalid end coordinates", () => {
+    let edge: IEdge;
+    let response: IEdge;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      const x = "invalid" as any;
+      edge = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        target: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+        coordinates: { start: { x: 0, y: 0 }, end: { x, y: 1 } },
+      };
+      try {
+        response = Validate.edge<IEdge>(edge) as IEdge;
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("error is defined", () => {
+      expect(error).toBeDefined();
+    });
+    then("response is undefined", () => {
+      expect(response).toBeUndefined();
+    });
+    and("error is defined", () => {
+      then("error is an instance of ValidationException", () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
+    });
+  });
 });
 
 given(`Validate.nodes static method behavior test`, () => {
