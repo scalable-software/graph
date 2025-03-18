@@ -350,4 +350,6 @@ export class Validate {
       (nodes) => Validate.unique(nodes, (node) => node.id),
       (nodes) => Validate.unique(nodes, (node) => node.coordinates),
     ]);
+
+  public static edges = () => {};
 }
