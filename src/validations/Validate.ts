@@ -308,6 +308,8 @@ export class Validate {
         ]) as T)
       : null;
 
+  public static edge = () => {};
+
   public static nodeDetails = <T extends { coordinates: Coordinates }>(
     details: Partial<T>
   ): Partial<T> => {
