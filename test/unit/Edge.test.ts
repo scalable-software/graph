@@ -14,7 +14,7 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import { Edge, type IEdge } from "@scalable.software/graph";
+import { Edge, type IEdge, type Coordinates } from "@scalable.software/graph";
 
 given(`Edge class availability test`, () => {
   and(`Edge is imported`, () => {
@@ -246,6 +246,145 @@ given(`Edge.move static method availability test`, () => {
   and(`Edge is defined`, () => {
     then("Edge.move public static method exists", () => {
       expect(Edge.move).toBeDefined();
+    });
+  });
+});
+
+given(`Edge.move static method behavior test`, () => {
+  when("Edge.move called with edge and new start and end coordinates", () => {
+    let edge: IEdge;
+    let coordinates: { start: Coordinates; end: Coordinates };
+    let updatedEdge;
+    beforeEach(() => {
+      edge = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        target: "43c6679a-fd9d-4036-b1ab-af0b932fc814",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      };
+      coordinates = { start: { x: 1, y: 1 }, end: { x: 2, y: 2 } };
+      updatedEdge = Edge.move(edge, coordinates);
+    });
+
+    then("updatedEdge is defined", () => {
+      expect(updatedEdge).toBeDefined();
+    });
+
+    and("updatedEdge is defined", () => {
+      then("updatedEdge.id equals edge.id", () => {
+        expect(updatedEdge.id).toEqual(edge.id);
+      });
+      then("updatedEdge.source equals edge.source", () => {
+        expect(updatedEdge.source).toEqual(edge.source);
+      });
+      then("updatedEdge.target equals edge.target", () => {
+        expect(updatedEdge.target).toEqual(edge.target);
+      });
+      then("updatedEdge.coordinates is defined", () => {
+        expect(updatedEdge.coordinates).toBeDefined();
+      });
+
+      and("updatedEdge.coordinates is defined", () => {
+        then("updatedEdge.coordinates.start equals coordinates.start", () => {
+          expect(updatedEdge.coordinates.start).toEqual(coordinates.start);
+        });
+        then("updatedEdge.coordinates.end equals coordinates.end", () => {
+          expect(updatedEdge.coordinates.end).toEqual(coordinates.end);
+        });
+      });
+    });
+  });
+
+  when("Edge.move called with edge and new start coordinates", () => {
+    let edge: IEdge;
+    let coordinates: { start: Coordinates };
+    let updatedEdge;
+    beforeEach(() => {
+      edge = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        target: "43c6679a-fd9d-4036-b1ab-af0b932fc814",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      };
+      coordinates = { start: { x: 1, y: 1 } };
+      updatedEdge = Edge.move(edge, coordinates);
+    });
+
+    then("updatedEdge is defined", () => {
+      expect(updatedEdge).toBeDefined();
+    });
+
+    and("updatedEdge is defined", () => {
+      then("updatedEdge.id equals edge.id", () => {
+        expect(updatedEdge.id).toEqual(edge.id);
+      });
+      then("updatedEdge.source equals edge.source", () => {
+        expect(updatedEdge.source).toEqual(edge.source);
+      });
+      then("updatedEdge.target equals edge.target", () => {
+        expect(updatedEdge.target).toEqual(edge.target);
+      });
+      then("updatedEdge.coordinates is defined", () => {
+        expect(updatedEdge.coordinates).toBeDefined();
+      });
+
+      and("updatedEdge.coordinates is defined", () => {
+        then("updatedEdge.coordinates.start equals coordinates.start", () => {
+          expect(updatedEdge.coordinates.start).toEqual(coordinates.start);
+        });
+        then("updatedEdge.coordinates.end equals edge.coordinates.end", () => {
+          expect(updatedEdge.coordinates.end).toEqual(edge.coordinates.end);
+        });
+      });
+    });
+  });
+
+  when("Edge.move called with edge and new end coordinates", () => {
+    let edge: IEdge;
+    let coordinates: { end: Coordinates };
+    let updatedEdge;
+    beforeEach(() => {
+      edge = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        target: "43c6679a-fd9d-4036-b1ab-af0b932fc814",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      };
+      coordinates = { end: { x: 2, y: 2 } };
+      updatedEdge = Edge.move(edge, coordinates);
+    });
+
+    then("updatedEdge is defined", () => {
+      expect(updatedEdge).toBeDefined();
+    });
+
+    and("updatedEdge is defined", () => {
+      then("updatedEdge.id equals edge.id", () => {
+        expect(updatedEdge.id).toEqual(edge.id);
+      });
+      then("updatedEdge.source equals edge.source", () => {
+        expect(updatedEdge.source).toEqual(edge.source);
+      });
+      then("updatedEdge.target equals edge.target", () => {
+        expect(updatedEdge.target).toEqual(edge.target);
+      });
+      then("updatedEdge.coordinates is defined", () => {
+        expect(updatedEdge.coordinates).toBeDefined();
+      });
+
+      and("updatedEdge.coordinates is defined", () => {
+        then(
+          "updatedEdge.coordinates.start equals edge.coordinates.start",
+          () => {
+            expect(updatedEdge.coordinates.start).toEqual(
+              edge.coordinates.start
+            );
+          }
+        );
+        then("updatedEdge.coordinates.end equals coordinates.end", () => {
+          expect(updatedEdge.coordinates.end).toEqual(coordinates.end);
+        });
+      });
     });
   });
 });
