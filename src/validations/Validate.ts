@@ -316,6 +316,7 @@ export class Validate {
           ({ source }) => Validate.uuid(source),
           ({ target }) => Validate.uuid(target),
           ({ coordinates }) => Validate.coordinates(coordinates.start),
+          ({ coordinates }) => Validate.coordinates(coordinates.end),
         ]) as T)
       : null;
 
