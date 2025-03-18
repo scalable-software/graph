@@ -1208,6 +1208,17 @@ given(`Validate.nodes static method availability test`, () => {
   });
 });
 
+given(`Validate.edge static method availability test`, () => {
+  then("Validate.edge is defined", () => {
+    expect(Validate.edge).toBeDefined();
+  });
+  and("Validate.edge is defined", () => {
+    then("Validate.edge is a function", () => {
+      expect(Validate.edge).toBeInstanceOf(Function);
+    });
+  });
+});
+
 given(`Validate.nodes static method behavior test`, () => {
   when("Validate.nodes called with valid nodes", () => {
     let nodes: INode[];
