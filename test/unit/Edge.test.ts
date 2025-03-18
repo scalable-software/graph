@@ -241,3 +241,11 @@ given(`Edge.update static method behavior test`, () => {
     });
   });
 });
+
+given(`Edge.move static method availability test`, () => {
+  and(`Edge is defined`, () => {
+    then("Edge.move public static method exists", () => {
+      expect(Edge.move).toBeDefined();
+    });
+  });
+});
