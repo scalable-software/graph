@@ -311,7 +311,10 @@ export class Validate {
 
   public static edge = <T extends IEdge>(edge?: T) =>
     edge
-      ? (Validator.validate<T>(edge, [({ id }) => Validate.uuid(id)]) as T)
+      ? (Validator.validate<T>(edge, [
+          ({ id }) => Validate.uuid(id),
+          ({ source }) => Validate.uuid(source),
+        ]) as T)
       : null;
 
   public static nodeDetails = <T extends { coordinates: Coordinates }>(
