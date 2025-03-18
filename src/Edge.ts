@@ -154,4 +154,6 @@ export class Edge {
       end: coordinates.end ?? edge.coordinates.end,
     },
   });
+
+  public static translate = () => {};
 }
