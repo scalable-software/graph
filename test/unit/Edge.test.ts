@@ -14,7 +14,8 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import { Edge, type IEdge, type Coordinates } from "@scalable.software/graph";
+import { Edge } from "@scalable.software/graph";
+import type { IEdge, Coordinates, Offset } from "@scalable.software/graph";
 
 given(`Edge class availability test`, () => {
   and(`Edge is imported`, () => {
@@ -393,6 +394,59 @@ given(`Edge.translate static method availability test`, () => {
   and(`Edge is defined`, () => {
     then("Edge.translate public static method exists", () => {
       expect(Edge.translate).toBeDefined();
+    });
+  });
+});
+
+given(`Edge.translate static method behavior test`, () => {
+  when("Edge.translate(edge, offset)", () => {
+    let edge: IEdge;
+    let offset: Offset;
+    let updatedEdge: IEdge;
+    beforeEach(() => {
+      edge = {
+        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        target: "43c6679a-fd9d-4036-b1ab-af0b932fc814",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      };
+      offset = { x: 100, y: 400 };
+      updatedEdge = Edge.translate(edge, offset);
+    });
+    then("updatedEdge is defined", () => {
+      expect(updatedEdge).toBeDefined();
+    });
+    and("updatedEdge is defined", () => {
+      then("updatedEdge.id equals edge.id", () => {
+        expect(updatedEdge.id).toEqual(edge.id);
+      });
+      then("updatedEdge.source equals edge.source", () => {
+        expect(updatedEdge.source).toEqual(edge.source);
+      });
+      then("updatedEdge.target equals edge.target", () => {
+        expect(updatedEdge.target).toEqual(edge.target);
+      });
+      then("updatedEdge.coordinates is defined", () => {
+        expect(updatedEdge.coordinates).toBeDefined();
+      });
+
+      and("updatedEdge.coordinates is defined", () => {
+        then(
+          "updatedEdge.coordinates.start equals edge.coordinates.start",
+          () => {
+            expect(updatedEdge.coordinates.start).toEqual({
+              x: edge.coordinates.start.x + offset.x,
+              y: edge.coordinates.start.y + offset.y,
+            });
+          }
+        );
+        then("updatedEdge.coordinates.end equals edge.coordinates.end", () => {
+          expect(updatedEdge.coordinates.end).toEqual({
+            x: edge.coordinates.end.x + offset.x,
+            y: edge.coordinates.end.y + offset.y,
+          });
+        });
+      });
     });
   });
 });
