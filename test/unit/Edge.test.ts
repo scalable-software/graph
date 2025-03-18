@@ -388,3 +388,11 @@ given(`Edge.move static method behavior test`, () => {
     });
   });
 });
+
+given(`Edge.translate static method availability test`, () => {
+  and(`Edge is defined`, () => {
+    then("Edge.translate public static method exists", () => {
+      expect(Edge.translate).toBeDefined();
+    });
+  });
+});
