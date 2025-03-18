@@ -19,6 +19,7 @@ import {
   Coordinates,
   IMetadata,
   INode,
+  IEdge,
   Exception,
   Validate,
 } from "@scalable.software/graph";
@@ -1215,6 +1216,26 @@ given(`Validate.edge static method availability test`, () => {
   and("Validate.edge is defined", () => {
     then("Validate.edge is a function", () => {
       expect(Validate.edge).toBeInstanceOf(Function);
+    });
+  });
+});
+
+given(`Validate.edge static method behavior test`, () => {
+  when("Validate.edge called with no arguments", () => {
+    let response: IEdge;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      try {
+        response = Validate.edge() as IEdge;
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("error is undefined", () => {
+      expect(error).toBeUndefined();
+    });
+    then("response is null", () => {
+      expect(response).toBeNull();
     });
   });
 });
