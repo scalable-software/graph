@@ -7,7 +7,7 @@
  * @module Graph
  */
 
-import type { UUID, Coordinates } from "./Graph.types";
+import type { UUID, Coordinates, Offset } from "./Graph.types";
 
 export type IEdge = {
   id: UUID;
@@ -155,5 +155,44 @@ export class Edge {
     },
   });
 
-  public static translate = () => {};
+  /**
+   * Translates a edge by applying an offset to its `coordinates`.
+   *
+   * @param edge - The edge to translate.
+   * @param offset - The amount to move the edge along the x and y axes.
+   * @returns A new edge with updated `coordinates` reflecting the translation.
+   *
+   * @remarks
+   * - The `coordinates` are modified by adding `offset.x` and `offset.y` to the existing values.
+   * - All other properties, including `id`, remain unchanged.
+   *
+   * @example
+   * ```ts
+   * const edge = {
+   *  id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+   * source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+   * target: "43c6679a-fd9d-4036-b1ab-af0b932fc814",
+   * coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   * };
+   *
+   * const movedEdge = Edge.translate(edge, { x: 5, y: 5 });
+   *
+   * console.log(movedEdge);
+   * // Returns: { id: "15b6679a-fd9d-4036-b1ab-af0b932fc903", source: "15b6679a-fd9d-4036-b1ab-af0b932fc903", target: "43c6679a-fd9d-4036-b1ab-af0b932fc814", coordinates: { start: { x: 5, y: 5 }, end: { x: 6, y: 6 } } }
+   * ```
+   * @category Utilities
+   */
+  public static translate = <T extends IEdge>(edge: T, offset: Offset): T => ({
+    ...edge,
+    coordinates: {
+      start: {
+        x: edge.coordinates.start.x + offset.x,
+        y: edge.coordinates.start.y + offset.y,
+      },
+      end: {
+        x: edge.coordinates.end.x + offset.x,
+        y: edge.coordinates.end.y + offset.y,
+      },
+    },
+  });
 }
