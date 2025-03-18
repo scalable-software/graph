@@ -23,3 +23,5 @@ export { Nodes } from "./Nodes.js";
 
 export { Edge } from "./Edge.js";
 export type { IEdge } from "./Edge.js";
+
+export { Edges } from "./Edges.js";
