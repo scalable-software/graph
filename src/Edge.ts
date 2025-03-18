@@ -115,4 +115,6 @@ export class Edge {
     ...patch,
     id: edge.id,
   });
+
+  public static move = () => {};
 }
