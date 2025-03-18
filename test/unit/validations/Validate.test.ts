@@ -1821,4 +1821,42 @@ given(`Validate.edges static method behavior test`, () => {
       });
     });
   });
+  when("Validate.edges called with duplicate ids in edges", () => {
+    let edges: IEdge[];
+    let response: IEdge[];
+    let error: Exception.Exception;
+    beforeEach(() => {
+      edges = [
+        {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          target: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+        {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          source: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+          target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: { start: { x: 1, y: 1 }, end: { x: 0, y: 0 } },
+        },
+      ];
+      try {
+        response = Validate.edges(edges) as IEdge[];
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("response is undefined", () => {
+      expect(response).toBeUndefined();
+    });
+    then("error is defined", () => {
+      expect(error).toBeDefined();
+    });
+
+    and("response is defined", () => {
+      then("error is an instance of ValidationException", () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
+    });
+  });
 });
