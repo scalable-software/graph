@@ -352,5 +352,8 @@ export class Validate {
     ]);
 
   public static edges = <T extends IEdge>(edges: T[]): T[] =>
-    Validator.validate<T[]>(edges, [(edges) => edges.map(Validate.edge)]);
+    Validator.validate<T[]>(edges, [
+      (edges) => edges.map(Validate.edge),
+      (nodes) => Validate.unique(nodes, (node) => node.id),
+    ]);
 }
