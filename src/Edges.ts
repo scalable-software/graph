@@ -9,4 +9,8 @@
 
 import { IEdge } from "./Edge.js";
 
-export class Edges<T extends IEdge> extends Array<T> {}
+export class Edges<T extends IEdge> extends Array<T> {
+  constructor(...edges: T[]) {
+    super(...edges);
+  }
+}
