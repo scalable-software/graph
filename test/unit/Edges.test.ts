@@ -15,7 +15,7 @@ const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
 import type { IEdge } from "@scalable.software/graph";
-import { Edges } from "@scalable.software/graph";
+import { Edges, Exception } from "@scalable.software/graph";
 
 given(`Edges class availability test`, () => {
   and(`Edges is imported`, () => {
@@ -118,6 +118,74 @@ given(`Edges.create static method behavior test`, () => {
             expect(edges[0]).toEqual(data[0]);
           });
         });
+      });
+    });
+  });
+
+  when("Edges.create is called with invalid edges", () => {
+    let edges: Edges<IEdge>;
+    let data: IEdge[];
+    let error: Exception.Exception;
+    beforeEach(() => {
+      data = [
+        {
+          id: "1",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+        },
+      ];
+      try {
+        edges = Edges.create(data);
+      } catch (e) {
+        error = e;
+      }
+    });
+
+    then("edges is undefined", () => {
+      expect(edges).toBeUndefined();
+    });
+    then("error is defined", () => {
+      expect(error).toBeDefined();
+    });
+  });
+
+  when("Edges.create is called with duplicate edges", () => {
+    let edges: Edges<IEdge>;
+    let data: IEdge[];
+    let error: Exception.Exception;
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+        },
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+        },
+      ];
+      try {
+        edges = Edges.create(data);
+      } catch (e) {
+        error = e;
+      }
+    });
+
+    then("edges is undefined", () => {
+      expect(edges).toBeUndefined();
+    });
+    then("error is defined", () => {
+      expect(error).toBeDefined();
+    });
+
+    and("error is defined", () => {
+      then("error is an instance of ValidationException", () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
       });
     });
   });
