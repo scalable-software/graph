@@ -10,8 +10,8 @@
 import { IEdge } from "./Edge.js";
 
 export class Edges<T extends IEdge> extends Array<T> {
-  public static create = <T extends IEdge>(): Edges<T> =>
-    new Edges<T>() as Edges<T>;
+  public static create = <T extends IEdge>(edges?: T[] | null): Edges<T> =>
+    edges ? new Edges<T>(...edges) : new Edges<T>();
 
   constructor(...edges: T[]) {
     super(...edges);
