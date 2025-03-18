@@ -1575,3 +1575,14 @@ given(`Validate.nodes static method behavior test`, () => {
     });
   });
 });
+
+given(`Validate.edges static method availability test`, () => {
+  then("Validate.edges is defined", () => {
+    expect(Validate.edges).toBeDefined();
+  });
+  and("Validate.edges is defined", () => {
+    then("Validate.edges is a function", () => {
+      expect(Validate.edges).toBeInstanceOf(Function);
+    });
+  });
+});
