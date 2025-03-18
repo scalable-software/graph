@@ -62,3 +62,25 @@ given(`Edges.create static method availability test`, () => {
     });
   });
 });
+
+given(`Edges.create static method behavior test`, () => {
+  when("Edges.create is called", () => {
+    let edges: Edges<IEdge>;
+    beforeEach(() => {
+      edges = Edges.create();
+    });
+    then("edges is defined", () => {
+      expect(edges).toBeDefined();
+    });
+    and("edges is defined", () => {
+      then("edges is an instance of Edges", () => {
+        expect(edges).toBeInstanceOf(Edges);
+      });
+      and("edges is an instance of Edges", () => {
+        then("edges.length is 0", () => {
+          expect(edges.length).toBe(0);
+        });
+      });
+    });
+  });
+});
