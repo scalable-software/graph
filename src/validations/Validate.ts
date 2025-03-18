@@ -7,6 +7,7 @@ import { Utilities } from "../utilities/Utilities.js";
 import { Validator } from "./Validator.js";
 import type { IMetadata } from "../Metadata.js";
 import type { INode } from "../Node.js";
+import type { IEdge } from "../Edge.js";
 import type { UUID, Name, Coordinates, Offset } from "../Graph.types.js";
 
 export class Validate {
@@ -308,7 +309,9 @@ export class Validate {
         ]) as T)
       : null;
 
-  public static edge = () => {};
+  public static edge = <T extends IEdge>(edge?: T) => {
+    if (!edge) return null;
+  };
 
   public static nodeDetails = <T extends { coordinates: Coordinates }>(
     details: Partial<T>
