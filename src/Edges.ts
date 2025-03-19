@@ -25,6 +25,16 @@ export class Edges<T extends IEdge> extends Array<T> {
     super(...edges);
   }
 
+  /**
+   * Adds new edges to the `Edges` collection while ensuring unique IDs.
+   * If a edge does not have an `id`, it will be automatically assigned one.
+   *
+   * @param edges - A single edge or an array of edges to add.
+   * @throws {Error} If a edges with the same ID already exists in the collection.
+   * @returns {Edges<T>} The modified `Edges<T>` instance, allowing method chaining.
+   *
+   * @category Operations
+   */
   public add = (edges: T | Omit<T, "id"> | (T | Omit<T, "id">)[]): Edges<T> => {
     ((nodes) => this.push(...nodes))(
       this.validate(Utilities.normalize(Validate.notNull(edges)))
