@@ -19,6 +19,13 @@ export type IEdge = {
   };
 };
 
+export type PartialEdge<T> = Partial<Omit<T, "coordinates">> & {
+  coordinates?: {
+    start?: Coordinates;
+    end?: Coordinates;
+  };
+};
+
 /**
  * The `Edge` class provides utility methods for working with edges.
  */
@@ -110,7 +117,10 @@ export class Edge {
    * ```
    * @category Utilities
    */
-  public static update = <T extends IEdge>(edge: T, patch: Partial<T>): T => ({
+  public static update = <T extends IEdge>(
+    edge: T,
+    patch: PartialEdge<T>
+  ): T => ({
     ...edge,
     ...patch,
     id: edge.id,
