@@ -364,3 +364,15 @@ given(`edges.add method behavior test`, () => {
     });
   });
 });
+
+given(`edges.update method availability test`, () => {
+  when(`an instance of Edges is created`, () => {
+    let instance: Edges<IEdge>;
+    beforeEach(() => {
+      instance = Edges.create();
+    });
+    then(`instance.update is defined`, () => {
+      expect(instance.update).toBeDefined();
+    });
+  });
+});
