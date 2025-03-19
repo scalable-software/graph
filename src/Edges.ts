@@ -42,6 +42,8 @@ export class Edges<T extends IEdge> extends Array<T> {
     return this;
   };
 
+  public update = () => {};
+
   private validate = (edges: T[]): T[] =>
     ((edges) =>
       Validator.compare(
