@@ -190,3 +190,15 @@ given(`Edges.create static method behavior test`, () => {
     });
   });
 });
+
+given(`edges.add method availability test`, () => {
+  when(`an instance of Edges is created`, () => {
+    let instance: Edges<IEdge>;
+    beforeEach(() => {
+      instance = Edges.create();
+    });
+    then(`instance.add is defined`, () => {
+      expect(instance.add).toBeDefined();
+    });
+  });
+});
