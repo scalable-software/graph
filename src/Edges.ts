@@ -22,4 +22,6 @@ export class Edges<T extends IEdge> extends Array<T> {
   constructor(...edges: T[]) {
     super(...edges);
   }
+
+  public add = () => {};
 }
