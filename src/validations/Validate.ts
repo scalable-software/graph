@@ -327,7 +327,45 @@ export class Validate {
     return details;
   };
 
-  public static edgeDetails = () => {};
+  /**
+   * Validate an edge to ensure it has valid `source`, `target`, and `coordinates` if provided.
+   *
+   * @param edge - The edge to validate.
+   * @returns The validated edge if successful, otherwise throws an exception.
+   *
+   * @example
+   * ```ts
+   * const edge = {
+   *   source: "a1",
+   *   target: "b2",
+   *   coordinates: { start: { x: test, y: 0 }, end: { x: 1, y: 1 } }
+   * };
+   *
+   * Validate.edgeDetails(edge);
+   * // Throw InvalidArgumentExceptions
+   * ```
+   */
+  public static edgeDetails = <
+    T extends {
+      source: UUID;
+      target: UUID;
+      coordinates: { start: Coordinates; end: Coordinates };
+    }
+  >(
+    details: PartialEdge<T>
+  ): PartialEdge<T> => {
+    details.source && Validate.uuid(details.source);
+    details.target && Validate.uuid(details.target);
+
+    details.coordinates &&
+      details.coordinates.start &&
+      Validate.coordinates(details.coordinates.start);
+
+    details.coordinates &&
+      details.coordinates.end &&
+      Validate.coordinates(details.coordinates.end);
+    return details;
+  };
 
   /**
    * Validate an array of nodes to ensure each nodes have valid `id` and `coordinates`.
