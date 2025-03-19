@@ -20,6 +20,7 @@ import {
   IMetadata,
   INode,
   IEdge,
+  PartialEdge,
   Exception,
   Validate,
 } from "@scalable.software/graph";
@@ -1857,6 +1858,17 @@ given(`Validate.edges static method behavior test`, () => {
       then("error is an instance of ValidationException", () => {
         expect(error).toBeInstanceOf(Exception.ValidationException);
       });
+    });
+  });
+});
+
+given(`Validate.edgeDetails static method availability test`, () => {
+  then("Validate.edgeDetails is defined", () => {
+    expect(Validate.edgeDetails).toBeDefined();
+  });
+  and("Validate.edgeDetails is defined", () => {
+    then("Validate.edgeDetails is a function", () => {
+      expect(Validate.edgeDetails).toBeInstanceOf(Function);
     });
   });
 });
