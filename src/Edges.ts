@@ -23,5 +23,8 @@ export class Edges<T extends IEdge> extends Array<T> {
     super(...edges);
   }
 
-  public add = () => {};
+  public add = (edges: T): Edges<T> => {
+    this.push(edges);
+    return this;
+  };
 }
