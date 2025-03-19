@@ -230,6 +230,86 @@ given(`edges.add method behavior test`, () => {
         });
       });
     });
+    when(`instance.add is called with valid edges`, () => {
+      let edges: IEdge[];
+      beforeEach(() => {
+        edges = [
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+          },
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            coordinates: { start: { x: 1, y: 1 }, end: { x: 2, y: 2 } },
+          },
+        ];
+        instance.add(edges);
+      });
+      then(`instance.length is 2`, () => {
+        expect(instance.length).toBe(2);
+      });
+
+      and(`instance.length is 2`, () => {
+        then(`instance[0] is edges[0]`, () => {
+          expect(instance[0]).toEqual(edges[0]);
+        });
+        then(`instance[1] is edges[1]`, () => {
+          expect(instance[1]).toEqual(edges[1]);
+        });
+      });
+    });
+    when(`instance.add is called with edge containing no id`, () => {
+      let edge: Omit<IEdge, "id">;
+      beforeEach(() => {
+        edge = {
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        };
+        instance.add(edge);
+      });
+      then(`instance.length is 1`, () => {
+        expect(instance.length).toBe(1);
+      });
+      and(`instance.length is 1`, () => {
+        then(`instance[0].id is defined`, () => {
+          expect(instance[0].id).toBeDefined();
+        });
+      });
+    });
+    when(`instance.add is called with edges containing no ids`, () => {
+      let edges: Omit<IEdge, "id">[];
+      beforeEach(() => {
+        edges = [
+          {
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+          },
+          {
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            coordinates: { start: { x: 1, y: 1 }, end: { x: 2, y: 2 } },
+          },
+        ];
+        instance.add(edges);
+      });
+      then(`instance.length is 2`, () => {
+        expect(instance.length).toBe(2);
+      });
+      and(`instance.length is 2`, () => {
+        then(`instance[0].id is defined`, () => {
+          expect(instance[0].id).toBeDefined();
+        });
+        then(`instance[1].id is defined`, () => {
+          expect(instance[1].id).toBeDefined();
+        });
+      });
+    });
     when(`instance.add is called with null`, () => {
       let edge: IEdge;
       let error: Exception.Exception;
@@ -250,6 +330,35 @@ given(`edges.add method behavior test`, () => {
       and(`error is defined`, () => {
         then(`error is an instance of InvalidArgumentException`, () => {
           expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        });
+      });
+    });
+    when(`instance.add is called with invalid edge`, () => {
+      let edge: IEdge;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        edge = {
+          id: "1",
+          source: "1",
+          target: "1",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        };
+        try {
+          instance.add(edge);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`instance.length is 0`, () => {
+        expect(instance.length).toBe(0);
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+
+      and(`error is defined`, () => {
+        then(`error is an instance of ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
       });
     });
