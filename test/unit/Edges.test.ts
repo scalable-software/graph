@@ -391,3 +391,91 @@ given(`edges.immutable accessor availability test`, () => {
     });
   });
 });
+
+given(`edges.immutable accessor behavior test`, () => {
+  and(`a edges instance is created`, () => {
+    let edges: Edges<IEdge>;
+    beforeEach(() => {
+      edges = Edges.create();
+    });
+    then(`edges.immutable is by default true`, () => {
+      expect(edges.immutable).toBeTruthy();
+    });
+    when(`edges.immutable is set to false`, () => {
+      beforeEach(() => {
+        edges.immutable = false;
+      });
+      then(`edges.immutable is false`, () => {
+        expect(edges.immutable).toBeFalsy();
+      });
+    });
+    when(`edges.immutable is set to number`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          edges.immutable = 1 as any;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          }
+        );
+        and(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            then(
+              `error.message is 'Invalid argument: flag - must be a boolean'`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: flag - must be a boolean"
+                );
+              }
+            );
+          }
+        );
+      });
+    });
+    when(`edges.immutable is set to string`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          edges.immutable = "test" as any;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          }
+        );
+        and(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            then(
+              `error.message is 'Invalid argument: flag - must be a boolean'`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: flag - must be a boolean"
+                );
+              }
+            );
+          }
+        );
+      });
+    });
+  });
+});
