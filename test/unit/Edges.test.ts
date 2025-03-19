@@ -376,3 +376,18 @@ given(`edges.update method availability test`, () => {
     });
   });
 });
+
+given(`edges.immutable accessor availability test`, () => {
+  and(`a edges instance is created`, () => {
+    let edges: Edges<IEdge>;
+    beforeEach(() => {
+      edges = Edges.create();
+    });
+    then(`edges.immutable getter is defined`, () => {
+      expect(edges.immutable).toBeDefined();
+    });
+    then(`edges.immutable setter is defined`, () => {
+      expect(help.hasSetter(edges, "immutable")).toBeTruthy();
+    });
+  });
+});
