@@ -21,8 +21,24 @@ export class Edges<T extends IEdge> extends Array<T> {
   private static normalize = <T extends IEdge>(edges?: T[]): T[] =>
     edges ? Validate.edges(edges) : Edges.defaults();
 
+  private _immutable = true;
+
   constructor(...edges: T[]) {
     super(...edges);
+  }
+
+  /**
+   * A flag indicating whether to give precedence to performance or memory usage.
+   * - `true`, the nodes in the collection is immutable: operations return new instances of a nodes.
+   * - `false`, the nodes in the collection is mutable: operations modify the instance in place.
+   *
+   * @category Configuration
+   */
+  get immutable(): boolean {
+    return this._immutable;
+  }
+  set immutable(immutable: boolean) {
+    this._immutable = immutable;
   }
 
   /**
