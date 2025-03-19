@@ -9,6 +9,8 @@
 
 import { IEdge } from "./Edge.js";
 import { Validate } from "./validations/Validate.js";
+import { Validator } from "./validations/Validator.js";
+import { Utilities } from "./utilities/Utilities.js";
 
 export class Edges<T extends IEdge> extends Array<T> {
   public static create = <T extends IEdge>(edges?: T[] | null): Edges<T> =>
@@ -23,8 +25,17 @@ export class Edges<T extends IEdge> extends Array<T> {
     super(...edges);
   }
 
-  public add = (edges: T): Edges<T> => {
-    this.push(Validate.notNull(edges));
+  public add = (edges: T | Omit<T, "id"> | (T | Omit<T, "id">)[]): Edges<T> => {
+    ((nodes) => this.push(...nodes))(
+      this.validate(Utilities.normalize(Validate.notNull(edges)))
+    );
     return this;
   };
+
+  private validate = (edges: T[]): T[] =>
+    ((edges) =>
+      Validator.compare(
+        [this, edges],
+        [(sets) => Validate.distinct(sets, (edge) => edge.id)]
+      ))(Validate.edges<T>(edges));
 }
