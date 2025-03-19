@@ -7,7 +7,7 @@ import { Utilities } from "../utilities/Utilities.js";
 import { Validator } from "./Validator.js";
 import type { IMetadata } from "../Metadata.js";
 import type { INode } from "../Node.js";
-import type { IEdge } from "../Edge.js";
+import type { IEdge, PartialEdge } from "../Edge.js";
 import type { UUID, Name, Coordinates, Offset } from "../Graph.types.js";
 
 export class Validate {
@@ -326,6 +326,8 @@ export class Validate {
     details.coordinates && Validate.coordinates(details.coordinates);
     return details;
   };
+
+  public static edgeDetails = () => {};
 
   /**
    * Validate an array of nodes to ensure each nodes have valid `id` and `coordinates`.
