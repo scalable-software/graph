@@ -1872,3 +1872,233 @@ given(`Validate.edgeDetails static method availability test`, () => {
     });
   });
 });
+
+given(`Validate.edgesDetails static method behavior test`, () => {
+  when(`Validate.edgeDetails called with valid data`, () => {
+    let data: PartialEdge<IEdge>;
+    let result: PartialEdge<IEdge>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      data = {
+        source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        target: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      };
+      try {
+        result = Validate.edgeDetails(data);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    and(`result is defined`, () => {
+      then(`result equals data`, () => {
+        expect(result).toEqual(data);
+      });
+    });
+  });
+  when(`Validate.edgeDetails called with data containing valid source`, () => {
+    let data: PartialEdge<IEdge>;
+    let result: PartialEdge<IEdge>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      data = {
+        source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+      };
+      try {
+        result = Validate.edgeDetails(data);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    and(`result is defined`, () => {
+      then(`result equals data`, () => {
+        expect(result).toEqual(data);
+      });
+    });
+  });
+  when(`Validate.edgeDetails called with data containing valid target`, () => {
+    let data: PartialEdge<IEdge>;
+    let result: PartialEdge<IEdge>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      data = {
+        target: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+      };
+      try {
+        result = Validate.edgeDetails(data);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    and(`result is defined`, () => {
+      then(`result equals data`, () => {
+        expect(result).toEqual(data);
+      });
+    });
+  });
+  when(
+    `Validate.edgeDetails called with data containing valid start coordinates`,
+    () => {
+      let data: PartialEdge<IEdge>;
+      let result: PartialEdge<IEdge>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = {
+          coordinates: { start: { x: 0, y: 0 } } as any,
+        };
+        try {
+          result = Validate.edgeDetails(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is undefined`, () => {
+        expect(error).toBeUndefined();
+      });
+      and(`result is defined`, () => {
+        then(`result equals data`, () => {
+          expect(result).toEqual(data);
+        });
+      });
+    }
+  );
+  when(
+    `Validate.edgeDetails called with data containing valid end coordinates`,
+    () => {
+      let data: PartialEdge<IEdge>;
+      let result: PartialEdge<IEdge>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = {
+          coordinates: { end: { x: 0, y: 0 } } as any,
+        };
+        try {
+          result = Validate.edgeDetails(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is undefined`, () => {
+        expect(error).toBeUndefined();
+      });
+      and(`result is defined`, () => {
+        then(`result equals data`, () => {
+          expect(result).toEqual(data);
+        });
+      });
+    }
+  );
+  when(
+    `Validate.edgeDetails called with data containing invalid source`,
+    () => {
+      let data: PartialEdge<IEdge>;
+      let result: PartialEdge<IEdge>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = {
+          source: "invalid",
+        };
+        try {
+          result = Validate.edgeDetails(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`result is undefined`, () => {
+        then(`error is an instance of InvalidArgumentException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        });
+      });
+    }
+  );
+  when(
+    `Validate.edgeDetails called with data containing invalid target`,
+    () => {
+      let data: PartialEdge<IEdge>;
+      let result: PartialEdge<IEdge>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = {
+          target: "invalid",
+        };
+        try {
+          result = Validate.edgeDetails(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`result is undefined`, () => {
+        then(`error is an instance of InvalidArgumentException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        });
+      });
+    }
+  );
+  when(
+    `Validate.edgeDetails called with data containing invalid start coordinates`,
+    () => {
+      let data: PartialEdge<IEdge>;
+      let result: PartialEdge<IEdge>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = {
+          coordinates: { start: { x: "invalid" as any, y: 0 } } as any,
+        };
+        try {
+          result = Validate.edgeDetails(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`result is undefined`, () => {
+        then(`error is an instance of InvalidArgumentException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        });
+      });
+    }
+  );
+  when(
+    `Validate.edgeDetails called with data containing invalid end coordinates`,
+    () => {
+      let data: PartialEdge<IEdge>;
+      let result: PartialEdge<IEdge>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = {
+          coordinates: { end: { x: "invalid" as any, y: 0 } } as any,
+        };
+        try {
+          result = Validate.edgeDetails(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`result is undefined`, () => {
+        then(`error is an instance of InvalidArgumentException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        });
+      });
+    }
+  );
+});
