@@ -38,7 +38,7 @@ export class Edges<T extends IEdge> extends Array<T> {
     return this._immutable;
   }
   set immutable(immutable: boolean) {
-    this._immutable = immutable;
+    this._immutable = Validate.flag(immutable);
   }
 
   /**
