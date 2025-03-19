@@ -230,5 +230,28 @@ given(`edges.add method behavior test`, () => {
         });
       });
     });
+    when(`instance.add is called with null`, () => {
+      let edge: IEdge;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          instance.add(null);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`instance.length is 0`, () => {
+        expect(instance.length).toBe(0);
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+
+      and(`error is defined`, () => {
+        then(`error is an instance of InvalidArgumentException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        });
+      });
+    });
   });
 });
