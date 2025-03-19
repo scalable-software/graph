@@ -202,3 +202,33 @@ given(`edges.add method availability test`, () => {
     });
   });
 });
+
+given(`edges.add method behavior test`, () => {
+  and(`an instance of Edges is created`, () => {
+    let instance: Edges<IEdge>;
+    beforeEach(() => {
+      instance = Edges.create();
+    });
+
+    when(`instance.add is called with valid edge`, () => {
+      let edge: IEdge;
+      beforeEach(() => {
+        edge = {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+        };
+        instance.add(edge);
+      });
+      then(`instance.length is 1`, () => {
+        expect(instance.length).toBe(1);
+      });
+      and(`instance.length is 1`, () => {
+        then(`instance[0] is edge`, () => {
+          expect(instance[0]).toEqual(edge);
+        });
+      });
+    });
+  });
+});
