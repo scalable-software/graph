@@ -1271,25 +1271,9 @@ given(`nodes.translate method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(
-          `error is an instance of Exception.InvalidArgumentException`,
-          () => {
-            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
-          }
-        );
-        and(
-          `error is an instance of Exception.InvalidArgumentException`,
-          () => {
-            then(
-              `error.message is 'Invalid argument: id - must be a valid UUID'`,
-              () => {
-                expect(error.message).toBe(
-                  "Invalid argument: id - must be a valid UUID"
-                );
-              }
-            );
-          }
-        );
+        then(`error is an instance of Exception.ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
       });
     });
     when(`nodes.translate called with valid ids and offset`, () => {
@@ -1324,25 +1308,9 @@ given(`nodes.translate method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(
-          `error is an instance of Exception.InvalidArgumentException`,
-          () => {
-            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
-          }
-        );
-        and(
-          `error is an instance of Exception.InvalidArgumentException`,
-          () => {
-            then(
-              `error.message is 'Invalid argument: offset - must be valid offset'`,
-              () => {
-                expect(error.message).toBe(
-                  "Invalid argument: offset - must be valid offset"
-                );
-              }
-            );
-          }
-        );
+        then(`error is an instance of ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
       });
     });
     when(`nodes.translate called with unknown ids and valid offset`, () => {
@@ -1362,18 +1330,8 @@ given(`nodes.translate method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(`error is an instance of Exception.NotFoundException`, () => {
-          expect(error).toBeInstanceOf(Exception.NotFoundException);
-        });
-        and(`error is an instance of Exception.NotFoundException`, () => {
-          then(
-            `error.message is 'Not found: id 453a4547-e89b-12d3-a456-426614174011'`,
-            () => {
-              expect(error.message).toBe(
-                `Not found: id 453a4547-e89b-12d3-a456-426614174011`
-              );
-            }
-          );
+        then(`error is an instance of ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
       });
     });

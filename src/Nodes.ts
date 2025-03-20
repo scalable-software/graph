@@ -211,10 +211,18 @@ export class Nodes<T extends INode> extends Array<T> {
    * @category Operations
    */
   public translate = (id: UUID | UUID[], offset: Offset): Nodes<T> => {
-    ((id, offset) =>
+    (([id, offset]) =>
       Utilities.toArray(id).forEach((id) =>
         this.apply(id, (node) => Node.translate(node, offset))
-      ))(Validate.id(this, id), Validate.offset(offset));
+      ))(
+      Validator.validate<[UUID, Offset]>(
+        [id as UUID, offset],
+        [
+          ([id, offset]) => Validate.id(this, id),
+          ([id, offset]) => Validate.offset(offset),
+        ]
+      )
+    );
     return this;
   };
 
