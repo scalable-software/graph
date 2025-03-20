@@ -82,7 +82,9 @@ export class Nodes<T extends INode> extends Array<T> {
    */
   public add = (nodes: T | Omit<T, "id"> | (T | Omit<T, "id">)[]): Nodes<T> => {
     ((nodes) => this.push(...nodes))(
-      this.validate(Utilities.normalize(Validate.notNull(nodes)))
+      ((nodes) => this.validate(nodes))(
+        ((nodes) => Utilities.normalize(nodes))(Validate.notNull(nodes))
+      )
     );
     return this;
   };
