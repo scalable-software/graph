@@ -7,10 +7,11 @@
  * @module Graph
  */
 
-import { IEdge } from "./Edge.js";
+import { Edge, type IEdge, type PartialEdge } from "./Edge.js";
 import { Validate } from "./validations/Validate.js";
 import { Validator } from "./validations/Validator.js";
 import { Utilities } from "./utilities/Utilities.js";
+import type { UUID } from "./Graph.types.js";
 
 export class Edges<T extends IEdge> extends Array<T> {
   public static create = <T extends IEdge>(edges?: T[] | null): Edges<T> =>
@@ -58,7 +59,31 @@ export class Edges<T extends IEdge> extends Array<T> {
     return this;
   };
 
-  public update = () => {};
+  public update = (id: UUID, details: PartialEdge<T>): Edges<T> => {
+    (([id, details]) =>
+      this.apply(id as UUID, (edge: T): T => Edge.update(edge, details)))(
+      Validator.validate<[UUID, PartialEdge<T>]>(
+        [id, details],
+        [
+          ([id, details]) => Validate.id(this, id),
+          ([id, details]) => Validate.edgeDetails(details),
+        ]
+      )
+    );
+    return this;
+  };
+
+  private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
+
+  private edge = (id: UUID): T => this.at(Utilities.Index.byId<T>(this, id));
+
+  private assign = (edge: T, updatedEdge: T): T =>
+    this.immutable
+      ? (this[this.index(edge.id)] = updatedEdge)
+      : Object.assign(edge, updatedEdge);
+
+  private apply = (id: UUID, transform: (edge: T) => T): T =>
+    ((edge) => this.assign(edge, transform(edge)))(this.edge(id));
 
   private validate = (edges: T[]): T[] =>
     ((edges) =>
