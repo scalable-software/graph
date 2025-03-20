@@ -14,7 +14,7 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import type { IEdge } from "@scalable.software/graph";
+import type { IEdge, PartialEdge } from "@scalable.software/graph";
 import { Edges, Exception } from "@scalable.software/graph";
 
 given(`Edges class availability test`, () => {
@@ -374,6 +374,203 @@ given(`edges.update method availability test`, () => {
     then(`instance.update is defined`, () => {
       expect(instance.update).toBeDefined();
     });
+  });
+});
+
+given(`edges.update method behavior test`, () => {
+  and(`an instance of Edges is created`, () => {
+    let instance: Edges<IEdge>;
+    beforeEach(() => {
+      instance = Edges.create();
+    });
+
+    when(`instance.update is called with valid id and updated source`, () => {
+      let edge: IEdge;
+      let updatedEdge: PartialEdge<IEdge>;
+      beforeEach(() => {
+        edge = {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        };
+        updatedEdge = {
+          source: "c4f8a7b1-1c4e-4d3b-9e2f-8a6e4f7c5a2a",
+        };
+        instance.add(edge);
+        instance.update(edge.id, updatedEdge);
+      });
+
+      then(`instance.length is 1`, () => {
+        expect(instance.length).toBe(1);
+      });
+
+      and(`instance.length is 1`, () => {
+        then(`instance[0].source is updatedEdge.source`, () => {
+          expect(instance[0].source).toEqual(updatedEdge.source);
+        });
+      });
+    });
+    when(`instance.update is called with valid id and updated target`, () => {
+      let edge: IEdge;
+      let updatedEdge: PartialEdge<IEdge>;
+      beforeEach(() => {
+        edge = {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        };
+        updatedEdge = {
+          target: "c4f8a7b1-1c4e-4d3b-9e2f-8a6e4f7c5a2a",
+        };
+        instance.add(edge);
+        instance.update(edge.id, updatedEdge);
+      });
+      then(`instance.length is 1`, () => {
+        expect(instance.length).toBe(1);
+      });
+      and(`instance.length is 1`, () => {
+        then(`instance[0].target is updatedEdge.target`, () => {
+          expect(instance[0].target).toEqual(updatedEdge.target);
+        });
+      });
+    });
+    when(
+      `instance.update is called with valid id and updated start coordinates`,
+      () => {
+        let edge: IEdge;
+        let updatedEdge: PartialEdge<IEdge>;
+        beforeEach(() => {
+          edge = {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 2, y: 2 } },
+          };
+          updatedEdge = {
+            coordinates: { start: { x: 1, y: 1 } },
+          };
+          instance.add(edge);
+          instance.update(edge.id, updatedEdge);
+        });
+        then(`instance.length is 1`, () => {
+          expect(instance.length).toBe(1);
+        });
+        and(`instance.length is 1`, () => {
+          then(
+            `instance[0].coordinates.start is updatedEdge.coordinates.start`,
+            () => {
+              expect(instance[0].coordinates.start).toEqual(
+                updatedEdge.coordinates.start
+              );
+            }
+          );
+        });
+      }
+    );
+    when(
+      `instance.update is called with valid id and updated end coordinates`,
+      () => {
+        let edge: IEdge;
+        let updatedEdge: PartialEdge<IEdge>;
+        beforeEach(() => {
+          edge = {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 2, y: 2 } },
+          };
+          updatedEdge = {
+            coordinates: { end: { x: 1, y: 1 } },
+          };
+          instance.add(edge);
+          instance.update(edge.id, updatedEdge);
+        });
+        then(`instance.length is 1`, () => {
+          expect(instance.length).toBe(1);
+        });
+        and(`instance.length is 1`, () => {
+          then(
+            `instance[0].coordinates.end is updatedEdge.coordinates.end`,
+            () => {
+              expect(instance[0].coordinates.end).toEqual(
+                updatedEdge.coordinates.end
+              );
+            }
+          );
+        });
+      }
+    );
+    when(`instance.update is called with invalid id`, () => {
+      let edge: IEdge;
+      let updatedEdge: PartialEdge<IEdge>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        edge = {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        };
+        updatedEdge = {
+          source: "c4f8a7b1-1c4e-4d3b-9e2f-8a6e4f7c5a2a",
+        };
+        instance.add(edge);
+        let id = "1";
+        try {
+          instance.update(id, updatedEdge);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`errors is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`errors is defined`, () => {
+        then(`errors is an instance of ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    });
+    when(
+      `instance.update is called with valid id and invalid updated edge`,
+      () => {
+        let edge: IEdge;
+        let updatedEdge: PartialEdge<IEdge>;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          edge = {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+          };
+          updatedEdge = {
+            coordinates: {
+              start: { x: "invalid" as unknown as number, y: 1 },
+              end: { x: 2, y: 2 },
+            },
+          };
+          instance.add(edge);
+          try {
+            instance.update(edge.id, updatedEdge);
+          } catch (e) {
+            error = e;
+          }
+        });
+
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+        });
+      }
+    );
   });
 });
 
