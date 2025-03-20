@@ -54,14 +54,16 @@ export class Edges<T extends IEdge> extends Array<T> {
    */
   public add = (edges: T | Omit<T, "id"> | (T | Omit<T, "id">)[]): Edges<T> => {
     ((edges) => this.push(...edges))(
-      this.validate(Utilities.normalize(Validate.notNull(edges)))
+      ((edges) => this.validate(edges))(
+        ((edges) => Utilities.normalize(edges))(Validate.notNull(edges))
+      )
     );
     return this;
   };
 
   public update = (id: UUID, details: PartialEdge<T>): Edges<T> => {
     (([id, details]) =>
-      this.apply(id as UUID, (edge: T): T => Edge.update(edge, details)))(
+      this.apply(id as UUID, (edge) => Edge.update(edge, details)))(
       Validator.validate<[UUID, PartialEdge<T>]>(
         [id, details],
         [
