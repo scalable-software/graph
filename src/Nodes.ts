@@ -98,8 +98,9 @@ export class Nodes<T extends INode> extends Array<T> {
    * @category Operations
    */
   public update = (id: UUID, details: Partial<T>): Nodes<T> => {
-    ((id, details) => this.apply(id, (node) => Node.update(node, details)))(
-      Validate.id(this, id) as UUID,
+    ((id, details) =>
+      this.apply(id as UUID, (node) => Node.update(node, details)))(
+      Validate.id(this, id),
       Validate.nodeDetails(details)
     );
     return this;
