@@ -53,7 +53,7 @@ export class Edges<T extends IEdge> extends Array<T> {
    * @category Operations
    */
   public add = (edges: T | Omit<T, "id"> | (T | Omit<T, "id">)[]): Edges<T> => {
-    ((nodes) => this.push(...nodes))(
+    ((edges) => this.push(...edges))(
       this.validate(Utilities.normalize(Validate.notNull(edges)))
     );
     return this;
