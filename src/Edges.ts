@@ -12,6 +12,7 @@ import { Validate } from "./validations/Validate.js";
 import { Validator } from "./validations/Validator.js";
 import { Utilities } from "./utilities/Utilities.js";
 import type { Coordinates, UUID, Offset } from "./Graph.types.js";
+import { ValidationException } from "./exceptions/Exceptions.js";
 
 export class Edges<T extends IEdge> extends Array<T> {
   public static create = <T extends IEdge>(edges?: T[] | null): Edges<T> =>
@@ -47,7 +48,7 @@ export class Edges<T extends IEdge> extends Array<T> {
    * If a edge does not have an `id`, it will be automatically assigned one.
    *
    * @param edges - A single edge or an array of edges to add.
-   * @throws {Error} If a edges with the same ID already exists in the collection.
+   * @throws {ValidationException} If a edges with the same ID already exists in the collection.
    * @returns {Edges<T>} The modified `Edges<T>` instance, allowing method chaining.
    *
    * @category Operations
@@ -66,7 +67,7 @@ export class Edges<T extends IEdge> extends Array<T> {
    *
    * @param id - The ID of the edge to update.
    * @param details - The details to update.
-   * @throws {Error} If the edge does not exist in the collection or id or details are invalid.
+   * @throws {ValidationException} If the edge does not exist in the collection or id or details are invalid.
    *
    * @returns {Edges<T>} The modified `Edges<T>` instance, allowing method chaining.
    *
@@ -91,7 +92,7 @@ export class Edges<T extends IEdge> extends Array<T> {
    *
    * @param id - The ID of the edge to move.
    * @param coordinates - The coordinates to move the edge to.
-   * @throws {Error} If the edge does not exist in the collection or id or coordinates are invalid.
+   * @throws {ValidationException} If the edge does not exist in the collection or id or coordinates are invalid.
    *
    * @returns {Edges<T>} The modified `Edges<T>` instance, allowing method chaining.
    *
@@ -132,7 +133,7 @@ export class Edges<T extends IEdge> extends Array<T> {
    *
    * @param id - The ID or IDs of the edges to translate.
    * @param offset - The offset to translate the edges by.
-   * @throws {Error} If the edge does not exist in the collection or id or offset are invalid.
+   * @throws {ValidationException} If the edge does not exist in the collection or id or offset are invalid.
    *
    * @returns {Edges<T>} The modified `Edges<T>` instance, allowing method chaining.
    *
@@ -167,7 +168,7 @@ export class Edges<T extends IEdge> extends Array<T> {
    * Remove a edge from the collection based on its ID.
    *
    * @param id - The ID of the edge to remove.
-   * @throws {Error} If the edge does not exist in the collection or id is invalid.
+   * @throws {ValidationException} If the edge does not exist in the collection or id is invalid.
    *
    * @returns {Edges<T>} The modified `Edges<T>` instance, allowing method chaining.
    *
@@ -188,7 +189,27 @@ export class Edges<T extends IEdge> extends Array<T> {
     return this;
   };
 
-  public findById = () => {};
+  /**
+   * Find a edge in the collection based on its ID.
+   * If the edge does not exist, `undefined` is returned.
+   * @param id - The ID of the edge to find.
+   * @returns The edge with the specified ID, or `undefined` if not found.
+   * @throws {InvalidArgumentException} If the ID is invalid.
+   *
+   * @example
+   * ```typescript
+   * const edges = Edges.create([
+   * { id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   * { id: "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e", start: { x: 1, y: 1 }, end: { x: 2, y: 2 } },
+   * ]);
+   *
+   * const edge = edges.findById("d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d");
+   * console.log(edge); // { id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", start: { x: 0, y: 0 }, end: { x: 1, y: 1 } }
+   * ```
+   * @category Operations
+   */
+  public findById = (id: UUID): T | undefined =>
+    ((id) => this.find((node) => node.id === id))(Validate.uuid(id));
 
   private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
