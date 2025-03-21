@@ -3,6 +3,7 @@ import { type INode } from "./Node.js";
 import { type IEdge } from "./Edge.js";
 
 import { Nodes } from "./Nodes.js";
+import { Edges } from "./Edges.js";
 
 export type IGraph = {
   metadata: IMetadata;
@@ -13,9 +14,11 @@ export type IGraph = {
 export class Graph<T extends IGraph> {
   public metadata: Metadata<T["metadata"]> & T["metadata"];
   public nodes: Nodes<T["nodes"][number]>;
+  public edges: Edges<T["edges"][number]>;
 
   constructor() {
     this.metadata = {} as any;
     this.nodes = [] as any;
+    this.edges = [] as any;
   }
 }
