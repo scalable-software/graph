@@ -17,7 +17,7 @@ export { Metadata } from "./Metadata.js";
 export type { IMetadata } from "./Metadata.js";
 
 export { Node } from "./Node.js";
-export type { INode } from "./Node.js";
+export type { INode, PartialNode } from "./Node.js";
 
 export { Nodes } from "./Nodes.js";
 

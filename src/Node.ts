@@ -14,6 +14,8 @@ export type INode = {
   coordinates: Coordinates;
 };
 
+export type PartialNode<T> = Partial<T>;
+
 /**
  * The `Node` class provides utility methods for working with nodes.
  */
@@ -87,7 +89,10 @@ export class Node {
    * ```
    * @category Utilities
    */
-  public static update = <T extends INode>(node: T, patch: Partial<T>): T => ({
+  public static update = <T extends INode>(
+    node: T,
+    patch: PartialNode<T>
+  ): T => ({
     ...node,
     ...patch,
     id: node.id,
