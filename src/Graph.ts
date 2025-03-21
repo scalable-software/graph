@@ -63,4 +63,6 @@ export class Graph<T extends IGraph> {
     this.edges.findByTarget(id).length + this.edges.findBySource(id).length;
 
   public in = (id: UUID): number => this.edges.findByTarget(id).length;
+
+  public out = () => {};
 }
