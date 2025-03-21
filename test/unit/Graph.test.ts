@@ -528,3 +528,15 @@ given("Graph.out method behavior test", () => {
     });
   });
 });
+
+given("Graph.neighbors method availability test", () => {
+  when("Graph is instantiated", () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then("Graph.neighbors is defined", () => {
+      expect(graph.neighbors).toBeDefined();
+    });
+  });
+});
