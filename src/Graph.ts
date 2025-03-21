@@ -16,8 +16,11 @@ export class Graph<T extends IGraph> {
   public nodes: Nodes<T["nodes"][number]>;
   public edges: Edges<T["edges"][number]>;
 
-  constructor() {
-    this.metadata = {} as any;
+  constructor(graph?: IGraph) {
+    this.metadata = graph?.metadata
+      ? Metadata.create<T["metadata"]>(graph.metadata)
+      : ({} as any);
+
     this.nodes = [] as any;
     this.edges = [] as any;
   }
