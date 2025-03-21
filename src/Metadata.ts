@@ -159,13 +159,13 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * ```
    * @category Operations
    */
-  public add = (metadata: T) => {
+  public add = (metadata: T | Omit<T, "id">) => {
     this.validateUnassigned();
 
     metadata = Utilities.idify<T>(metadata);
-    metadata = Validate.metadata<T>(metadata);
+    metadata = Validate.metadata<T>(metadata as T);
 
-    this.hydrate(metadata);
+    this.hydrate(metadata as T);
     return this;
   };
 
