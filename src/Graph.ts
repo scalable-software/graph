@@ -6,6 +6,8 @@ import { Nodes } from "./Nodes.js";
 import { Edges } from "./Edges.js";
 import { Validate } from "./Index.js";
 
+import { type UUID } from "./Graph.types.js";
+
 export type IGraph = {
   metadata: IMetadata;
   nodes: INode[];
@@ -52,5 +54,11 @@ export class Graph<T extends IGraph> {
 
   public toJSON = () => this.export();
 
-  public degree = () => {};
+  /**
+   * Returns the degree: number of connections, of a node.
+   * @param id - The id of the node.
+   * @returns The degree of the node.
+   */
+  public degree = (id: UUID): number =>
+    this.edges.findByTarget(id).length + this.edges.findBySource(id).length;
 }
