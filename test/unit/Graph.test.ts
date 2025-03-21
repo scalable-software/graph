@@ -485,3 +485,15 @@ given("Graph.in method behavior test", () => {
     );
   });
 });
+
+given("Graph.out method availability test", () => {
+  when("Graph is instantiated", () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then("Graph.out is defined", () => {
+      expect(graph.out).toBeDefined();
+    });
+  });
+});
