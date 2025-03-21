@@ -9,5 +9,9 @@ export type IGraph = {
 };
 
 export class Graph<T extends IGraph> {
-  constructor() {}
+  public metadata: Metadata<T["metadata"]> & T["metadata"];
+
+  constructor() {
+    this.metadata = {} as any;
+  }
 }
