@@ -163,7 +163,10 @@ export class Edges<T extends IEdge> extends Array<T> {
     return this;
   };
 
-  public remove = () => {};
+  public remove = (id: UUID): Edges<T> => {
+    ((id) => this.splice(this.index(id), 1))(Validate.id(this, id) as UUID);
+    return this;
+  };
 
   private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
