@@ -61,6 +61,17 @@ export class Edges<T extends IEdge> extends Array<T> {
     return this;
   };
 
+  /**
+   * Update the details of a edge in the collection based on its ID.
+   *
+   * @param id - The ID of the edge to update.
+   * @param details - The details to update.
+   * @throws {Error} If the edge does not exist in the collection or id or details are invalid.
+   *
+   * @returns {Edges<T>} The modified `Edges<T>` instance, allowing method chaining.
+   *
+   * @category Operations
+   */
   public update = (id: UUID, details: PartialEdge<T>): Edges<T> => {
     (([id, details]) =>
       this.apply(id as UUID, (edge) => Edge.update(edge, details)))(
