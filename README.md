@@ -104,8 +104,8 @@ const nodes = Nodes.create<T>([node])
 | `graph.nodes`                     | **Data**  | Graph nodes instance.                                   |
 | `graph.edges`                     | **Data**  | Graph edges instance.                                   |
 | `graph.constructor()`             | **Logic** | Initializes metadata, nodes, and edges with validation. |
-| `graph.load()`                    | **Logic** | Replaces graph data with new data.                      |
-| `graph.retrieve()`                | **Logic** | Returns graph data as JSON.                             |
+| `graph.import()`                  | **Logic** | Replaces graph data with new data.                      |
+| `graph.export()`                  | **Logic** | Returns graph data as JSON.                             |
 | `graph.metadata.add()`            | **Logic** | Adds metadata if unassigned.                            |
 | `graph.metadata.update()`         | **Logic** | Updates metadata.                                       |
 | `graph.metadata.remove()`         | **Logic** | Removes specified metadata or resets it.                |

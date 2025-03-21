@@ -135,7 +135,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
   }
 
   /**
-   * Retrieve extended properties from the metadata instance.
+   * export extended properties from the metadata instance.
    * @category  State
    */
   get properties(): { [key: string]: any } {

@@ -1687,10 +1687,10 @@
     "status": true
   },
   {
-    "context": "Graph.retrieve",
+    "context": "Graph.export",
     "type": "method",
     "test": "availability",
-    "definition": "Given Graph.retrieve method availability test, when Graph is instantiated, then Graph.retrieve is defined",
+    "definition": "Given Graph.export method availability test, when Graph is instantiated, then Graph.export is defined",
     "status": true
   },
   {
@@ -2803,28 +2803,28 @@
     "context": "pathway",
     "type": "workflow",
     "test": "sequence",
-    "definition": "Given pathway workflow sequence test, and pathway instantiated using new Graph(), and pathway.metadata.add(metadata), and pathway.nodes.add(actorTwo).add(actorTwo), and pathway.edges.add(path), and pathway.retrieve(), then retrieved.nodes contains actorTwo",
+    "definition": "Given pathway workflow sequence test, and pathway instantiated using new Graph(), and pathway.metadata.add(metadata), and pathway.nodes.add(actorTwo).add(actorTwo), and pathway.edges.add(path), and pathway.export(), then exportd.nodes contains actorTwo",
     "status": true
   },
   {
     "context": "pathway",
     "type": "workflow",
     "test": "sequence",
-    "definition": "Given pathway workflow sequence test, and pathway instantiated using new Graph(), and pathway.metadata.add(metadata), and pathway.nodes.add(actorTwo).add(actorTwo), and pathway.edges.add(path), and pathway.retrieve(), then retrieved.edges contains path",
+    "definition": "Given pathway workflow sequence test, and pathway instantiated using new Graph(), and pathway.metadata.add(metadata), and pathway.nodes.add(actorTwo).add(actorTwo), and pathway.edges.add(path), and pathway.export(), then exportd.edges contains path",
     "status": true
   },
   {
     "context": "pathway",
     "type": "workflow",
     "test": "sequence",
-    "definition": "Given pathway workflow sequence test, and pathway instantiated using new Graph(), and pathway.metadata.add(metadata), and pathway.nodes.add(actorTwo).add(actorTwo), and pathway.edges.add(path), and pathway.retrieve(), then retrieved.metadata contains metadata",
+    "definition": "Given pathway workflow sequence test, and pathway instantiated using new Graph(), and pathway.metadata.add(metadata), and pathway.nodes.add(actorTwo).add(actorTwo), and pathway.edges.add(path), and pathway.export(), then exportd.metadata contains metadata",
     "status": true
   },
   {
     "context": "pathway",
     "type": "workflow",
     "test": "sequence",
-    "definition": "Given pathway workflow sequence test, and pathway instantiated using new Graph(), and pathway.metadata.add(metadata), and pathway.nodes.add(actorTwo).add(actorTwo), and pathway.edges.add(path), and pathway.retrieve(), then retrieved.nodes contains actorOne",
+    "definition": "Given pathway workflow sequence test, and pathway instantiated using new Graph(), and pathway.metadata.add(metadata), and pathway.nodes.add(actorTwo).add(actorTwo), and pathway.edges.add(path), and pathway.export(), then exportd.nodes contains actorOne",
     "status": true
   },
   {
@@ -3136,31 +3136,31 @@
     "status": true
   },
   {
-    "context": "pathway.load",
+    "context": "pathway.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given pathway.load method behavior test, and pathway instantiated using new Graph(), and pathway.load() updates metadata, nodes, and edges, then pathway.edges equals to data.edges",
+    "definition": "Given pathway.import method behavior test, and pathway instantiated using new Graph(), and pathway.import() updates metadata, nodes, and edges, then pathway.edges equals to data.edges",
     "status": true
   },
   {
-    "context": "pathway.load",
+    "context": "pathway.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given pathway.load method behavior test, and pathway instantiated using new Graph(), and pathway.load() updates metadata, nodes, and edges, then pathway.metadata equals to data.metadata",
+    "definition": "Given pathway.import method behavior test, and pathway instantiated using new Graph(), and pathway.import() updates metadata, nodes, and edges, then pathway.metadata equals to data.metadata",
     "status": true
   },
   {
-    "context": "pathway.load",
+    "context": "pathway.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given pathway.load method behavior test, and pathway instantiated using new Graph(), and pathway.load() updates metadata, nodes, and edges, then pathway.nodes equals to data.nodes",
+    "definition": "Given pathway.import method behavior test, and pathway instantiated using new Graph(), and pathway.import() updates metadata, nodes, and edges, then pathway.nodes equals to data.nodes",
     "status": true
   },
   {
-    "context": "pathway.load",
+    "context": "pathway.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given pathway.load method behavior test, and pathway instantiated using new Graph(), then pathway.load() public method exists",
+    "definition": "Given pathway.import method behavior test, and pathway instantiated using new Graph(), then pathway.import() public method exists",
     "status": true
   },
   {
@@ -4039,10 +4039,10 @@
     "status": true
   },
   {
-    "context": "Graph.retrieve",
+    "context": "Graph.export",
     "type": "method",
     "test": "behavior",
-    "definition": "Given Graph.retrieve method behavior test, and Graph is instantiated width data, when Graph.retrieve is called, then Graph.retrieve returns data",
+    "definition": "Given Graph.export method behavior test, and Graph is instantiated width data, when Graph.export is called, then Graph.export returns data",
     "status": true
   },
   {
@@ -4480,10 +4480,10 @@
     "status": true
   },
   {
-    "context": "pathway.load",
+    "context": "pathway.import",
     "type": "method",
     "test": "workflow",
-    "definition": "Given pathway.load method workflow test, and pathway instantiated using new Graph(), when graph.load(pathway), and graph.retrieve(), then retrieved equals pathway",
+    "definition": "Given pathway.import method workflow test, and pathway instantiated using new Graph(), when graph.import(pathway), and graph.export(), then exportd equals pathway",
     "status": true
   },
   {
@@ -5467,31 +5467,31 @@
     "status": true
   },
   {
-    "context": "pathway.retrieve",
+    "context": "pathway.export",
     "type": "method",
     "test": "behavior",
-    "definition": "Given pathway.retrieve method behavior test, and pathway instantiated using new Graph(data), when pathway.retrieve() returns expected data, then retrieved.metadata equal data.metadata",
+    "definition": "Given pathway.export method behavior test, and pathway instantiated using new Graph(data), when pathway.export() returns expected data, then exportd.metadata equal data.metadata",
     "status": true
   },
   {
-    "context": "pathway.retrieve",
+    "context": "pathway.export",
     "type": "method",
     "test": "behavior",
-    "definition": "Given pathway.retrieve method behavior test, and pathway instantiated using new Graph(data), when pathway.retrieve() returns expected data, then retrieved.edges equal data.edges",
+    "definition": "Given pathway.export method behavior test, and pathway instantiated using new Graph(data), when pathway.export() returns expected data, then exportd.edges equal data.edges",
     "status": true
   },
   {
-    "context": "pathway.retrieve",
+    "context": "pathway.export",
     "type": "method",
     "test": "behavior",
-    "definition": "Given pathway.retrieve method behavior test, and pathway instantiated using new Graph(data), when pathway.retrieve() returns expected data, then retrieved.nodes equal data.nodes",
+    "definition": "Given pathway.export method behavior test, and pathway instantiated using new Graph(data), when pathway.export() returns expected data, then exportd.nodes equal data.nodes",
     "status": true
   },
   {
-    "context": "pathway.retrieve",
+    "context": "pathway.export",
     "type": "method",
     "test": "behavior",
-    "definition": "Given pathway.retrieve method behavior test, and pathway instantiated using new Graph(data), then pathway.retrieve() public method exists",
+    "definition": "Given pathway.export method behavior test, and pathway instantiated using new Graph(data), then pathway.export() public method exists",
     "status": true
   },
   {
@@ -6118,10 +6118,10 @@
     "status": true
   },
   {
-    "context": "Graph.load",
+    "context": "Graph.import",
     "type": "method",
     "test": "availability",
-    "definition": "Given Graph.load method availability test, when Graph is instantiated, then Graph.load is defined",
+    "definition": "Given Graph.import method availability test, when Graph is instantiated, then Graph.import is defined",
     "status": true
   },
   {
@@ -6370,66 +6370,66 @@
     "status": true
   },
   {
-    "context": "Graph.load",
+    "context": "Graph.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given Graph.load method behavior test, when Graph is instantiated, then Graph.edges is defined",
+    "definition": "Given Graph.import method behavior test, when Graph is instantiated, then Graph.edges is defined",
     "status": true
   },
   {
-    "context": "Graph.load",
+    "context": "Graph.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given Graph.load method behavior test, when Graph is instantiated, and Graph.metadata is defined, then Graph.metadata.toJSON() returns metadata",
+    "definition": "Given Graph.import method behavior test, when Graph is instantiated, and Graph.metadata is defined, then Graph.metadata.toJSON() returns metadata",
     "status": true
   },
   {
-    "context": "Graph.load",
+    "context": "Graph.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given Graph.load method behavior test, when Graph is instantiated, and Graph.metadata is defined, then Graph.metadata is an instance of Metadata",
+    "definition": "Given Graph.import method behavior test, when Graph is instantiated, and Graph.metadata is defined, then Graph.metadata is an instance of Metadata",
     "status": true
   },
   {
-    "context": "Graph.load",
+    "context": "Graph.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given Graph.load method behavior test, when Graph is instantiated, and Graph.nodes is defined, then Graph.nodes is an instance of Nodes",
+    "definition": "Given Graph.import method behavior test, when Graph is instantiated, and Graph.nodes is defined, then Graph.nodes is an instance of Nodes",
     "status": true
   },
   {
-    "context": "Graph.load",
+    "context": "Graph.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given Graph.load method behavior test, when Graph is instantiated, and Graph.nodes is defined, then Graph.nodes.toJSON() returns nodes",
+    "definition": "Given Graph.import method behavior test, when Graph is instantiated, and Graph.nodes is defined, then Graph.nodes.toJSON() returns nodes",
     "status": true
   },
   {
-    "context": "Graph.load",
+    "context": "Graph.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given Graph.load method behavior test, when Graph is instantiated, then Graph.nodes is defined",
+    "definition": "Given Graph.import method behavior test, when Graph is instantiated, then Graph.nodes is defined",
     "status": true
   },
   {
-    "context": "Graph.load",
+    "context": "Graph.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given Graph.load method behavior test, when Graph is instantiated, then Graph.metadata is defined",
+    "definition": "Given Graph.import method behavior test, when Graph is instantiated, then Graph.metadata is defined",
     "status": true
   },
   {
-    "context": "Graph.load",
+    "context": "Graph.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given Graph.load method behavior test, when Graph is instantiated, and Graph.edges is defined, then Graph.edges is an instance of Edges",
+    "definition": "Given Graph.import method behavior test, when Graph is instantiated, and Graph.edges is defined, then Graph.edges is an instance of Edges",
     "status": true
   },
   {
-    "context": "Graph.load",
+    "context": "Graph.import",
     "type": "method",
     "test": "behavior",
-    "definition": "Given Graph.load method behavior test, when Graph is instantiated, and Graph.edges is defined, then Graph.edges.toJSON() returns edges",
+    "definition": "Given Graph.import method behavior test, when Graph is instantiated, and Graph.edges is defined, then Graph.edges.toJSON() returns edges",
     "status": true
   }
 ]

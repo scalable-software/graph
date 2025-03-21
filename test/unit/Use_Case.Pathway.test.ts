@@ -114,16 +114,16 @@ given("pathway graph instantiation test", () => {
   });
 });
 
-given("pathway.load method behavior test", () => {
+given("pathway.import method behavior test", () => {
   and("pathway instantiated using new Graph()", () => {
     let pathway: Graph<Pathway>;
     beforeEach(() => {
       pathway = new Graph();
     });
-    then("pathway.load() public method exists", () => {
-      expect(pathway.load).toBeDefined();
+    then("pathway.import() public method exists", () => {
+      expect(pathway.import).toBeDefined();
     });
-    and("pathway.load() updates metadata, nodes, and edges", () => {
+    and("pathway.import() updates metadata, nodes, and edges", () => {
       let data: Pathway;
       beforeEach(() => {
         data = {
@@ -177,7 +177,7 @@ given("pathway.load method behavior test", () => {
             },
           ],
         };
-        pathway.load(data);
+        pathway.import(data);
       });
       then("pathway.metadata equals to data.metadata", () => {
         expect(pathway.metadata).toEqual(
@@ -194,7 +194,7 @@ given("pathway.load method behavior test", () => {
   });
 });
 
-given("pathway.retrieve method behavior test", () => {
+given("pathway.export method behavior test", () => {
   and("pathway instantiated using new Graph(data)", () => {
     let pathway: Graph<Pathway>;
     let data: Pathway;
@@ -252,22 +252,22 @@ given("pathway.retrieve method behavior test", () => {
       };
       pathway = new Graph(data);
     });
-    then("pathway.retrieve() public method exists", () => {
-      expect(pathway.retrieve).toBeDefined();
+    then("pathway.export() public method exists", () => {
+      expect(pathway.export).toBeDefined();
     });
-    when("pathway.retrieve() returns expected data", () => {
-      let retrieved;
+    when("pathway.export() returns expected data", () => {
+      let exportd;
       beforeEach(() => {
-        retrieved = pathway.retrieve();
+        exportd = pathway.export();
       });
-      then("retrieved.metadata equal data.metadata", () => {
-        expect(retrieved.metadata).toEqual(data.metadata);
+      then("exportd.metadata equal data.metadata", () => {
+        expect(exportd.metadata).toEqual(data.metadata);
       });
-      then("retrieved.nodes equal data.nodes", () => {
-        expect(retrieved.nodes).toEqual(data.nodes);
+      then("exportd.nodes equal data.nodes", () => {
+        expect(exportd.nodes).toEqual(data.nodes);
       });
-      then("retrieved.edges equal data.edges", () => {
-        expect(retrieved.edges).toEqual(data.edges);
+      then("exportd.edges equal data.edges", () => {
+        expect(exportd.edges).toEqual(data.edges);
       });
     });
   });
@@ -420,23 +420,23 @@ given("pathways.edges.add method behavior test", () => {
   });
 });
 
-given("pathway.load method workflow test", () => {
+given("pathway.import method workflow test", () => {
   and("pathway instantiated using new Graph()", () => {
     let graph: Graph<Pathway>;
     beforeEach(() => {
       graph = new Graph<Pathway>();
     });
-    when("graph.load(pathway)", () => {
+    when("graph.import(pathway)", () => {
       beforeEach(() => {
-        graph.load(pathway);
+        graph.import(pathway);
       });
-      and("graph.retrieve()", () => {
-        let retrieved;
+      and("graph.export()", () => {
+        let exportd;
         beforeEach(() => {
-          retrieved = graph.retrieve();
+          exportd = graph.export();
         });
-        then("retrieved equals pathway", () => {
-          expect(retrieved).toEqual(pathway);
+        then("exportd equals pathway", () => {
+          expect(exportd).toEqual(pathway);
         });
       });
     });
@@ -509,24 +509,24 @@ given("pathway workflow sequence test", () => {
             };
             pathway.edges.add(path);
           });
-          and("pathway.retrieve()", () => {
-            let retrieved;
+          and("pathway.export()", () => {
+            let exportd;
             beforeEach(() => {
-              retrieved = pathway.retrieve();
+              exportd = pathway.export();
             });
-            then("retrieved.metadata contains metadata", () => {
-              expect(retrieved.metadata).toEqual(
+            then("exportd.metadata contains metadata", () => {
+              expect(exportd.metadata).toEqual(
                 jasmine.objectContaining(metadata)
               );
             });
-            then("retrieved.nodes contains actorOne", () => {
-              expect(retrieved.nodes).toContain(actorOne);
+            then("exportd.nodes contains actorOne", () => {
+              expect(exportd.nodes).toContain(actorOne);
             });
-            then("retrieved.nodes contains actorTwo", () => {
-              expect(retrieved.nodes).toContain(actorTwo);
+            then("exportd.nodes contains actorTwo", () => {
+              expect(exportd.nodes).toContain(actorTwo);
             });
-            then("retrieved.edges contains path", () => {
-              expect(retrieved.edges).toContain(path);
+            then("exportd.edges contains path", () => {
+              expect(exportd.edges).toContain(path);
             });
           });
         });

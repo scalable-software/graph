@@ -211,19 +211,19 @@ given(`Graph.edges property availability test`, () => {
   });
 });
 
-given(`Graph.load method availability test`, () => {
+given(`Graph.import method availability test`, () => {
   when(`Graph is instantiated`, () => {
     let graph: Graph<IGraph>;
     beforeEach(() => {
       graph = new Graph();
     });
-    then(`Graph.load is defined`, () => {
-      expect(graph.load).toBeDefined();
+    then(`Graph.import is defined`, () => {
+      expect(graph.import).toBeDefined();
     });
   });
 });
 
-given(`Graph.load method behavior test`, () => {
+given(`Graph.import method behavior test`, () => {
   when(`Graph is instantiated`, () => {
     let graph: Graph<IGraph>;
     let data: IGraph;
@@ -249,7 +249,7 @@ given(`Graph.load method behavior test`, () => {
           },
         ],
       };
-      graph.load(data);
+      graph.import(data);
     });
     then(`Graph.metadata is defined`, () => {
       expect(graph.metadata).toBeDefined();
@@ -287,19 +287,19 @@ given(`Graph.load method behavior test`, () => {
   });
 });
 
-given("Graph.retrieve method availability test", () => {
+given("Graph.export method availability test", () => {
   when("Graph is instantiated", () => {
     let graph: Graph<IGraph>;
     beforeEach(() => {
       graph = new Graph();
     });
-    then("Graph.retrieve is defined", () => {
-      expect(graph.retrieve).toBeDefined();
+    then("Graph.export is defined", () => {
+      expect(graph.export).toBeDefined();
     });
   });
 });
 
-given(`Graph.retrieve method behavior test`, () => {
+given(`Graph.export method behavior test`, () => {
   and(`Graph is instantiated width data`, () => {
     let graph: Graph<IGraph>;
     let data: IGraph;
@@ -325,14 +325,14 @@ given(`Graph.retrieve method behavior test`, () => {
           },
         ],
       };
-      graph.load(data);
+      graph.import(data);
     });
-    when(`Graph.retrieve is called`, () => {
+    when(`Graph.export is called`, () => {
       let result: IGraph;
       beforeEach(() => {
-        result = graph.retrieve();
+        result = graph.export();
       });
-      then(`Graph.retrieve returns data`, () => {
+      then(`Graph.export returns data`, () => {
         expect(result).toEqual(data);
       });
     });
@@ -377,14 +377,14 @@ given(`Graph.toJSON method behavior test`, () => {
           },
         ],
       };
-      graph.load(data);
+      graph.import(data);
     });
     when(`Graph.toJSON is called`, () => {
       let result: IGraph;
       beforeEach(() => {
         result = graph.toJSON();
       });
-      then(`Graph.retrieve returns data`, () => {
+      then(`Graph.export returns data`, () => {
         expect(result).toEqual(data);
       });
     });

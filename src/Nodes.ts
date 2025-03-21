@@ -17,7 +17,7 @@ export class Nodes<T extends INode> extends Array<T> {
   /**
    * Each node can be accessed via index notation.
    *
-   * @param {number} n - The index of the node to retrieve.
+   * @param {number} n - The index of the node to export.
    * @returns {T} The node at the specified index.
    *
    * @example

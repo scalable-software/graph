@@ -33,7 +33,7 @@ export class Graph<T extends IGraph> {
     })(Validate.graph(graph));
   }
 
-  public load = (graph: Partial<T>) => {
+  public import = (graph: Partial<T>) => {
     ((graph) => {
       this.metadata = Metadata.create<T["metadata"]>(graph.metadata);
       this.nodes =
@@ -43,12 +43,12 @@ export class Graph<T extends IGraph> {
     })(Validate.graph(graph));
   };
 
-  public retrieve = (): T =>
+  public export = (): T =>
     ({
       metadata: this.metadata.toJSON(),
       nodes: this.nodes.toJSON(),
       edges: this.edges.toJSON(),
     } as T);
 
-  public toJSON = () => this.retrieve();
+  public toJSON = () => this.export();
 }
