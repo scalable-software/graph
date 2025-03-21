@@ -29,7 +29,7 @@ export class Properties {
     );
 
   /**
-   * Retrieves the properties of an instance.
+   * exports the properties of an instance.
    */
   private static get = <T>(instance: T): Partial<T> =>
     Object.fromEntries(
@@ -52,7 +52,7 @@ export class Properties {
     ) as Partial<T>;
 
   /**
-   * Retrieves the properties of an instance.
+   * exports the properties of an instance.
    */
   private static isProperty = <T>(
     instance: T,
@@ -94,7 +94,7 @@ export class Properties {
     Properties.getDescriptor(instance, key)?.set !== undefined;
 
   /**
-   * Retrieves the property descriptor from the instance or its prototype.
+   * exports the property descriptor from the instance or its prototype.
    */
   private static getDescriptor = <T>(
     instance: T,

@@ -25,3 +25,6 @@ export { Edge } from "./Edge.js";
 export type { IEdge, PartialEdge } from "./Edge.js";
 
 export { Edges } from "./Edges.js";
+
+export { Graph } from "./Graph.js";
+export type { IGraph } from "./Graph.js";

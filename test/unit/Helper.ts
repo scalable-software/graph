@@ -25,7 +25,7 @@ export const append = (element) => document.body.appendChild(element);
 export const remove = (id) =>
   (<HTMLElement>document.getElementById(id)).remove();
 
-export const loadTemplate = async (templateUrl) => {
+export const importTemplate = async (templateUrl) => {
   try {
     const response = await fetch(templateUrl);
     const html = await response.text();
