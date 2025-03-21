@@ -157,6 +157,8 @@ export class Validate {
       ? Exceptions.invalidArgumentException("flag", "must be a boolean")
       : flag;
 
+  public static graph = () => {};
+
   /**
    * Validate the metadata, if provided, to ensure required properties are present and valid.
    *
