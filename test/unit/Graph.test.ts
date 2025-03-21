@@ -439,3 +439,15 @@ given("Graph.degree method behavior test", () => {
     });
   });
 });
+
+given("Graph.in method availability test", () => {
+  when("Graph is instantiated", () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then("Graph.in is defined", () => {
+      expect(graph.in).toBeDefined();
+    });
+  });
+});
