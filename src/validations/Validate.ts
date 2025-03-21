@@ -158,6 +158,144 @@ export class Validate {
       : flag;
 
   /**
+   * Validate the metadata, if provided, to ensure required properties are present and valid.
+   *
+   * @param metadata The optional metadata object to validate.
+   * @returns The validated metadata object or null if invalid.
+   *
+   * @example
+   * ```ts
+   * Validate.metadata(null);
+   * // => null
+   *
+   * Validate.metadata({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
+   * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
+   *
+   * Validate.metadata({ id: "123", name: "" });
+   * // => ValidationException: Validation failed with 2 error(s).
+   * ```
+   * @category Validation
+   */
+  public static metadata = <T extends IMetadata>(metadata: T): T =>
+    Validator.validate<T>(metadata, [
+      ({ id }) => Validate.uuid(id),
+      ({ name }) => Validate.name(name),
+    ]);
+
+  /**
+   * Validate an array of nodes to ensure each nodes have valid `id` and `coordinates`.
+   * Also ensures that all nodes have unique `id` and `coordinates`.
+   *
+   * @param nodes - The nodes to validate.
+   * @returns The validated nodes if successful, otherwise throws an exception.
+   *
+   * @example
+   * ```ts
+   * const nodes = [{ id: "a1", coordinates: { x: 0, y: 0 } }];
+   * Validate.nodes(nodes);
+   * // => [{ id: "a1", coordinates: { x: 0, y: 0 } }]
+   *
+   * Validate.nodes([{ id: "a1", coordinates: { x: 0 } }]);
+   * // throws ValidationException: Validation failed with 2 error(s).
+   * ```
+   */
+  public static nodes = <T extends INode>(nodes: T[]): T[] =>
+    Validator.validate<T[]>(nodes, [
+      (nodes) => nodes.map(Validate.node),
+      (nodes) => Validate.unique(nodes, (node) => node.id),
+      (nodes) => Validate.unique(nodes, (node) => node.coordinates),
+    ]);
+
+  public static edges = <T extends IEdge>(edges: T[]): T[] =>
+    Validator.validate<T[]>(edges, [
+      (edges) => edges.map(Validate.edge),
+      (nodes) => Validate.unique(nodes, (node) => node.id),
+    ]);
+
+  /**
+   * Validates a node to ensure it has a valid `id` and `coordinates`.
+   *
+   * @param node - The node to validate.
+   * @returns The validated node if successful, otherwise throws an exception.
+   *
+   * @example
+   * ```ts
+   * const node = { id: "a1", coordinates: { x: 0, y: 0 } };
+   * Validate.node(node);
+   * // => { id: "a1", coordinates: { x: 0, y: 0 } }
+   *
+   * Validate.node({ id: "a1", coordinates: { x: 0 } });
+   * // throws ValidationException: Validation failed with 2 error(s).
+   * ```
+   * @category Validation
+   */
+  public static node = <T extends INode>(node?: T): T | void =>
+    node
+      ? (Validator.validate<T>(node, [
+          ({ id }) => Validate.uuid(id),
+          ({ coordinates }) => Validate.coordinates(coordinates),
+        ]) as T)
+      : null;
+
+  public static edge = <T extends IEdge>(edge?: T) =>
+    edge
+      ? (Validator.validate<T>(edge, [
+          ({ id }) => Validate.uuid(id),
+          ({ source }) => Validate.uuid(source),
+          ({ target }) => Validate.uuid(target),
+          ({ coordinates }) => Validate.coordinates(coordinates.start),
+          ({ coordinates }) => Validate.coordinates(coordinates.end),
+        ]) as T)
+      : null;
+
+  public static nodeDetails = <T extends { coordinates: Coordinates }>(
+    details: Partial<T>
+  ): Partial<T> => {
+    details.coordinates && Validate.coordinates(details.coordinates);
+    return details;
+  };
+
+  /**
+   * Validate an edge to ensure it has valid `source`, `target`, and `coordinates` if provided.
+   *
+   * @param edge - The edge to validate.
+   * @returns The validated edge if successful, otherwise throws an exception.
+   *
+   * @example
+   * ```ts
+   * const edge = {
+   *   source: "a1",
+   *   target: "b2",
+   *   coordinates: { start: { x: test, y: 0 }, end: { x: 1, y: 1 } }
+   * };
+   *
+   * Validate.edgeDetails(edge);
+   * // Throw InvalidArgumentExceptions
+   * ```
+   */
+  public static edgeDetails = <
+    T extends {
+      source: UUID;
+      target: UUID;
+      coordinates: { start: Coordinates; end: Coordinates };
+    }
+  >(
+    details: PartialEdge<T>
+  ): PartialEdge<T> => {
+    details.source && Validate.uuid(details.source);
+    details.target && Validate.uuid(details.target);
+
+    details.coordinates &&
+      details.coordinates.start &&
+      Validate.coordinates(details.coordinates.start);
+
+    details.coordinates &&
+      details.coordinates.end &&
+      Validate.coordinates(details.coordinates.end);
+    return details;
+  };
+
+  /**
    * Validate id and throw if not valid UUID
    *
    * @param id - The UUID to validate
@@ -258,142 +396,4 @@ export class Validate {
           "must be valid coordinates"
         )
       : (coordinates as Coordinates);
-
-  /**
-   * Validate the metadata, if provided, to ensure required properties are present and valid.
-   *
-   * @param metadata The optional metadata object to validate.
-   * @returns The validated metadata object or null if invalid.
-   *
-   * @example
-   * ```ts
-   * Validate.metadata(null);
-   * // => null
-   *
-   * Validate.metadata({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" });
-   * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test" }
-   *
-   * Validate.metadata({ id: "123", name: "" });
-   * // => ValidationException: Validation failed with 2 error(s).
-   * ```
-   * @category Validation
-   */
-  public static metadata = <T extends IMetadata>(metadata: T): T =>
-    Validator.validate<T>(metadata, [
-      ({ id }) => Validate.uuid(id),
-      ({ name }) => Validate.name(name),
-    ]);
-
-  /**
-   * Validates a node to ensure it has a valid `id` and `coordinates`.
-   *
-   * @param node - The node to validate.
-   * @returns The validated node if successful, otherwise throws an exception.
-   *
-   * @example
-   * ```ts
-   * const node = { id: "a1", coordinates: { x: 0, y: 0 } };
-   * Validate.node(node);
-   * // => { id: "a1", coordinates: { x: 0, y: 0 } }
-   *
-   * Validate.node({ id: "a1", coordinates: { x: 0 } });
-   * // throws ValidationException: Validation failed with 2 error(s).
-   * ```
-   * @category Validation
-   */
-  public static node = <T extends INode>(node?: T): T | void =>
-    node
-      ? (Validator.validate<T>(node, [
-          ({ id }) => Validate.uuid(id),
-          ({ coordinates }) => Validate.coordinates(coordinates),
-        ]) as T)
-      : null;
-
-  public static edge = <T extends IEdge>(edge?: T) =>
-    edge
-      ? (Validator.validate<T>(edge, [
-          ({ id }) => Validate.uuid(id),
-          ({ source }) => Validate.uuid(source),
-          ({ target }) => Validate.uuid(target),
-          ({ coordinates }) => Validate.coordinates(coordinates.start),
-          ({ coordinates }) => Validate.coordinates(coordinates.end),
-        ]) as T)
-      : null;
-
-  public static nodeDetails = <T extends { coordinates: Coordinates }>(
-    details: Partial<T>
-  ): Partial<T> => {
-    details.coordinates && Validate.coordinates(details.coordinates);
-    return details;
-  };
-
-  /**
-   * Validate an edge to ensure it has valid `source`, `target`, and `coordinates` if provided.
-   *
-   * @param edge - The edge to validate.
-   * @returns The validated edge if successful, otherwise throws an exception.
-   *
-   * @example
-   * ```ts
-   * const edge = {
-   *   source: "a1",
-   *   target: "b2",
-   *   coordinates: { start: { x: test, y: 0 }, end: { x: 1, y: 1 } }
-   * };
-   *
-   * Validate.edgeDetails(edge);
-   * // Throw InvalidArgumentExceptions
-   * ```
-   */
-  public static edgeDetails = <
-    T extends {
-      source: UUID;
-      target: UUID;
-      coordinates: { start: Coordinates; end: Coordinates };
-    }
-  >(
-    details: PartialEdge<T>
-  ): PartialEdge<T> => {
-    details.source && Validate.uuid(details.source);
-    details.target && Validate.uuid(details.target);
-
-    details.coordinates &&
-      details.coordinates.start &&
-      Validate.coordinates(details.coordinates.start);
-
-    details.coordinates &&
-      details.coordinates.end &&
-      Validate.coordinates(details.coordinates.end);
-    return details;
-  };
-
-  /**
-   * Validate an array of nodes to ensure each nodes have valid `id` and `coordinates`.
-   * Also ensures that all nodes have unique `id` and `coordinates`.
-   *
-   * @param nodes - The nodes to validate.
-   * @returns The validated nodes if successful, otherwise throws an exception.
-   *
-   * @example
-   * ```ts
-   * const nodes = [{ id: "a1", coordinates: { x: 0, y: 0 } }];
-   * Validate.nodes(nodes);
-   * // => [{ id: "a1", coordinates: { x: 0, y: 0 } }]
-   *
-   * Validate.nodes([{ id: "a1", coordinates: { x: 0 } }]);
-   * // throws ValidationException: Validation failed with 2 error(s).
-   * ```
-   */
-  public static nodes = <T extends INode>(nodes: T[]): T[] =>
-    Validator.validate<T[]>(nodes, [
-      (nodes) => nodes.map(Validate.node),
-      (nodes) => Validate.unique(nodes, (node) => node.id),
-      (nodes) => Validate.unique(nodes, (node) => node.coordinates),
-    ]);
-
-  public static edges = <T extends IEdge>(edges: T[]): T[] =>
-    Validator.validate<T[]>(edges, [
-      (edges) => edges.map(Validate.edge),
-      (nodes) => Validate.unique(nodes, (node) => node.id),
-    ]);
 }
