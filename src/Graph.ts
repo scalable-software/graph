@@ -25,6 +25,8 @@ export class Graph<T extends IGraph> {
       ? Nodes.create<T["nodes"][number]>(graph.nodes)
       : ([] as any);
 
-    this.edges = [] as any;
+    this.edges = graph?.edges
+      ? Edges.create<T["edges"][number]>(graph.edges)
+      : ([] as any);
   }
 }
