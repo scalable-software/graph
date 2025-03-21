@@ -1186,6 +1186,153 @@ given(`edges.findBySource method availability test`, () => {
   });
 });
 
+given(`edges.findBySource method behavior test`, () => {
+  and(
+    `an instance of Edges is created containing edges with unique source`,
+    () => {
+      let instance: Edges<IEdge>;
+      let edges: IEdge[];
+      beforeEach(() => {
+        instance = Edges.create();
+        edges = [
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+          },
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+          },
+        ];
+        instance.add(edges);
+      });
+      when(`instance.findBySource is called with valid source`, () => {
+        let source: UUID;
+        let result: IEdge[] | undefined;
+        beforeEach(() => {
+          source = edges[0].source;
+          result = instance.findBySource(source);
+        });
+        then(`result is defined`, () => {
+          expect(result).toBeDefined();
+        });
+        and(`result is defined`, () => {
+          then(`result.source is source`, () => {
+            expect(result[0].source).toEqual(source);
+          });
+        });
+      });
+      when(`instance.findBySource is called with unknown source`, () => {
+        let source: UUID;
+        let result: IEdge[] | undefined;
+        beforeEach(() => {
+          source = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
+          result = instance.findBySource(source);
+        });
+        then(`result.length is 0`, () => {
+          expect(result.length).toBe(0);
+        });
+      });
+      when(`instance.findBySource is called with invalid source`, () => {
+        let source: UUID;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          source = "1";
+          try {
+            instance.findById(source);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          });
+        });
+      });
+    }
+  );
+  and(
+    `an instance of Edges is created containing edges with duplicate source`,
+    () => {
+      let instance: Edges<IEdge>;
+      let edges: IEdge[];
+      beforeEach(() => {
+        instance = Edges.create();
+        edges = [
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+          },
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+          },
+        ];
+        instance.add(edges);
+      });
+      when(`instance.findBySource is called with valid source`, () => {
+        let source: UUID;
+        let result: IEdge[] | undefined;
+        beforeEach(() => {
+          source = edges[0].source;
+          result = instance.findBySource(source);
+        });
+        then(`result is defined`, () => {
+          expect(result).toBeDefined();
+        });
+        and(`result is defined`, () => {
+          then(`result.length is 2`, () => {
+            expect(result.length).toEqual(2);
+          });
+        });
+      });
+      when(`instance.findBySource is called with unknown source`, () => {
+        let source: UUID;
+        let result: IEdge[] | undefined;
+        beforeEach(() => {
+          source = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
+          result = instance.findBySource(source);
+        });
+        then(`result.length is 0`, () => {
+          expect(result.length).toBe(0);
+        });
+      });
+      when(`instance.findBySource is called with invalid source`, () => {
+        let source: UUID;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          source = "1";
+          try {
+            instance.findById(source);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of InvalidArgumentException`, () => {
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          });
+        });
+      });
+    }
+  );
+});
+
 given(`edges.immutable accessor availability test`, () => {
   and(`a edges instance is created`, () => {
     let edges: Edges<IEdge>;
