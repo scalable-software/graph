@@ -50,5 +50,5 @@ export class Graph<T extends IGraph> {
       edges: this.edges.toJSON(),
     } as T);
 
-  public toJSON = () => {};
+  public toJSON = () => this.retrieve();
 }
