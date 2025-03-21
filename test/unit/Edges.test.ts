@@ -1492,6 +1492,18 @@ given(`edges.findByTarget method behavior test`, () => {
   );
 });
 
+given(`edges.toJSON method availability test`, () => {
+  when(`an instance of Edges is created`, () => {
+    let instance: Edges<IEdge>;
+    beforeEach(() => {
+      instance = Edges.create();
+    });
+    then(`instance.toJSON is defined`, () => {
+      expect(instance.toJSON).toBeDefined();
+    });
+  });
+});
+
 given(`edges.immutable accessor availability test`, () => {
   and(`a edges instance is created`, () => {
     let edges: Edges<IEdge>;
