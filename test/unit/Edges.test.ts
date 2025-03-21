@@ -1504,6 +1504,39 @@ given(`edges.toJSON method availability test`, () => {
   });
 });
 
+given(`edges.toJSON method behavior test`, () => {
+  and(`a edges instance is created with edges`, () => {
+    let edges: Edges<IEdge>;
+    let data: IEdge[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          source: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          target: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+      ];
+      edges = Edges.create(data);
+    });
+    when(`edges.toJSON called`, () => {
+      let result: IEdge[];
+      beforeEach(() => {
+        result = edges.toJSON();
+      });
+      then(`result is equal to edges`, () => {
+        expect(result).toEqual(data);
+      });
+    });
+  });
+});
+
 given(`edges.immutable accessor availability test`, () => {
   and(`a edges instance is created`, () => {
     let edges: Edges<IEdge>;
