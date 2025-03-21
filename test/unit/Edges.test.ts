@@ -574,6 +574,18 @@ given(`edges.update method behavior test`, () => {
   });
 });
 
+given(`edges.move method availability test`, () => {
+  when(`an instance of Edges is created`, () => {
+    let instance: Edges<IEdge>;
+    beforeEach(() => {
+      instance = Edges.create();
+    });
+    then(`instance.move is defined`, () => {
+      expect(instance.move).toBeDefined();
+    });
+  });
+});
+
 given(`edges.immutable accessor availability test`, () => {
   and(`a edges instance is created`, () => {
     let edges: Edges<IEdge>;
