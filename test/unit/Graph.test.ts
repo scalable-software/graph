@@ -567,8 +567,8 @@ given("Graph.neighbors method behavior test", () => {
       });
       then("Graph.neighbors returns the neighbors of the node", () => {
         expect(result).toEqual([
-          "35c6779a-fd9d-4089-d1ab-af0b932fc912",
           "5a3e4a90-b266-4be3-b04d-abb627d78749",
+          "35c6779a-fd9d-4089-d1ab-af0b932fc912",
         ]);
       });
     });
