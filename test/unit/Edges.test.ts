@@ -1174,6 +1174,18 @@ given(`edges.findById method behavior test`, () => {
   });
 });
 
+given(`edges.findBySource method availability test`, () => {
+  when(`an instance of Edges is created`, () => {
+    let instance: Edges<IEdge>;
+    beforeEach(() => {
+      instance = Edges.create();
+    });
+    then(`instance.findBySource is defined`, () => {
+      expect(instance.findBySource).toBeDefined();
+    });
+  });
+});
+
 given(`edges.immutable accessor availability test`, () => {
   and(`a edges instance is created`, () => {
     let edges: Edges<IEdge>;
