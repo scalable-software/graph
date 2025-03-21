@@ -69,3 +69,15 @@ given(`Graph.nodes property availability test`, () => {
     });
   });
 });
+
+given(`Graph.edges property availability test`, () => {
+  when(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then(`Graph.edges is defined`, () => {
+      expect(graph.edges).toBeDefined();
+    });
+  });
+});
