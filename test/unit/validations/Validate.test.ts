@@ -14,16 +14,17 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import {
+import type {
   UUID,
   Coordinates,
+  IGraph,
   IMetadata,
   INode,
   IEdge,
   PartialEdge,
-  Exception,
-  Validate,
 } from "@scalable.software/graph";
+
+import { Graph, Exception, Validate } from "@scalable.software/graph";
 
 given(`Validate class availability test`, () => {
   and(`Validate is imported`, () => {
@@ -2110,6 +2111,85 @@ given(`Validate.graph static method availability test`, () => {
   and("Validate.graph is defined", () => {
     then("Validate.graph is a function", () => {
       expect(Validate.graph).toBeInstanceOf(Function);
+    });
+  });
+});
+
+given(`Validate.graph static method behavior test`, () => {
+  when(`Validate.graph called with no arguments`, () => {
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      try {
+        response = Validate.graph() as Partial<IGraph>;
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    and(`response is undefined`, () => {
+      then(`response is undefined`, () => {
+        expect(response).toBeUndefined();
+      });
+    });
+  });
+  when(`Validate.graph called with valid graph`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          name: "graph",
+        },
+      };
+      try {
+        response = Validate.graph<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    and(`response is defined`, () => {
+      then(`response equals graph`, () => {
+        expect(response).toEqual(graph);
+      });
+    });
+  });
+  when(`Validate.graph called with invalid graph`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: {
+          id: "invalid",
+          name: "graph",
+        },
+      };
+      try {
+        response = Validate.graph<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+
+    then(`response is undefined`, () => {
+      expect(response).toBeUndefined();
+    });
+    then(`error is defined`, () => {
+      expect(error).toBeDefined();
+    });
+
+    and(`error is defined`, () => {
+      then(`error is an instance of ValidationException`, () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
     });
   });
 });
