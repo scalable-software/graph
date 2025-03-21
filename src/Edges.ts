@@ -220,13 +220,21 @@ export class Edges<T extends IEdge> extends Array<T> {
    *
    * @example
    * ```typescript
-   * const edges = Edges.create([
-   * { id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", source: "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e" },
-   * { id: "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e", source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d" },
+   * const instance = Edges.create([
+   *     {
+   *      source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+   *      target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+   *      coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   *     },
+   *     {
+   *      source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+   *      target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+   *      coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   *     },
    * ]);
    *
-   * const edges = edges.findBySource("a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e");
-   * console.log(edges); // [{ id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", source: "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e" }]
+   * const edges = edges.findBySource("d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e");
+   * console.log(edges); // [{ id: ..., source: "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e", target: ..., coordinates: ... }]
    * ```
    *
    * @category Operations
@@ -236,6 +244,34 @@ export class Edges<T extends IEdge> extends Array<T> {
       Validate.uuid(source)
     );
 
+  /**
+   * Filter the edges in the collection based on the target identifier.
+   * If no edges are found, an empty array is returned.
+   * @param target - The target identifier to filter by.
+   * @returns The edges with the specified target identifier, or an empty array if not found.
+   * @throws {InvalidArgumentException} If the target identifier is invalid.
+   *
+   * @example
+   * ```typescript
+   * const instance = Edges.create([
+   *     {
+   *      source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+   *      target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+   *      coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   *     },
+   *     {
+   *      source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+   *      target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+   *      coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   *     },
+   * ]);
+   *
+   * const edges = edges.findByTarget("d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e");
+   * console.log(edges); // [{ id: ..., source: ..., target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e", coordinates: ... }]
+   * ```
+   *
+   * @category Operations
+   */
   public findByTarget = (target: UUID): T[] | undefined =>
     ((target) => this.filter((edge) => edge.target === target))(
       Validate.uuid(target)
