@@ -14,7 +14,7 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import { type IGraph, Graph, Metadata } from "@scalable.software/graph";
+import { type IGraph, Graph, Metadata, Nodes } from "@scalable.software/graph";
 
 given(`Graph class availability test`, () => {
   and(`Graph is imported`, () => {
@@ -73,6 +73,39 @@ given(`Graph class instantiation test`, () => {
         then(`Graph.metadata.toJSON() returns metadata`, () => {
           expect(graph.metadata.toJSON()).toEqual(metadata);
         });
+      });
+    });
+  });
+  when(`Graph is instantiated with an graph containing nodes`, () => {
+    let graph: Graph<IGraph>;
+    let nodes: IGraph["nodes"];
+    beforeEach(() => {
+      nodes = [
+        {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "123e4567-e89b-12d3-a456-426614174001",
+          coordinates: { x: 1, y: 1 },
+        },
+      ];
+      const data: IGraph = {
+        metadata: undefined,
+        nodes,
+        edges: [],
+      };
+      graph = new Graph(data);
+    });
+    then(`Graph is defined`, () => {
+      expect(graph).toBeDefined();
+    });
+    then(`graph.nodes is defined`, () => {
+      expect(graph.nodes).toBeDefined();
+    });
+    and(`graph.nodes is defined`, () => {
+      then(`graph.nodes is an instance of Nodes`, () => {
+        expect(graph.nodes).toBeInstanceOf(Nodes);
       });
     });
   });
