@@ -51,4 +51,6 @@ export class Graph<T extends IGraph> {
     } as T);
 
   public toJSON = () => this.export();
+
+  public degree = () => {};
 }
