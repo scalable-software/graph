@@ -11,7 +11,7 @@ import { Edge, type IEdge, type PartialEdge } from "./Edge.js";
 import { Validate } from "./validations/Validate.js";
 import { Validator } from "./validations/Validator.js";
 import { Utilities } from "./utilities/Utilities.js";
-import type { Coordinates, UUID } from "./Graph.types.js";
+import type { Coordinates, UUID, Offset } from "./Graph.types.js";
 
 export class Edges<T extends IEdge> extends Array<T> {
   public static create = <T extends IEdge>(edges?: T[] | null): Edges<T> =>
@@ -127,7 +127,41 @@ export class Edges<T extends IEdge> extends Array<T> {
     return this;
   };
 
-  public translate = () => {};
+  /**
+   * Translate one or more edges in the collection based on their IDs and using the provided offset.
+   *
+   * @param id - The ID or IDs of the edges to translate.
+   * @param offset - The offset to translate the edges by.
+   * @throws {Error} If the edge does not exist in the collection or id or offset are invalid.
+   *
+   * @returns {Edges<T>} The modified `Edges<T>` instance, allowing method chaining.
+   *
+   * @example
+   * ```typescript
+   * const edges = Edges.create([
+   * { id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   * { id: "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e", start: { x: 1, y: 1 }, end: { x: 2, y: 2 } },
+   * ]);
+   * edges.translate("d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", { x: 1, y: 1 });
+   * ```
+   *
+   * @category Operations
+   */
+  public translate = (id: UUID | UUID[], offset: Offset): Edges<T> => {
+    (([id, offset]) =>
+      Utilities.toArray(id).forEach((id) =>
+        this.apply(id, (node) => Edge.translate(node, offset))
+      ))(
+      Validator.validate<[UUID, Offset]>(
+        [id as UUID, offset],
+        [
+          ([id, offset]) => Validate.id(this, id),
+          ([id, offset]) => Validate.offset(offset),
+        ]
+      )
+    );
+    return this;
+  };
 
   private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
