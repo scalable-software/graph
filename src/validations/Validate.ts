@@ -5,159 +5,14 @@
 import { Exceptions } from "../exceptions/Exceptions.js";
 import { Utilities } from "../utilities/Utilities.js";
 import { Validator } from "./Validator.js";
+import type { IGraph } from "../Graph.js";
 import type { IMetadata } from "../Metadata.js";
 import type { INode } from "../Node.js";
 import type { IEdge, PartialEdge } from "../Edge.js";
 import type { UUID, Name, Coordinates, Offset } from "../Graph.types.js";
 
 export class Validate {
-  /**
-   * Validate an array of items to ensure they are unique.
-   *
-   * @param items - The items to validate
-   * @param identifier - The unique identifier to check
-   * @returns The items if unique
-   * @throws {DuplicateException} If the items are not unique
-   *
-   * @example
-   * ```ts
-   * Validate.unique(["a", "b", "a"]);
-   * // => DuplicateException: Duplicate item found: "a"
-   *
-   * Validate.unique(["a", "b", "c"]);
-   * // => ["a", "b", "c"]
-   *
-   * Validate.unique([{ id: "a" }, { id: "b" }, { id: "a" }], (item) => item.id);
-   * // => DuplicateException: Duplicate item found: "a"
-   * ```
-   */
-  public static unique = (items, identifier?) =>
-    ((duplicate) =>
-      duplicate
-        ? Exceptions.duplicateException(Utilities.toString(duplicate))
-        : items)(Utilities.Duplicate.find(items, identifier));
-
-  /**
-   * Validate an sets of existing and new entities to ensure the new entities are distinct.
-   *
-   * @param sets - The sets existing and new entities to validate
-   * @param identifier - The unique identifier to check
-   * @returns The new entities if distinct
-   * @throws {DuplicateException} If the sets are not distinct
-   *
-   * @example
-   * ```ts
-   * const sets = [[1, 2, 3], [3, 4, 5]];
-   * Validate.distinct(sets);
-   * // => DuplicateException: Duplicate item found: "3"
-   *
-   * const sets = [[{ id: "a" }, { id: "b" }], [{ id: "c" }, { id: "d" }]];
-   * Validate.distinct(sets, (item) => item.id);
-   * // => [{ id: "c" }, { id: "d" }]
-   * ```
-   */
-  public static distinct = (sets, identifier?) =>
-    ((match) =>
-      match
-        ? Exceptions.duplicateException(Utilities.toString(match))
-        : sets[1])(Utilities.Match.find(sets, identifier));
-
-  /**
-   * Validate keys and throw if key is immutable
-   *
-   * @param items - The keys to validate
-   * @param value - The immutable key to check
-   * @returns True if the key is immutable
-   * @throws {ImmutablePropertyException} If the key is immutable
-   *
-   * @example
-   * ```ts
-   * Validate.includes(["id", "name"], "id");
-   * // => ImmutablePropertyException: "Property 'id' is immutable."
-   *
-   * Validate.includes(["id", "name"], "type");
-   * // => false
-   * ```
-   *
-   */
-  public static immutable = <T>(items: T[], value: T): unknown =>
-    !items.includes(value) ||
-    Exceptions.immutablePropertyException(String(value));
-
-  public static many = <T>(item: T | T[], validator: (T) => T) =>
-    Array.isArray(item) ? item.map((item) => validator(item)) : validator(item);
-
-  /**
-   * Validate a single of multiple ids to ensure they are valid UUIDs.
-   *
-   * @param ids - The id or ids to validate
-   * @returns The id or ids if valid
-   * @throws {InvalidArgumentException} If the id or ids are invalid or null
-   *
-   * @example
-   * ```ts
-   * Validate.id("123e4567-e89b-12d3-a456-426614174000");
-   * // => "123e4567-e89b-12d3-a456-426614174000"
-   *
-   * Validate.id(["123e4567-e89b-12d3-a456-426614174000", "invalid"]);
-   * // => InvalidArgumentException: Invalid argument: id - must be a valid UUID
-   * ```
-   */
-  public static id = <T extends { id: UUID }>(
-    nodes: T[],
-    ids: UUID | UUID[]
-  ): UUID | UUID[] => {
-    Validate.many(ids, (id) => Validate.uuid(id));
-    Validate.many(ids, (id) => Validate.exist(nodes, id));
-    return ids;
-  };
-
-  /**
-   * Returns index of item with id in items if found
-   * throw NotFoundException if no item in items has matching id
-   *
-   * @param items - The items to search
-   * @param id - The id to find
-   * @returns The index of the id if found
-   * @throws {NotFoundException} If the id is not found
-   *
-   * @example
-   * ```ts
-   * const items = [{ id: "a" }, { id: "b" }, { id: "c" }];
-   * Validate.exist(items, "b");
-   * // => 1
-   *
-   * Validate.exist(items, "d");
-   * // => NotFoundException: id not found: "d"
-   * ```
-   *
-   */
-  public static exist = <T extends { id: UUID }>(
-    items: T[],
-    id: UUID
-  ): UUID => {
-    try {
-      Validate.index(Utilities.Index.byId<T>(items, id));
-    } catch (error) {
-      Exceptions.notFoundException("id", id);
-    }
-    return id;
-  };
-
-  public static index = (index: number): number =>
-    index !== -1 ? index : Exceptions.invalidIndexException();
-
-  public static notNull = <T>(value: T): T =>
-    value === undefined || value === null
-      ? Exceptions.invalidArgumentException("", "operation requires argument")
-      : value;
-
-  public static flag = (flag: boolean): boolean =>
-    typeof flag !== "boolean"
-      ? Exceptions.invalidArgumentException("flag", "must be a boolean")
-      : flag;
-
-  public static graph = () => {};
+  public static graph = <T extends IGraph>() => {};
 
   /**
    * Validate the metadata, if provided, to ensure required properties are present and valid.
@@ -398,4 +253,150 @@ export class Validate {
           "must be valid coordinates"
         )
       : (coordinates as Coordinates);
+
+  /**
+   * Validate keys and throw if key is immutable
+   *
+   * @param items - The keys to validate
+   * @param value - The immutable key to check
+   * @returns True if the key is immutable
+   * @throws {ImmutablePropertyException} If the key is immutable
+   *
+   * @example
+   * ```ts
+   * Validate.includes(["id", "name"], "id");
+   * // => ImmutablePropertyException: "Property 'id' is immutable."
+   *
+   * Validate.includes(["id", "name"], "type");
+   * // => false
+   * ```
+   *
+   */
+  public static immutable = <T>(items: T[], value: T): unknown =>
+    !items.includes(value) ||
+    Exceptions.immutablePropertyException(String(value));
+
+  public static many = <T>(item: T | T[], validator: (T) => T) =>
+    Array.isArray(item) ? item.map((item) => validator(item)) : validator(item);
+
+  /**
+   * Validate a single of multiple ids to ensure they are valid UUIDs.
+   *
+   * @param ids - The id or ids to validate
+   * @returns The id or ids if valid
+   * @throws {InvalidArgumentException} If the id or ids are invalid or null
+   *
+   * @example
+   * ```ts
+   * Validate.id("123e4567-e89b-12d3-a456-426614174000");
+   * // => "123e4567-e89b-12d3-a456-426614174000"
+   *
+   * Validate.id(["123e4567-e89b-12d3-a456-426614174000", "invalid"]);
+   * // => InvalidArgumentException: Invalid argument: id - must be a valid UUID
+   * ```
+   */
+  public static id = <T extends { id: UUID }>(
+    nodes: T[],
+    ids: UUID | UUID[]
+  ): UUID | UUID[] => {
+    Validate.many(ids, (id) => Validate.uuid(id));
+    Validate.many(ids, (id) => Validate.exist(nodes, id));
+    return ids;
+  };
+
+  /**
+   * Returns index of item with id in items if found
+   * throw NotFoundException if no item in items has matching id
+   *
+   * @param items - The items to search
+   * @param id - The id to find
+   * @returns The index of the id if found
+   * @throws {NotFoundException} If the id is not found
+   *
+   * @example
+   * ```ts
+   * const items = [{ id: "a" }, { id: "b" }, { id: "c" }];
+   * Validate.exist(items, "b");
+   * // => 1
+   *
+   * Validate.exist(items, "d");
+   * // => NotFoundException: id not found: "d"
+   * ```
+   *
+   */
+  public static exist = <T extends { id: UUID }>(
+    items: T[],
+    id: UUID
+  ): UUID => {
+    try {
+      Validate.index(Utilities.Index.byId<T>(items, id));
+    } catch (error) {
+      Exceptions.notFoundException("id", id);
+    }
+    return id;
+  };
+
+  public static index = (index: number): number =>
+    index !== -1 ? index : Exceptions.invalidIndexException();
+
+  public static notNull = <T>(value: T): T =>
+    value === undefined || value === null
+      ? Exceptions.invalidArgumentException("", "operation requires argument")
+      : value;
+
+  public static flag = (flag: boolean): boolean =>
+    typeof flag !== "boolean"
+      ? Exceptions.invalidArgumentException("flag", "must be a boolean")
+      : flag;
+
+  /**
+   * Validate an array of items to ensure they are unique.
+   *
+   * @param items - The items to validate
+   * @param identifier - The unique identifier to check
+   * @returns The items if unique
+   * @throws {DuplicateException} If the items are not unique
+   *
+   * @example
+   * ```ts
+   * Validate.unique(["a", "b", "a"]);
+   * // => DuplicateException: Duplicate item found: "a"
+   *
+   * Validate.unique(["a", "b", "c"]);
+   * // => ["a", "b", "c"]
+   *
+   * Validate.unique([{ id: "a" }, { id: "b" }, { id: "a" }], (item) => item.id);
+   * // => DuplicateException: Duplicate item found: "a"
+   * ```
+   */
+  public static unique = (items, identifier?) =>
+    ((duplicate) =>
+      duplicate
+        ? Exceptions.duplicateException(Utilities.toString(duplicate))
+        : items)(Utilities.Duplicate.find(items, identifier));
+
+  /**
+   * Validate an sets of existing and new entities to ensure the new entities are distinct.
+   *
+   * @param sets - The sets existing and new entities to validate
+   * @param identifier - The unique identifier to check
+   * @returns The new entities if distinct
+   * @throws {DuplicateException} If the sets are not distinct
+   *
+   * @example
+   * ```ts
+   * const sets = [[1, 2, 3], [3, 4, 5]];
+   * Validate.distinct(sets);
+   * // => DuplicateException: Duplicate item found: "3"
+   *
+   * const sets = [[{ id: "a" }, { id: "b" }], [{ id: "c" }, { id: "d" }]];
+   * Validate.distinct(sets, (item) => item.id);
+   * // => [{ id: "c" }, { id: "d" }]
+   * ```
+   */
+  public static distinct = (sets, identifier?) =>
+    ((match) =>
+      match
+        ? Exceptions.duplicateException(Utilities.toString(match))
+        : sets[1])(Utilities.Match.find(sets, identifier));
 }
