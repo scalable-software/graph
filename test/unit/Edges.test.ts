@@ -754,6 +754,18 @@ given(`edges.move method behavior test`, () => {
   });
 });
 
+given(`edges.translate method availability test`, () => {
+  when(`an instance of Edges is created`, () => {
+    let instance: Edges<IEdge>;
+    beforeEach(() => {
+      instance = Edges.create();
+    });
+    then(`instance.translate is defined`, () => {
+      expect(instance.translate).toBeDefined();
+    });
+  });
+});
+
 given(`edges.immutable accessor availability test`, () => {
   and(`a edges instance is created`, () => {
     let edges: Edges<IEdge>;
