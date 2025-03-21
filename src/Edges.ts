@@ -277,7 +277,14 @@ export class Edges<T extends IEdge> extends Array<T> {
       Validate.uuid(target)
     );
 
-  public toJSON = () => {};
+  /**
+   * Converts the `Edges` collection into a JSON-compatible array.
+   *
+   * @returns {T[]} An array representation of the edges.
+   *
+   * @category Operations
+   */
+  public toJSON = (): T[] => [...this];
 
   private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
