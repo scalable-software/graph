@@ -49,4 +49,6 @@ export class Graph<T extends IGraph> {
       nodes: this.nodes.toJSON(),
       edges: this.edges.toJSON(),
     } as T);
+
+  public toJSON = () => {};
 }
