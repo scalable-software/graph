@@ -211,6 +211,8 @@ export class Edges<T extends IEdge> extends Array<T> {
   public findById = (id: UUID): T | undefined =>
     ((id) => this.find((node) => node.id === id))(Validate.uuid(id));
 
+  public findBySource = () => {};
+
   private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
   private edge = (id: UUID): T => this.at(Utilities.Index.byId<T>(this, id));
