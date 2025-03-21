@@ -43,5 +43,10 @@ export class Graph<T extends IGraph> {
     })(Validate.graph(graph));
   };
 
-  public retrieve = () => {};
+  public retrieve = (): T =>
+    ({
+      metadata: this.metadata.toJSON(),
+      nodes: this.nodes.toJSON(),
+      edges: this.edges.toJSON(),
+    } as T);
 }
