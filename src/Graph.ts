@@ -97,16 +97,16 @@ export class Graph<T extends IGraph> {
    */
   public out = (id: UUID): number => this.edges.findBySource(id).length;
 
-  public neighbors = (id: UUID) =>
-    this.group(this.getEdges(id)).filter((neighbor) => neighbor !== id);
+  public neighbors = (id: UUID) => [
+    ...new Set(
+      this.getEdges(id).flatMap(({ source, target }) =>
+        source === id ? [target] : [source]
+      )
+    ),
+  ];
 
   private getEdges = (id: UUID) => [
     ...this.edges.findBySource(id),
     ...this.edges.findByTarget(id),
-  ];
-
-  private group = (edges: IEdge[]) => [
-    ...edges.map((edge) => edge.source),
-    ...edges.map((edge) => edge.target),
   ];
 }
