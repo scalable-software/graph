@@ -1243,7 +1243,7 @@ given(`edges.findBySource method behavior test`, () => {
         beforeEach(() => {
           source = "1";
           try {
-            instance.findById(source);
+            instance.findBySource(source);
           } catch (e) {
             error = e;
           }
@@ -1315,7 +1315,7 @@ given(`edges.findBySource method behavior test`, () => {
         beforeEach(() => {
           source = "1";
           try {
-            instance.findById(source);
+            instance.findBySource(source);
           } catch (e) {
             error = e;
           }
