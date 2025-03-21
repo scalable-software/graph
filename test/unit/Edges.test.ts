@@ -766,6 +766,238 @@ given(`edges.translate method availability test`, () => {
   });
 });
 
+given(`edges.translate method behavior test`, () => {
+  and(`an instance of Edges is created containing an edge`, () => {
+    let instance: Edges<IEdge>;
+    let edge: IEdge;
+    beforeEach(() => {
+      instance = Edges.create();
+      edge = {
+        id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+        source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+        target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      };
+      instance.add(edge);
+    });
+
+    when(`instance.translate is called with valid id and offset`, () => {
+      let id: UUID;
+      let offset: Coordinates;
+      beforeEach(() => {
+        id = edge.id;
+        offset = { x: 1, y: 1 };
+        instance.translate(id, offset);
+      });
+      then(`instance[0].coordinates.start.x is 1`, () => {
+        expect(instance[0].coordinates.start.x).toBe(1);
+      });
+      then(`instance[0].coordinates.start.y is 1`, () => {
+        expect(instance[0].coordinates.start.y).toBe(1);
+      });
+      then(`instance[0].coordinates.end.x is 2`, () => {
+        expect(instance[0].coordinates.end.x).toBe(2);
+      });
+      then(`instance[0].coordinates.end.y is 2`, () => {
+        expect(instance[0].coordinates.end.y).toBe(2);
+      });
+    });
+    when(`instance.translate is called with unknown id and offset`, () => {
+      let id: UUID;
+      let offset: Coordinates;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        id = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
+        offset = { x: 1, y: 1 };
+        try {
+          instance.translate(id, offset);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    });
+    when(`instance.translate is called with invalid id and offset`, () => {
+      let id: UUID;
+      let offset: Coordinates;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        id = "1";
+        offset = { x: 1, y: 1 };
+        try {
+          instance.translate(id, offset);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    });
+    when(
+      `instance.translate is called with valid id and invalid offset`,
+      () => {
+        let id: UUID;
+        let offset: Coordinates;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = edge.id;
+          offset = { x: "invalid" as unknown as number, y: 1 };
+          try {
+            instance.translate(id, offset);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+        });
+      }
+    );
+  });
+  and(`an instance of Edges is created containing edges`, () => {
+    let instance: Edges<IEdge>;
+    let edges: IEdge[];
+    beforeEach(() => {
+      instance = Edges.create();
+      edges = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+      ];
+      instance.add(edges);
+    });
+    when(`instance.translate is called with valid ids and offset`, () => {
+      let ids: UUID[];
+      let offset: Coordinates;
+      beforeEach(() => {
+        ids = edges.map((edge) => edge.id);
+        offset = { x: 1, y: 1 };
+        instance.translate(ids, offset);
+      });
+      then(`instance[0].coordinates.start.x is 1`, () => {
+        expect(instance[0].coordinates.start.x).toBe(1);
+      });
+      then(`instance[0].coordinates.start.y is 1`, () => {
+        expect(instance[0].coordinates.start.y).toBe(1);
+      });
+      then(`instance[0].coordinates.end.x is 2`, () => {
+        expect(instance[0].coordinates.end.x).toBe(2);
+      });
+      then(`instance[0].coordinates.end.y is 2`, () => {
+        expect(instance[0].coordinates.end.y).toBe(2);
+      });
+      then(`instance[1].coordinates.start.x is 1`, () => {
+        expect(instance[1].coordinates.start.x).toBe(1);
+      });
+      then(`instance[1].coordinates.start.y is 1`, () => {
+        expect(instance[1].coordinates.start.y).toBe(1);
+      });
+      then(`instance[1].coordinates.end.x is 2`, () => {
+        expect(instance[1].coordinates.end.x).toBe(2);
+      });
+      then(`instance[1].coordinates.end.y is 2`, () => {
+        expect(instance[1].coordinates.end.y).toBe(2);
+      });
+    });
+    when(`instance.translate is called with unknown ids and offset`, () => {
+      let ids: UUID[];
+      let offset: Coordinates;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        ids = ["a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e"];
+        offset = { x: 1, y: 1 };
+        try {
+          instance.translate(ids, offset);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    });
+    when(`instance.translate is called with invalid ids and offset`, () => {
+      let ids: UUID[];
+      let offset: Coordinates;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        ids = ["1"];
+        offset = { x: 1, y: 1 };
+        try {
+          instance.translate(ids, offset);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    });
+    when(
+      `instance.translate is called with valid ids and invalid offset`,
+      () => {
+        let ids: UUID[];
+        let offset: Coordinates;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          ids = edges.map((edge) => edge.id);
+          offset = { x: "invalid" as unknown as number, y: 1 };
+          try {
+            instance.translate(ids, offset);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+        });
+      }
+    );
+  });
+});
+
 given(`edges.immutable accessor availability test`, () => {
   and(`a edges instance is created`, () => {
     let edges: Edges<IEdge>;
