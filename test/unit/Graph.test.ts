@@ -390,3 +390,15 @@ given(`Graph.toJSON method behavior test`, () => {
     });
   });
 });
+
+given("Graph.degree method availability test", () => {
+  when("Graph is instantiated", () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then("Graph.degree is defined", () => {
+      expect(graph.degree).toBeDefined();
+    });
+  });
+});
