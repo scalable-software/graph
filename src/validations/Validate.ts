@@ -7,6 +7,7 @@ import { Utilities } from "../utilities/Utilities.js";
 import { Validator } from "./Validator.js";
 import type { IMetadata } from "../Metadata.js";
 import type { INode } from "../Node.js";
+import type { IEdge, PartialEdge } from "../Edge.js";
 import type { UUID, Name, Coordinates, Offset } from "../Graph.types.js";
 
 export class Validate {
@@ -308,10 +309,61 @@ export class Validate {
         ]) as T)
       : null;
 
+  public static edge = <T extends IEdge>(edge?: T) =>
+    edge
+      ? (Validator.validate<T>(edge, [
+          ({ id }) => Validate.uuid(id),
+          ({ source }) => Validate.uuid(source),
+          ({ target }) => Validate.uuid(target),
+          ({ coordinates }) => Validate.coordinates(coordinates.start),
+          ({ coordinates }) => Validate.coordinates(coordinates.end),
+        ]) as T)
+      : null;
+
   public static nodeDetails = <T extends { coordinates: Coordinates }>(
     details: Partial<T>
   ): Partial<T> => {
     details.coordinates && Validate.coordinates(details.coordinates);
+    return details;
+  };
+
+  /**
+   * Validate an edge to ensure it has valid `source`, `target`, and `coordinates` if provided.
+   *
+   * @param edge - The edge to validate.
+   * @returns The validated edge if successful, otherwise throws an exception.
+   *
+   * @example
+   * ```ts
+   * const edge = {
+   *   source: "a1",
+   *   target: "b2",
+   *   coordinates: { start: { x: test, y: 0 }, end: { x: 1, y: 1 } }
+   * };
+   *
+   * Validate.edgeDetails(edge);
+   * // Throw InvalidArgumentExceptions
+   * ```
+   */
+  public static edgeDetails = <
+    T extends {
+      source: UUID;
+      target: UUID;
+      coordinates: { start: Coordinates; end: Coordinates };
+    }
+  >(
+    details: PartialEdge<T>
+  ): PartialEdge<T> => {
+    details.source && Validate.uuid(details.source);
+    details.target && Validate.uuid(details.target);
+
+    details.coordinates &&
+      details.coordinates.start &&
+      Validate.coordinates(details.coordinates.start);
+
+    details.coordinates &&
+      details.coordinates.end &&
+      Validate.coordinates(details.coordinates.end);
     return details;
   };
 
@@ -337,5 +389,11 @@ export class Validate {
       (nodes) => nodes.map(Validate.node),
       (nodes) => Validate.unique(nodes, (node) => node.id),
       (nodes) => Validate.unique(nodes, (node) => node.coordinates),
+    ]);
+
+  public static edges = <T extends IEdge>(edges: T[]): T[] =>
+    Validator.validate<T[]>(edges, [
+      (edges) => edges.map(Validate.edge),
+      (nodes) => Validate.unique(nodes, (node) => node.id),
     ]);
 }

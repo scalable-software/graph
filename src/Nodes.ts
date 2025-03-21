@@ -15,6 +15,20 @@ import type { UUID, Coordinates, Offset } from "./Graph.types.js";
 
 export class Nodes<T extends INode> extends Array<T> {
   /**
+   * Each node can be accessed via index notation.
+   *
+   * @param {number} n - The index of the node to retrieve.
+   * @returns {T} The node at the specified index.
+   *
+   * @example
+   * ```typescript
+   * const nodes = Nodes.create([node]);
+   * nodes[0]; // node
+   * ```
+   */
+  [n: number]: T;
+
+  /**
    *
    * Factory method used to create a new instance of an container of nodes.
    *
@@ -68,7 +82,9 @@ export class Nodes<T extends INode> extends Array<T> {
    */
   public add = (nodes: T | Omit<T, "id"> | (T | Omit<T, "id">)[]): Nodes<T> => {
     ((nodes) => this.push(...nodes))(
-      this.validate(Utilities.normalize(Validate.notNull(nodes)))
+      ((nodes) => this.validate(nodes))(
+        ((nodes) => Utilities.normalize(nodes))(Validate.notNull(nodes))
+      )
     );
     return this;
   };
@@ -84,9 +100,15 @@ export class Nodes<T extends INode> extends Array<T> {
    * @category Operations
    */
   public update = (id: UUID, details: Partial<T>): Nodes<T> => {
-    ((id, details) => this.apply(id, (node) => Node.update(node, details)))(
-      Validate.id(this, id) as UUID,
-      Validate.nodeDetails(details)
+    (([id, details]) =>
+      this.apply(id as UUID, (node) => Node.update(node, details)))(
+      Validator.validate<[UUID, Partial<T>]>(
+        [id, details],
+        [
+          ([id, details]) => Validate.id(this, id),
+          ([id, details]) => Validate.nodeDetails(details),
+        ]
+      )
     );
     return this;
   };
@@ -166,10 +188,15 @@ export class Nodes<T extends INode> extends Array<T> {
    * @category Operations
    */
   public move = (id: UUID, coordinates: Coordinates): Nodes<T> => {
-    ((id, coordinates) =>
-      this.apply(id, (node) => Node.move(node, coordinates)))(
-      Validate.id(this, id) as UUID,
-      Validate.coordinates(coordinates)
+    (([id, coordinates]) =>
+      this.apply(id as UUID, (node) => Node.move(node, coordinates)))(
+      Validator.validate<[UUID, Coordinates]>(
+        [id, coordinates],
+        [
+          ([id, coordinates]) => Validate.id(this, id),
+          ([id, coordinates]) => Validate.coordinates(coordinates),
+        ]
+      )
     );
     return this;
   };
@@ -184,10 +211,18 @@ export class Nodes<T extends INode> extends Array<T> {
    * @category Operations
    */
   public translate = (id: UUID | UUID[], offset: Offset): Nodes<T> => {
-    ((id, offset) =>
+    (([id, offset]) =>
       Utilities.toArray(id).forEach((id) =>
         this.apply(id, (node) => Node.translate(node, offset))
-      ))(Validate.id(this, id), Validate.offset(offset));
+      ))(
+      Validator.validate<[UUID, Offset]>(
+        [id as UUID, offset],
+        [
+          ([id, offset]) => Validate.id(this, id),
+          ([id, offset]) => Validate.offset(offset),
+        ]
+      )
+    );
     return this;
   };
 
