@@ -163,6 +163,8 @@ export class Edges<T extends IEdge> extends Array<T> {
     return this;
   };
 
+  public remove = () => {};
+
   private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
   private edge = (id: UUID): T => this.at(Utilities.Index.byId<T>(this, id));
