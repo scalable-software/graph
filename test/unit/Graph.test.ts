@@ -14,7 +14,7 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import { Graph, IGraph } from "@scalable.software/graph";
+import { type IGraph, Graph, Metadata } from "@scalable.software/graph";
 
 given(`Graph class availability test`, () => {
   and(`Graph is imported`, () => {
@@ -41,6 +41,38 @@ given(`Graph class instantiation test`, () => {
     and(`Graph is defined`, () => {
       then(`Graph is an instance of Graph`, () => {
         expect(graph).toBeInstanceOf(Graph);
+      });
+    });
+  });
+  when(`Graph is instantiated with an graph containing metadata`, () => {
+    let graph: Graph<IGraph>;
+    let metadata: IGraph["metadata"];
+    beforeEach(() => {
+      metadata = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "Clinical Pathway",
+      };
+      const data: IGraph = {
+        metadata,
+        nodes: [],
+        edges: [],
+      };
+      graph = new Graph(data);
+    });
+    then(`Graph is defined`, () => {
+      expect(graph).toBeDefined();
+    });
+    and(`Graph is defined`, () => {
+      then(`Graph.metadata is defined`, () => {
+        expect(graph.metadata).toBeDefined();
+      });
+      and(`Graph.metadata is defined`, () => {
+        then(`Graph.metadata is instance of Metadata`, () => {
+          expect(graph.metadata).toBeInstanceOf(Metadata);
+        });
+        then(`Graph.metadata.toJSON() returns metadata`, () => {
+          expect(graph.metadata.toJSON()).toEqual(metadata);
+        });
       });
     });
   });
