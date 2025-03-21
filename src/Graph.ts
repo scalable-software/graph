@@ -42,4 +42,6 @@ export class Graph<T extends IGraph> {
         graph?.edges && Edges.create<T["edges"][number]>(graph.edges);
     })(Validate.graph(graph));
   };
+
+  public retrieve = () => {};
 }
