@@ -2102,3 +2102,14 @@ given(`Validate.edgesDetails static method behavior test`, () => {
     }
   );
 });
+
+given(`Validate.graph static method availability test`, () => {
+  then("Validate.graph is defined", () => {
+    expect(Validate.graph).toBeDefined();
+  });
+  and("Validate.graph is defined", () => {
+    then("Validate.graph is a function", () => {
+      expect(Validate.graph).toBeInstanceOf(Function);
+    });
+  });
+});
