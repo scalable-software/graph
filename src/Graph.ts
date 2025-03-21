@@ -1,6 +1,6 @@
-import { IMetadata } from "./Metadata.js";
-import { INode } from "./Node.js";
-import { IEdge } from "./Edge.js";
+import { type IMetadata, Metadata } from "./Metadata.js";
+import { type INode } from "./Node.js";
+import { type IEdge } from "./Edge.js";
 
 export type IGraph = {
   metadata: IMetadata;
@@ -8,4 +8,6 @@ export type IGraph = {
   edges: IEdge[];
 };
 
-export class Graph<T extends IGraph> {}
+export class Graph<T extends IGraph> {
+  constructor() {}
+}
