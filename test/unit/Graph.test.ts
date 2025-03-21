@@ -298,3 +298,43 @@ given("Graph.retrieve method availability test", () => {
     });
   });
 });
+
+given(`Graph.retrieve method behavior test`, () => {
+  and(`Graph is instantiated width data`, () => {
+    let graph: Graph<IGraph>;
+    let data: IGraph;
+    beforeEach(() => {
+      graph = new Graph();
+      data = {
+        metadata: {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "Clinical Pathway",
+        },
+        nodes: [
+          {
+            id: "123e4567-e89b-12d3-a456-426614174000",
+            coordinates: { x: 0, y: 0 },
+          },
+        ],
+        edges: [
+          {
+            id: "123e4567-e89b-12d3-a456-426614174000",
+            source: "123e4567-e89b-12d3-a456-426614174001",
+            target: "123e4567-e89b-12d3-a456-426614174002",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+          },
+        ],
+      };
+      graph.load(data);
+    });
+    when(`Graph.retrieve is called`, () => {
+      let result: IGraph;
+      beforeEach(() => {
+        result = graph.retrieve();
+      });
+      then(`Graph.retrieve returns data`, () => {
+        expect(result).toEqual(data);
+      });
+    });
+  });
+});
