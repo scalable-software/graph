@@ -35,6 +35,12 @@ export class Graph<T extends IGraph> {
     })(Validate.graph(graph));
   }
 
+  /**
+   * Import a graph in JSON format into a graph data structure.
+   * @param graph - The graph in JSON format.
+   *
+   * @category Operation
+   */
   public import = (graph: Partial<T>) => {
     ((graph) => {
       this.metadata = Metadata.create<T["metadata"]>(graph.metadata);
@@ -45,6 +51,11 @@ export class Graph<T extends IGraph> {
     })(Validate.graph(graph));
   };
 
+  /**
+   * Export the graph data structure into a graph in JSON format.
+   * @returns The graph in JSON format.
+   * @category Operation
+   */
   public export = (): T =>
     ({
       metadata: this.metadata.toJSON(),
@@ -52,17 +63,37 @@ export class Graph<T extends IGraph> {
       edges: this.edges.toJSON(),
     } as T);
 
+  /**
+   * Export the graph data structure into a graph in JSON format.
+   * @returns The graph in JSON format.
+   * @category Operation
+   */
   public toJSON = () => this.export();
 
   /**
    * Returns the degree: number of connections, of a node.
    * @param id - The id of the node.
    * @returns The degree of the node.
+   *
+   * @category Operation
    */
   public degree = (id: UUID): number =>
     this.edges.findByTarget(id).length + this.edges.findBySource(id).length;
 
+  /**
+   * Returns the in-degree: number of incoming connections, of a node.
+   * @param id - The id of the node.
+   * @returns The in-degree of the node.
+   *
+   * @category Operation
+   */
   public in = (id: UUID): number => this.edges.findByTarget(id).length;
 
+  /**
+   * Returns the out-degree: number of outgoing connections, of a node.
+   * @param id  - The id of the node.
+   * @returns The out-degree of the node.
+   * @category Operation
+   */
   public out = (id: UUID): number => this.edges.findBySource(id).length;
 }
