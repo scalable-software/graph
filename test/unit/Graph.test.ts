@@ -14,7 +14,7 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import { Graph } from "@scalable.software/graph";
+import { Graph, IGraph } from "@scalable.software/graph";
 
 given(`Graph class availability test`, () => {
   and(`Graph is imported`, () => {
@@ -24,6 +24,23 @@ given(`Graph class availability test`, () => {
     and(`Graph is defined`, () => {
       then(`Graph is an instance of Function`, () => {
         expect(Graph).toBeInstanceOf(Function);
+      });
+    });
+  });
+});
+
+given(`Graph class instantiation test`, () => {
+  when(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then(`Graph is defined`, () => {
+      expect(graph).toBeDefined();
+    });
+    and(`Graph is defined`, () => {
+      then(`Graph is an instance of Graph`, () => {
+        expect(graph).toBeInstanceOf(Graph);
       });
     });
   });
