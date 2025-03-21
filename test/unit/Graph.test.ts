@@ -497,3 +497,34 @@ given("Graph.out method availability test", () => {
     });
   });
 });
+
+given("Graph.out method behavior test", () => {
+  and("graph instantiated using new Graph()", () => {
+    let pathway: Graph<Pathway>;
+    beforeEach(() => {
+      pathway = new Graph(example);
+    });
+    when("Graph.out is called with a node id having 1 in connections", () => {
+      let result: number;
+      let id: UUID;
+      beforeEach(() => {
+        id = pathway.nodes[0].id;
+        result = pathway.out(id);
+      });
+      then("Graph.out returns the degree of the node", () => {
+        expect(result).toBe(1);
+      });
+    });
+    when("Graph.out is called with a node id having 1 in connections", () => {
+      let result: number;
+      let id: UUID;
+      beforeEach(() => {
+        id = pathway.nodes[1].id;
+        result = pathway.out(id);
+      });
+      then("Graph.out returns the degree of the node", () => {
+        expect(result).toBe(1);
+      });
+    });
+  });
+});
