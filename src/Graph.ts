@@ -62,5 +62,5 @@ export class Graph<T extends IGraph> {
   public degree = (id: UUID): number =>
     this.edges.findByTarget(id).length + this.edges.findBySource(id).length;
 
-  public in = () => {};
+  public in = (id: UUID): number => this.edges.findByTarget(id).length;
 }
