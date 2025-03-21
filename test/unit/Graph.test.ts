@@ -1,0 +1,30 @@
+import * as help from "./Helper.js";
+
+const given = (description, spec) =>
+  describe(`Given ${description}`, () => {
+    beforeEach(() => {
+      const { context, type, test } = help.metadata(description);
+      setSpecProperty("context", context);
+      setSpecProperty("type", type);
+      setSpecProperty("test", test);
+    });
+    spec();
+  });
+const and = (description, spec) => describe(`and ${description}`, spec);
+const when = (description, spec) => describe(`when ${description}`, spec);
+const then = (description, spec) => it(`then ${description}`, spec);
+
+import { Graph } from "@scalable.software/graph";
+
+given(`Graph class availability test`, () => {
+  and(`Graph is imported`, () => {
+    then(`Graph is defined`, () => {
+      expect(Graph).toBeDefined();
+    });
+    and(`Graph is defined`, () => {
+      then(`Graph is an instance of Function`, () => {
+        expect(Graph).toBeInstanceOf(Function);
+      });
+    });
+  });
+});
