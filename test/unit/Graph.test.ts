@@ -286,3 +286,15 @@ given(`Graph.load method behavior test`, () => {
     });
   });
 });
+
+given("Graph.retrieve method availability test", () => {
+  when("Graph is instantiated", () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then("Graph.retrieve is defined", () => {
+      expect(graph.retrieve).toBeDefined();
+    });
+  });
+});
