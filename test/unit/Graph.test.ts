@@ -53,6 +53,11 @@ given(`Graph class instantiation test`, () => {
           expect(graph.metadata).toBeInstanceOf(Metadata);
         });
       });
+      and(`Graph.nodes is defined`, () => {
+        then(`Graph.nodes is an instance of Nodes`, () => {
+          expect(graph.nodes).toBeInstanceOf(Nodes);
+        });
+      });
     });
   });
   when(`Graph is instantiated with an graph containing metadata`, () => {
