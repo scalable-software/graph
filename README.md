@@ -96,6 +96,38 @@ const nodes = Nodes.create<T>([node])
   .toJSON();
 ```
 
+### Instance API Overview
+
+| **API**                           | **Type**  | **Description**                                         |
+| :-------------------------------- | :-------- | :------------------------------------------------------ |
+| `graph.metadata`                  | **Data**  | Graph metadata instance.                                |
+| `graph.nodes`                     | **Data**  | Graph nodes instance.                                   |
+| `graph.edges`                     | **Data**  | Graph edges instance.                                   |
+| `graph.constructor()`             | **Logic** | Initializes metadata, nodes, and edges with validation. |
+| `graph.load()`                    | **Logic** | Replaces graph data with new data.                      |
+| `graph.retrieve()`                | **Logic** | Returns graph data as JSON.                             |
+| `graph.metadata.add()`            | **Logic** | Adds metadata if unassigned.                            |
+| `graph.metadata.update()`         | **Logic** | Updates metadata.                                       |
+| `graph.metadata.remove()`         | **Logic** | Removes specified metadata or resets it.                |
+| `graph.metadata.toJSON()`         | **Logic** | Converts metadata to JSON.                              |
+| `graph.nodes.add()`               | **Logic** | Adds new nodes with unique IDs and coordinates.         |
+| `graph.nodes.update()`            | **Logic** | Updates a node's details.                               |
+| `graph.nodes.remove()`            | **Logic** | Removes a node by ID.                                   |
+| `graph.nodes.findById()`          | **Logic** | Finds a node by ID.                                     |
+| `graph.nodes.findByCoordinates()` | **Logic** | Finds a node by coordinates.                            |
+| `graph.nodes.move()`              | **Logic** | Moves a node to new coordinates.                        |
+| `graph.nodes.translate()`         | **Logic** | Translates nodes by an offset.                          |
+| `graph.nodes.toJSON()`            | **Logic** | Converts nodes to JSON.                                 |
+| `graph.edges.add()`               | **Logic** | Adds new edges with unique IDs.                         |
+| `graph.edges.update()`            | **Logic** | Updates an edge's details.                              |
+| `graph.edges.move()`              | **Logic** | Moves an edge's start or end points.                    |
+| `graph.edges.translate()`         | **Logic** | Translates edges by an offset.                          |
+| `graph.edges.remove()`            | **Logic** | Removes an edge by ID.                                  |
+| `graph.edges.findById()`          | **Logic** | Finds an edge by ID.                                    |
+| `graph.edges.findBySource()`      | **Logic** | Finds edges by source.                                  |
+| `graph.edges.findByTarget()`      | **Logic** | Finds edges by target.                                  |
+| `graph.edges.toJSON()`            | **Logic** | Converts edges to JSON.                                 |
+
 ### Fluent API Example
 
 The library follows a **fluent API design**, allowing method chaining:
