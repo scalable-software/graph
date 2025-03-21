@@ -97,6 +97,12 @@ export class Graph<T extends IGraph> {
    */
   public out = (id: UUID): number => this.edges.findBySource(id).length;
 
+  /**
+   * Returns the ids of the neighbors of a node.
+   * @param id - The id of the node.
+   * @returns The ids of the neighbors of the node.
+   * @category Operation
+   */
   public neighbors = (id: UUID) => [
     ...new Set(
       this.getEdges(id).flatMap(({ source, target }) =>
