@@ -540,3 +540,37 @@ given("Graph.neighbors method availability test", () => {
     });
   });
 });
+
+given("Graph.neighbors method behavior test", () => {
+  and("graph instantiated using new Graph()", () => {
+    let pathway: Graph<Pathway>;
+    beforeEach(() => {
+      pathway = new Graph(example);
+    });
+    when("Graph.neighbors is called with a node id having 1 neighbors", () => {
+      let result;
+      let id: UUID;
+      beforeEach(() => {
+        id = pathway.nodes[0].id;
+        result = pathway.neighbors(id);
+      });
+      then("Graph.neighbors returns the neighbors of the node", () => {
+        expect(result).toEqual(["15b6679a-fd9d-4036-b1ab-af0b932fc903"]);
+      });
+    });
+    when("Graph.neighbors is called with a node id having 2 neighbors", () => {
+      let result;
+      let id: UUID;
+      beforeEach(() => {
+        id = pathway.nodes[1].id;
+        result = pathway.neighbors(id);
+      });
+      then("Graph.neighbors returns the neighbors of the node", () => {
+        expect(result).toEqual([
+          "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+          "5a3e4a90-b266-4be3-b04d-abb627d78749",
+        ]);
+      });
+    });
+  });
+});
