@@ -27,6 +27,6 @@ export class Graph<T extends IGraph> {
 
     this.edges = graph?.edges
       ? Edges.create<T["edges"][number]>(graph.edges)
-      : ([] as any);
+      : Edges.create<T["edges"][number]>();
   }
 }
