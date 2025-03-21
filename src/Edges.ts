@@ -163,6 +163,26 @@ export class Edges<T extends IEdge> extends Array<T> {
     return this;
   };
 
+  /**
+   * Remove a edge from the collection based on its ID.
+   *
+   * @param id - The ID of the edge to remove.
+   * @throws {Error} If the edge does not exist in the collection or id is invalid.
+   *
+   * @returns {Edges<T>} The modified `Edges<T>` instance, allowing method chaining.
+   *
+   * @example
+   * ```typescript
+   * const edges = Edges.create([
+   * { id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   * { id: "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e", start: { x: 1, y: 1 }, end: { x: 2, y: 2 } },
+   * ]);
+   *
+   * edges.remove("d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d");
+   * ```
+   *
+   * @category Operations
+   */
   public remove = (id: UUID): Edges<T> => {
     ((id) => this.splice(this.index(id), 1))(Validate.id(this, id) as UUID);
     return this;
