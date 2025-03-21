@@ -11,7 +11,7 @@ import { Edge, type IEdge, type PartialEdge } from "./Edge.js";
 import { Validate } from "./validations/Validate.js";
 import { Validator } from "./validations/Validator.js";
 import { Utilities } from "./utilities/Utilities.js";
-import type { UUID } from "./Graph.types.js";
+import type { Coordinates, UUID } from "./Graph.types.js";
 
 export class Edges<T extends IEdge> extends Array<T> {
   public static create = <T extends IEdge>(edges?: T[] | null): Edges<T> =>
@@ -86,7 +86,46 @@ export class Edges<T extends IEdge> extends Array<T> {
     return this;
   };
 
-  public move = () => {};
+  /**
+   * Move an edge in the collection based on its ID and using the provided coordinates.
+   *
+   * @param id - The ID of the edge to move.
+   * @param coordinates - The coordinates to move the edge to.
+   * @throws {Error} If the edge does not exist in the collection or id or coordinates are invalid.
+   *
+   * @returns {Edges<T>} The modified `Edges<T>` instance, allowing method chaining.
+   *
+   * @example
+   * ```typescript
+   * const edges = Edges.create([
+   *  { id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+   *  { id: "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e", start: { x: 1, y: 1 }, end: { x: 2, y: 2 } },
+   * ]);
+   * edges.move("d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", { start: { x: 2, y: 2 } });
+   * ```
+   *
+   * @category Operations
+   *
+   */
+  public move = (
+    id: UUID,
+    coordinates: { start?: Coordinates; end?: Coordinates }
+  ): Edges<T> => {
+    (([id, coordinates]) =>
+      this.apply(id as UUID, (edge) => Edge.move(edge, coordinates)))(
+      Validator.validate<[UUID, { start?: Coordinates; end?: Coordinates }]>(
+        [id, coordinates],
+        [
+          ([id, coordinates]) => Validate.id(this, id),
+          ([id, coordinates]) =>
+            coordinates.start && Validate.coordinates(coordinates.start),
+          ([id, coordinates]) =>
+            coordinates.end && Validate.coordinates(coordinates.end),
+        ]
+      )
+    );
+    return this;
+  };
 
   private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
