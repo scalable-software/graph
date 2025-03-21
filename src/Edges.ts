@@ -232,11 +232,14 @@ export class Edges<T extends IEdge> extends Array<T> {
    * @category Operations
    */
   public findBySource = (source: UUID): T[] | undefined =>
-    ((source) => this.filter((node) => node.source === source))(
+    ((source) => this.filter((edge) => edge.source === source))(
       Validate.uuid(source)
     );
 
-  public findByTarget = () => {};
+  public findByTarget = (target: UUID): T[] | undefined =>
+    ((target) => this.filter((edge) => edge.target === target))(
+      Validate.uuid(target)
+    );
 
   private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
