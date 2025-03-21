@@ -222,3 +222,67 @@ given(`Graph.load method availability test`, () => {
     });
   });
 });
+
+given(`Graph.load method behavior test`, () => {
+  when(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    let data: IGraph;
+    beforeEach(() => {
+      graph = new Graph();
+      data = {
+        metadata: {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "Clinical Pathway",
+        },
+        nodes: [
+          {
+            id: "123e4567-e89b-12d3-a456-426614174000",
+            coordinates: { x: 0, y: 0 },
+          },
+        ],
+        edges: [
+          {
+            id: "123e4567-e89b-12d3-a456-426614174000",
+            source: "123e4567-e89b-12d3-a456-426614174001",
+            target: "123e4567-e89b-12d3-a456-426614174002",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+          },
+        ],
+      };
+      graph.load(data);
+    });
+    then(`Graph.metadata is defined`, () => {
+      expect(graph.metadata).toBeDefined();
+    });
+    and(`Graph.metadata is defined`, () => {
+      then(`Graph.metadata is an instance of Metadata`, () => {
+        expect(graph.metadata).toBeInstanceOf(Metadata);
+      });
+      then(`Graph.metadata.toJSON() returns metadata`, () => {
+        expect(graph.metadata.toJSON()).toEqual(data.metadata);
+      });
+    });
+    then(`Graph.nodes is defined`, () => {
+      expect(graph.nodes).toBeDefined();
+    });
+    and(`Graph.nodes is defined`, () => {
+      then(`Graph.nodes is an instance of Nodes`, () => {
+        expect(graph.nodes).toBeInstanceOf(Nodes);
+      });
+      then(`Graph.nodes.toJSON() returns nodes`, () => {
+        expect(graph.nodes.toJSON()).toEqual(data.nodes);
+      });
+    });
+    then(`Graph.edges is defined`, () => {
+      expect(graph.edges).toBeDefined();
+    });
+    and(`Graph.edges is defined`, () => {
+      then(`Graph.edges is an instance of Edges`, () => {
+        expect(graph.edges).toBeInstanceOf(Edges);
+      });
+      then(`Graph.edges.toJSON() returns edges`, () => {
+        expect(graph.edges.toJSON()).toEqual(data.edges);
+      });
+    });
+  });
+});
