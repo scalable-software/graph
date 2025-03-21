@@ -45,3 +45,15 @@ given(`Graph class instantiation test`, () => {
     });
   });
 });
+
+given(`Graph.metadata property availability test`, () => {
+  when(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then(`Graph.metadata is defined`, () => {
+      expect(graph.metadata).toBeDefined();
+    });
+  });
+});
