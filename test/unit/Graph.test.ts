@@ -451,3 +451,37 @@ given("Graph.in method availability test", () => {
     });
   });
 });
+
+given("Graph.in method behavior test", () => {
+  and("graph instantiated using new Graph()", () => {
+    let pathway: Graph<Pathway>;
+    beforeEach(() => {
+      pathway = new Graph(example);
+    });
+    when("Graph.in is called with a node id having 0 in connections", () => {
+      let result: number;
+      let id: UUID;
+      beforeEach(() => {
+        id = pathway.nodes[0].id;
+        result = pathway.in(id);
+      });
+      then("Graph.degree returns the degree of the node", () => {
+        expect(result).toBe(0);
+      });
+    });
+    when(
+      "Graph.degree is called with a node id having 1 in connections",
+      () => {
+        let result: number;
+        let id: UUID;
+        beforeEach(() => {
+          id = pathway.nodes[1].id;
+          result = pathway.in(id);
+        });
+        then("Graph.degree returns the degree of the node", () => {
+          expect(result).toBe(1);
+        });
+      }
+    );
+  });
+});
