@@ -14,7 +14,13 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import { type IGraph, Graph, Metadata, Nodes } from "@scalable.software/graph";
+import {
+  type IGraph,
+  Graph,
+  Metadata,
+  Nodes,
+  Edges,
+} from "@scalable.software/graph";
 
 given(`Graph class availability test`, () => {
   and(`Graph is imported`, () => {
@@ -106,6 +112,43 @@ given(`Graph class instantiation test`, () => {
     and(`graph.nodes is defined`, () => {
       then(`graph.nodes is an instance of Nodes`, () => {
         expect(graph.nodes).toBeInstanceOf(Nodes);
+      });
+    });
+  });
+  when(`Graph is instantiated with an graph containing edges`, () => {
+    let graph: Graph<IGraph>;
+    let edges: IGraph["edges"];
+    beforeEach(() => {
+      edges = [
+        {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          source: "123e4567-e89b-12d3-a456-426614174001",
+          target: "123e4567-e89b-12d3-a456-426614174002",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+        {
+          id: "123e4567-e89b-12d3-a456-426614174001",
+          source: "123e4567-e89b-12d3-a456-426614174002",
+          target: "123e4567-e89b-12d3-a456-426614174003",
+          coordinates: { start: { x: 1, y: 1 }, end: { x: 2, y: 2 } },
+        },
+      ];
+      const data: IGraph = {
+        metadata: undefined,
+        nodes: [],
+        edges,
+      };
+      graph = new Graph(data);
+    });
+    then(`Graph is defined`, () => {
+      expect(graph).toBeDefined();
+    });
+    then(`graph.edges is defined`, () => {
+      expect(graph.edges).toBeDefined();
+    });
+    and(`graph.edges is defined`, () => {
+      then(`graph.edges is an instance of Edges`, () => {
+        expect(graph.edges).toBeInstanceOf(Edges);
       });
     });
   });
