@@ -106,10 +106,10 @@ const nodes = Nodes.create<T>([node])
 | `graph.constructor()`             | **Logic** | Initializes metadata, nodes, and edges with validation. |
 | `graph.import()`                  | **Logic** | Replaces graph data with new data.                      |
 | `graph.export()`                  | **Logic** | Returns graph data as JSON.                             |
+| `graph.toJSON()`                  | **Logic** | Converts entire graph to JSON.                          |
 | `graph.metadata.add()`            | **Logic** | Adds metadata if unassigned.                            |
 | `graph.metadata.update()`         | **Logic** | Updates metadata.                                       |
 | `graph.metadata.remove()`         | **Logic** | Removes specified metadata or resets it.                |
-| `graph.metadata.toJSON()`         | **Logic** | Converts metadata to JSON.                              |
 | `graph.nodes.add()`               | **Logic** | Adds new nodes with unique IDs and coordinates.         |
 | `graph.nodes.update()`            | **Logic** | Updates a node's details.                               |
 | `graph.nodes.remove()`            | **Logic** | Removes a node by ID.                                   |
@@ -117,7 +117,6 @@ const nodes = Nodes.create<T>([node])
 | `graph.nodes.findByCoordinates()` | **Logic** | Finds a node by coordinates.                            |
 | `graph.nodes.move()`              | **Logic** | Moves a node to new coordinates.                        |
 | `graph.nodes.translate()`         | **Logic** | Translates nodes by an offset.                          |
-| `graph.nodes.toJSON()`            | **Logic** | Converts nodes to JSON.                                 |
 | `graph.edges.add()`               | **Logic** | Adds new edges with unique IDs.                         |
 | `graph.edges.update()`            | **Logic** | Updates an edge's details.                              |
 | `graph.edges.move()`              | **Logic** | Moves an edge's start or end points.                    |
@@ -126,7 +125,6 @@ const nodes = Nodes.create<T>([node])
 | `graph.edges.findById()`          | **Logic** | Finds an edge by ID.                                    |
 | `graph.edges.findBySource()`      | **Logic** | Finds edges by source.                                  |
 | `graph.edges.findByTarget()`      | **Logic** | Finds edges by target.                                  |
-| `graph.edges.toJSON()`            | **Logic** | Converts edges to JSON.                                 |
 
 ### Fluent API Example
 
