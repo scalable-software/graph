@@ -211,7 +211,30 @@ export class Edges<T extends IEdge> extends Array<T> {
   public findById = (id: UUID): T | undefined =>
     ((id) => this.find((node) => node.id === id))(Validate.uuid(id));
 
-  public findBySource = () => {};
+  /**
+   * Filter the edges in the collection based on the source identifier.
+   * If no edges are found, an empty array is returned.
+   * @param source - The source identifier to filter by.
+   * @returns The edges with the specified source identifier, or an empty array if not found.
+   * @throws {InvalidArgumentException} If the source identifier is invalid.
+   *
+   * @example
+   * ```typescript
+   * const edges = Edges.create([
+   * { id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", source: "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e" },
+   * { id: "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e", source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d" },
+   * ]);
+   *
+   * const edges = edges.findBySource("a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e");
+   * console.log(edges); // [{ id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", source: "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e" }]
+   * ```
+   *
+   * @category Operations
+   */
+  public findBySource = (source: UUID): T[] | undefined =>
+    ((source) => this.filter((node) => node.source === source))(
+      Validate.uuid(source)
+    );
 
   private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
