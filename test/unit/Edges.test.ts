@@ -14,7 +14,12 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import type { IEdge, PartialEdge } from "@scalable.software/graph";
+import type {
+  Coordinates,
+  IEdge,
+  PartialEdge,
+  UUID,
+} from "@scalable.software/graph";
 import { Edges, Exception } from "@scalable.software/graph";
 
 given(`Edges class availability test`, () => {
@@ -583,6 +588,169 @@ given(`edges.move method availability test`, () => {
     then(`instance.move is defined`, () => {
       expect(instance.move).toBeDefined();
     });
+  });
+});
+
+given(`edges.move method behavior test`, () => {
+  and(`an instance of Edges is created containing an edge`, () => {
+    let instance: Edges<IEdge>;
+    let edge: IEdge;
+    beforeEach(() => {
+      instance = Edges.create();
+      edge = {
+        id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+        source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+        target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      };
+      instance.add(edge);
+    });
+
+    when(
+      `instance.move is called with valid id and updated coordinates`,
+      () => {
+        let id: UUID;
+        let coordinates: { start: Coordinates; end: Coordinates };
+        beforeEach(() => {
+          id = edge.id;
+          coordinates = {
+            start: { x: 1, y: 1 },
+            end: { x: 2, y: 2 },
+          };
+          instance.move(id, coordinates);
+        });
+        then(`instance[0].coordinates.start is coordinates.start`, () => {
+          expect(instance[0].coordinates.start).toEqual(coordinates.start);
+        });
+        then(`instance[0].coordinates.end is coordinates.end`, () => {
+          expect(instance[0].coordinates.end).toEqual(coordinates.end);
+        });
+      }
+    );
+    when(
+      `instance.move is called with valid id and update start coordinates`,
+      () => {
+        let id: UUID;
+        let coordinates: { start: Coordinates };
+        beforeEach(() => {
+          id = edge.id;
+          coordinates = {
+            start: { x: 1, y: 1 },
+          };
+          instance.move(id, coordinates);
+        });
+        then(`instance[0].coordinates.start is coordinates.start`, () => {
+          expect(instance[0].coordinates.start).toEqual(coordinates.start);
+        });
+        then(`instance[0].coordinates.end is edge.coordinates.end`, () => {
+          expect(instance[0].coordinates.end).toEqual(edge.coordinates.end);
+        });
+      }
+    );
+    when(
+      `instance.move is called with valid id and update end coordinates`,
+      () => {
+        let id: UUID;
+        let coordinates: { end: Coordinates };
+        beforeEach(() => {
+          id = edge.id;
+          coordinates = {
+            end: { x: 2, y: 2 },
+          };
+          instance.move(id, coordinates);
+        });
+        then(`instance[0].coordinates.start is edge.coordinates.start`, () => {
+          expect(instance[0].coordinates.start).toEqual(edge.coordinates.start);
+        });
+        then(`instance[0].coordinates.end is coordinates.end`, () => {
+          expect(instance[0].coordinates.end).toEqual(coordinates.end);
+        });
+      }
+    );
+    when(
+      `instance.move is called with unknown id and updated coordinates`,
+      () => {
+        let id: UUID;
+        let coordinates: { start: Coordinates; end: Coordinates };
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
+          coordinates = {
+            start: { x: 1, y: 1 },
+            end: { x: 2, y: 2 },
+          };
+          try {
+            instance.move(id, coordinates);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+        });
+      }
+    );
+    when(
+      `instance.move is called with invalid id and updated coordinates`,
+      () => {
+        let id: UUID;
+        let coordinates: { start: Coordinates; end: Coordinates };
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = "1";
+          coordinates = {
+            start: { x: 1, y: 1 },
+            end: { x: 2, y: 2 },
+          };
+          try {
+            instance.move(id, coordinates);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+        });
+      }
+    );
+    when(
+      `instance.move is called with valid id and invalid coordinates`,
+      () => {
+        let id: UUID;
+        let coordinates: { start: Coordinates; end: Coordinates };
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = edge.id;
+          coordinates = {
+            start: { x: "invalid" as unknown as number, y: 1 },
+            end: { x: 2, y: 2 },
+          };
+          try {
+            instance.move(id, coordinates);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
+        });
+      }
+    );
   });
 });
 
