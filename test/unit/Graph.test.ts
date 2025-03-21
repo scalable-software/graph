@@ -210,3 +210,15 @@ given(`Graph.edges property availability test`, () => {
     });
   });
 });
+
+given(`Graph.load method availability test`, () => {
+  when(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then(`Graph.load is defined`, () => {
+      expect(graph.load).toBeDefined();
+    });
+  });
+});
