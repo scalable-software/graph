@@ -338,3 +338,15 @@ given(`Graph.retrieve method behavior test`, () => {
     });
   });
 });
+
+given("Graph.toJSON method availability test", () => {
+  when("Graph is instantiated", () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then("Graph.toJSON is defined", () => {
+      expect(graph.toJSON).toBeDefined();
+    });
+  });
+});
