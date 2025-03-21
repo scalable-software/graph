@@ -32,4 +32,6 @@ export class Graph<T extends IGraph> {
         : Edges.create<T["edges"][number]>();
     })(Validate.graph(graph));
   }
+
+  public load = () => {};
 }
