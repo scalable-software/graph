@@ -23,7 +23,7 @@ export class Graph<T extends IGraph> {
 
     this.nodes = graph?.nodes
       ? Nodes.create<T["nodes"][number]>(graph.nodes)
-      : ([] as any);
+      : Nodes.create<T["nodes"][number]>();
 
     this.edges = graph?.edges
       ? Edges.create<T["edges"][number]>(graph.edges)
