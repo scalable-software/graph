@@ -14,13 +14,7 @@ const and = (description, spec) => describe(`and ${description}`, spec);
 const when = (description, spec) => describe(`when ${description}`, spec);
 const then = (description, spec) => it(`then ${description}`, spec);
 
-import type {
-  INode,
-  UUID,
-  Coordinates,
-  Offset,
-  IMetadata,
-} from "@scalable.software/graph";
+import type { IMetadata } from "@scalable.software/graph";
 
 import { Graph } from "@scalable.software/graph";
 import { Metadata, Nodes, Edges } from "@scalable.software/graph";
@@ -31,19 +25,11 @@ import type {
   Path,
   PathwayMetadata,
 } from "./Use_Case.Pathway.Types.js";
+
+// Clinical Pathway
 import { pathway } from "./Use_Case.Pathway.example.js";
 
-// #region Class
-
-given("Graph class availability test ", () => {
-  and("Graph imported", () => {
-    then("Graph is defined", () => {
-      expect(Graph).toBeDefined();
-    });
-  });
-});
-
-given("Graph class instantiation test", () => {
+given("pathway graph instantiation test", () => {
   and("pathway instantiated using new Graph()", () => {
     let pathway: Graph<Pathway>;
     beforeEach(() => {
@@ -128,10 +114,7 @@ given("Graph class instantiation test", () => {
   });
 });
 
-// #endregion
-
-// #region Methods
-given("graph.load method behavior test", () => {
+given("pathway.load method behavior test", () => {
   and("pathway instantiated using new Graph()", () => {
     let pathway: Graph<Pathway>;
     beforeEach(() => {
@@ -211,7 +194,7 @@ given("graph.load method behavior test", () => {
   });
 });
 
-given("graph.retrieve method behavior test", () => {
+given("pathway.retrieve method behavior test", () => {
   and("pathway instantiated using new Graph(data)", () => {
     let pathway: Graph<Pathway>;
     let data: Pathway;
@@ -272,7 +255,7 @@ given("graph.retrieve method behavior test", () => {
     then("pathway.retrieve() public method exists", () => {
       expect(pathway.retrieve).toBeDefined();
     });
-    and("pathway.retrieve() returns expected data", () => {
+    when("pathway.retrieve() returns expected data", () => {
       let retrieved;
       beforeEach(() => {
         retrieved = pathway.retrieve();
@@ -290,10 +273,7 @@ given("graph.retrieve method behavior test", () => {
   });
 });
 
-// #endregion
-
-// #region Methods
-given("pathway.metadata.create method behavior test", () => {
+given("pathway.metadata.add method behavior test", () => {
   and("pathway instantiated using new Graph()", () => {
     let pathway: Graph<Pathway>;
     beforeEach(() => {
@@ -439,14 +419,7 @@ given("pathways.edges.add method behavior test", () => {
     });
   });
 });
-// #endregion
 
-// #region Methods
-
-/*
-  let pathway = new Graph<Pathway>();
-  pathway.load(pathway);
-*/
 given("pathway.load method workflow test", () => {
   and("pathway instantiated using new Graph()", () => {
     let graph: Graph<Pathway>;
@@ -470,12 +443,6 @@ given("pathway.load method workflow test", () => {
   });
 });
 
-/*
-  let pathway = new Graph<Pathway>();
-  pathway.metadata.create(metadata);
-  pathway.nodes.add(actorOne).add(actorTwo);
-  pathway.edges.add(path);
-*/
 given("pathway workflow sequence test", () => {
   and("pathway instantiated using new Graph()", () => {
     let pathway: Graph<Pathway>;
@@ -567,5 +534,3 @@ given("pathway workflow sequence test", () => {
     });
   });
 });
-
-// #endregion
