@@ -1102,6 +1102,78 @@ given(`edges.findById method availability test`, () => {
   });
 });
 
+given(`edges.findById method behavior test`, () => {
+  and(`an instance of Edges is created containing edges`, () => {
+    let instance: Edges<IEdge>;
+    let edges: IEdge[];
+    beforeEach(() => {
+      instance = Edges.create();
+      edges = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+      ];
+      instance.add(edges);
+    });
+    when(`instance.findById is called with valid id`, () => {
+      let id: UUID;
+      let result: IEdge | undefined;
+      beforeEach(() => {
+        id = edges[0].id;
+        result = instance.findById(id);
+      });
+      then(`result is defined`, () => {
+        expect(result).toBeDefined();
+      });
+      and(`result is defined`, () => {
+        then(`result.id is id`, () => {
+          expect(result.id).toEqual(id);
+        });
+      });
+    });
+    when(`instance.findById is called with unknown id`, () => {
+      let id: UUID;
+      let result: IEdge | undefined;
+      beforeEach(() => {
+        id = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
+        result = instance.findById(id);
+      });
+      then(`result is undefined`, () => {
+        expect(result).toBeUndefined();
+      });
+    });
+    when(`instance.findById is called with invalid id`, () => {
+      let id: UUID;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        id = "1";
+        try {
+          instance.findById(id);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of InvalidArgumentException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        });
+      });
+    });
+  });
+});
+
 given(`edges.immutable accessor availability test`, () => {
   and(`a edges instance is created`, () => {
     let edges: Edges<IEdge>;
