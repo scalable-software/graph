@@ -12,7 +12,10 @@ import type { IEdge, PartialEdge } from "../Edge.js";
 import type { UUID, Name, Coordinates, Offset } from "../Graph.types.js";
 
 export class Validate {
-  public static graph = <T extends IGraph>() => {};
+  public static graph = <T extends IGraph>(graph?: Partial<T>): Partial<T> => {
+    graph && Validate.metadata<T["metadata"]>(graph.metadata);
+    return graph;
+  };
 
   /**
    * Validate the metadata, if provided, to ensure required properties are present and valid.
