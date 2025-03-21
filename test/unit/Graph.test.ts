@@ -57,3 +57,15 @@ given(`Graph.metadata property availability test`, () => {
     });
   });
 });
+
+given(`Graph.nodes property availability test`, () => {
+  when(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then(`Graph.nodes is defined`, () => {
+      expect(graph.nodes).toBeDefined();
+    });
+  });
+});
