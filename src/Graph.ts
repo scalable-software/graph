@@ -105,8 +105,6 @@ export class Graph<T extends IGraph> {
     ),
   ];
 
-  private getEdges = (id: UUID) => [
-    ...this.edges.findBySource(id),
-    ...this.edges.findByTarget(id),
-  ];
+  private getEdges = (id: UUID) =>
+    this.edges.filter(({ source, target }) => source === id || target === id);
 }
