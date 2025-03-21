@@ -21,7 +21,10 @@ export class Graph<T extends IGraph> {
       ? Metadata.create<T["metadata"]>(graph.metadata)
       : ({} as any);
 
-    this.nodes = [] as any;
+    this.nodes = graph?.nodes
+      ? Nodes.create<T["nodes"][number]>(graph.nodes)
+      : ([] as any);
+
     this.edges = [] as any;
   }
 }
