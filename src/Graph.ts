@@ -33,5 +33,13 @@ export class Graph<T extends IGraph> {
     })(Validate.graph(graph));
   }
 
-  public load = () => {};
+  public load = (graph: Partial<T>) => {
+    ((graph) => {
+      this.metadata = Metadata.create<T["metadata"]>(graph.metadata);
+      this.nodes =
+        graph?.nodes && Nodes.create<T["nodes"][number]>(graph.nodes);
+      this.edges =
+        graph?.edges && Edges.create<T["edges"][number]>(graph.edges);
+    })(Validate.graph(graph));
+  };
 }
