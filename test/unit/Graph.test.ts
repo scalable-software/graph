@@ -20,7 +20,13 @@ import {
   Metadata,
   Nodes,
   Edges,
+  type UUID,
 } from "@scalable.software/graph";
+
+import type { Pathway } from "./Use_Case.Pathway.Types.js";
+
+// Clinical Pathway
+import { pathway as example } from "./Use_Case.Pathway.example.js";
 
 given(`Graph class availability test`, () => {
   and(`Graph is imported`, () => {
@@ -399,6 +405,37 @@ given("Graph.degree method availability test", () => {
     });
     then("Graph.degree is defined", () => {
       expect(graph.degree).toBeDefined();
+    });
+  });
+});
+
+given("Graph.degree method behavior test", () => {
+  and("graph instantiated using new Graph()", () => {
+    let pathway: Graph<Pathway>;
+    beforeEach(() => {
+      pathway = new Graph(example);
+    });
+    when("Graph.degree is called with a node id having one connection", () => {
+      let result: number;
+      let id: UUID;
+      beforeEach(() => {
+        id = pathway.nodes[0].id;
+        result = pathway.degree(id);
+      });
+      then("Graph.degree returns the degree of the node", () => {
+        expect(result).toBe(1);
+      });
+    });
+    when("Graph.degree is called with a node id having two connections", () => {
+      let result: number;
+      let id: UUID;
+      beforeEach(() => {
+        id = pathway.nodes[1].id;
+        result = pathway.degree(id);
+      });
+      then("Graph.degree returns the degree of the node", () => {
+        expect(result).toBe(2);
+      });
     });
   });
 });
