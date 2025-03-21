@@ -96,4 +96,6 @@ export class Graph<T extends IGraph> {
    * @category Operation
    */
   public out = (id: UUID): number => this.edges.findBySource(id).length;
+
+  public neighbors = () => {};
 }
