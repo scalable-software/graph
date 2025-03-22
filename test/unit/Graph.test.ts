@@ -577,3 +577,49 @@ given("Graph.neighbors method behavior test", () => {
     });
   });
 });
+
+given("graph use case workflow test", () => {
+  let data = {
+    metadata: {
+      id: "123e4567-e89b-12d3-a456-426614174000",
+      name: "Clinical Pathway",
+    },
+    nodes: [
+      {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        coordinates: { x: 0, y: 0 },
+      },
+    ],
+    edges: [
+      {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        source: "123e4567-e89b-12d3-a456-426614174001",
+        target: "123e4567-e89b-12d3-a456-426614174002",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      },
+    ],
+  };
+
+  const graph = new Graph<IGraph>(data);
+
+  let test = {
+    metadata: {
+      name: "Clinical Pathway",
+    },
+    nodes: [
+      {
+        coordinates: { x: 0, y: 0 },
+      },
+    ],
+    edges: [
+      {
+        source: "123e4567-e89b-12d3-a456-426614174001",
+        target: "123e4567-e89b-12d3-a456-426614174002",
+        coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+      },
+    ],
+  };
+
+  const graphTwo = new Graph<IGraph>().import(test).toJSON();
+  console.log(graphTwo);
+});
