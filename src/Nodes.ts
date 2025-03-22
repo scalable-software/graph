@@ -33,7 +33,6 @@ import type { UUID, Coordinates, Offset } from "./Graph.types.js";
  * ```
  *
  * @template T Extends the base {@link INode} type for enhanced flexibility.
- * @module Graph
  */ export class Nodes<T extends INode> extends Array<T> {
   /**
    * Each node can be accessed via index notation.

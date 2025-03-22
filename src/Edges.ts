@@ -42,7 +42,6 @@ import { ValidationException } from "./exceptions/Exceptions.js";
  * ```
  *
  * @template T Extends the base {@link IEdge} type for enhanced flexibility.
- * @module Graph
  */
 export class Edges<T extends IEdge> extends Array<T> {
   public static create = <T extends IEdge>(edges?: T[] | null): Edges<T> =>
