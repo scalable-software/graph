@@ -1,16 +1,23 @@
 ![License: CC BY-NC-SA 4.0](https://flat.badgen.net/static/license/CC-BY-NC-SA-4.0/green)
 
-# Graph Data Structure
+# Graph Data Structure (with Geometry)
+
+Graphs are a powerful way to represent relationships among distinct items—whether you're mapping social networks, modeling routes, or understanding dependencies. In this library, **both nodes and edges require coordinates**, giving the entire graph a strong **geometric foundation**. Each node has `(x, y)` coordinates, while edges track start and end points—making it easy to visualize, render, and position connected data in 2D space.
+
+This geometry-oriented design **streamlines** the creation, storage, and manipulation of nodes and edges, offering a suite of tools to effortlessly add, remove, traverse, or analyze them. Instead of building graph logic from scratch, you can rely on well-tested methods that handle everything from **validation** to **navigation**—letting you focus on delivering insights and value from connected data with clear spatial relationships.
 
 ## 🚀 Features
 
-✅ **Strong Type Safety** – Fully generic `Metadata<T>` structure.  
-✅ **Fluent API** – Chainable, expressive method calls.  
-✅ **Immutable & Validated IDs** – Prevents accidental modifications.  
-✅ **Partial Updates** – Update metadata without needing full replacements.  
-✅ **Strict Validation** – Enforces consistency at every step.  
-✅ **Custom Metadata Support** – Easily extend beyond `id` and `name`.  
-✅ **Well-Defined Exception Handling** – Ensures predictable error scenarios.
+✅ **Comprehensive Graph Structure** – Manage nodes, edges, and metadata through a unified API.  
+✅ **Fluent API** – Chainable, expressive method calls (e.g., `nodes.add(...).update(...).remove(...)`).  
+✅ **Immutable & Validated Identifiers** – Nodes, edges, and metadata all enforce consistent UUIDs.  
+✅ **Configurable Immutability** – Toggle between immutable collections or in-place modifications.  
+✅ **Partial Updates** – Update only what you need, such as node details, edge properties, or metadata fields.  
+✅ **Strict Validation** – Prevents duplicate IDs, enforces coordinate uniqueness, and checks all inputs.  
+✅ **Custom Metadata Support** – Extend the base `id` and `name` fields with additional properties.  
+✅ **Well-Defined Exceptions** – Predictable error handling for invalid operations or conflicts.  
+✅ **Built-In Graph Analysis** – Quickly check `degree`, `in`, `out`, and `neighbors` for any node.  
+✅ **Intuitive Import/Export** – Easily serialize your entire graph with `import(graph)` and `export()`.
 
 ## 📦 Installation
 
@@ -20,7 +27,140 @@ npm install @scalable.software/graph
 
 ## 🛠️ Usage
 
-Typically you would not use the standalone `Metadata`, `Nodes`, or `Edges` components of graph independently. However, to get an understanding of the reach features or each of these components, here is a quick overview.
+This library is **geometry-first**, requiring **coordinates** for both nodes and edges:
+
+- **Nodes** have `{ x, y }` coordinates describing their location.
+- **Edges** specify `{ start: { x, y }, end: { x, y } }` to define how they connect in 2D space.
+
+### Creating a Graph
+
+1. Define your graph data with **coordinates** for nodes and edges:
+
+```typescript
+let data = {
+  metadata: {
+    id: "123e4567-e89b-12d3-a456-426614174000",
+    name: "Clinical Pathway",
+  },
+  nodes: [
+    {
+      id: "123e4567-e89b-12d3-a456-426614174000",
+      coordinates: { x: 0, y: 0 },
+    },
+  ],
+  edges: [
+    {
+      id: "123e4567-e89b-12d3-a456-426614174000",
+      source: "123e4567-e89b-12d3-a456-426614174001",
+      target: "123e4567-e89b-12d3-a456-426614174002",
+      coordinates: {
+        start: { x: 0, y: 0 },
+        end: { x: 1, y: 1 },
+      },
+    },
+  ],
+};
+```
+
+2. Import the `Graph` class and the `IGraph` interface:
+
+```typescript
+import { Graph, type IGraph } from "@scalable.software/graph";
+```
+
+3. Create a new graph instance:
+
+```typescript
+const graph = new Graph<IGraph>(data);
+```
+
+### Importing a Graph
+
+You can also start with an **empty** graph and **import** data (with coordinates) later:
+
+```typescript
+let data = {
+  metadata: {
+    name: "Clinical Pathway",
+  },
+  nodes: [
+    {
+      coordinates: { x: 5, y: 10 },
+    },
+  ],
+};
+
+const graph = new Graph<IGraph>().import(data);
+```
+
+### Export & Serialize
+
+Retrieve a JSON-like representation of your graph:
+
+```typescript
+const data = graph.export();
+console.log(data);
+```
+
+> Note: graph.toJSON() is an alias for graph.export();
+
+### Example: Working with Geometry
+
+Below is a short example showing how to **move** an existing node, **add** another node, and then **connect** them with an edge—demonstrating the library’s geometry-first approach.
+
+1. Move the first node (id "123e4567-e89b-12d3-a456-426614174000") to (0,0):
+
+```typescript
+graph.nodes.move("123e4567-e89b-12d3-a456-426614174000", { x: 0, y: 0 });
+```
+
+2. Add a second node at coordinates (5,5):
+
+```typescript
+graph.nodes.add({ coordinates: { x: 5, y: 5 } });
+```
+
+3. Retrieve the newly added node's ID (assuming it's in position 1 of the array)
+
+```typescript
+const secondNodeId = graph.nodes.findByCoordinates({ x: 5, y: 5 }).id;
+```
+
+4. Add an edge from the first node to the second node:
+
+```typescript
+graph.edges.add({
+  source: "123e4567-e89b-12d3-a456-426614174000",
+  target: "123e4567-e89b-12d3-a456-426614174001",
+  coordinates: {
+    start: { x: 0, y: 0 },
+    end: { x: 5, y: 5 },
+  },
+});
+```
+
+### Updating Metadata
+
+If metadata is already assigned, you can **change** existing fields or add new ones by calling:
+
+```typescript
+graph.metadata.update({ name: "New Graph Name" });
+```
+
+---
+
+**Tip**: These coordinate-based APIs make it simple to integrate with **visual** or **layout** libraries. Because each node and edge tracks its position in 2D space, you can easily render dynamic diagrams, flowcharts, or route maps with accurate geometry.
+
+Graphs are a powerful way to represent relationships among distinct items—whether you're mapping social networks, modeling routes, or understanding dependencies. Nodes serve as individual entities, and edges capture the connections between them, forming a dynamic data structure that mirrors real-world complexity.
+
+This graph library streamlines the creation, storage, and manipulation of those connections, offering a suite of tools to effortlessly add, remove, traverse, or analyze nodes and edges. Instead of building graph logic from scratch, you can rely on well-tested methods that handle everything from validation to navigation—letting you focus on extracting insights and delivering value from connected data.
+
+## Components Overview
+
+Typically you would not use the standalone `Metadata`, `Nodes`, or `Edges` components of graph independently.
+In fact, the most common use case is to instantiate a new graph and then import a graph in JSON format.
+
+However, to get an understanding of the reach features or each of these components, here is a quick overview.
 
 ### Creating and Modifying Metadata
 
