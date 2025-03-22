@@ -232,12 +232,6 @@ This graph library streamlines the creation, storage, and manipulation of those 
 | **move**         | `move(id, coordsOrOffset)` | Logic    | Moves or shifts the edge’s coordinates, depending on whether absolute coordinates or an offset is given. |
 | **toJSON**       | `toJSON()`                 | Logic    | Returns all edges in a JSON-like array.                                                                  |
 
-- Convert metadata to a structured JSON object.
-
-```typescript
-console.log(metadata.toJSON()); // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Updated Name", type: "vertex" }
-```
-
 ## 🛡️ Exception Handling
 
 The library throws **structured exceptions** for invalid operations:
