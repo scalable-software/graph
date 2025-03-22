@@ -17,6 +17,14 @@ export class Validate {
     return graph;
   };
 
+  public static graphDetails = <T extends Partial<IGraph>>(
+    details: Partial<T>
+  ): Partial<T> => {
+    details.metadata?.id && Validate.uuid(details.metadata.id);
+    details.metadata && Validate.name(details.metadata.name);
+    return details;
+  };
+
   /**
    * Validate the metadata, if provided, to ensure required properties are present and valid.
    *
