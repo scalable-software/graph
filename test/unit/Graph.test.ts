@@ -23,10 +23,9 @@ import {
   type UUID,
 } from "@scalable.software/graph";
 
-import type { Pathway } from "./Use_Case.Pathway.Types.js";
-
 // Clinical Pathway
-import { pathway as example } from "./Use_Case.Pathway.example.js";
+import type { IPathway } from "../../src/Pathway.types.js";
+import { data } from "../../src/Pathway.data.js";
 
 given(`Graph class availability test`, () => {
   and(`Graph is imported`, () => {
@@ -411,9 +410,10 @@ given("Graph.degree method availability test", () => {
 
 given("Graph.degree method behavior test", () => {
   and("graph instantiated using new Graph()", () => {
-    let pathway: Graph<Pathway>;
+    let pathway: Graph<IPathway>;
     beforeEach(() => {
-      pathway = new Graph(example);
+      let { metadata, actors, paths } = data;
+      pathway = new Graph<IPathway>({ metadata, nodes: actors, edges: paths });
     });
     when("Graph.degree is called with a node id having one connection", () => {
       let result: number;
@@ -454,9 +454,10 @@ given("Graph.in method availability test", () => {
 
 given("Graph.in method behavior test", () => {
   and("graph instantiated using new Graph()", () => {
-    let pathway: Graph<Pathway>;
+    let pathway: Graph<IPathway>;
     beforeEach(() => {
-      pathway = new Graph(example);
+      let { metadata, actors, paths } = data;
+      pathway = new Graph({ metadata, nodes: actors, edges: paths });
     });
     when("Graph.in is called with a node id having 0 in connections", () => {
       let result: number;
@@ -500,9 +501,10 @@ given("Graph.out method availability test", () => {
 
 given("Graph.out method behavior test", () => {
   and("graph instantiated using new Graph()", () => {
-    let pathway: Graph<Pathway>;
+    let pathway: Graph<IPathway>;
     beforeEach(() => {
-      pathway = new Graph(example);
+      let { metadata, actors, paths } = data;
+      pathway = new Graph({ metadata, nodes: actors, edges: paths });
     });
     when("Graph.out is called with a node id having 1 in connections", () => {
       let result: number;
@@ -543,9 +545,10 @@ given("Graph.neighbors method availability test", () => {
 
 given("Graph.neighbors method behavior test", () => {
   and("graph instantiated using new Graph()", () => {
-    let pathway: Graph<Pathway>;
+    let pathway: Graph<IPathway>;
     beforeEach(() => {
-      pathway = new Graph(example);
+      let { metadata, actors, paths } = data;
+      pathway = new Graph({ metadata, nodes: actors, edges: paths });
     });
     when("Graph.neighbors is called with a node id having 1 neighbors", () => {
       let result;
