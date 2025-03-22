@@ -9,6 +9,41 @@ import { Utilities } from "./utilities/Utilities.js";
 import type { Coordinates, UUID, Offset } from "./Graph.types.js";
 import { ValidationException } from "./exceptions/Exceptions.js";
 
+/**
+ * Provides a container for managing a collection of edges with support for:
+ * - Unique identifiers for each edge.
+ * - Coordinate-based positioning for visual representation.
+ * - Immutability control for performance or memory optimization.
+ *
+ * Supports flexible edge structures with custom properties by extending the base `IEdge`.
+ *
+ * ```ts
+ * const edges = Edges
+ *     .create([
+ *         {
+ *             id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+ *             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+ *             target: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+ *             coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } }
+ *         }
+ *     ])
+ *
+ * const data = edges.toJSON();
+ * console.log(data);
+ *
+ * // [
+ * //   {
+ * //     id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+ * //     source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+ * //     target: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+ * //     coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+ * //   }
+ * // ]
+ * ```
+ *
+ * @template T Extends the base {@link IEdge} type for enhanced flexibility.
+ * @module Graph
+ */
 export class Edges<T extends IEdge> extends Array<T> {
   public static create = <T extends IEdge>(edges?: T[] | null): Edges<T> =>
     new Edges<T>(...Edges.normalize<T>(edges)) as Edges<T>;

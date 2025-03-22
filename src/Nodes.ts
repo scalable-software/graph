@@ -8,7 +8,33 @@ import { Validator } from "./validations/Validator.js";
 import { Utilities } from "./utilities/Utilities.js";
 import type { UUID, Coordinates, Offset } from "./Graph.types.js";
 
-export class Nodes<T extends INode> extends Array<T> {
+/**
+ * Provides a container for managing a collection of nodes with support for:
+ * - Unique identifiers for each node.
+ * - Coordinate-based positioning for visual representation.
+ * - Immutability control for performance or memory optimization.
+ *
+ * Supports flexible node structures with custom properties by extending the base `INode`.
+ *
+ * ```ts
+ * const nodes = Nodes
+ *   .create([
+ *     { id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", coordinates: { x: 0, y: 0 }},
+ *     { id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5", coordinates: { x: 1, y: 1 }},
+ *   ])
+ *
+ * const data = nodes.toJSON();
+ * console.log(data);
+ *
+ * // [
+ * //   { id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d", coordinates: { x: 0, y: 0 }},
+ * //   { id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5", coordinates: { x: 1, y: 1 }},
+ * // ]
+ * ```
+ *
+ * @template T Extends the base {@link INode} type for enhanced flexibility.
+ * @module Graph
+ */ export class Nodes<T extends INode> extends Array<T> {
   /**
    * Each node can be accessed via index notation.
    *
