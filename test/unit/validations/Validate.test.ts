@@ -2193,3 +2193,73 @@ given(`Validate.graph static method behavior test`, () => {
     });
   });
 });
+
+given(`Validate.graphDetails static method availability test`, () => {
+  then("Validate.graphDetails is defined", () => {
+    expect(Validate.graphDetails).toBeDefined();
+  });
+  and("Validate.graphDetails is defined", () => {
+    then("Validate.graphDetails is a function", () => {
+      expect(Validate.graphDetails).toBeInstanceOf(Function);
+    });
+  });
+});
+
+given(`Validate.graphDetails static method behavior test`, () => {
+  when(`Validate.graphDetails called with valid graph`, () => {
+    let graph;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: {
+          name: "graph",
+        },
+      };
+      try {
+        response = Validate.graphDetails<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    and(`response is defined`, () => {
+      then(`response equals graph`, () => {
+        expect(response).toEqual(graph);
+      });
+    });
+  });
+  when(`Validate.graphDetails called with invalid graph`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: {
+          id: "invalid",
+          name: "graph",
+        },
+      };
+      try {
+        response = Validate.graphDetails<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+
+    then(`response is undefined`, () => {
+      expect(response).toBeUndefined();
+    });
+    then(`error is defined`, () => {
+      expect(error).toBeDefined();
+    });
+
+    and(`error is defined`, () => {
+      then(`error is an instance of InvalidArgumentException`, () => {
+        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+      });
+    });
+  });
+});
