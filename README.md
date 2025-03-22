@@ -8,24 +8,11 @@ This geometry-oriented design **streamlines** the creation, storage, and manipul
 
 ## 💡 Why Use This Library?
 
-✅ Geometry-Driven: Requires coordinates for nodes and edges to enable precise spatial visualizations.
-✅ Fluent & Unified API: Provides chainable methods for effortless creation, modification, and traversal.
-✅ Rigorous Integrity: Enforces unique, immutable identifiers and strict coordinate validation with robust error handling.
-✅ Built-In Analysis & Serialization: Offers integrated graph connectivity analysis and seamless JSON import/export.
+✅ Geometry-Driven: Requires coordinates for nodes and edges to enable precise spatial visualizations.  
+✅ Fluent & Unified API: Provides chainable methods for effortless creation, modification, and traversal.  
+✅ Rigorous Integrity: Enforces unique, immutable identifiers and strict coordinate validation with robust error handling.  
+✅ Built-In Analysis & Serialization: Offers integrated graph connectivity analysis and seamless JSON import/export.  
 ✅ Customizable & Configurable: Allows extended metadata and supports both immutable and in-place updates for tailored performance.
-
-## 🚀 Features
-
-✅ **Comprehensive Graph Structure** – Manage nodes, edges, and metadata through a unified API.  
-✅ **Fluent API** – Chainable, expressive method calls (e.g., `nodes.add(...).update(...).remove(...)`).  
-✅ **Immutable & Validated Identifiers** – Nodes, edges, and metadata all enforce consistent UUIDs.  
-✅ **Configurable Immutability** – Toggle between immutable collections or in-place modifications.  
-✅ **Partial Updates** – Update only what you need, such as node details, edge properties, or metadata fields.  
-✅ **Strict Validation** – Prevents duplicate IDs, enforces coordinate uniqueness, and checks all inputs.  
-✅ **Custom Metadata Support** – Extend the base `id` and `name` fields with additional properties.  
-✅ **Well-Defined Exceptions** – Predictable error handling for invalid operations or conflicts.  
-✅ **Built-In Graph Analysis** – Quickly check `degree`, `in`, `out`, and `neighbors` for any node.  
-✅ **Intuitive Import/Export** – Easily serialize your entire graph with `import(graph)` and `export()`.
 
 ## 📦 Installation
 
@@ -165,6 +152,19 @@ graph.metadata
 Graphs are a powerful way to represent relationships among distinct items—whether you're mapping social networks, modeling routes, or understanding dependencies. Nodes serve as individual entities, and edges capture the connections between them, forming a dynamic data structure that mirrors real-world complexity.
 
 This graph library streamlines the creation, storage, and manipulation of those connections, offering a suite of tools to effortlessly add, remove, traverse, or analyze nodes and edges. Instead of building graph logic from scratch, you can rely on well-tested methods that handle everything from validation to navigation—letting you focus on extracting insights and delivering value from connected data.
+
+## 🚀 Features
+
+✅ **Comprehensive Graph Structure** – Manage nodes, edges, and metadata through a unified API.  
+✅ **Fluent API** – Chainable, expressive method calls (e.g., `nodes.add(...).update(...).remove(...)`).  
+✅ **Immutable & Validated Identifiers** – Nodes, edges, and metadata all enforce consistent UUIDs.  
+✅ **Configurable Immutability** – Toggle between immutable collections or in-place modifications.  
+✅ **Partial Updates** – Update only what you need, such as node details, edge properties, or metadata fields.  
+✅ **Strict Validation** – Prevents duplicate IDs, enforces coordinate uniqueness, and checks all inputs.  
+✅ **Custom Metadata Support** – Extend the base `id` and `name` fields with additional properties.  
+✅ **Well-Defined Exceptions** – Predictable error handling for invalid operations or conflicts.  
+✅ **Built-In Graph Analysis** – Quickly check `degree`, `in`, `out`, and `neighbors` for any node.  
+✅ **Intuitive Import/Export** – Easily serialize your entire graph with `import(graph)` and `export()`.
 
 ## Graph API Reference
 
