@@ -41,16 +41,16 @@ export class Graph<T extends IGraph> {
    *
    * @category Operation
    */
-  public import = (graph: Partial<T>) => this._import(graph);
+  public import = (graph) => this._import(graph);
 
-  protected _import = (graph: Partial<T>) =>
+  protected _import = (graph) => {
     ((graph) => {
-      this.metadata = Metadata.create<T["metadata"]>(graph.metadata);
-      this.nodes =
-        graph?.nodes && Nodes.create<T["nodes"][number]>(graph.nodes);
-      this.edges =
-        graph?.edges && Edges.create<T["edges"][number]>(graph.edges);
-    })(Validate.graph(graph));
+      graph.metadata && this.metadata.add(graph.metadata);
+      graph.nodes && this.nodes.add(graph.nodes);
+      graph.edges && this.edges.add(graph.edges);
+    })(Validate.graphDetails(graph));
+    return this;
+  };
 
   /**
    * Export the graph data structure into a graph in JSON format.
