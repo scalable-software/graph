@@ -41,7 +41,9 @@ export class Graph<T extends IGraph> {
    *
    * @category Operation
    */
-  public import = (graph: Partial<T>) => {
+  public import = (graph: Partial<T>) => this._import(graph);
+
+  protected _import = (graph: Partial<T>) =>
     ((graph) => {
       this.metadata = Metadata.create<T["metadata"]>(graph.metadata);
       this.nodes =
@@ -49,7 +51,6 @@ export class Graph<T extends IGraph> {
       this.edges =
         graph?.edges && Edges.create<T["edges"][number]>(graph.edges);
     })(Validate.graph(graph));
-  };
 
   /**
    * Export the graph data structure into a graph in JSON format.
