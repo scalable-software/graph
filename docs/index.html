@@ -54,229 +54,247 @@
 <pre><code class="typescript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-7">nodes</span><span class="hl-1"> = </span><span class="hl-4">Nodes</span><span class="hl-1">.</span><span class="hl-0">create</span><span class="hl-1">&lt;</span><span class="hl-6">T</span><span class="hl-1">&gt;([</span><span class="hl-4">node</span><span class="hl-1">])</span><br/><span class="hl-1">  .</span><span class="hl-0">add</span><span class="hl-1">([</span><br/><span class="hl-1">    {</span><br/><span class="hl-1">      </span><span class="hl-4">name:</span><span class="hl-1"> </span><span class="hl-2">&quot;Biomarker&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-4">coordinates:</span><span class="hl-1"> { </span><span class="hl-4">x:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1">, </span><span class="hl-4">y:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1"> },</span><br/><span class="hl-1">      </span><span class="hl-4">type:</span><span class="hl-1"> </span><span class="hl-2">&quot;Workflow&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    {</span><br/><span class="hl-1">      </span><span class="hl-4">name:</span><span class="hl-1"> </span><span class="hl-2">&quot;ACS&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-4">coordinates:</span><span class="hl-1"> { </span><span class="hl-4">x:</span><span class="hl-1"> </span><span class="hl-8">2</span><span class="hl-1">, </span><span class="hl-4">y:</span><span class="hl-1"> </span><span class="hl-8">2</span><span class="hl-1"> },</span><br/><span class="hl-1">      </span><span class="hl-4">type:</span><span class="hl-1"> </span><span class="hl-2">&quot;Gateway&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">  ])</span><br/><span class="hl-1">  .</span><span class="hl-0">update</span><span class="hl-1">(</span><span class="hl-4">node</span><span class="hl-1">.</span><span class="hl-4">id</span><span class="hl-1">, { </span><span class="hl-4">type:</span><span class="hl-1"> </span><span class="hl-2">&quot;workflow&quot;</span><span class="hl-1"> })</span><br/><span class="hl-1">  .</span><span class="hl-0">translate</span><span class="hl-1">(</span><span class="hl-4">node</span><span class="hl-1">.</span><span class="hl-4">id</span><span class="hl-1">, { </span><span class="hl-4">x:</span><span class="hl-1"> </span><span class="hl-8">3</span><span class="hl-1">, </span><span class="hl-4">y:</span><span class="hl-1"> </span><span class="hl-8">3</span><span class="hl-1"> })</span><br/><span class="hl-1">  .</span><span class="hl-0">move</span><span class="hl-1">(</span><span class="hl-4">node</span><span class="hl-1">.</span><span class="hl-4">id</span><span class="hl-1">, { </span><span class="hl-4">x:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1">, </span><span class="hl-4">y:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1"> })</span><br/><span class="hl-1">  .</span><span class="hl-0">remove</span><span class="hl-1">(</span><span class="hl-4">node</span><span class="hl-1">.</span><span class="hl-4">id</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-0">toJSON</span><span class="hl-1">();</span>
 </code><button type="button">Copy</button></pre>
 
-<a id="graph-api-reference" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Graph API Reference<a href="#graph-api-reference" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><a id="core-structure" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Core Structure<a href="#core-structure" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><table>
+<a id="graph-api-reference" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Graph API Reference<a href="#graph-api-reference" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="core-structure" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Core Structure<a href="#core-structure" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
 <thead>
 <tr>
 <th style="text-align:left"><strong>API</strong></th>
 <th style="text-align:left"><strong>Type</strong></th>
+<th style="text-align:left"><strong>Signature</strong></th>
 <th style="text-align:left"><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>graph.metadata</code></td>
-<td style="text-align:left"><strong>Data</strong></td>
-<td style="text-align:left">Graph metadata instance.</td>
+<td style="text-align:left"><strong>graph.metadata</strong></td>
+<td style="text-align:left">Data</td>
+<td style="text-align:left"><code>metadata</code> (property)</td>
+<td style="text-align:left">A metadata object containing top-level details about the graph.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.nodes</code></td>
-<td style="text-align:left"><strong>Data</strong></td>
-<td style="text-align:left">Graph nodes instance.</td>
+<td style="text-align:left"><strong>graph.nodes</strong></td>
+<td style="text-align:left">Data</td>
+<td style="text-align:left"><code>nodes</code> (property)</td>
+<td style="text-align:left">A collection of nodes (e.g., for storing positions, labels, etc.).</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.edges</code></td>
-<td style="text-align:left"><strong>Data</strong></td>
-<td style="text-align:left">Graph edges instance.</td>
+<td style="text-align:left"><strong>graph.edges</strong></td>
+<td style="text-align:left">Data</td>
+<td style="text-align:left"><code>edges</code> (property)</td>
+<td style="text-align:left">A collection of edges (connections) between nodes.</td>
 </tr>
 </tbody>
 </table>
-<a id="graph-operations" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Graph Operations<a href="#graph-operations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><table>
+<hr>
+<a id="graph-operations" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Graph Operations<a href="#graph-operations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
 <thead>
 <tr>
 <th style="text-align:left"><strong>API</strong></th>
+<th style="text-align:left"><strong>Signature</strong></th>
 <th style="text-align:left"><strong>Type</strong></th>
 <th style="text-align:left"><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>graph.constructor()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Initializes metadata, nodes, and edges with validation.</td>
+<td style="text-align:left"><strong>Constructor</strong></td>
+<td style="text-align:left"><code>constructor(graph?)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Initializes metadata, nodes, and edges when optionally provided with initial data.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.import()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Replaces graph data with new data.</td>
+<td style="text-align:left"><strong>import</strong></td>
+<td style="text-align:left"><code>import(graph)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Replaces the entire graph’s data with new data (in a JSON-like structure).</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.export()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Returns graph data as JSON.</td>
+<td style="text-align:left"><strong>export</strong></td>
+<td style="text-align:left"><code>export()</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Returns all current graph data (in a JSON-like structure).</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.toJSON()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Converts entire graph to JSON.</td>
+<td style="text-align:left"><strong>toJSON</strong></td>
+<td style="text-align:left"><code>toJSON()</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Alias for <code>export()</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>degree</strong></td>
+<td style="text-align:left"><code>degree(id)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Calculates the total number of connections for a node (incoming + outgoing) by its identifier.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>in</strong></td>
+<td style="text-align:left"><code>in(id)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Returns the count of incoming connections for a given node.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>out</strong></td>
+<td style="text-align:left"><code>out(id)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Returns the count of outgoing connections for a given node.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>neighbors</strong></td>
+<td style="text-align:left"><code>neighbors(id)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Retrieves the identifiers of all nodes directly connected to the specified node.</td>
 </tr>
 </tbody>
 </table>
-<a id="analysis-methods" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Analysis Methods<a href="#analysis-methods" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><table>
+<hr>
+<a id="metadata-methods" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Metadata Methods<a href="#metadata-methods" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
 <thead>
 <tr>
 <th style="text-align:left"><strong>API</strong></th>
+<th style="text-align:left"><strong>Signature</strong></th>
 <th style="text-align:left"><strong>Type</strong></th>
 <th style="text-align:left"><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>graph.degree(id: UUID)</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Returns the total number of connections for a node.</td>
+<td style="text-align:left"><strong>add</strong></td>
+<td style="text-align:left"><code>add(metadata)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Adds metadata if none is currently assigned; throws an error if metadata already exists.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.in(id: UUID)</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Returns the number of incoming connections for a node.</td>
+<td style="text-align:left"><strong>remove</strong></td>
+<td style="text-align:left"><code>remove(keys?)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Removes specified metadata fields, or resets entirely if no keys are given.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.out(id: UUID)</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Returns the number of outgoing connections for a node.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>graph.neighbors(id: UUID)</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Returns the <strong>IDs</strong> of neighboring nodes.</td>
+<td style="text-align:left"><strong>toJSON</strong></td>
+<td style="text-align:left"><code>toJSON()</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Returns a JSON-like representation of the metadata object, including any custom/extended fields.</td>
 </tr>
 </tbody>
 </table>
-<a id="metadata-methods" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Metadata Methods<a href="#metadata-methods" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><table>
+<hr>
+<a id="node-operations" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Node Operations<a href="#node-operations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
 <thead>
 <tr>
 <th style="text-align:left"><strong>API</strong></th>
+<th style="text-align:left"><strong>Signature</strong></th>
 <th style="text-align:left"><strong>Type</strong></th>
 <th style="text-align:left"><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>graph.metadata.add()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Adds metadata if unassigned.</td>
+<td style="text-align:left"><strong>add</strong></td>
+<td style="text-align:left"><code>add(nodes)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Adds one or more nodes; automatically ensures each has an identifier and valid coordinates.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.metadata.update()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Updates metadata.</td>
+<td style="text-align:left"><strong>update</strong></td>
+<td style="text-align:left"><code>update(id, details)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Updates the node matching the given identifier with new details.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.metadata.remove()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Removes specified metadata or resets it.</td>
+<td style="text-align:left"><strong>remove</strong></td>
+<td style="text-align:left"><code>remove(id)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Removes the node matching the given identifier.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.metadata.toJSON()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Converts metadata to JSON.</td>
+<td style="text-align:left"><strong>findById</strong></td>
+<td style="text-align:left"><code>findById(id)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Retrieves the node for a given identifier, if any.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>findByCoordinates</strong></td>
+<td style="text-align:left"><code>findByCoordinates(coords)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Finds a node by its exact <code>(x, y)</code> coordinates.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>move</strong></td>
+<td style="text-align:left"><code>move(id, coords)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Moves the node with the given identifier to new coordinates.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>translate</strong></td>
+<td style="text-align:left"><code>translate(idOrIds, offset)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Translates one or multiple nodes by a given <code>(dx, dy)</code> offset.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>toJSON</strong></td>
+<td style="text-align:left"><code>toJSON()</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Returns an array of all nodes in a JSON-like format.</td>
 </tr>
 </tbody>
 </table>
-<a id="node-operations" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Node Operations<a href="#node-operations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><table>
+<hr>
+<a id="edge-operations" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Edge Operations<a href="#edge-operations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
 <thead>
 <tr>
 <th style="text-align:left"><strong>API</strong></th>
+<th style="text-align:left"><strong>Signature</strong></th>
 <th style="text-align:left"><strong>Type</strong></th>
 <th style="text-align:left"><strong>Description</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>graph.nodes.add()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Adds new nodes with unique IDs and coordinates.</td>
+<td style="text-align:left"><strong>add</strong></td>
+<td style="text-align:left"><code>add(edges)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Adds one or more edges; automatically ensures each edge has an identifier.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.nodes.update()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Updates a node's details.</td>
+<td style="text-align:left"><strong>update</strong></td>
+<td style="text-align:left"><code>update(id, details)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Updates an edge by its identifier.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.nodes.remove()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Removes a node by ID.</td>
+<td style="text-align:left"><strong>remove</strong></td>
+<td style="text-align:left"><code>remove(id)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Removes the edge matching the given identifier.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.nodes.findById()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Finds a node by ID.</td>
+<td style="text-align:left"><strong>findById</strong></td>
+<td style="text-align:left"><code>findById(id)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Locates an edge by its identifier.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.nodes.findByCoordinates()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Finds a node by coordinates.</td>
+<td style="text-align:left"><strong>findBySource</strong></td>
+<td style="text-align:left"><code>findBySource(sourceId)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Retrieves all edges originating from the specified source.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.nodes.move()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Moves a node to new coordinates.</td>
+<td style="text-align:left"><strong>findByTarget</strong></td>
+<td style="text-align:left"><code>findByTarget(targetId)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Retrieves all edges pointing to the specified target.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.nodes.translate()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Translates nodes by an offset.</td>
+<td style="text-align:left"><strong>move</strong></td>
+<td style="text-align:left"><code>move(id, coordsOrOffset)</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Moves or shifts the edge’s coordinates, depending on whether absolute coordinates or an offset is given.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>graph.nodes.toJSON()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Converts nodes to JSON.</td>
-</tr>
-</tbody>
-</table>
-<a id="edge-operations" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Edge Operations<a href="#edge-operations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><table>
-<thead>
-<tr>
-<th style="text-align:left"><strong>API</strong></th>
-<th style="text-align:left"><strong>Type</strong></th>
-<th style="text-align:left"><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>graph.edges.add()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Adds new edges with unique IDs.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>graph.edges.update()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Updates an edge's details.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>graph.edges.move()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Moves an edge's start or end points.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>graph.edges.translate()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Translates edges by an offset.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>graph.edges.remove()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Removes an edge by ID.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>graph.edges.findById()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Finds an edge by ID.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>graph.edges.findBySource()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Finds edges by source.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>graph.edges.findByTarget()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Finds edges by target.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>graph.edges.toJSON()</code></td>
-<td style="text-align:left"><strong>Logic</strong></td>
-<td style="text-align:left">Converts edges to JSON.</td>
+<td style="text-align:left"><strong>toJSON</strong></td>
+<td style="text-align:left"><code>toJSON()</code></td>
+<td style="text-align:left">Logic</td>
+<td style="text-align:left">Returns all edges in a JSON-like array.</td>
 </tr>
 </tbody>
 </table>
@@ -353,4 +371,4 @@
 </ul>
 </blockquote>
 <p>For more details, please visit the full <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">license agreement</a>.</p>
-</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#graph-data-structure"><span>Graph <wbr/>Data <wbr/>Structure</span></a><ul><li><a href="#🚀-features"><span>🚀 <wbr/>Features</span></a></li><li><a href="#📦-installation"><span>📦 <wbr/>Installation</span></a></li><li><a href="#🛠️-usage"><span>🛠️ <wbr/>Usage</span></a></li><li><ul><li><a href="#creating-and-modifying-metadata"><span>Creating and <wbr/>Modifying <wbr/>Metadata</span></a></li><li><a href="#create-and-modifying-nodes"><span>Create and <wbr/>Modifying <wbr/>Nodes</span></a></li><li><a href="#graph-api-reference"><span>Graph API <wbr/>Reference</span></a></li><li><ul><li><a href="#core-structure"><span>Core <wbr/>Structure</span></a></li><li><a href="#graph-operations"><span>Graph <wbr/>Operations</span></a></li><li><a href="#analysis-methods"><span>Analysis <wbr/>Methods</span></a></li><li><a href="#metadata-methods"><span>Metadata <wbr/>Methods</span></a></li><li><a href="#node-operations"><span>Node <wbr/>Operations</span></a></li><li><a href="#edge-operations"><span>Edge <wbr/>Operations</span></a></li></ul></li><li><a href="#fluent-api-example"><span>Fluent API <wbr/>Example</span></a></li><li><a href="#immutable--validated-id"><span>Immutable &amp; <wbr/>Validated ID</span></a></li><li><a href="#partial-updates-without-overwriting-existing-data"><span>Partial <wbr/>Updates <wbr/>Without <wbr/>Overwriting <wbr/>Existing <wbr/>Data</span></a></li><li><a href="#metadata-extraction"><span>Metadata <wbr/>Extraction</span></a></li></ul></li><li><a href="#🛡️-exception-handling"><span>🛡️ <wbr/>Exception <wbr/>Handling</span></a></li><li><a href="#💡-why-use-this-library"><span>💡 <wbr/>Why <wbr/>Use <wbr/>This <wbr/>Library?</span></a></li><li><a href="#license"><span>License</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">Graph</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p>Copyright <strong>Scalable.Software</strong> 2025</p></footer><div class="overlay"></div></body></html>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#graph-data-structure"><span>Graph <wbr/>Data <wbr/>Structure</span></a><ul><li><a href="#🚀-features"><span>🚀 <wbr/>Features</span></a></li><li><a href="#📦-installation"><span>📦 <wbr/>Installation</span></a></li><li><a href="#🛠️-usage"><span>🛠️ <wbr/>Usage</span></a></li><li><ul><li><a href="#creating-and-modifying-metadata"><span>Creating and <wbr/>Modifying <wbr/>Metadata</span></a></li><li><a href="#create-and-modifying-nodes"><span>Create and <wbr/>Modifying <wbr/>Nodes</span></a></li></ul></li><li><a href="#graph-api-reference"><span>Graph API <wbr/>Reference</span></a></li><li><ul><li><a href="#core-structure"><span>Core <wbr/>Structure</span></a></li><li><a href="#graph-operations"><span>Graph <wbr/>Operations</span></a></li><li><a href="#metadata-methods"><span>Metadata <wbr/>Methods</span></a></li><li><a href="#node-operations"><span>Node <wbr/>Operations</span></a></li><li><a href="#edge-operations"><span>Edge <wbr/>Operations</span></a></li><li><a href="#fluent-api-example"><span>Fluent API <wbr/>Example</span></a></li><li><a href="#immutable--validated-id"><span>Immutable &amp; <wbr/>Validated ID</span></a></li><li><a href="#partial-updates-without-overwriting-existing-data"><span>Partial <wbr/>Updates <wbr/>Without <wbr/>Overwriting <wbr/>Existing <wbr/>Data</span></a></li><li><a href="#metadata-extraction"><span>Metadata <wbr/>Extraction</span></a></li></ul></li><li><a href="#🛡️-exception-handling"><span>🛡️ <wbr/>Exception <wbr/>Handling</span></a></li><li><a href="#💡-why-use-this-library"><span>💡 <wbr/>Why <wbr/>Use <wbr/>This <wbr/>Library?</span></a></li><li><a href="#license"><span>License</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">Graph</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p>Copyright <strong>Scalable.Software</strong> 2025</p></footer><div class="overlay"></div></body></html>
