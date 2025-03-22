@@ -70,6 +70,7 @@ import type { UUID, Coordinates, Offset } from "./Graph.types.js";
   /**
    * Typescript constructors cannot return a value other than the class.
    * As a workaround to support proper types, we must use a static factory method
+   * @category Factory
    */
   private constructor(...nodes: T[]) {
     super(...nodes);

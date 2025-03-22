@@ -44,6 +44,9 @@ import { ValidationException } from "./exceptions/Exceptions.js";
  * @template T Extends the base {@link IEdge} type for enhanced flexibility.
  */
 export class Edges<T extends IEdge> extends Array<T> {
+  /**
+   * @category Factory
+   */
   public static create = <T extends IEdge>(edges?: T[] | null): Edges<T> =>
     new Edges<T>(...Edges.normalize<T>(edges)) as Edges<T>;
 
@@ -54,6 +57,17 @@ export class Edges<T extends IEdge> extends Array<T> {
 
   private _immutable = true;
 
+  /**
+   * Each edge can be accessed via index notation.
+   * @param {number} n - The index of the edge to export.
+   * @returns {T} The edge at the specified index.
+   * @example
+   * ```typescript
+   * const edges = Edges.create([edge]);
+   * edges[0]; // edge
+   * ```
+   * @category Factory
+   */
   constructor(...edges: T[]) {
     super(...edges);
   }
