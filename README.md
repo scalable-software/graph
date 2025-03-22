@@ -96,69 +96,70 @@ const nodes = Nodes.create<T>([node])
   .toJSON();
 ```
 
-### Graph API Reference
+## Graph API Reference
 
-#### Core Structure
+### Core Structure
 
-| **API**          | **Type** | **Description**          |
-| :--------------- | :------- | :----------------------- |
-| `graph.metadata` | **Data** | Graph metadata instance. |
-| `graph.nodes`    | **Data** | Graph nodes instance.    |
-| `graph.edges`    | **Data** | Graph edges instance.    |
+| **API**            | **Type** | **Signature**         | **Description**                                                    |
+| :----------------- | :------- | :-------------------- | :----------------------------------------------------------------- |
+| **graph.metadata** | Data     | `metadata` (property) | A metadata object containing top-level details about the graph.    |
+| **graph.nodes**    | Data     | `nodes` (property)    | A collection of nodes (e.g., for storing positions, labels, etc.). |
+| **graph.edges**    | Data     | `edges` (property)    | A collection of edges (connections) between nodes.                 |
 
-#### Graph Operations
+---
 
-| **API**               | **Type**  | **Description**                                         |
-| :-------------------- | :-------- | :------------------------------------------------------ |
-| `graph.constructor()` | **Logic** | Initializes metadata, nodes, and edges with validation. |
-| `graph.import()`      | **Logic** | Replaces graph data with new data.                      |
-| `graph.export()`      | **Logic** | Returns graph data as JSON.                             |
-| `graph.toJSON()`      | **Logic** | Converts entire graph to JSON.                          |
+### Graph Operations
 
-#### Analysis Methods
+| **API**         | **Signature**         | **Type** | **Description**                                                                                |
+| :-------------- | :-------------------- | :------- | :--------------------------------------------------------------------------------------------- |
+| **Constructor** | `constructor(graph?)` | Logic    | Initializes metadata, nodes, and edges when optionally provided with initial data.             |
+| **import**      | `import(graph)`       | Logic    | Replaces the entire graph’s data with new data (in a JSON-like structure).                     |
+| **export**      | `export()`            | Logic    | Returns all current graph data (in a JSON-like structure).                                     |
+| **toJSON**      | `toJSON()`            | Logic    | Alias for `export()`.                                                                          |
+| **degree**      | `degree(id)`          | Logic    | Calculates the total number of connections for a node (incoming + outgoing) by its identifier. |
+| **in**          | `in(id)`              | Logic    | Returns the count of incoming connections for a given node.                                    |
+| **out**         | `out(id)`             | Logic    | Returns the count of outgoing connections for a given node.                                    |
+| **neighbors**   | `neighbors(id)`       | Logic    | Retrieves the identifiers of all nodes directly connected to the specified node.               |
 
-| **API**                     | **Type**  | **Description**                                        |
-| :-------------------------- | :-------- | :----------------------------------------------------- |
-| `graph.degree(id: UUID)`    | **Logic** | Returns the total number of connections for a node.    |
-| `graph.in(id: UUID)`        | **Logic** | Returns the number of incoming connections for a node. |
-| `graph.out(id: UUID)`       | **Logic** | Returns the number of outgoing connections for a node. |
-| `graph.neighbors(id: UUID)` | **Logic** | Returns the **IDs** of neighboring nodes.              |
+---
 
-#### Metadata Methods
+### Metadata Methods
 
-| **API**                   | **Type**  | **Description**                          |
-| :------------------------ | :-------- | :--------------------------------------- |
-| `graph.metadata.add()`    | **Logic** | Adds metadata if unassigned.             |
-| `graph.metadata.update()` | **Logic** | Updates metadata.                        |
-| `graph.metadata.remove()` | **Logic** | Removes specified metadata or resets it. |
-| `graph.metadata.toJSON()` | **Logic** | Converts metadata to JSON.               |
+| **API**    | **Signature**   | **Type** | **Description**                                                                                  |
+| :--------- | :-------------- | :------- | :----------------------------------------------------------------------------------------------- |
+| **add**    | `add(metadata)` | Logic    | Adds metadata if none is currently assigned; throws an error if metadata already exists.         |
+| **remove** | `remove(keys?)` | Logic    | Removes specified metadata fields, or resets entirely if no keys are given.                      |
+| **toJSON** | `toJSON()`      | Logic    | Returns a JSON-like representation of the metadata object, including any custom/extended fields. |
 
-#### Node Operations
+---
 
-| **API**                           | **Type**  | **Description**                                 |
-| :-------------------------------- | :-------- | :---------------------------------------------- |
-| `graph.nodes.add()`               | **Logic** | Adds new nodes with unique IDs and coordinates. |
-| `graph.nodes.update()`            | **Logic** | Updates a node's details.                       |
-| `graph.nodes.remove()`            | **Logic** | Removes a node by ID.                           |
-| `graph.nodes.findById()`          | **Logic** | Finds a node by ID.                             |
-| `graph.nodes.findByCoordinates()` | **Logic** | Finds a node by coordinates.                    |
-| `graph.nodes.move()`              | **Logic** | Moves a node to new coordinates.                |
-| `graph.nodes.translate()`         | **Logic** | Translates nodes by an offset.                  |
-| `graph.nodes.toJSON()`            | **Logic** | Converts nodes to JSON.                         |
+### Node Operations
 
-#### Edge Operations
+| **API**               | **Signature**                | **Type** | **Description**                                                                             |
+| :-------------------- | :--------------------------- | :------- | :------------------------------------------------------------------------------------------ |
+| **add**               | `add(nodes)`                 | Logic    | Adds one or more nodes; automatically ensures each has an identifier and valid coordinates. |
+| **update**            | `update(id, details)`        | Logic    | Updates the node matching the given identifier with new details.                            |
+| **remove**            | `remove(id)`                 | Logic    | Removes the node matching the given identifier.                                             |
+| **findById**          | `findById(id)`               | Logic    | Retrieves the node for a given identifier, if any.                                          |
+| **findByCoordinates** | `findByCoordinates(coords)`  | Logic    | Finds a node by its exact `(x, y)` coordinates.                                             |
+| **move**              | `move(id, coords)`           | Logic    | Moves the node with the given identifier to new coordinates.                                |
+| **translate**         | `translate(idOrIds, offset)` | Logic    | Translates one or multiple nodes by a given `(dx, dy)` offset.                              |
+| **toJSON**            | `toJSON()`                   | Logic    | Returns an array of all nodes in a JSON-like format.                                        |
 
-| **API**                      | **Type**  | **Description**                      |
-| :--------------------------- | :-------- | :----------------------------------- |
-| `graph.edges.add()`          | **Logic** | Adds new edges with unique IDs.      |
-| `graph.edges.update()`       | **Logic** | Updates an edge's details.           |
-| `graph.edges.move()`         | **Logic** | Moves an edge's start or end points. |
-| `graph.edges.translate()`    | **Logic** | Translates edges by an offset.       |
-| `graph.edges.remove()`       | **Logic** | Removes an edge by ID.               |
-| `graph.edges.findById()`     | **Logic** | Finds an edge by ID.                 |
-| `graph.edges.findBySource()` | **Logic** | Finds edges by source.               |
-| `graph.edges.findByTarget()` | **Logic** | Finds edges by target.               |
-| `graph.edges.toJSON()`       | **Logic** | Converts edges to JSON.              |
+---
+
+### Edge Operations
+
+| **API**          | **Signature**              | **Type** | **Description**                                                                                          |
+| :--------------- | :------------------------- | :------- | :------------------------------------------------------------------------------------------------------- |
+| **add**          | `add(edges)`               | Logic    | Adds one or more edges; automatically ensures each edge has an identifier.                               |
+| **update**       | `update(id, details)`      | Logic    | Updates an edge by its identifier.                                                                       |
+| **remove**       | `remove(id)`               | Logic    | Removes the edge matching the given identifier.                                                          |
+| **findById**     | `findById(id)`             | Logic    | Locates an edge by its identifier.                                                                       |
+| **findBySource** | `findBySource(sourceId)`   | Logic    | Retrieves all edges originating from the specified source.                                               |
+| **findByTarget** | `findByTarget(targetId)`   | Logic    | Retrieves all edges pointing to the specified target.                                                    |
+| **move**         | `move(id, coordsOrOffset)` | Logic    | Moves or shifts the edge’s coordinates, depending on whether absolute coordinates or an offset is given. |
+| **toJSON**       | `toJSON()`                 | Logic    | Returns all edges in a JSON-like array.                                                                  |
 
 ### Fluent API Example
 
