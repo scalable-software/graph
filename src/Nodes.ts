@@ -1,9 +1,4 @@
 /**
- * A graph is a data structure that:
- * - has {@link Nodes}
- * - contains contains nodes and edges.
- *
- * Extension with new properties is supported.
  * @module Graph
  */
 

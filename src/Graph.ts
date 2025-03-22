@@ -1,3 +1,13 @@
+/**
+ * A {@link Graph} is a data structure that:
+ * - has {@link Metadata}
+ * - contains {@link Nodes}
+ * - contains {@link Edges}
+ *
+ * Extension with new properties is supported.
+ * @module Graph
+ */
+
 import { type IMetadata, Metadata } from "./Metadata.js";
 import { type INode } from "./Node.js";
 import { type IEdge } from "./Edge.js";
@@ -14,11 +24,63 @@ export type IGraph = {
   edges: IEdge[];
 };
 
+/**
+ * Represents a graph data structure containing:
+ * - {@link Metadata} for graph-wide information.
+ * - {@link Nodes} for individual entities with coordinates.
+ * - {@link Edges} to define connections between nodes.
+ *
+ * The graph supports operations such as importing, exporting, and analyzing node connections.
+ *
+ * @example
+ * ```typescript
+ * import { Graph, type IGraph } from "@scalable.software/graph";
+ *
+ * const graph = new Graph<IGraph>().import({
+ *   metadata: {
+ *     name: "Clinical Pathway",
+ *   },
+ *   nodes: [
+ *     {
+ *       coordinates: { x: 5, y: 10 },
+ *     },
+ *   ],
+ * });
+ *
+ * const data = graph.export();
+ * console.log(data);
+ *
+ * // {
+ * //   metadata: { id: "123e4567-e89b-12d3-a456-426614174000", name: "Clinical Pathway" },
+ * //   nodes: [{ id: "123e4567-e89b-12d3-a456-426614174001", coordinates: { x: 5, y: 10 }}],
+ * //   edges: []
+ * // }
+ * ```
+ */
 export class Graph<T extends IGraph> {
+  /**
+   * The graph's metadata containing details such as `id` and `name`.
+   * @category Data
+   */
   public metadata: Metadata<T["metadata"]> & T["metadata"];
+  /**
+   * A collection of nodes representing entities within the graph.
+   * @category Data
+   */
   public nodes: Nodes<T["nodes"][number]>;
+  /**
+   * A collection of edges defining connections between nodes.
+   * @category Data
+   */
   public edges: Edges<T["edges"][number]>;
 
+  /**
+   * Creates a new instance of the `Graph`.
+   *
+   * @param {Partial<T>} [graph] - Optional initial data for metadata, nodes, and edges.
+   * Ensures that provided data is validated before being assigned.
+   * @category Factory
+   */
   constructor(graph?: Partial<T>) {
     ((graph) => {
       this.metadata = graph?.metadata
@@ -36,25 +98,20 @@ export class Graph<T extends IGraph> {
   }
 
   /**
-   * Import a graph in JSON format into a graph data structure.
-   * @param graph - The graph in JSON format.
+   * Imports new graph data by merging with existing data.
    *
+   * @param {Partial<T>} graph - The graph data to import.
+   * Merges metadata, nodes, and edges if they are provided.
+   *
+   * @returns {this} The updated graph instance.
    * @category Operation
    */
   public import = (graph) => this._import(graph);
 
-  protected _import = (graph) => {
-    ((graph) => {
-      graph.metadata && this.metadata.add(graph.metadata);
-      graph.nodes && this.nodes.add(graph.nodes);
-      graph.edges && this.edges.add(graph.edges);
-    })(Validate.graphDetails(graph));
-    return this;
-  };
-
   /**
-   * Export the graph data structure into a graph in JSON format.
-   * @returns The graph in JSON format.
+   * Exports the graph data as a JSON-compatible object.
+   *
+   * @returns {T} A JSON-like object representing the graph's metadata, nodes, and edges.
    * @category Operation
    */
   public export = (): T =>
@@ -111,6 +168,15 @@ export class Graph<T extends IGraph> {
       )
     ),
   ];
+
+  protected _import = (graph) => {
+    ((graph) => {
+      graph.metadata && this.metadata.add(graph.metadata);
+      graph.nodes && this.nodes.add(graph.nodes);
+      graph.edges && this.edges.add(graph.edges);
+    })(Validate.graphDetails(graph));
+    return this;
+  };
 
   private getEdges = (id: UUID) =>
     this.edges.filter(({ source, target }) => source === id || target === id);

@@ -29,8 +29,8 @@
       "Factory",
       "State",
       "Data",
-      "Validation",
       "Operations",
+      "Validation",
       "*"
     ]
   }

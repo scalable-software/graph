@@ -1,10 +1,4 @@
 /**
- * A graph is a data structure that:
- * - has {@link Metadata}
- * - contains contains nodes and edges.
- *
- *
- * Extension with new properties is supported.
  * @module Graph
  */
 
@@ -28,12 +22,15 @@ export type IMetadata = {
  * Build-in support for custom type with extended properties.
  *
  * ```ts
- * type CustomMetadata = IMetadata & { custom: string };
- * const metadata = Metadata.create<CustomMetadata>();
+ * type T = IMetadata & { custom: string };
  *
- * metadata.add({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test", custom: "value" });
+ * const metadata = Metadata
+ *     .create<T>()
+ *     .add({ id: "123e4567-e89b-12d3-a456-426614174000", name: "Test", custom: "value" });
  *
- * metadata.toJSON();
+ * const data = metadata.toJSON();
+ * console.log(data);
+ *
  * // { id: "123e4567-e89b-12d3-a456-426614174000", name: "Test", custom: "value" }
  * ```
  * @template T Is by default {@link IMetadata} but extends {@link IMetadata} with custom properties (see example).
