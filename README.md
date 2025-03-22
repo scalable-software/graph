@@ -27,7 +27,7 @@ This library is **geometry-first**, requiring **coordinates** for both nodes and
 - **Nodes** have `{ x, y }` coordinates describing their location.
 - **Edges** specify `{ start: { x, y }, end: { x, y } }` to define how they connect in 2D space.
 
-### Creating a Graph
+### ✨ Creating a Graph
 
 1. Define your graph data with **coordinates** for nodes and edges:
 
@@ -69,7 +69,7 @@ import { Graph, type IGraph } from "@scalable.software/graph";
 const graph = new Graph<IGraph>(data);
 ```
 
-### Importing a Graph
+### 📥 Importing a Graph
 
 You can also start with an **empty** graph and **import** data (with coordinates) later:
 
@@ -88,7 +88,7 @@ let data = {
 const graph = new Graph<IGraph>().import(data);
 ```
 
-### Export & Serialize
+### 📤 Export & Serialize
 
 Retrieve a JSON-like representation of your graph:
 
@@ -99,7 +99,7 @@ console.log(data);
 
 > Note: graph.toJSON() is an alias for graph.export();
 
-### Example: Working with Geometry
+### 📍 Working with Geometry
 
 Below is a short example showing how to **move** an existing node, **add** another node, and then **connect** them with an edge—demonstrating the library’s geometry-first approach.
 
@@ -134,7 +134,7 @@ graph.edges.add({
 });
 ```
 
-### Example: Fluent Metadata Modification
+### 🔗 Fluent Metadata Modification
 
 You can also **chain** methods, for example the metadata operations to update, remove, or add fields:
 
@@ -166,9 +166,9 @@ This graph library streamlines the creation, storage, and manipulation of those 
 ✅ **Built-In Graph Analysis** – Quickly check `degree`, `in`, `out`, and `neighbors` for any node.  
 ✅ **Intuitive Import/Export** – Easily serialize your entire graph with `import(graph)` and `export()`.
 
-## Graph API Reference
+## 🗂️ Graph API Reference
 
-### Core Structure
+### 📂 Core Structure
 
 | **API**            | **Type** | **Signature**         | **Description**                                                    |
 | :----------------- | :------- | :-------------------- | :----------------------------------------------------------------- |
@@ -178,7 +178,7 @@ This graph library streamlines the creation, storage, and manipulation of those 
 
 ---
 
-### Graph Operations
+### ⚙️ Graph Operations
 
 | **API**         | **Signature**         | **Type** | **Description**                                                                                |
 | :-------------- | :-------------------- | :------- | :--------------------------------------------------------------------------------------------- |
@@ -193,7 +193,7 @@ This graph library streamlines the creation, storage, and manipulation of those 
 
 ---
 
-### Metadata Methods
+### ⚙️ Metadata Operations
 
 | **API**    | **Signature**     | **Type** | **Description**                                                                                  |
 | :--------- | :---------------- | :------- | :----------------------------------------------------------------------------------------------- |
@@ -204,7 +204,7 @@ This graph library streamlines the creation, storage, and manipulation of those 
 
 ---
 
-### Node Operations
+### ⚙️ Node Operations
 
 | **API**               | **Signature**                | **Type** | **Description**                                                                             |
 | :-------------------- | :--------------------------- | :------- | :------------------------------------------------------------------------------------------ |
@@ -219,7 +219,7 @@ This graph library streamlines the creation, storage, and manipulation of those 
 
 ---
 
-### Edge Operations
+### ⚙️ Edge Operations
 
 | **API**          | **Signature**              | **Type** | **Description**                                                                                          |
 | :--------------- | :------------------------- | :------- | :------------------------------------------------------------------------------------------------------- |
