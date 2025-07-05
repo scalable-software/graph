@@ -1,8 +1,12 @@
 /**
+ * @module Exceptions
+ */
+/**
  * Base exception class. All custom exceptions should extend this class.
  * When using V8, the stack trace is captured.
  */
 export declare abstract class Exception extends Error {
+    errors: Exception[];
     constructor(message: string);
 }
 /**
@@ -15,7 +19,6 @@ export declare class InvalidArgumentException extends Exception {
  * Exception thrown when validation of arguments fails.
  */
 export declare class ValidationException extends Exception {
-    errors: Exception[];
     constructor(errors: Exception[]);
 }
 /**
@@ -39,6 +42,15 @@ export declare class UnassignedException extends Exception {
 export declare class MissMatchException extends Exception {
     constructor(type: string, hint: string);
 }
+export declare class DuplicateException extends Exception {
+    constructor(duplicate: string);
+}
+export declare class NotFoundException extends Exception {
+    constructor(type: string, hint: string);
+}
+export declare class InvalidIndexException extends Exception {
+    constructor();
+}
 /**
  * Set of exceptions thrown via static methods.
  */
@@ -49,4 +61,7 @@ export declare class Exceptions {
     static assignedException: (type: string, hint: string) => never;
     static unassignedException: (type: string, hint: string) => never;
     static missMatchException: (type: string, hint: string) => never;
+    static duplicateException: (duplicate: string) => never;
+    static notFoundException: (type: string, hint: string) => never;
+    static invalidIndexException: () => never;
 }

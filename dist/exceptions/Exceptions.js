@@ -1,8 +1,12 @@
 /**
+ * @module Exceptions
+ */
+/**
  * Base exception class. All custom exceptions should extend this class.
  * When using V8, the stack trace is captured.
  */
 export class Exception extends Error {
+    errors;
     constructor(message) {
         super(message);
         this.name = this.constructor.name;
@@ -22,10 +26,11 @@ export class InvalidArgumentException extends Exception {
  * Exception thrown when validation of arguments fails.
  */
 export class ValidationException extends Exception {
-    errors;
     constructor(errors) {
-        super(`Validation failed with ${errors.length} error(s).`);
-        this.errors = errors;
+        // Flatten nested ValidationExceptions by extracting their errors
+        const flattenedErrors = errors.flatMap((error) => error instanceof ValidationException ? error.errors : error);
+        super(`Validation failed with ${flattenedErrors.length} error(s).`);
+        this.errors = flattenedErrors;
     }
 }
 /**
@@ -57,6 +62,21 @@ export class MissMatchException extends Exception {
         super(`${type} does not match: ${hint}`);
     }
 }
+export class DuplicateException extends Exception {
+    constructor(duplicate) {
+        super(`Duplicate found: ${duplicate}`);
+    }
+}
+export class NotFoundException extends Exception {
+    constructor(type, hint) {
+        super(`Not found: ${type} ${hint}`);
+    }
+}
+export class InvalidIndexException extends Exception {
+    constructor() {
+        super(`Invalid index: index is out of bounds`);
+    }
+}
 /**
  * Set of exceptions thrown via static methods.
  */
@@ -78,5 +98,14 @@ export class Exceptions {
     };
     static missMatchException = (type, hint) => {
         throw new MissMatchException(type, hint);
+    };
+    static duplicateException = (duplicate) => {
+        throw new DuplicateException(duplicate);
+    };
+    static notFoundException = (type, hint) => {
+        throw new NotFoundException(type, hint);
+    };
+    static invalidIndexException = () => {
+        throw new InvalidIndexException();
     };
 }
