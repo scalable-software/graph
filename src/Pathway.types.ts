@@ -37,12 +37,14 @@ export type Duration = {
 };
 export type Prevalence = { target: string; probability: number }[];
 
-export const GatewayType = {
+export const Mode = {
   DIVERGING: "Diverging",
   CONVERGING: "Converging",
+  EXCLUSIVE: "Exclusive",
+  PARALLEL: "Parallel",
 } as const;
 
-export type GatewayTypes = (typeof GatewayType)[keyof typeof GatewayType];
+export type Modes = (typeof Mode)[keyof typeof Mode];
 
 /*
 {
@@ -78,7 +80,7 @@ export type IActor = INode & {
   icon: string;
   metadata?: ActorMetadata[];
 } & (
-    | { type: "gateway"; gatewayType: GatewayTypes }
+    | { type: "gateway"; mode: Modes }
     | { type: Exclude<ActorTypes, "gateway"> }
   );
 
