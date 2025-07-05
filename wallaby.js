@@ -3,6 +3,7 @@ module.exports = function (wallaby) {
     files: [
       "src/*.css",
       "src/*.html",
+      "test/helper/helper.js",
       "importmap/inject.js",
       "importmap/importmap.test.js",
       "node_modules/@scalable.software/**/dist/*.js",
@@ -18,7 +19,7 @@ module.exports = function (wallaby) {
         inlineSources: true,
         baseUrl: "./",
         paths: {
-          pin: ["./src/Pin.js"],
+          "@scalable.software/graph": ["./src/Index.js"],
         },
       }),
     },

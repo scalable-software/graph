@@ -1,24 +1,8 @@
-import * as help from "../Helper.js";
-
-const given = (description, spec) =>
-  describe(`Given ${description}`, () => {
-    beforeEach(() => {
-      const { context, type, test } = help.metadata(description);
-      setSpecProperty("context", context);
-      setSpecProperty("type", type);
-      setSpecProperty("test", test);
-    });
-    spec();
-  });
-const and = (description, spec) => describe(`and ${description}`, spec);
-const when = (description, spec) => describe(`when ${description}`, spec);
-const then = (description, spec) => it(`then ${description}`, spec);
-
-import { Utilities } from "../../../src/utilities/Utilities.js";
-import { Properties } from "../../../src/utilities/Properties.js";
-import { Duplicate } from "../../../src/utilities/Duplicate.js";
-import { Match } from "../../../src/utilities/Match.js";
-import { Index } from "../../../src/utilities/Index.js";
+import { Utilities } from "../../src/utilities/Utilities.js";
+import { Properties } from "../../src/utilities/Properties.js";
+import { Duplicate } from "../../src/utilities/Duplicate.js";
+import { Match } from "../../src/utilities/Match.js";
+import { Index } from "../../src/utilities/Index.js";
 
 given(`Utilities class availability test`, () => {
   and(`Utilities is imported`, () => {
