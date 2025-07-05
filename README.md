@@ -153,6 +153,112 @@ Graphs are a powerful way to represent relationships among distinct items—whet
 
 This graph library streamlines the creation, storage, and manipulation of those connections, offering a suite of tools to effortlessly add, remove, traverse, or analyze nodes and edges. Instead of building graph logic from scratch, you can rely on well-tested methods that handle everything from validation to navigation—letting you focus on extracting insights and delivering value from connected data.
 
+### 🔄 Custom Graph Example
+
+This library is ideal for modeling clinical pathways containing different actors and paths connecting the actors. The following example uses a minimal set of custom types and demonstrates how to instantiate a typed graph with:
+
+- A `start` actor
+
+- A `workflow` actor (with metadata)
+
+- A connecting `path`
+
+1. Define Custom Types (`pathway.types.ts`)
+
+```typescript
+import type { IMetadata, INode, IEdge, IGraph } from "@scalable.software/graph";
+
+export type PathwayMetadata = IMetadata & {
+  type: string;
+};
+
+export type IActor = INode & {
+  name: string;
+  type: "start" | "workflow";
+  icon: string;
+  metadata?: any[];
+};
+
+export type IPath = IEdge & {
+  name: string;
+};
+
+export type IPathway = IGraph & {
+  metadata: PathwayMetadata;
+  nodes: IActor[];
+  edges: IPath[];
+};
+```
+
+2. Create a Typed Pathway Instance
+
+```typescript
+import { Graph } from "@scalable.software/graph";
+import type { IPathway } from "./pathway.types.js";
+
+const data: IPathway = {
+  metadata: {
+    id: "c4076ede-bddf-47f3-8237-5712b4d3eda6",
+    name: "ACS Diagnostic",
+    type: "pathway",
+  },
+  nodes: [
+    {
+      id: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+      name: "Start",
+      type: "start",
+      icon: "start.svg",
+      coordinates: { x: 0, y: 6 },
+    },
+    {
+      id: "f42ffd29-38ad-488b-b826-bbcadf9043c2",
+      name: "Triage",
+      type: "workflow",
+      icon: "workflow.svg",
+      coordinates: { x: 2, y: 6 },
+      metadata: [
+        {
+          duration: {
+            distribution: "log normal",
+            parameters: [{ meanlog: 0.1640238 }, { sdlog: 0.4169375 }],
+          },
+        },
+      ],
+    },
+  ],
+  edges: [
+    {
+      id: "6b15e892-d6cd-482a-8cfb-3268a1a4eac1",
+      name: "",
+      source: "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+      target: "f42ffd29-38ad-488b-b826-bbcadf9043c2",
+      coordinates: {
+        start: { x: 0, y: 6 },
+        end: { x: 2, y: 6 },
+      },
+    },
+  ],
+};
+```
+
+3. Instantiate and Use the Graph
+
+```typescript
+const pathway = new Graph<IPathway>(data);
+
+console.log(pathway.metadata.name); // "ACS Diagnostic"
+console.log(pathway.nodes.length); // 2
+console.log(pathway.edges.length); // 1
+```
+
+4. Export the Graph
+
+```typescript
+const snapshot = pathway.export();
+```
+
+This example shows how to model typed actors and directional paths within a spatially aware, validated graph structure—making it ideal for visualization, simulation, or rule-based execution engines.
+
 ## 🚀 Features
 
 ✅ **Comprehensive Graph Structure** – Manage nodes, edges, and metadata through a unified API.  
