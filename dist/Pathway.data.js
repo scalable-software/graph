@@ -40,7 +40,7 @@ export const data = {
             name: "ACS",
             type: "gateway",
             coordinates: { x: 4, y: 6 },
-            gatewayType: "Diverging",
+            mode: "Diverging",
             icon: "icon.svg",
             metadata: [
                 {
@@ -99,7 +99,7 @@ export const data = {
             name: "STEMI",
             type: "gateway",
             coordinates: { x: 10, y: 4 },
-            gatewayType: "Diverging",
+            mode: "Diverging",
             icon: "icon.svg",
             metadata: [
                 {
@@ -159,7 +159,7 @@ export const data = {
             type: "gateway",
             coordinates: { x: 16, y: 6 },
             icon: "icon.svg",
-            gatewayType: "Diverging",
+            mode: "Diverging",
             metadata: [
                 {
                     prevalence: [
@@ -181,7 +181,7 @@ export const data = {
             type: "gateway",
             coordinates: { x: 18, y: 4 },
             icon: "icon.svg",
-            gatewayType: "Diverging",
+            mode: "Diverging",
             metadata: [
                 {
                     prevalence: [
@@ -203,7 +203,7 @@ export const data = {
             type: "gateway",
             coordinates: { x: 18, y: 8 },
             icon: "icon.svg",
-            gatewayType: "Diverging",
+            mode: "Diverging",
             metadata: [
                 {
                     prevalence: [
@@ -232,7 +232,7 @@ export const data = {
             type: "gateway",
             coordinates: { x: 20, y: 6 },
             icon: "icon.svg",
-            gatewayType: "Converging",
+            mode: "Converging",
         },
         {
             id: "be255c26-3673-4230-9497-4b8fd4dbffbf",
@@ -282,7 +282,7 @@ export const data = {
             id: "ee97690e-b888-493e-8ae2-0633a1154f35",
             name: "Biomarker Delta Positive",
             type: "gateway",
-            gatewayType: "Diverging",
+            mode: "Diverging",
             coordinates: { x: 28, y: 6 },
             icon: "icon.svg",
             metadata: [
@@ -306,7 +306,7 @@ export const data = {
             type: "gateway",
             coordinates: { x: 30, y: 4 },
             icon: "icon.svg",
-            gatewayType: "Diverging",
+            mode: "Diverging",
             metadata: [
                 {
                     prevalence: [
@@ -328,7 +328,7 @@ export const data = {
             type: "gateway",
             coordinates: { x: 30, y: 8 },
             icon: "icon.svg",
-            gatewayType: "Diverging",
+            mode: "Diverging",
             metadata: [
                 {
                     prevalence: [
@@ -357,7 +357,7 @@ export const data = {
             type: "gateway",
             coordinates: { x: 32, y: 6 },
             icon: "icon.svg",
-            gatewayType: "Converging",
+            mode: "Converging",
         },
         {
             id: "3d66e968-70e2-42bd-9460-c3a924447da3",
@@ -370,7 +370,7 @@ export const data = {
             id: "fd2648ec-8cf9-4d68-80f5-5311298124ef",
             name: "Unstable Angina",
             type: "gateway",
-            gatewayType: "Diverging",
+            mode: "Diverging",
             coordinates: { x: 34, y: 6 },
             icon: "icon.svg",
             metadata: [

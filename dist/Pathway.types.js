@@ -10,7 +10,9 @@ export const ActorType = {
     DELAY: "delay",
     END: "end",
 };
-export const GatewayType = {
+export const Mode = {
     DIVERGING: "Diverging",
     CONVERGING: "Converging",
+    EXCLUSIVE: "Exclusive",
+    PARALLEL: "Parallel",
 };

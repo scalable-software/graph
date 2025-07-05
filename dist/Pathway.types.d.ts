@@ -38,11 +38,13 @@ export type Prevalence = {
     target: string;
     probability: number;
 }[];
-export declare const GatewayType: {
+export declare const Mode: {
     readonly DIVERGING: "Diverging";
     readonly CONVERGING: "Converging";
+    readonly EXCLUSIVE: "Exclusive";
+    readonly PARALLEL: "Parallel";
 };
-export type GatewayTypes = (typeof GatewayType)[keyof typeof GatewayType];
+export type Modes = (typeof Mode)[keyof typeof Mode];
 export type PathwayMetadata = IMetadata & {
     type: string;
 };
@@ -53,7 +55,7 @@ export type IActor = INode & {
     metadata?: ActorMetadata[];
 } & ({
     type: "gateway";
-    gatewayType: GatewayTypes;
+    mode: Modes;
 } | {
     type: Exclude<ActorTypes, "gateway">;
 });
