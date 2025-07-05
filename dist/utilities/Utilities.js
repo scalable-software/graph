@@ -1,10 +1,10 @@
 /**
  * @module Utilities
  */
-import { Properties } from "./Properties.js";
-import { Duplicate } from "./Duplicate.js";
-import { Match } from "./Match.js";
-import { Index } from "./Index.js";
+import { Properties } from "./properties.js";
+import { Duplicate } from "./duplicate.js";
+import { Match } from "./match.js";
+import { Index } from "./index.js";
 export class Utilities {
     static Properties = Properties;
     static Duplicate = Duplicate;

@@ -1,8 +1,8 @@
-import { Utilities } from "../../src/utilities/Utilities.js";
-import { Properties } from "../../src/utilities/Properties.js";
-import { Duplicate } from "../../src/utilities/Duplicate.js";
-import { Match } from "../../src/utilities/Match.js";
-import { Index } from "../../src/utilities/Index.js";
+import { Utilities } from "../../src/utilities/utilities.js";
+import { Properties } from "../../src/utilities/properties.js";
+import { Duplicate } from "../../src/utilities/duplicate.js";
+import { Match } from "../../src/utilities/match.js";
+import { Index } from "../../src/utilities/index.js";
 
 given(`Utilities class availability test`, () => {
   and(`Utilities is imported`, () => {

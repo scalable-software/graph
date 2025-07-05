@@ -2,7 +2,7 @@
  * @module Graph
  */
 
-import type { UUID, Coordinates, Offset } from "./Graph.types.js";
+import type { UUID, Coordinates, Offset } from "./graph.types.js";
 
 export type INode = {
   id: UUID;

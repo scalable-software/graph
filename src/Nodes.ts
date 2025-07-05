@@ -2,11 +2,11 @@
  * @module Graph
  */
 
-import { Node, type INode } from "./Node.js";
-import { Validate } from "./validations/Validate.js";
-import { Validator } from "./validations/Validator.js";
-import { Utilities } from "./utilities/Utilities.js";
-import type { UUID, Coordinates, Offset } from "./Graph.types.js";
+import { Node, type INode } from "./node.js";
+import { Validate } from "./validations/validate.js";
+import { Validator } from "./validations/validator.js";
+import { Utilities } from "./utilities/utilities.js";
+import type { UUID, Coordinates, Offset } from "./graph.types.js";
 
 /**
  * Provides a container for managing a collection of nodes with support for:

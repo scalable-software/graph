@@ -6,7 +6,7 @@
 inject(
   {
     imports: {
-      "@scalable.software/graph": "../dist/Index.js",
+      "@scalable.software/graph": "../dist/index.js",
       "@scalable.software/component":
         "../node_modules/@scalable.software/component/dist/Index.js",
     },

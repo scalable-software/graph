@@ -1,8 +1,8 @@
 /**
  * @module Graph
  */
-import { type IEdge, type PartialEdge } from "./Edge.js";
-import type { Coordinates, UUID, Offset } from "./Graph.types.js";
+import { type IEdge, type PartialEdge } from "./edge.js";
+import type { Coordinates, UUID, Offset } from "./graph.types.js";
 /**
  * Provides a container for managing a collection of edges with support for:
  * - Unique identifiers for each edge.

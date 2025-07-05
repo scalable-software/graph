@@ -8,8 +8,8 @@ import {
 } from "@scalable.software/graph";
 
 // Clinical Pathway
-import type { IPathway } from "../../src/Pathway.types.js";
-import { data } from "../../src/Pathway.data.js";
+import type { IPathway } from "../../src/pathway.types.js";
+import { data } from "../../src/pathway.data.js";
 
 given(`Graph class availability test`, () => {
   and(`Graph is imported`, () => {

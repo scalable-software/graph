@@ -1,9 +1,9 @@
 /**
  * @module Validation
  */
-import { Exceptions } from "../exceptions/Exceptions.js";
-import { Utilities } from "../utilities/Utilities.js";
-import { Validator } from "./Validator.js";
+import { Exceptions } from "../exceptions/exceptions.js";
+import { Utilities } from "../utilities/utilities.js";
+import { Validator } from "./validator.js";
 export class Validate {
     static graph = (graph) => {
         graph && Validate.metadata(graph.metadata);

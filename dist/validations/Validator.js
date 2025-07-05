@@ -1,7 +1,7 @@
 /**
  * @module Validation
  */
-import { Exceptions, } from "../exceptions/Exceptions.js";
+import { Exceptions, } from "../exceptions/exceptions.js";
 export class Validator {
     /**
      * Validate entity against a set of validators and throw ValidationException if any fail

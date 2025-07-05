@@ -7,10 +7,10 @@
  * Extension with new properties is supported.
  * @module Graph
  */
-import { Metadata } from "./Metadata.js";
-import { Nodes } from "./Nodes.js";
-import { Edges } from "./Edges.js";
-import { Validate } from "./Index.js";
+import { Metadata } from "./metadata.js";
+import { Nodes } from "./nodes.js";
+import { Edges } from "./edges.js";
+import { Validate } from "./index.js";
 /**
  * Represents a graph data structure containing:
  * - {@link Metadata} for graph-wide information.

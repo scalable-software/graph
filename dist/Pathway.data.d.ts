@@ -3,5 +3,5 @@
  * The pathway is a simplified version of the ACS diagnostic pathway, which is a complex process that involves multiple steps and actors.:
  * @module Extension
  */
-import type { IPathway } from "./Pathway.types.js";
+import type { IPathway } from "./pathway.types.js";
 export declare const data: Omit<IPathway, "nodes" | "edges">;

@@ -2,14 +2,14 @@
  * @module Graph
  * @ignore
  * */
-export { Graph } from "./Graph.js";
-export { Metadata } from "./Metadata.js";
-export { Edges } from "./Edges.js";
-export { Edge } from "./Edge.js";
-export { Nodes } from "./Nodes.js";
-export { Node } from "./Node.js";
-export { Utilities } from "./utilities/Utilities.js";
-export { Validate } from "./validations/Validate.js";
-export { Validator } from "./validations/Validator.js";
-export { Exceptions } from "./exceptions/Exceptions.js";
-export * as Exception from "./exceptions/Exceptions.js";
+export { Graph } from "./graph.js";
+export { Metadata } from "./metadata.js";
+export { Edges } from "./edges.js";
+export { Edge } from "./edge.js";
+export { Nodes } from "./nodes.js";
+export { Node } from "./node.js";
+export { Utilities } from "./utilities/utilities.js";
+export { Validate } from "./validations/validate.js";
+export { Validator } from "./validations/validator.js";
+export { Exceptions } from "./exceptions/exceptions.js";
+export * as Exception from "./exceptions/exceptions.js";

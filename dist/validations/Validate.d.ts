@@ -1,11 +1,11 @@
 /**
  * @module Validation
  */
-import type { IGraph } from "../Graph.js";
-import type { IMetadata } from "../Metadata.js";
-import type { INode } from "../Node.js";
-import type { IEdge, PartialEdge } from "../Edge.js";
-import type { UUID, Name, Coordinates, Offset } from "../Graph.types.js";
+import type { IGraph } from "../graph.js";
+import type { IMetadata } from "../metadata.js";
+import type { INode } from "../node.js";
+import type { IEdge, PartialEdge } from "../edge.js";
+import type { UUID, Name, Coordinates, Offset } from "../graph.types.js";
 export declare class Validate {
     static graph: <T extends IGraph>(graph?: Partial<T>) => Partial<T>;
     static graphDetails: <T extends Partial<IGraph>>(details: Partial<T>) => Partial<T>;

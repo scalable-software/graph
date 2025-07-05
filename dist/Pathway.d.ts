@@ -3,10 +3,10 @@
  * The pathway is a simplified version of the ACS diagnostic pathway, which is a complex process that involves multiple steps and actors.:
  * @module Extension
  */
-import { Graph } from "./Graph.js";
-import { Nodes } from "./Nodes.js";
-import { Edges } from "./Edges.js";
-import { IPathway } from "./Pathway.types.js";
+import { Graph } from "./graph.js";
+import { Nodes } from "./nodes.js";
+import { Edges } from "./edges.js";
+import { IPathway } from "./pathway.types.js";
 export declare class Pathway extends Graph<IPathway> {
     get actors(): Nodes<IPathway["actors"][number]>;
     get paths(): Edges<IPathway["paths"][number]>;

@@ -2,7 +2,7 @@
  * @module Utilities
  */
 
-import { UUID } from "../Graph.types.js";
+import { UUID } from "../graph.types.js";
 
 export class Index {
   /**

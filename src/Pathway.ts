@@ -4,11 +4,11 @@
  * @module Extension
  */
 
-import { Graph } from "./Graph.js";
-import { Nodes } from "./Nodes.js";
-import { Edges } from "./Edges.js";
+import { Graph } from "./graph.js";
+import { Nodes } from "./nodes.js";
+import { Edges } from "./edges.js";
 
-import { IPathway } from "./Pathway.types.js";
+import { IPathway } from "./pathway.types.js";
 
 export class Pathway extends Graph<IPathway> {
   public get actors(): Nodes<IPathway["actors"][number]> {

@@ -1,10 +1,10 @@
 /**
  * @module Graph
  */
-import { Validate } from "./validations/Validate.js";
-import { Validator } from "./validations/Validator.js";
-import { Exceptions } from "./exceptions/Exceptions.js";
-import { Utilities } from "./utilities/Utilities.js";
+import { Validate } from "./validations/validate.js";
+import { Validator } from "./validations/validator.js";
+import { Exceptions } from "./exceptions/exceptions.js";
+import { Utilities } from "./utilities/utilities.js";
 /**
  * Build-in support for custom type with extended properties.
  *

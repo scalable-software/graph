@@ -1,4 +1,4 @@
-import { Properties } from "../../src/utilities/Properties.js";
+import { Properties } from "../../src/utilities/properties.js";
 
 given(`Properties class availability test`, () => {
   and(`Properties is imported`, () => {

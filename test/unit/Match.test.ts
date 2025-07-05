@@ -1,4 +1,4 @@
-import { Match } from "../../src/utilities/Match.js";
+import { Match } from "../../src/utilities/match.js";
 
 given(`Match class availability test`, () => {
   and(`Match is imported`, () => {

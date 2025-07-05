@@ -1,10 +1,10 @@
 /**
  * @module Graph
  */
-import { Node } from "./Node.js";
-import { Validate } from "./validations/Validate.js";
-import { Validator } from "./validations/Validator.js";
-import { Utilities } from "./utilities/Utilities.js";
+import { Node } from "./node.js";
+import { Validate } from "./validations/validate.js";
+import { Validator } from "./validations/validator.js";
+import { Utilities } from "./utilities/utilities.js";
 /**
  * Provides a container for managing a collection of nodes with support for:
  * - Unique identifiers for each node.

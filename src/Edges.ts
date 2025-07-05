@@ -2,12 +2,12 @@
  * @module Graph
  */
 
-import { Edge, type IEdge, type PartialEdge } from "./Edge.js";
-import { Validate } from "./validations/Validate.js";
-import { Validator } from "./validations/Validator.js";
-import { Utilities } from "./utilities/Utilities.js";
-import type { Coordinates, UUID, Offset } from "./Graph.types.js";
-import { ValidationException } from "./exceptions/Exceptions.js";
+import { Edge, type IEdge, type PartialEdge } from "./edge.js";
+import { Validate } from "./validations/validate.js";
+import { Validator } from "./validations/validator.js";
+import { Utilities } from "./utilities/utilities.js";
+import type { Coordinates, UUID, Offset } from "./graph.types.js";
+import { ValidationException } from "./exceptions/exceptions.js";
 
 /**
  * Provides a container for managing a collection of edges with support for:

@@ -1,4 +1,4 @@
-import { Duplicate } from "../../src/utilities/Duplicate.js";
+import { Duplicate } from "../../src/utilities/duplicate.js";
 
 given(`Duplicate class availability test`, () => {
   and(`Duplicate is imported`, () => {

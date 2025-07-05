@@ -2,7 +2,7 @@
  * @module Graph
  */
 
-import type { UUID, Coordinates, Offset } from "./Graph.types";
+import type { UUID, Coordinates, Offset } from "./graph.types";
 
 export type IEdge = {
   id: UUID;

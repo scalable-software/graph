@@ -6,7 +6,7 @@ import {
   Exceptions,
   Exception,
   ValidationException,
-} from "../exceptions/Exceptions.js";
+} from "../exceptions/exceptions.js";
 
 export class Validator {
   /**

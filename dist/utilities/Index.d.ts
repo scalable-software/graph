@@ -1,7 +1,7 @@
 /**
  * @module Utilities
  */
-import { UUID } from "../Graph.types.js";
+import { UUID } from "../graph.types.js";
 export declare class Index {
     /**
      * Finds the index of an item in a items either by its `id` property or by reference.

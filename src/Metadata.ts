@@ -2,11 +2,11 @@
  * @module Graph
  */
 
-import { Validate } from "./validations/Validate.js";
-import { Validator } from "./validations/Validator.js";
-import { Exceptions } from "./exceptions/Exceptions.js";
-import { Utilities } from "./utilities/Utilities.js";
-import type { UUID, Name } from "./Graph.types.js";
+import { Validate } from "./validations/validate.js";
+import { Validator } from "./validations/validator.js";
+import { Exceptions } from "./exceptions/exceptions.js";
+import { Utilities } from "./utilities/utilities.js";
+import type { UUID, Name } from "./graph.types.js";
 
 /**
  * The metadata object has an `id` and `name` property.

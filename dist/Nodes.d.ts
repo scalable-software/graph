@@ -1,8 +1,8 @@
 /**
  * @module Graph
  */
-import { type INode } from "./Node.js";
-import type { UUID, Coordinates, Offset } from "./Graph.types.js";
+import { type INode } from "./node.js";
+import type { UUID, Coordinates, Offset } from "./graph.types.js";
 /**
  * Provides a container for managing a collection of nodes with support for:
  * - Unique identifiers for each node.

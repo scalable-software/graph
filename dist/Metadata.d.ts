@@ -1,7 +1,7 @@
 /**
  * @module Graph
  */
-import type { UUID, Name } from "./Graph.types.js";
+import type { UUID, Name } from "./graph.types.js";
 /**
  * The metadata object has an `id` and `name` property.
  * - The `id` property is immutable.

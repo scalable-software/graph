@@ -1,4 +1,4 @@
-import { Index } from "../../src/utilities/Index.js";
+import { Index } from "../../src/utilities/index.js";
 
 given(`Index class availability test`, () => {
   and(`Index is imported`, () => {

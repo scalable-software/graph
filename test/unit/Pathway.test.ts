@@ -5,10 +5,10 @@ import type {
   PathwayMetadata,
   IActor,
   IPath,
-} from "../../src/Pathway.types.js";
+} from "../../src/pathway.types.js";
 
-import { Pathway } from "../../src/Pathway.js";
-import { data } from "../../src/Pathway.data.js";
+import { Pathway } from "../../src/pathway.js";
+import { data } from "../../src/pathway.data.js";
 
 // Typical Use Case
 

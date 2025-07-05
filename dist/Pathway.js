@@ -3,7 +3,7 @@
  * The pathway is a simplified version of the ACS diagnostic pathway, which is a complex process that involves multiple steps and actors.:
  * @module Extension
  */
-import { Graph } from "./Graph.js";
+import { Graph } from "./graph.js";
 export class Pathway extends Graph {
     get actors() {
         return this.nodes;

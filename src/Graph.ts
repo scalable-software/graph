@@ -8,15 +8,15 @@
  * @module Graph
  */
 
-import { type IMetadata, Metadata } from "./Metadata.js";
-import { type INode } from "./Node.js";
-import { type IEdge } from "./Edge.js";
+import { type IMetadata, Metadata } from "./metadata.js";
+import { type INode } from "./node.js";
+import { type IEdge } from "./edge.js";
 
-import { Nodes } from "./Nodes.js";
-import { Edges } from "./Edges.js";
-import { Validate } from "./Index.js";
+import { Nodes } from "./nodes.js";
+import { Edges } from "./edges.js";
+import { Validate } from "./index.js";
 
-import { type UUID } from "./Graph.types.js";
+import { type UUID } from "./graph.types.js";
 
 export type IGraph = {
   metadata: IMetadata;

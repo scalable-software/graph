@@ -2,11 +2,11 @@
  * @module Utilities
  */
 
-import { Properties } from "./Properties.js";
-import { Duplicate } from "./Duplicate.js";
-import { Match } from "./Match.js";
-import { Index } from "./Index.js";
-import { UUID } from "../Graph.types.js";
+import { Properties } from "./properties.js";
+import { Duplicate } from "./duplicate.js";
+import { Match } from "./match.js";
+import { Index } from "./index.js";
+import { UUID } from "../graph.types.js";
 
 export class Utilities {
   public static Properties = Properties;
