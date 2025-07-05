@@ -1,4 +1,3 @@
-const { type } = require("os");
 const path = require("path");
 
 module.exports = function (config) {
