@@ -6,12 +6,12 @@ function jsonReporter(config) {
   var dir = "";
 
   this.createReportDirectory = () => {
-    dir = config?.benchmarkReporter?.dir ?? "./output";
+    dir = config?.jsonReporter?.dir ?? "./output";
     fs.mkdirSync(dir, { recursive: true });
     return this;
   };
   this.writeReportToFile = () => {
-    let filename = config?.benchmarkReporter?.filename ?? "test.report.json";
+    let filename = config?.jsonReporter?.filename ?? "test.report.json";
     let filepath = path.join(dir, filename);
     fs.writeFileSync(filepath, JSON.stringify(results, null, 2));
   };
@@ -23,12 +23,14 @@ function jsonReporter(config) {
     browser,
     { description, suite, success, properties }
   ) =>
+    properties &&
+    properties.type &&
+    properties.spec &&
     results.push({
-      context: properties.context || "",
       type: properties.type,
-      test: properties.test || properties.spec,
-      definition: `${suite.join(", ")}, ${description}`,
-      status: success === true,
+      spec: properties.spec,
+      definition: [...suite, description],
+      status: success === true ? "pass" : "fail",
     });
 }
 

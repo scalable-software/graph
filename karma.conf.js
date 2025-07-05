@@ -1,4 +1,3 @@
-const { type } = require("os");
 const path = require("path");
 
 module.exports = function (config) {
@@ -6,10 +5,12 @@ module.exports = function (config) {
     frameworks: ["jasmine"],
     proxies: {
       "/src/": "/base/src/",
-      "/test/": "/base/test/unit/",
+      "/test/unit/": "/base/test/unit/",
+      "/test/helper/": "/base/test/helper/",
       "/node_modules/": "/base/node_modules/",
     },
     files: [
+      { pattern: "./test/helper/helper.js" },
       { pattern: "./src/*.css" },
       { pattern: "./src/*.html" },
       { pattern: "./importmap/inject.js" },

@@ -1,19 +1,3 @@
-import * as help from "./Helper.js";
-
-const given = (description, spec) =>
-  describe(`Given ${description}`, () => {
-    beforeEach(() => {
-      const { context, type, test } = help.metadata(description);
-      setSpecProperty("context", context);
-      setSpecProperty("type", type);
-      setSpecProperty("test", test);
-    });
-    spec();
-  });
-const and = (description, spec) => describe(`and ${description}`, spec);
-const when = (description, spec) => describe(`when ${description}`, spec);
-const then = (description, spec) => it(`then ${description}`, spec);
-
 import { Metadata, Exception } from "@scalable.software/graph";
 import type { UUID, Name, IMetadata } from "@scalable.software/graph";
 
@@ -244,7 +228,7 @@ given(`Metadata.id setter availability test`, () => {
       metadata = Metadata.create();
     });
     then("metadata.id setter is defined", () => {
-      expect(help.hasSetter(metadata, "id")).toBeTruthy();
+      expect(hasSetter(metadata, "id")).toBeTruthy();
     });
   });
 });
@@ -316,7 +300,7 @@ given(`Metadata.name setter availability test`, () => {
       metadata = Metadata.create();
     });
     then("metadata.name setter is defined", () => {
-      expect(help.hasSetter(metadata, "name")).toBeTruthy();
+      expect(hasSetter(metadata, "name")).toBeTruthy();
     });
   });
 });
