@@ -274,6 +274,77 @@ given(`Graph.domain getter value test`, () => {
   });
 });
 
+given(`Graph.extend getter availability test`, () => {
+  when(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then(`Graph.extend is defined`, () => {
+      expect(graph.extend).toBeDefined();
+    });
+  });
+});
+
+given(`Graph.extend getter value test`, () => {
+  when(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    let data: IGraph;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then(`Graph.extend is defined`, () => {
+      expect(graph.extend).toBeDefined();
+    });
+    and(`Graph.extend is defined`, () => {
+      then(`Graph.extend returns empty extend`, () => {
+        expect(graph.extend).toEqual({
+          x: 0,
+          y: 0,
+        });
+      });
+    });
+    and(`Graph with nodes is imported`, () => {
+      beforeEach(() => {
+        data = {
+          metadata: {
+            id: "123e4567-e89b-12d3-a456-426614174000",
+            name: "Clinical Pathway",
+          },
+          nodes: [
+            {
+              id: "123e4567-e89b-12d3-a456-426614174001",
+              coordinates: { x: 1, y: 1 },
+            },
+            {
+              id: "123e4567-e89b-12d3-a456-426614174002",
+              coordinates: { x: 3, y: 3 },
+            },
+          ],
+          edges: [
+            {
+              id: "123e4567-e89b-12d3-a456-426614174000",
+              source: "123e4567-e89b-12d3-a456-426614174001",
+              target: "123e4567-e89b-12d3-a456-426614174002",
+              coordinates: {
+                start: { x: 1, y: 1 },
+                end: { x: 3, y: 3 },
+              },
+            },
+          ],
+        };
+        graph.import(data);
+      });
+      then("Graph.extend returns extend of imported graph", () => {
+        expect(graph.extend).toEqual({
+          x: 2,
+          y: 2,
+        });
+      });
+    });
+  });
+});
+
 given(`Graph.import method availability test`, () => {
   when(`Graph is instantiated`, () => {
     let graph: Graph<IGraph>;

@@ -171,6 +171,63 @@ export class Graph<T extends IGraph> {
   }
 
   /**
+   * Computes the spatial extent of the graph in coordinate space by calculating
+   * the difference between the maximum and minimum x and y values from the {@link Graph.domain}.
+   * This reflects how far the graph stretches along each axis.
+   *
+   * If the graph contains no nodes, the extent is `{ x: 0, y: 0 }`.
+   *
+   * This is useful for layout and visualization decisions where you need the
+   * horizontal and vertical span of the graph, exclusive of any padding.
+   *
+   * @example
+   * ```ts
+   * const data = {
+   *   metadata: {
+   *     id: "123e4567-e89b-12d3-a456-426614174000",
+   *     name: "Clinical Pathway",
+   *   },
+   *   nodes: [
+   *     {
+   *       id: "123e4567-e89b-12d3-a456-426614174001",
+   *       coordinates: { x: 1, y: 1 },
+   *     },
+   *     {
+   *       id: "123e4567-e89b-12d3-a456-426614174002",
+   *       coordinates: { x: 3, y: 3 },
+   *     },
+   *   ],
+   *   edges: [
+   *     {
+   *        id: "123e4567-e89b-12d3-a456-426614174000",
+   *        source: "123e4567-e89b-12d3-a456-426614174001",
+   *        target: "123e4567-e89b-12d3-a456-426614174002",
+   *        coordinates: {
+   *          start: { x: 1, y: 1 },
+   *          end: { x: 3, y: 3 },
+   *        },
+   *     },
+   *   ],
+   * };
+   *
+   * const graph = new Graph<IGraph>().import(data);
+   *
+   * console.log(graph.extend);
+   * // { x: 2, y: 2 } → because 3 - 1 = 2 along both axes
+   * ```
+   *
+   * @returns An object containing `x` and `y` values representing the coordinate extent.
+   * @category Data
+   */
+  public get extend() {
+    const { x, y } = this.domain;
+    return {
+      x: x.max - x.min,
+      y: y.max - y.min,
+    };
+  }
+
+  /**
    * Imports new graph data by merging with existing data.
    *
    * @param {Partial<T>} graph - The graph data to import.
