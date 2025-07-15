@@ -98,6 +98,79 @@ export class Graph<T extends IGraph> {
   }
 
   /**
+   * Computes the rectangular domain of the graph by determining the minimum and maximum
+   * x and y coordinates across all nodes. The domain represents the logical bounds
+   * of the graph in coordinate space and is useful for layout, viewport, and rendering decisions.
+   *
+   * If the graph contains no nodes, the domain defaults to:
+   * `{ x: { min: 0, max: 0 }, y: { min: 0, max: 0 } }`
+   *
+   * @example
+   * ```ts
+   * const data = {
+   *   metadata: {
+   *     id: "123e4567-e89b-12d3-a456-426614174000",
+   *     name: "Clinical Pathway",
+   *   },
+   *   nodes: [
+   *     {
+   *       id: "123e4567-e89b-12d3-a456-426614174001",
+   *       coordinates: { x: 1, y: 1 },
+   *     },
+   *     {
+   *       id: "123e4567-e89b-12d3-a456-426614174002",
+   *       coordinates: { x: 2, y: 2 },
+   *     },
+   *   ],
+   *   edges: [
+   *     {
+   *        id: "123e4567-e89b-12d3-a456-426614174000",
+   *        source: "123e4567-e89b-12d3-a456-426614174001",
+   *        target: "123e4567-e89b-12d3-a456-426614174002",
+   *        coordinates: {
+   *          start: { x: 1, y: 1 },
+   *          end: { x: 2, y: 2 },
+   *        },
+   *     },
+   *   ],
+   * };
+   *
+   * const graph = new Graph<IGraph>().import(data);
+   *
+   * console.log(graph.domain);
+   * // { x: { min: 1, max: 2 }, y: { min: 1, max: 2 } }
+   * ```
+   *
+   * @returns An object containing `x` and `y` ranges, each with `min` and `max` values.
+   * @category Data
+   */
+  public get domain(): {
+    x: { min: number; max: number };
+    y: { min: number; max: number };
+  } {
+    return this.nodes.length === 0
+      ? { x: { min: 0, max: 0 }, y: { min: 0, max: 0 } }
+      : {
+          x: {
+            min: Math.min(
+              ...this.nodes.map(({ coordinates }) => coordinates.x)
+            ),
+            max: Math.max(
+              ...this.nodes.map(({ coordinates }) => coordinates.x)
+            ),
+          },
+          y: {
+            min: Math.min(
+              ...this.nodes.map(({ coordinates }) => coordinates.y)
+            ),
+            max: Math.max(
+              ...this.nodes.map(({ coordinates }) => coordinates.y)
+            ),
+          },
+        };
+  }
+
+  /**
    * Imports new graph data by merging with existing data.
    *
    * @param {Partial<T>} graph - The graph data to import.
@@ -136,7 +209,8 @@ export class Graph<T extends IGraph> {
    * @category Operation
    */
   public degree = (id: UUID): number =>
-    this.edges.findByTarget(id).length + this.edges.findBySource(id).length;
+    this.edges.findByTarget(id).length +
+    this.edges.findBySource(id).length;
 
   /**
    * Returns the in-degree: number of incoming connections, of a node.
@@ -145,7 +219,8 @@ export class Graph<T extends IGraph> {
    *
    * @category Operation
    */
-  public in = (id: UUID): number => this.edges.findByTarget(id).length;
+  public in = (id: UUID): number =>
+    this.edges.findByTarget(id).length;
 
   /**
    * Returns the out-degree: number of outgoing connections, of a node.
@@ -153,7 +228,8 @@ export class Graph<T extends IGraph> {
    * @returns The out-degree of the node.
    * @category Operation
    */
-  public out = (id: UUID): number => this.edges.findBySource(id).length;
+  public out = (id: UUID): number =>
+    this.edges.findBySource(id).length;
 
   /**
    * Returns the ids of the neighbors of a node.
@@ -179,5 +255,7 @@ export class Graph<T extends IGraph> {
   };
 
   private getEdges = (id: UUID) =>
-    this.edges.filter(({ source, target }) => source === id || target === id);
+    this.edges.filter(
+      ({ source, target }) => source === id || target === id
+    );
 }

@@ -2,7 +2,7 @@
  * @module Graph
  */
 
-import type { UUID, Coordinates, Offset } from "./graph.types";
+import type { UUID, Coordinates, Offset } from "./graph.types.js";
 
 export type IEdge = {
   id: UUID;
@@ -48,7 +48,9 @@ export class Edge {
    * ```
    * @category Utilities
    */
-  public static create = <T extends IEdge>(details: Omit<T, "id">): T =>
+  public static create = <T extends IEdge>(
+    details: Omit<T, "id">
+  ): T =>
     ({
       id: crypto.randomUUID() as UUID,
       ...details,
@@ -187,7 +189,10 @@ export class Edge {
    * ```
    * @category Utilities
    */
-  public static translate = <T extends IEdge>(edge: T, offset: Offset): T => ({
+  public static translate = <T extends IEdge>(
+    edge: T,
+    offset: Offset
+  ): T => ({
     ...edge,
     coordinates: {
       start: {

@@ -54,38 +54,41 @@ given(`Graph class instantiation test`, () => {
       });
     });
   });
-  when(`Graph is instantiated with an graph containing metadata`, () => {
-    let graph: Graph<IGraph>;
-    let metadata: IGraph["metadata"];
-    beforeEach(() => {
-      metadata = {
-        id: "123e4567-e89b-12d3-a456-426614174000",
-        name: "Clinical Pathway",
-      };
-      const data: IGraph = {
-        metadata,
-        nodes: [],
-        edges: [],
-      };
-      graph = new Graph(data);
-    });
-    then(`Graph is defined`, () => {
-      expect(graph).toBeDefined();
-    });
-    and(`Graph is defined`, () => {
-      then(`Graph.metadata is defined`, () => {
-        expect(graph.metadata).toBeDefined();
+  when(
+    `Graph is instantiated with an graph containing metadata`,
+    () => {
+      let graph: Graph<IGraph>;
+      let metadata: IGraph["metadata"];
+      beforeEach(() => {
+        metadata = {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "Clinical Pathway",
+        };
+        const data: IGraph = {
+          metadata,
+          nodes: [],
+          edges: [],
+        };
+        graph = new Graph(data);
       });
-      and(`Graph.metadata is defined`, () => {
-        then(`Graph.metadata is instance of Metadata`, () => {
-          expect(graph.metadata).toBeInstanceOf(Metadata);
+      then(`Graph is defined`, () => {
+        expect(graph).toBeDefined();
+      });
+      and(`Graph is defined`, () => {
+        then(`Graph.metadata is defined`, () => {
+          expect(graph.metadata).toBeDefined();
         });
-        then(`Graph.metadata.toJSON() returns metadata`, () => {
-          expect(graph.metadata.toJSON()).toEqual(metadata);
+        and(`Graph.metadata is defined`, () => {
+          then(`Graph.metadata is instance of Metadata`, () => {
+            expect(graph.metadata).toBeInstanceOf(Metadata);
+          });
+          then(`Graph.metadata.toJSON() returns metadata`, () => {
+            expect(graph.metadata.toJSON()).toEqual(metadata);
+          });
         });
       });
-    });
-  });
+    }
+  );
   when(`Graph is instantiated with an graph containing nodes`, () => {
     let graph: Graph<IGraph>;
     let nodes: IGraph["nodes"];
@@ -200,6 +203,77 @@ given(`Graph.edges property availability test`, () => {
   });
 });
 
+given(`Graph.domain getter availability test`, () => {
+  when(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then(`Graph.domain is defined`, () => {
+      expect(graph.domain).toBeDefined();
+    });
+  });
+});
+
+given(`Graph.domain getter value test`, () => {
+  when(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    let data: IGraph;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then(`Graph.domain is defined`, () => {
+      expect(graph.domain).toBeDefined();
+    });
+    and(`Graph.domain is defined`, () => {
+      then(`Graph.domain returns empty domain`, () => {
+        expect(graph.domain).toEqual({
+          x: { min: 0, max: 0 },
+          y: { min: 0, max: 0 },
+        });
+      });
+    });
+    and(`Graph with nodes is imported`, () => {
+      beforeEach(() => {
+        data = {
+          metadata: {
+            id: "123e4567-e89b-12d3-a456-426614174000",
+            name: "Clinical Pathway",
+          },
+          nodes: [
+            {
+              id: "123e4567-e89b-12d3-a456-426614174001",
+              coordinates: { x: 1, y: 1 },
+            },
+            {
+              id: "123e4567-e89b-12d3-a456-426614174002",
+              coordinates: { x: 2, y: 2 },
+            },
+          ],
+          edges: [
+            {
+              id: "123e4567-e89b-12d3-a456-426614174000",
+              source: "123e4567-e89b-12d3-a456-426614174001",
+              target: "123e4567-e89b-12d3-a456-426614174002",
+              coordinates: {
+                start: { x: 1, y: 1 },
+                end: { x: 2, y: 2 },
+              },
+            },
+          ],
+        };
+        graph.import(data);
+      });
+      then("Graph.domain returns domain of imported graph", () => {
+        expect(graph.domain).toEqual({
+          x: { min: 1, max: 2 },
+          y: { min: 1, max: 2 },
+        });
+      });
+    });
+  });
+});
+
 given(`Graph.import method availability test`, () => {
   when(`Graph is instantiated`, () => {
     let graph: Graph<IGraph>;
@@ -234,7 +308,10 @@ given(`Graph.import method behavior test`, () => {
             id: "123e4567-e89b-12d3-a456-426614174000",
             source: "123e4567-e89b-12d3-a456-426614174001",
             target: "123e4567-e89b-12d3-a456-426614174002",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
         ],
       };
@@ -310,7 +387,10 @@ given(`Graph.export method behavior test`, () => {
             id: "123e4567-e89b-12d3-a456-426614174000",
             source: "123e4567-e89b-12d3-a456-426614174001",
             target: "123e4567-e89b-12d3-a456-426614174002",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
         ],
       };
@@ -362,7 +442,10 @@ given(`Graph.toJSON method behavior test`, () => {
             id: "123e4567-e89b-12d3-a456-426614174000",
             source: "123e4567-e89b-12d3-a456-426614174001",
             target: "123e4567-e89b-12d3-a456-426614174002",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
         ],
       };
@@ -397,30 +480,40 @@ given("Graph.degree method behavior test", () => {
     let pathway: Graph<IPathway>;
     beforeEach(() => {
       let { metadata, actors, paths } = data;
-      pathway = new Graph<IPathway>({ metadata, nodes: actors, edges: paths });
-    });
-    when("Graph.degree is called with a node id having one connection", () => {
-      let result: number;
-      let id: UUID;
-      beforeEach(() => {
-        id = pathway.nodes[0].id;
-        result = pathway.degree(id);
-      });
-      then("Graph.degree returns the degree of the node", () => {
-        expect(result).toBe(1);
+      pathway = new Graph<IPathway>({
+        metadata,
+        nodes: actors,
+        edges: paths,
       });
     });
-    when("Graph.degree is called with a node id having two connections", () => {
-      let result: number;
-      let id: UUID;
-      beforeEach(() => {
-        id = pathway.nodes[1].id;
-        result = pathway.degree(id);
-      });
-      then("Graph.degree returns the degree of the node", () => {
-        expect(result).toBe(2);
-      });
-    });
+    when(
+      "Graph.degree is called with a node id having one connection",
+      () => {
+        let result: number;
+        let id: UUID;
+        beforeEach(() => {
+          id = pathway.nodes[0].id;
+          result = pathway.degree(id);
+        });
+        then("Graph.degree returns the degree of the node", () => {
+          expect(result).toBe(1);
+        });
+      }
+    );
+    when(
+      "Graph.degree is called with a node id having two connections",
+      () => {
+        let result: number;
+        let id: UUID;
+        beforeEach(() => {
+          id = pathway.nodes[1].id;
+          result = pathway.degree(id);
+        });
+        then("Graph.degree returns the degree of the node", () => {
+          expect(result).toBe(2);
+        });
+      }
+    );
   });
 });
 
@@ -443,17 +536,20 @@ given("Graph.in method behavior test", () => {
       let { metadata, actors, paths } = data;
       pathway = new Graph({ metadata, nodes: actors, edges: paths });
     });
-    when("Graph.in is called with a node id having 0 in connections", () => {
-      let result: number;
-      let id: UUID;
-      beforeEach(() => {
-        id = pathway.nodes[0].id;
-        result = pathway.in(id);
-      });
-      then("Graph.degree returns the degree of the node", () => {
-        expect(result).toBe(0);
-      });
-    });
+    when(
+      "Graph.in is called with a node id having 0 in connections",
+      () => {
+        let result: number;
+        let id: UUID;
+        beforeEach(() => {
+          id = pathway.nodes[0].id;
+          result = pathway.in(id);
+        });
+        then("Graph.degree returns the degree of the node", () => {
+          expect(result).toBe(0);
+        });
+      }
+    );
     when(
       "Graph.degree is called with a node id having 1 in connections",
       () => {
@@ -490,28 +586,34 @@ given("Graph.out method behavior test", () => {
       let { metadata, actors, paths } = data;
       pathway = new Graph({ metadata, nodes: actors, edges: paths });
     });
-    when("Graph.out is called with a node id having 1 in connections", () => {
-      let result: number;
-      let id: UUID;
-      beforeEach(() => {
-        id = pathway.nodes[0].id;
-        result = pathway.out(id);
-      });
-      then("Graph.out returns the degree of the node", () => {
-        expect(result).toBe(1);
-      });
-    });
-    when("Graph.out is called with a node id having 1 in connections", () => {
-      let result: number;
-      let id: UUID;
-      beforeEach(() => {
-        id = pathway.nodes[1].id;
-        result = pathway.out(id);
-      });
-      then("Graph.out returns the degree of the node", () => {
-        expect(result).toBe(1);
-      });
-    });
+    when(
+      "Graph.out is called with a node id having 1 in connections",
+      () => {
+        let result: number;
+        let id: UUID;
+        beforeEach(() => {
+          id = pathway.nodes[0].id;
+          result = pathway.out(id);
+        });
+        then("Graph.out returns the degree of the node", () => {
+          expect(result).toBe(1);
+        });
+      }
+    );
+    when(
+      "Graph.out is called with a node id having 1 in connections",
+      () => {
+        let result: number;
+        let id: UUID;
+        beforeEach(() => {
+          id = pathway.nodes[1].id;
+          result = pathway.out(id);
+        });
+        then("Graph.out returns the degree of the node", () => {
+          expect(result).toBe(1);
+        });
+      }
+    );
   });
 });
 
@@ -534,30 +636,44 @@ given("Graph.neighbors method behavior test", () => {
       let { metadata, actors, paths } = data;
       pathway = new Graph({ metadata, nodes: actors, edges: paths });
     });
-    when("Graph.neighbors is called with a node id having 1 neighbors", () => {
-      let result;
-      let id: UUID;
-      beforeEach(() => {
-        id = pathway.nodes[0].id;
-        result = pathway.neighbors(id);
-      });
-      then("Graph.neighbors returns the neighbors of the node", () => {
-        expect(result).toEqual(["15b6679a-fd9d-4036-b1ab-af0b932fc903"]);
-      });
-    });
-    when("Graph.neighbors is called with a node id having 2 neighbors", () => {
-      let result;
-      let id: UUID;
-      beforeEach(() => {
-        id = pathway.nodes[1].id;
-        result = pathway.neighbors(id);
-      });
-      then("Graph.neighbors returns the neighbors of the node", () => {
-        expect(result).toEqual([
-          "35c6779a-fd9d-4089-d1ab-af0b932fc912",
-          "5a3e4a90-b266-4be3-b04d-abb627d78749",
-        ]);
-      });
-    });
+    when(
+      "Graph.neighbors is called with a node id having 1 neighbors",
+      () => {
+        let result;
+        let id: UUID;
+        beforeEach(() => {
+          id = pathway.nodes[0].id;
+          result = pathway.neighbors(id);
+        });
+        then(
+          "Graph.neighbors returns the neighbors of the node",
+          () => {
+            expect(result).toEqual([
+              "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+            ]);
+          }
+        );
+      }
+    );
+    when(
+      "Graph.neighbors is called with a node id having 2 neighbors",
+      () => {
+        let result;
+        let id: UUID;
+        beforeEach(() => {
+          id = pathway.nodes[1].id;
+          result = pathway.neighbors(id);
+        });
+        then(
+          "Graph.neighbors returns the neighbors of the node",
+          () => {
+            expect(result).toEqual([
+              "35c6779a-fd9d-4089-d1ab-af0b932fc912",
+              "5a3e4a90-b266-4be3-b04d-abb627d78749",
+            ]);
+          }
+        );
+      }
+    );
   });
 });
