@@ -130,7 +130,8 @@ export class Edges extends Array {
     move = (id, coordinates) => {
         (([id, coordinates]) => this.apply(id, (edge) => Edge.move(edge, coordinates)))(Validator.validate([id, coordinates], [
             ([id, coordinates]) => Validate.id(this, id),
-            ([id, coordinates]) => coordinates.start && Validate.coordinates(coordinates.start),
+            ([id, coordinates]) => coordinates.start &&
+                Validate.coordinates(coordinates.start),
             ([id, coordinates]) => coordinates.end && Validate.coordinates(coordinates.end),
         ]));
         return this;

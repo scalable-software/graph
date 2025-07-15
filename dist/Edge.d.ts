@@ -1,7 +1,7 @@
 /**
  * @module Graph
  */
-import type { UUID, Coordinates, Offset } from "./graph.types";
+import type { UUID, Coordinates, Offset } from "./graph.types.js";
 export type IEdge = {
     id: UUID;
     source: UUID;
