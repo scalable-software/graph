@@ -171,14 +171,16 @@ export class Graph<T extends IGraph> {
   }
 
   /**
-   * Computes the spatial extent of the graph in coordinate space by calculating
-   * the difference between the maximum and minimum x and y values from the {@link Graph.domain}.
-   * This reflects how far the graph stretches along each axis.
+   * Computes the spatial extent of the graph in coordinate space.
+   * This is derived from the {@link Graph.domain} and reflects the number of discrete
+   * coordinate units required to fully enclose all nodes — including both endpoints.
    *
    * If the graph contains no nodes, the extent is `{ x: 0, y: 0 }`.
+   * If the graph contains a single node, the extent is `{ x: 1, y: 1 }`,
+   * as the graph still occupies one unit in both directions.
    *
-   * This is useful for layout and visualization decisions where you need the
-   * horizontal and vertical span of the graph, exclusive of any padding.
+   * The result is useful for layout, rendering, and grid-based visualization systems
+   * where the number of occupied coordinate units matters.
    *
    * @example
    * ```ts
@@ -199,13 +201,13 @@ export class Graph<T extends IGraph> {
    *   ],
    *   edges: [
    *     {
-   *        id: "123e4567-e89b-12d3-a456-426614174000",
-   *        source: "123e4567-e89b-12d3-a456-426614174001",
-   *        target: "123e4567-e89b-12d3-a456-426614174002",
-   *        coordinates: {
-   *          start: { x: 1, y: 1 },
-   *          end: { x: 3, y: 3 },
-   *        },
+   *       id: "123e4567-e89b-12d3-a456-426614174000",
+   *       source: "123e4567-e89b-12d3-a456-426614174001",
+   *       target: "123e4567-e89b-12d3-a456-426614174002",
+   *       coordinates: {
+   *         start: { x: 1, y: 1 },
+   *         end: { x: 3, y: 3 },
+   *       },
    *     },
    *   ],
    * };
@@ -213,10 +215,10 @@ export class Graph<T extends IGraph> {
    * const graph = new Graph<IGraph>().import(data);
    *
    * console.log(graph.extend);
-   * // { x: 2, y: 2 } → because 3 - 1 = 2 along both axes
+   * // { x: 3, y: 3 } → includes both 1 and 3, so: (3 - 1 + 1)
    * ```
    *
-   * @returns An object containing `x` and `y` values representing the coordinate extent.
+   * @returns An object with `x` and `y` representing the inclusive span of the graph’s domain.
    * @category Data
    */
   public get extend() {
