@@ -215,14 +215,61 @@ given(`Graph.domain getter availability test`, () => {
   });
 });
 
-given(`Graph.extend getter availability test`, () => {
+given(`Graph.domain getter value test`, () => {
   when(`Graph is instantiated`, () => {
     let graph: Graph<IGraph>;
+    let data: IGraph;
     beforeEach(() => {
       graph = new Graph();
     });
-    then(`Graph.extend is defined`, () => {
-      expect(graph.extend).toBeDefined();
+    then(`Graph.domain is defined`, () => {
+      expect(graph.domain).toBeDefined();
+    });
+    and(`Graph.domain is defined`, () => {
+      then(`Graph.domain returns empty domain`, () => {
+        expect(graph.domain).toEqual({
+          x: { min: 0, max: 0 },
+          y: { min: 0, max: 0 },
+        });
+      });
+    });
+    and(`Graph with nodes is imported`, () => {
+      beforeEach(() => {
+        data = {
+          metadata: {
+            id: "123e4567-e89b-12d3-a456-426614174000",
+            name: "Clinical Pathway",
+          },
+          nodes: [
+            {
+              id: "123e4567-e89b-12d3-a456-426614174001",
+              coordinates: { x: 1, y: 1 },
+            },
+            {
+              id: "123e4567-e89b-12d3-a456-426614174002",
+              coordinates: { x: 2, y: 2 },
+            },
+          ],
+          edges: [
+            {
+              id: "123e4567-e89b-12d3-a456-426614174000",
+              source: "123e4567-e89b-12d3-a456-426614174001",
+              target: "123e4567-e89b-12d3-a456-426614174002",
+              coordinates: {
+                start: { x: 1, y: 1 },
+                end: { x: 2, y: 2 },
+              },
+            },
+          ],
+        };
+        graph.import(data);
+      });
+      then("Graph.domain returns domain of imported graph", () => {
+        expect(graph.domain).toEqual({
+          x: { min: 1, max: 2 },
+          y: { min: 1, max: 2 },
+        });
+      });
     });
   });
 });
