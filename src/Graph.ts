@@ -97,6 +97,32 @@ export class Graph<T extends IGraph> {
     })(Validate.graph(graph));
   }
 
+  public get domain(): {
+    x: { min: number; max: number };
+    y: { min: number; max: number };
+  } {
+    return this.nodes.length === 0
+      ? { x: { min: 0, max: 0 }, y: { min: 0, max: 0 } }
+      : {
+          x: {
+            min: Math.min(
+              ...this.nodes.map(({ coordinates }) => coordinates.x)
+            ),
+            max: Math.max(
+              ...this.nodes.map(({ coordinates }) => coordinates.x)
+            ),
+          },
+          y: {
+            min: Math.min(
+              ...this.nodes.map(({ coordinates }) => coordinates.y)
+            ),
+            max: Math.max(
+              ...this.nodes.map(({ coordinates }) => coordinates.y)
+            ),
+          },
+        };
+  }
+
   /**
    * Imports new graph data by merging with existing data.
    *
@@ -136,7 +162,8 @@ export class Graph<T extends IGraph> {
    * @category Operation
    */
   public degree = (id: UUID): number =>
-    this.edges.findByTarget(id).length + this.edges.findBySource(id).length;
+    this.edges.findByTarget(id).length +
+    this.edges.findBySource(id).length;
 
   /**
    * Returns the in-degree: number of incoming connections, of a node.
@@ -145,7 +172,8 @@ export class Graph<T extends IGraph> {
    *
    * @category Operation
    */
-  public in = (id: UUID): number => this.edges.findByTarget(id).length;
+  public in = (id: UUID): number =>
+    this.edges.findByTarget(id).length;
 
   /**
    * Returns the out-degree: number of outgoing connections, of a node.
@@ -153,7 +181,8 @@ export class Graph<T extends IGraph> {
    * @returns The out-degree of the node.
    * @category Operation
    */
-  public out = (id: UUID): number => this.edges.findBySource(id).length;
+  public out = (id: UUID): number =>
+    this.edges.findBySource(id).length;
 
   /**
    * Returns the ids of the neighbors of a node.
@@ -179,5 +208,7 @@ export class Graph<T extends IGraph> {
   };
 
   private getEdges = (id: UUID) =>
-    this.edges.filter(({ source, target }) => source === id || target === id);
+    this.edges.filter(
+      ({ source, target }) => source === id || target === id
+    );
 }
