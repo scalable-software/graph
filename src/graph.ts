@@ -170,6 +170,14 @@ export class Graph<T extends IGraph> {
         };
   }
 
+  public get extend() {
+    const { x, y } = this.domain;
+    return {
+      x: x.max - x.min,
+      y: y.max - y.min,
+    };
+  }
+
   /**
    * Imports new graph data by merging with existing data.
    *
