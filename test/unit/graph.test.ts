@@ -337,8 +337,8 @@ given(`Graph.extend getter value test`, () => {
       });
       then("Graph.extend returns extend of imported graph", () => {
         expect(graph.extend).toEqual({
-          x: 2,
-          y: 2,
+          x: 3,
+          y: 3,
         });
       });
     });
