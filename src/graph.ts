@@ -220,10 +220,14 @@ export class Graph<T extends IGraph> {
    * @category Data
    */
   public get extend() {
+    if (this.nodes.length === 0) {
+      return { x: 0, y: 0 };
+    }
+
     const { x, y } = this.domain;
     return {
-      x: x.max - x.min,
-      y: y.max - y.min,
+      x: x.max - x.min + 1,
+      y: y.max - y.min + 1,
     };
   }
 
