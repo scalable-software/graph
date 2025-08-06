@@ -1516,6 +1516,54 @@ given(`nodes.project method availability test`, () => {
   });
 });
 
+given(`nodes.project method behavior test`, () => {
+  and(`a nodes instance is created with nodes`, () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 2, y: 2 },
+        },
+      ];
+      nodes = Nodes.create(data);
+    });
+    when(`nodes.project called with no transform function`, () => {
+      let projected: INode[];
+      beforeEach(() => {
+        projected = nodes.project();
+      });
+      then(`projected equal [...nodes]`, () => {
+        expect(projected).toEqual([...nodes]);
+      });
+    });
+    when(`nodes.project called with transform function`, () => {
+      let projected: INode[];
+      let transform: (Coordinates, INode) => Coordinates;
+      beforeEach(() => {
+        transform = ({ x, y }, node) => ({ x: x + 1, y: y + 1 });
+        projected = nodes.project(transform);
+      });
+      then(
+        `projected coordinates equal to nodes coordinates transformed`,
+        () => {
+          expect(projected).toEqual(
+            [...nodes].map((node) => ({
+              ...node,
+              coordinates: transform(node.coordinates, node),
+            }))
+          );
+        }
+      );
+    });
+  });
+});
+
 given(`nodes.toJSON method availability test`, () => {
   and(`a nodes instance is created with nodes`, () => {
     let nodes: Nodes<INode>;
