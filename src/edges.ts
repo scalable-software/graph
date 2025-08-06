@@ -334,7 +334,18 @@ export class Edges<T extends IEdge> extends Array<T> {
       Validate.uuid(target)
     );
 
-  public project = () => {};
+  public project = (
+    transform: (coordinates: Coordinates, edge: T) => Coordinates = (
+      coordinates
+    ) => coordinates
+  ): T[] =>
+    [...this].map((edge) => ({
+      ...edge,
+      coordinates: {
+        start: transform(edge.coordinates.start, edge),
+        end: transform(edge.coordinates.end, edge),
+      },
+    }));
 
   /**
    * Converts the `Edges` collection into a JSON-compatible array.
