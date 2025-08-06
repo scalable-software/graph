@@ -350,7 +350,7 @@ export class Edges<T extends IEdge> extends Array<T> {
    * @category Operations
    */
   public project = (
-    transform: (coordinates: Coordinates, edge: T) => Coordinates = (
+    transform: (coordinates: Coordinates, edge?: T) => Coordinates = (
       coordinates
     ) => coordinates
   ): T[] =>

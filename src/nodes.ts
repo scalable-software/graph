@@ -276,7 +276,7 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
    * @category Operations
    */
   public project = (
-    transform: (coordinates: Coordinates, node: T) => Coordinates = (
+    transform: (coordinates: Coordinates, node?: T) => Coordinates = (
       coordinates
     ) => coordinates
   ): T[] =>
