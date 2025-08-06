@@ -106,7 +106,10 @@ Below is a short example showing how to **move** an existing node, **add** anoth
 1. Move the first node (id "123e4567-e89b-12d3-a456-426614174000") to (0,0):
 
 ```typescript
-graph.nodes.move("123e4567-e89b-12d3-a456-426614174000", { x: 0, y: 0 });
+graph.nodes.move("123e4567-e89b-12d3-a456-426614174000", {
+  x: 0,
+  y: 0,
+});
 ```
 
 2. Add a second node at coordinates (5,5):
@@ -166,7 +169,12 @@ This library is ideal for modeling clinical pathways containing different actors
 1. Define Custom Types (`pathway.types.ts`)
 
 ```typescript
-import type { IMetadata, INode, IEdge, IGraph } from "@scalable.software/graph";
+import type {
+  IMetadata,
+  INode,
+  IEdge,
+  IGraph,
+} from "@scalable.software/graph";
 
 export type PathwayMetadata = IMetadata & {
   type: string;
@@ -220,7 +228,10 @@ const data: IPathway = {
         {
           duration: {
             distribution: "log normal",
-            parameters: [{ meanlog: 0.1640238 }, { sdlog: 0.4169375 }],
+            parameters: [
+              { meanlog: 0.1640238 },
+              { sdlog: 0.4169375 },
+            ],
           },
         },
       ],
@@ -296,6 +307,8 @@ This example shows how to model typed actors and directional paths within a spat
 | **in**          | `in(id)`              | Logic    | Returns the count of incoming connections for a given node.                                    |
 | **out**         | `out(id)`             | Logic    | Returns the count of outgoing connections for a given node.                                    |
 | **neighbors**   | `neighbors(id)`       | Logic    | Retrieves the identifiers of all nodes directly connected to the specified node.               |
+| **extend**      | `extend()`            | Logic    | Computes the spatial extent of the graph in coordinate space.                                  |
+| **domain**      | `domain()`            | Logic    | Computes the rectangular domain of the graph by determining the minimum and maximum.           |
 
 ---
 
@@ -312,16 +325,17 @@ This example shows how to model typed actors and directional paths within a spat
 
 ### ⚙️ Node Operations
 
-| **API**               | **Signature**                | **Type** | **Description**                                                                             |
-| :-------------------- | :--------------------------- | :------- | :------------------------------------------------------------------------------------------ |
-| **add**               | `add(nodes)`                 | Logic    | Adds one or more nodes; automatically ensures each has an identifier and valid coordinates. |
-| **update**            | `update(id, details)`        | Logic    | Updates the node matching the given identifier with new details.                            |
-| **remove**            | `remove(id)`                 | Logic    | Removes the node matching the given identifier.                                             |
-| **findById**          | `findById(id)`               | Logic    | Retrieves the node for a given identifier, if any.                                          |
-| **findByCoordinates** | `findByCoordinates(coords)`  | Logic    | Finds a node by its exact `(x, y)` coordinates.                                             |
-| **move**              | `move(id, coords)`           | Logic    | Moves the node with the given identifier to new coordinates.                                |
-| **translate**         | `translate(idOrIds, offset)` | Logic    | Translates one or multiple nodes by a given `(dx, dy)` offset.                              |
-| **toJSON**            | `toJSON()`                   | Logic    | Returns an array of all nodes in a JSON-like format.                                        |
+| **API**               | **Signature**                | **Type** | **Description**                                                                                                                                              |
+| :-------------------- | :--------------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **add**               | `add(nodes)`                 | Logic    | Adds one or more nodes; automatically ensures each has an identifier and valid coordinates.                                                                  |
+| **update**            | `update(id, details)`        | Logic    | Updates the node matching the given identifier with new details.                                                                                             |
+| **remove**            | `remove(id)`                 | Logic    | Removes the node matching the given identifier.                                                                                                              |
+| **findById**          | `findById(id)`               | Logic    | Retrieves the node for a given identifier, if any.                                                                                                           |
+| **findByCoordinates** | `findByCoordinates(coords)`  | Logic    | Finds a node by its exact `(x, y)` coordinates.                                                                                                              |
+| **move**              | `move(id, coords)`           | Logic    | Moves the node with the given identifier to new coordinates.                                                                                                 |
+| **translate**         | `translate(idOrIds, offset)` | Logic    | Translates one or multiple nodes by a given `(dx, dy)` offset.                                                                                               |
+| **project**           | `project(transform)`         | Logic    | Applies a transformation function to the coordinates of each node, returning an array with all node coordinates projected using the transformation function. |
+| **toJSON**            | `toJSON()`                   | Logic    | Returns an array of all nodes in a JSON-like format.                                                                                                         |
 
 ---
 
