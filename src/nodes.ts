@@ -260,7 +260,15 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
     return this;
   };
 
-  public project = () => {};
+  public project = (
+    transform: (coordinates: Coordinates, node: T) => Coordinates = (
+      coordinates
+    ) => coordinates
+  ): T[] =>
+    [...this].map((node) => ({
+      ...node,
+      coordinates: transform(node.coordinates, node),
+    }));
 
   /**
    * Converts the `Nodes` collection into a JSON-compatible array.
