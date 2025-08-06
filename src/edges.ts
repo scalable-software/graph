@@ -334,6 +334,8 @@ export class Edges<T extends IEdge> extends Array<T> {
       Validate.uuid(target)
     );
 
+  public project = () => {};
+
   /**
    * Converts the `Edges` collection into a JSON-compatible array.
    *
