@@ -227,13 +227,19 @@ given(`edges.add method behavior test`, () => {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
           {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
-            coordinates: { start: { x: 1, y: 1 }, end: { x: 2, y: 2 } },
+            coordinates: {
+              start: { x: 1, y: 1 },
+              end: { x: 2, y: 2 },
+            },
           },
         ];
         instance.add(edges);
@@ -270,35 +276,44 @@ given(`edges.add method behavior test`, () => {
         });
       });
     });
-    when(`instance.add is called with edges containing no ids`, () => {
-      let edges: Omit<IEdge, "id">[];
-      beforeEach(() => {
-        edges = [
-          {
-            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
-          },
-          {
-            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
-            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
-            coordinates: { start: { x: 1, y: 1 }, end: { x: 2, y: 2 } },
-          },
-        ];
-        instance.add(edges);
-      });
-      then(`instance.length is 2`, () => {
-        expect(instance.length).toBe(2);
-      });
-      and(`instance.length is 2`, () => {
-        then(`instance[0].id is defined`, () => {
-          expect(instance[0].id).toBeDefined();
+    when(
+      `instance.add is called with edges containing no ids`,
+      () => {
+        let edges: Omit<IEdge, "id">[];
+        beforeEach(() => {
+          edges = [
+            {
+              source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+              target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+              coordinates: {
+                start: { x: 0, y: 0 },
+                end: { x: 1, y: 1 },
+              },
+            },
+            {
+              source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+              target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
+              coordinates: {
+                start: { x: 1, y: 1 },
+                end: { x: 2, y: 2 },
+              },
+            },
+          ];
+          instance.add(edges);
         });
-        then(`instance[1].id is defined`, () => {
-          expect(instance[1].id).toBeDefined();
+        then(`instance.length is 2`, () => {
+          expect(instance.length).toBe(2);
         });
-      });
-    });
+        and(`instance.length is 2`, () => {
+          then(`instance[0].id is defined`, () => {
+            expect(instance[0].id).toBeDefined();
+          });
+          then(`instance[1].id is defined`, () => {
+            expect(instance[1].id).toBeDefined();
+          });
+        });
+      }
+    );
     when(`instance.add is called with null`, () => {
       let edge: IEdge;
       let error: Exception.Exception;
@@ -317,9 +332,14 @@ given(`edges.add method behavior test`, () => {
       });
 
       and(`error is defined`, () => {
-        then(`error is an instance of InvalidArgumentException`, () => {
-          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
-        });
+        then(
+          `error is an instance of InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
+          }
+        );
       });
     });
     when(`instance.add is called with invalid edge`, () => {
@@ -373,58 +393,70 @@ given(`edges.update method behavior test`, () => {
       instance = Edges.create();
     });
 
-    when(`instance.update is called with valid id and updated source`, () => {
-      let edge: IEdge;
-      let updatedEdge: PartialEdge<IEdge>;
-      beforeEach(() => {
-        edge = {
-          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
-        };
-        updatedEdge = {
-          source: "c4f8a7b1-1c4e-4d3b-9e2f-8a6e4f7c5a2a",
-        };
-        instance.add(edge);
-        instance.update(edge.id, updatedEdge);
-      });
-
-      then(`instance.length is 1`, () => {
-        expect(instance.length).toBe(1);
-      });
-
-      and(`instance.length is 1`, () => {
-        then(`instance[0].source is updatedEdge.source`, () => {
-          expect(instance[0].source).toEqual(updatedEdge.source);
+    when(
+      `instance.update is called with valid id and updated source`,
+      () => {
+        let edge: IEdge;
+        let updatedEdge: PartialEdge<IEdge>;
+        beforeEach(() => {
+          edge = {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
+          };
+          updatedEdge = {
+            source: "c4f8a7b1-1c4e-4d3b-9e2f-8a6e4f7c5a2a",
+          };
+          instance.add(edge);
+          instance.update(edge.id, updatedEdge);
         });
-      });
-    });
-    when(`instance.update is called with valid id and updated target`, () => {
-      let edge: IEdge;
-      let updatedEdge: PartialEdge<IEdge>;
-      beforeEach(() => {
-        edge = {
-          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
-        };
-        updatedEdge = {
-          target: "c4f8a7b1-1c4e-4d3b-9e2f-8a6e4f7c5a2a",
-        };
-        instance.add(edge);
-        instance.update(edge.id, updatedEdge);
-      });
-      then(`instance.length is 1`, () => {
-        expect(instance.length).toBe(1);
-      });
-      and(`instance.length is 1`, () => {
-        then(`instance[0].target is updatedEdge.target`, () => {
-          expect(instance[0].target).toEqual(updatedEdge.target);
+
+        then(`instance.length is 1`, () => {
+          expect(instance.length).toBe(1);
         });
-      });
-    });
+
+        and(`instance.length is 1`, () => {
+          then(`instance[0].source is updatedEdge.source`, () => {
+            expect(instance[0].source).toEqual(updatedEdge.source);
+          });
+        });
+      }
+    );
+    when(
+      `instance.update is called with valid id and updated target`,
+      () => {
+        let edge: IEdge;
+        let updatedEdge: PartialEdge<IEdge>;
+        beforeEach(() => {
+          edge = {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
+          };
+          updatedEdge = {
+            target: "c4f8a7b1-1c4e-4d3b-9e2f-8a6e4f7c5a2a",
+          };
+          instance.add(edge);
+          instance.update(edge.id, updatedEdge);
+        });
+        then(`instance.length is 1`, () => {
+          expect(instance.length).toBe(1);
+        });
+        and(`instance.length is 1`, () => {
+          then(`instance[0].target is updatedEdge.target`, () => {
+            expect(instance[0].target).toEqual(updatedEdge.target);
+          });
+        });
+      }
+    );
     when(
       `instance.update is called with valid id and updated start coordinates`,
       () => {
@@ -435,7 +467,10 @@ given(`edges.update method behavior test`, () => {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 2, y: 2 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 2, y: 2 },
+            },
           };
           updatedEdge = {
             coordinates: { start: { x: 1, y: 1 } },
@@ -468,7 +503,10 @@ given(`edges.update method behavior test`, () => {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 2, y: 2 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 2, y: 2 },
+            },
           };
           updatedEdge = {
             coordinates: { end: { x: 1, y: 1 } },
@@ -533,7 +571,10 @@ given(`edges.update method behavior test`, () => {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           };
           updatedEdge = {
             coordinates: {
@@ -555,7 +596,9 @@ given(`edges.update method behavior test`, () => {
 
         and(`error is defined`, () => {
           then(`error is an instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
           });
         });
       }
@@ -603,11 +646,18 @@ given(`edges.move method behavior test`, () => {
           };
           instance.move(id, coordinates);
         });
-        then(`instance[0].coordinates.start is coordinates.start`, () => {
-          expect(instance[0].coordinates.start).toEqual(coordinates.start);
-        });
+        then(
+          `instance[0].coordinates.start is coordinates.start`,
+          () => {
+            expect(instance[0].coordinates.start).toEqual(
+              coordinates.start
+            );
+          }
+        );
         then(`instance[0].coordinates.end is coordinates.end`, () => {
-          expect(instance[0].coordinates.end).toEqual(coordinates.end);
+          expect(instance[0].coordinates.end).toEqual(
+            coordinates.end
+          );
         });
       }
     );
@@ -623,12 +673,22 @@ given(`edges.move method behavior test`, () => {
           };
           instance.move(id, coordinates);
         });
-        then(`instance[0].coordinates.start is coordinates.start`, () => {
-          expect(instance[0].coordinates.start).toEqual(coordinates.start);
-        });
-        then(`instance[0].coordinates.end is edge.coordinates.end`, () => {
-          expect(instance[0].coordinates.end).toEqual(edge.coordinates.end);
-        });
+        then(
+          `instance[0].coordinates.start is coordinates.start`,
+          () => {
+            expect(instance[0].coordinates.start).toEqual(
+              coordinates.start
+            );
+          }
+        );
+        then(
+          `instance[0].coordinates.end is edge.coordinates.end`,
+          () => {
+            expect(instance[0].coordinates.end).toEqual(
+              edge.coordinates.end
+            );
+          }
+        );
       }
     );
     when(
@@ -643,11 +703,18 @@ given(`edges.move method behavior test`, () => {
           };
           instance.move(id, coordinates);
         });
-        then(`instance[0].coordinates.start is edge.coordinates.start`, () => {
-          expect(instance[0].coordinates.start).toEqual(edge.coordinates.start);
-        });
+        then(
+          `instance[0].coordinates.start is edge.coordinates.start`,
+          () => {
+            expect(instance[0].coordinates.start).toEqual(
+              edge.coordinates.start
+            );
+          }
+        );
         then(`instance[0].coordinates.end is coordinates.end`, () => {
-          expect(instance[0].coordinates.end).toEqual(coordinates.end);
+          expect(instance[0].coordinates.end).toEqual(
+            coordinates.end
+          );
         });
       }
     );
@@ -674,7 +741,9 @@ given(`edges.move method behavior test`, () => {
         });
         and(`error is defined`, () => {
           then(`error is an instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
           });
         });
       }
@@ -702,7 +771,9 @@ given(`edges.move method behavior test`, () => {
         });
         and(`error is defined`, () => {
           then(`error is an instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
           });
         });
       }
@@ -730,7 +801,9 @@ given(`edges.move method behavior test`, () => {
         });
         and(`error is defined`, () => {
           then(`error is an instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
           });
         });
       }
@@ -765,71 +838,84 @@ given(`edges.translate method behavior test`, () => {
       instance.add(edge);
     });
 
-    when(`instance.translate is called with valid id and offset`, () => {
-      let id: UUID;
-      let offset: Coordinates;
-      beforeEach(() => {
-        id = edge.id;
-        offset = { x: 1, y: 1 };
-        instance.translate(id, offset);
-      });
-      then(`instance[0].coordinates.start.x is 1`, () => {
-        expect(instance[0].coordinates.start.x).toBe(1);
-      });
-      then(`instance[0].coordinates.start.y is 1`, () => {
-        expect(instance[0].coordinates.start.y).toBe(1);
-      });
-      then(`instance[0].coordinates.end.x is 2`, () => {
-        expect(instance[0].coordinates.end.x).toBe(2);
-      });
-      then(`instance[0].coordinates.end.y is 2`, () => {
-        expect(instance[0].coordinates.end.y).toBe(2);
-      });
-    });
-    when(`instance.translate is called with unknown id and offset`, () => {
-      let id: UUID;
-      let offset: Coordinates;
-      let error: Exception.Exception;
-      beforeEach(() => {
-        id = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
-        offset = { x: 1, y: 1 };
-        try {
+    when(
+      `instance.translate is called with valid id and offset`,
+      () => {
+        let id: UUID;
+        let offset: Coordinates;
+        beforeEach(() => {
+          id = edge.id;
+          offset = { x: 1, y: 1 };
           instance.translate(id, offset);
-        } catch (e) {
-          error = e;
-        }
-      });
-      then(`error is defined`, () => {
-        expect(error).toBeDefined();
-      });
-      and(`error is defined`, () => {
-        then(`error is an instance of ValidationException`, () => {
-          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
-      });
-    });
-    when(`instance.translate is called with invalid id and offset`, () => {
-      let id: UUID;
-      let offset: Coordinates;
-      let error: Exception.Exception;
-      beforeEach(() => {
-        id = "1";
-        offset = { x: 1, y: 1 };
-        try {
-          instance.translate(id, offset);
-        } catch (e) {
-          error = e;
-        }
-      });
-      then(`error is defined`, () => {
-        expect(error).toBeDefined();
-      });
-      and(`error is defined`, () => {
-        then(`error is an instance of ValidationException`, () => {
-          expect(error).toBeInstanceOf(Exception.ValidationException);
+        then(`instance[0].coordinates.start.x is 1`, () => {
+          expect(instance[0].coordinates.start.x).toBe(1);
         });
-      });
-    });
+        then(`instance[0].coordinates.start.y is 1`, () => {
+          expect(instance[0].coordinates.start.y).toBe(1);
+        });
+        then(`instance[0].coordinates.end.x is 2`, () => {
+          expect(instance[0].coordinates.end.x).toBe(2);
+        });
+        then(`instance[0].coordinates.end.y is 2`, () => {
+          expect(instance[0].coordinates.end.y).toBe(2);
+        });
+      }
+    );
+    when(
+      `instance.translate is called with unknown id and offset`,
+      () => {
+        let id: UUID;
+        let offset: Coordinates;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
+          offset = { x: 1, y: 1 };
+          try {
+            instance.translate(id, offset);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
+          });
+        });
+      }
+    );
+    when(
+      `instance.translate is called with invalid id and offset`,
+      () => {
+        let id: UUID;
+        let offset: Coordinates;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = "1";
+          offset = { x: 1, y: 1 };
+          try {
+            instance.translate(id, offset);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
+          });
+        });
+      }
+    );
     when(
       `instance.translate is called with valid id and invalid offset`,
       () => {
@@ -850,7 +936,9 @@ given(`edges.translate method behavior test`, () => {
         });
         and(`error is defined`, () => {
           then(`error is an instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
           });
         });
       }
@@ -877,83 +965,96 @@ given(`edges.translate method behavior test`, () => {
       ];
       instance.add(edges);
     });
-    when(`instance.translate is called with valid ids and offset`, () => {
-      let ids: UUID[];
-      let offset: Coordinates;
-      beforeEach(() => {
-        ids = edges.map((edge) => edge.id);
-        offset = { x: 1, y: 1 };
-        instance.translate(ids, offset);
-      });
-      then(`instance[0].coordinates.start.x is 1`, () => {
-        expect(instance[0].coordinates.start.x).toBe(1);
-      });
-      then(`instance[0].coordinates.start.y is 1`, () => {
-        expect(instance[0].coordinates.start.y).toBe(1);
-      });
-      then(`instance[0].coordinates.end.x is 2`, () => {
-        expect(instance[0].coordinates.end.x).toBe(2);
-      });
-      then(`instance[0].coordinates.end.y is 2`, () => {
-        expect(instance[0].coordinates.end.y).toBe(2);
-      });
-      then(`instance[1].coordinates.start.x is 1`, () => {
-        expect(instance[1].coordinates.start.x).toBe(1);
-      });
-      then(`instance[1].coordinates.start.y is 1`, () => {
-        expect(instance[1].coordinates.start.y).toBe(1);
-      });
-      then(`instance[1].coordinates.end.x is 2`, () => {
-        expect(instance[1].coordinates.end.x).toBe(2);
-      });
-      then(`instance[1].coordinates.end.y is 2`, () => {
-        expect(instance[1].coordinates.end.y).toBe(2);
-      });
-    });
-    when(`instance.translate is called with unknown ids and offset`, () => {
-      let ids: UUID[];
-      let offset: Coordinates;
-      let error: Exception.Exception;
-      beforeEach(() => {
-        ids = ["a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e"];
-        offset = { x: 1, y: 1 };
-        try {
+    when(
+      `instance.translate is called with valid ids and offset`,
+      () => {
+        let ids: UUID[];
+        let offset: Coordinates;
+        beforeEach(() => {
+          ids = edges.map((edge) => edge.id);
+          offset = { x: 1, y: 1 };
           instance.translate(ids, offset);
-        } catch (e) {
-          error = e;
-        }
-      });
-      then(`error is defined`, () => {
-        expect(error).toBeDefined();
-      });
-      and(`error is defined`, () => {
-        then(`error is an instance of ValidationException`, () => {
-          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
-      });
-    });
-    when(`instance.translate is called with invalid ids and offset`, () => {
-      let ids: UUID[];
-      let offset: Coordinates;
-      let error: Exception.Exception;
-      beforeEach(() => {
-        ids = ["1"];
-        offset = { x: 1, y: 1 };
-        try {
-          instance.translate(ids, offset);
-        } catch (e) {
-          error = e;
-        }
-      });
-      then(`error is defined`, () => {
-        expect(error).toBeDefined();
-      });
-      and(`error is defined`, () => {
-        then(`error is an instance of ValidationException`, () => {
-          expect(error).toBeInstanceOf(Exception.ValidationException);
+        then(`instance[0].coordinates.start.x is 1`, () => {
+          expect(instance[0].coordinates.start.x).toBe(1);
         });
-      });
-    });
+        then(`instance[0].coordinates.start.y is 1`, () => {
+          expect(instance[0].coordinates.start.y).toBe(1);
+        });
+        then(`instance[0].coordinates.end.x is 2`, () => {
+          expect(instance[0].coordinates.end.x).toBe(2);
+        });
+        then(`instance[0].coordinates.end.y is 2`, () => {
+          expect(instance[0].coordinates.end.y).toBe(2);
+        });
+        then(`instance[1].coordinates.start.x is 1`, () => {
+          expect(instance[1].coordinates.start.x).toBe(1);
+        });
+        then(`instance[1].coordinates.start.y is 1`, () => {
+          expect(instance[1].coordinates.start.y).toBe(1);
+        });
+        then(`instance[1].coordinates.end.x is 2`, () => {
+          expect(instance[1].coordinates.end.x).toBe(2);
+        });
+        then(`instance[1].coordinates.end.y is 2`, () => {
+          expect(instance[1].coordinates.end.y).toBe(2);
+        });
+      }
+    );
+    when(
+      `instance.translate is called with unknown ids and offset`,
+      () => {
+        let ids: UUID[];
+        let offset: Coordinates;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          ids = ["a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e"];
+          offset = { x: 1, y: 1 };
+          try {
+            instance.translate(ids, offset);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
+          });
+        });
+      }
+    );
+    when(
+      `instance.translate is called with invalid ids and offset`,
+      () => {
+        let ids: UUID[];
+        let offset: Coordinates;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          ids = ["1"];
+          offset = { x: 1, y: 1 };
+          try {
+            instance.translate(ids, offset);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
+          });
+        });
+      }
+    );
     when(
       `instance.translate is called with valid ids and invalid offset`,
       () => {
@@ -974,7 +1075,9 @@ given(`edges.translate method behavior test`, () => {
         });
         and(`error is defined`, () => {
           then(`error is an instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(Exception.ValidationException);
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
           });
         });
       }
@@ -1066,9 +1169,14 @@ given(`edges.remove method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(`error is an instance of InvalidArgumentException`, () => {
-          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
-        });
+        then(
+          `error is an instance of InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
+          }
+        );
       });
     });
   });
@@ -1150,9 +1258,14 @@ given(`edges.findById method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(`error is an instance of InvalidArgumentException`, () => {
-          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
-        });
+        then(
+          `error is an instance of InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
+          }
+        );
       });
     });
   });
@@ -1183,64 +1296,84 @@ given(`edges.findBySource method behavior test`, () => {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
           {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
         ];
         instance.add(edges);
       });
-      when(`instance.findBySource is called with valid source`, () => {
-        let source: UUID;
-        let result: IEdge[] | undefined;
-        beforeEach(() => {
-          source = edges[0].source;
-          result = instance.findBySource(source);
-        });
-        then(`result is defined`, () => {
-          expect(result).toBeDefined();
-        });
-        and(`result is defined`, () => {
-          then(`result.source is source`, () => {
-            expect(result[0].source).toEqual(source);
+      when(
+        `instance.findBySource is called with valid source`,
+        () => {
+          let source: UUID;
+          let result: IEdge[] | undefined;
+          beforeEach(() => {
+            source = edges[0].source;
+            result = instance.findBySource(source);
           });
-        });
-      });
-      when(`instance.findBySource is called with unknown source`, () => {
-        let source: UUID;
-        let result: IEdge[] | undefined;
-        beforeEach(() => {
-          source = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
-          result = instance.findBySource(source);
-        });
-        then(`result.length is 0`, () => {
-          expect(result.length).toBe(0);
-        });
-      });
-      when(`instance.findBySource is called with invalid source`, () => {
-        let source: UUID;
-        let error: Exception.Exception;
-        beforeEach(() => {
-          source = "1";
-          try {
-            instance.findBySource(source);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
-        });
-        and(`error is defined`, () => {
-          then(`error is an instance of InvalidArgumentException`, () => {
-            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          then(`result is defined`, () => {
+            expect(result).toBeDefined();
           });
-        });
-      });
+          and(`result is defined`, () => {
+            then(`result.source is source`, () => {
+              expect(result[0].source).toEqual(source);
+            });
+          });
+        }
+      );
+      when(
+        `instance.findBySource is called with unknown source`,
+        () => {
+          let source: UUID;
+          let result: IEdge[] | undefined;
+          beforeEach(() => {
+            source = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
+            result = instance.findBySource(source);
+          });
+          then(`result.length is 0`, () => {
+            expect(result.length).toBe(0);
+          });
+        }
+      );
+      when(
+        `instance.findBySource is called with invalid source`,
+        () => {
+          let source: UUID;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            source = "1";
+            try {
+              instance.findBySource(source);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of InvalidArgumentException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.InvalidArgumentException
+                );
+              }
+            );
+          });
+        }
+      );
     }
   );
   and(
@@ -1255,64 +1388,84 @@ given(`edges.findBySource method behavior test`, () => {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
           {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
         ];
         instance.add(edges);
       });
-      when(`instance.findBySource is called with valid source`, () => {
-        let source: UUID;
-        let result: IEdge[] | undefined;
-        beforeEach(() => {
-          source = edges[0].source;
-          result = instance.findBySource(source);
-        });
-        then(`result is defined`, () => {
-          expect(result).toBeDefined();
-        });
-        and(`result is defined`, () => {
-          then(`result.length is 2`, () => {
-            expect(result.length).toEqual(2);
+      when(
+        `instance.findBySource is called with valid source`,
+        () => {
+          let source: UUID;
+          let result: IEdge[] | undefined;
+          beforeEach(() => {
+            source = edges[0].source;
+            result = instance.findBySource(source);
           });
-        });
-      });
-      when(`instance.findBySource is called with unknown source`, () => {
-        let source: UUID;
-        let result: IEdge[] | undefined;
-        beforeEach(() => {
-          source = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
-          result = instance.findBySource(source);
-        });
-        then(`result.length is 0`, () => {
-          expect(result.length).toBe(0);
-        });
-      });
-      when(`instance.findBySource is called with invalid source`, () => {
-        let source: UUID;
-        let error: Exception.Exception;
-        beforeEach(() => {
-          source = "1";
-          try {
-            instance.findBySource(source);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
-        });
-        and(`error is defined`, () => {
-          then(`error is an instance of InvalidArgumentException`, () => {
-            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          then(`result is defined`, () => {
+            expect(result).toBeDefined();
           });
-        });
-      });
+          and(`result is defined`, () => {
+            then(`result.length is 2`, () => {
+              expect(result.length).toEqual(2);
+            });
+          });
+        }
+      );
+      when(
+        `instance.findBySource is called with unknown source`,
+        () => {
+          let source: UUID;
+          let result: IEdge[] | undefined;
+          beforeEach(() => {
+            source = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
+            result = instance.findBySource(source);
+          });
+          then(`result.length is 0`, () => {
+            expect(result.length).toBe(0);
+          });
+        }
+      );
+      when(
+        `instance.findBySource is called with invalid source`,
+        () => {
+          let source: UUID;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            source = "1";
+            try {
+              instance.findBySource(source);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of InvalidArgumentException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.InvalidArgumentException
+                );
+              }
+            );
+          });
+        }
+      );
     }
   );
 });
@@ -1342,64 +1495,84 @@ given(`edges.findByTarget method behavior test`, () => {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
           {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
         ];
         instance.add(edges);
       });
-      when(`instance.findByTarget is called with valid target`, () => {
-        let target: UUID;
-        let result: IEdge[] | undefined;
-        beforeEach(() => {
-          target = edges[0].target;
-          result = instance.findByTarget(target);
-        });
-        then(`result is defined`, () => {
-          expect(result).toBeDefined();
-        });
-        and(`result is defined`, () => {
-          then(`result.target is target`, () => {
-            expect(result[0].target).toEqual(target);
+      when(
+        `instance.findByTarget is called with valid target`,
+        () => {
+          let target: UUID;
+          let result: IEdge[] | undefined;
+          beforeEach(() => {
+            target = edges[0].target;
+            result = instance.findByTarget(target);
           });
-        });
-      });
-      when(`instance.findByTarget is called with unknown target`, () => {
-        let target: UUID;
-        let result: IEdge[] | undefined;
-        beforeEach(() => {
-          target = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
-          result = instance.findByTarget(target);
-        });
-        then(`result.length is 0`, () => {
-          expect(result.length).toBe(0);
-        });
-      });
-      when(`instance.findByTarget is called with invalid target`, () => {
-        let target: UUID;
-        let error: Exception.Exception;
-        beforeEach(() => {
-          target = "1";
-          try {
-            instance.findByTarget(target);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
-        });
-        and(`error is defined`, () => {
-          then(`error is an instance of InvalidArgumentException`, () => {
-            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          then(`result is defined`, () => {
+            expect(result).toBeDefined();
           });
-        });
-      });
+          and(`result is defined`, () => {
+            then(`result.target is target`, () => {
+              expect(result[0].target).toEqual(target);
+            });
+          });
+        }
+      );
+      when(
+        `instance.findByTarget is called with unknown target`,
+        () => {
+          let target: UUID;
+          let result: IEdge[] | undefined;
+          beforeEach(() => {
+            target = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
+            result = instance.findByTarget(target);
+          });
+          then(`result.length is 0`, () => {
+            expect(result.length).toBe(0);
+          });
+        }
+      );
+      when(
+        `instance.findByTarget is called with invalid target`,
+        () => {
+          let target: UUID;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            target = "1";
+            try {
+              instance.findByTarget(target);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of InvalidArgumentException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.InvalidArgumentException
+                );
+              }
+            );
+          });
+        }
+      );
     }
   );
   and(
@@ -1414,66 +1587,153 @@ given(`edges.findByTarget method behavior test`, () => {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
           {
             id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
             source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1e",
             target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
         ];
         instance.add(edges);
       });
-      when(`instance.findByTarget is called with valid target`, () => {
-        let target: UUID;
-        let result: IEdge[] | undefined;
-        beforeEach(() => {
-          target = edges[0].target;
-          result = instance.findByTarget(target);
-        });
-        then(`result is defined`, () => {
-          expect(result).toBeDefined();
-        });
-        and(`result is defined`, () => {
-          then(`result.length is 2`, () => {
-            expect(result.length).toEqual(2);
+      when(
+        `instance.findByTarget is called with valid target`,
+        () => {
+          let target: UUID;
+          let result: IEdge[] | undefined;
+          beforeEach(() => {
+            target = edges[0].target;
+            result = instance.findByTarget(target);
           });
-        });
-      });
-      when(`instance.findByTarget is called with unknown target`, () => {
-        let target: UUID;
-        let result: IEdge[] | undefined;
-        beforeEach(() => {
-          target = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
-          result = instance.findByTarget(target);
-        });
-        then(`result.length is 0`, () => {
-          expect(result.length).toBe(0);
-        });
-      });
-      when(`instance.findByTarget is called with invalid target`, () => {
-        let target: UUID;
-        let error: Exception.Exception;
-        beforeEach(() => {
-          target = "1";
-          try {
-            instance.findByTarget(target);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
-        });
-        and(`error is defined`, () => {
-          then(`error is an instance of InvalidArgumentException`, () => {
-            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+          then(`result is defined`, () => {
+            expect(result).toBeDefined();
           });
-        });
-      });
+          and(`result is defined`, () => {
+            then(`result.length is 2`, () => {
+              expect(result.length).toEqual(2);
+            });
+          });
+        }
+      );
+      when(
+        `instance.findByTarget is called with unknown target`,
+        () => {
+          let target: UUID;
+          let result: IEdge[] | undefined;
+          beforeEach(() => {
+            target = "a3f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c4a1e";
+            result = instance.findByTarget(target);
+          });
+          then(`result.length is 0`, () => {
+            expect(result.length).toBe(0);
+          });
+        }
+      );
+      when(
+        `instance.findByTarget is called with invalid target`,
+        () => {
+          let target: UUID;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            target = "1";
+            try {
+              instance.findByTarget(target);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of InvalidArgumentException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.InvalidArgumentException
+                );
+              }
+            );
+          });
+        }
+      );
     }
   );
+});
+
+given(`edges.project method availability test`, () => {
+  when(`an instance of Edges is created`, () => {
+    let instance: Edges<IEdge>;
+    beforeEach(() => {
+      instance = Edges.create();
+    });
+    then(`instance.project is defined`, () => {
+      expect(instance.project).toBeDefined();
+    });
+  });
+});
+
+given(`edges.project method behavior test`, () => {
+  and(`a edges instance is created with edges`, () => {
+    let edges: Edges<IEdge>;
+    let data: IEdge[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          source: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          target: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+      ];
+      edges = Edges.create(data);
+    });
+    when(`edges.project called with no transform function`, () => {
+      let projected: IEdge[];
+      beforeEach(() => {
+        projected = edges.project();
+      });
+      then(`projected equal [...edges]`, () => {
+        expect(projected).toEqual([...edges]);
+      });
+    });
+    when(`edges.project called with transform function`, () => {
+      let projected: IEdge[];
+      let transform: (Coordinates, IEdge) => Coordinates;
+      beforeEach(() => {
+        transform = ({ x, y }, edge) => ({ x: x + 1, y: y + 1 });
+        projected = edges.project(transform);
+      });
+      then(
+        `projected coordinates equal to edges coordinates transformed`,
+        () => {
+          expect(projected).toEqual(
+            [...edges].map((edge) => ({
+              ...edge,
+              coordinates: {
+                start: transform(edge.coordinates.start, edge),
+                end: transform(edge.coordinates.end, edge),
+              },
+            }))
+          );
+        }
+      );
+    });
+  });
 });
 
 given(`edges.toJSON method availability test`, () => {
@@ -1569,7 +1829,9 @@ given(`edges.immutable accessor behavior test`, () => {
         then(
           `error is an instance of Exception.InvalidArgumentException`,
           () => {
-            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
           }
         );
         and(
@@ -1603,7 +1865,9 @@ given(`edges.immutable accessor behavior test`, () => {
         then(
           `error is an instance of Exception.InvalidArgumentException`,
           () => {
-            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
           }
         );
         and(

@@ -341,16 +341,17 @@ This example shows how to model typed actors and directional paths within a spat
 
 ### ⚙️ Edge Operations
 
-| **API**          | **Signature**              | **Type** | **Description**                                                                                          |
-| :--------------- | :------------------------- | :------- | :------------------------------------------------------------------------------------------------------- |
-| **add**          | `add(edges)`               | Logic    | Adds one or more edges; automatically ensures each edge has an identifier.                               |
-| **update**       | `update(id, details)`      | Logic    | Updates an edge by its identifier.                                                                       |
-| **remove**       | `remove(id)`               | Logic    | Removes the edge matching the given identifier.                                                          |
-| **findById**     | `findById(id)`             | Logic    | Locates an edge by its identifier.                                                                       |
-| **findBySource** | `findBySource(sourceId)`   | Logic    | Retrieves all edges originating from the specified source.                                               |
-| **findByTarget** | `findByTarget(targetId)`   | Logic    | Retrieves all edges pointing to the specified target.                                                    |
-| **move**         | `move(id, coordsOrOffset)` | Logic    | Moves or shifts the edge’s coordinates, depending on whether absolute coordinates or an offset is given. |
-| **toJSON**       | `toJSON()`                 | Logic    | Returns all edges in a JSON-like array.                                                                  |
+| **API**          | **Signature**              | **Type** | **Description**                                                                                                                                              |
+| :--------------- | :------------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **add**          | `add(edges)`               | Logic    | Adds one or more edges; automatically ensures each edge has an identifier.                                                                                   |
+| **update**       | `update(id, details)`      | Logic    | Updates an edge by its identifier.                                                                                                                           |
+| **remove**       | `remove(id)`               | Logic    | Removes the edge matching the given identifier.                                                                                                              |
+| **findById**     | `findById(id)`             | Logic    | Locates an edge by its identifier.                                                                                                                           |
+| **findBySource** | `findBySource(sourceId)`   | Logic    | Retrieves all edges originating from the specified source.                                                                                                   |
+| **findByTarget** | `findByTarget(targetId)`   | Logic    | Retrieves all edges pointing to the specified target.                                                                                                        |
+| **move**         | `move(id, coordsOrOffset)` | Logic    | Moves or shifts the edge’s coordinates, depending on whether absolute coordinates or an offset is given.                                                     |
+| **project**      | `project(transform)`       | Logic    | Applies a transformation function to the coordinates of each edge, returning an array with all edge coordinates projected using the transformation function. |
+| **toJSON**       | `toJSON()`                 | Logic    | Returns all edges in a JSON-like array.                                                                                                                      |
 
 ## 🛡️ Exception Handling
 
