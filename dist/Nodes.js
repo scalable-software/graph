@@ -186,6 +186,25 @@ import { Utilities } from "./utilities/utilities.js";
         return this;
     };
     /**
+     * Projects the nodes in the collection by applying a transformation function to their coordinates.
+     *
+     * @param {function} transform - A function that takes a node's coordinates and returns transformed coordinates.
+     * @returns {T[]} An array of nodes with transformed coordinates.
+     *
+     * @example
+     * ```typescript
+     * const nodes = Nodes.create([{ id: "1", coordinates: { x: 0, y: 0 } }]);
+     * const projectedNodes = nodes.project(({x,y}) => ({ x: x + 1, y: y + 1 }));
+     * console.log(projectedNodes); // [{ id: "1", coordinates: { x: 1, y: 1 } }]
+     * ```
+     *
+     * @category Operations
+     */
+    project = (transform = (coordinates) => coordinates) => [...this].map((node) => ({
+        ...node,
+        coordinates: transform(node.coordinates, node),
+    }));
+    /**
      * Converts the `Nodes` collection into a JSON-compatible array.
      *
      * @returns {T[]} An array representation of the nodes.

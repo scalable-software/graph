@@ -266,6 +266,28 @@ export class Edges extends Array {
      */
     findByTarget = (target) => ((target) => this.filter((edge) => edge.target === target))(Validate.uuid(target));
     /**
+     * Projects the edges in the collection by applying a transformation function to their coordinates.
+     *
+     * @param {function} transform - A function that takes an edge's coordinates and returns transformed coordinates.
+     * @returns {T[]} An array of edges with transformed coordinates.
+     *
+     * @example
+     * ```typescript
+     * const edges = Edges.create([{ id: "1", coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } } }]);
+     * const projectedEdges = edges.project(({start, end}) => ({ start: { x: start.x + 1, y: start.y + 1 }, end: { x: end.x + 1, y: end.y + 1 } }));
+     * console.log(projectedEdges); // [{ id: "1", coordinates: { start: { x: 1, y: 1 }, end: { x: 2, y: 2 } } }]
+     * ```
+     *
+     * @category Operations
+     */
+    project = (transform = (coordinates) => coordinates) => [...this].map((edge) => ({
+        ...edge,
+        coordinates: {
+            start: transform(edge.coordinates.start, edge),
+            end: transform(edge.coordinates.end, edge),
+        },
+    }));
+    /**
      * Converts the `Edges` collection into a JSON-compatible array.
      *
      * @returns {T[]} An array representation of the edges.

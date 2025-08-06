@@ -166,6 +166,22 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
      */
     translate: (id: UUID | UUID[], offset: Offset) => Nodes<T>;
     /**
+     * Projects the nodes in the collection by applying a transformation function to their coordinates.
+     *
+     * @param {function} transform - A function that takes a node's coordinates and returns transformed coordinates.
+     * @returns {T[]} An array of nodes with transformed coordinates.
+     *
+     * @example
+     * ```typescript
+     * const nodes = Nodes.create([{ id: "1", coordinates: { x: 0, y: 0 } }]);
+     * const projectedNodes = nodes.project(({x,y}) => ({ x: x + 1, y: y + 1 }));
+     * console.log(projectedNodes); // [{ id: "1", coordinates: { x: 1, y: 1 } }]
+     * ```
+     *
+     * @category Operations
+     */
+    project: (transform?: (coordinates: Coordinates, node?: T) => Coordinates) => T[];
+    /**
      * Converts the `Nodes` collection into a JSON-compatible array.
      *
      * @returns {T[]} An array representation of the nodes.
