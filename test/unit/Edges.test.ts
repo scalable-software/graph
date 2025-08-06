@@ -1681,6 +1681,61 @@ given(`edges.project method availability test`, () => {
   });
 });
 
+given(`edges.project method behavior test`, () => {
+  and(`a edges instance is created with edges`, () => {
+    let edges: Edges<IEdge>;
+    let data: IEdge[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          source: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          target: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { start: { x: 0, y: 0 }, end: { x: 1, y: 1 } },
+        },
+      ];
+      edges = Edges.create(data);
+    });
+    when(`edges.project called with no transform function`, () => {
+      let projected: IEdge[];
+      beforeEach(() => {
+        projected = edges.project();
+      });
+      then(`projected equal [...edges]`, () => {
+        expect(projected).toEqual([...edges]);
+      });
+    });
+    when(`edges.project called with transform function`, () => {
+      let projected: IEdge[];
+      let transform: (Coordinates, IEdge) => Coordinates;
+      beforeEach(() => {
+        transform = ({ x, y }, edge) => ({ x: x + 1, y: y + 1 });
+        projected = edges.project(transform);
+      });
+      then(
+        `projected coordinates equal to edges coordinates transformed`,
+        () => {
+          expect(projected).toEqual(
+            [...edges].map((edge) => ({
+              ...edge,
+              coordinates: {
+                start: transform(edge.coordinates.start, edge),
+                end: transform(edge.coordinates.end, edge),
+              },
+            }))
+          );
+        }
+      );
+    });
+  });
+});
+
 given(`edges.toJSON method availability test`, () => {
   when(`an instance of Edges is created`, () => {
     let instance: Edges<IEdge>;
