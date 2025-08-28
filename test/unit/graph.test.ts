@@ -1183,3 +1183,362 @@ given("Graph.trajectories method behavior test", () => {
     }
   );
 });
+
+given("Graph.journeys method availability test", () => {
+  when("Graph is instantiated", () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then("Graph.journeys is defined", () => {
+      expect(graph.journeys).toBeDefined();
+    });
+  });
+});
+
+given("Graph.journeys method behavior test", () => {
+  and("graph instantiated with pathway using new Graph()", () => {
+    let pathway: Graph<IPathway>;
+    beforeEach(() => {
+      let { metadata, actors, paths } = data;
+      pathway = new Graph({ metadata, nodes: actors, edges: paths });
+    });
+    and("origin is an invalid UUID", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "invalid";
+        destination = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+      });
+      when(
+        "graph.journeys is called with origin and destination",
+        () => {
+          let journeys;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            try {
+              journeys = pathway.journeys(origin, destination);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of Exception.InvalidArgumentException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.InvalidArgumentException
+                );
+              }
+            );
+            and(
+              `error is an instance of Exception.InvalidArgumentException`,
+              () => {
+                then(
+                  `error.message is 'Invalid argument: id - must be a valid UUID'`,
+                  () => {
+                    expect(error.message).toBe(
+                      "Invalid argument: id - must be a valid UUID"
+                    );
+                  }
+                );
+              }
+            );
+          });
+        }
+      );
+    });
+    and("destination is an invalid UUID", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+        destination = "invalid";
+      });
+      when(
+        "graph.journeys is called with origin and destination",
+        () => {
+          let journeys;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            try {
+              journeys = pathway.journeys(origin, destination);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of Exception.InvalidArgumentException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.InvalidArgumentException
+                );
+              }
+            );
+            and(
+              `error is an instance of Exception.InvalidArgumentException`,
+              () => {
+                then(
+                  `error.message is 'Invalid argument: id - must be a valid UUID'`,
+                  () => {
+                    expect(error.message).toBe(
+                      "Invalid argument: id - must be a valid UUID"
+                    );
+                  }
+                );
+              }
+            );
+          });
+        }
+      );
+    });
+    and("nodes does not contains no origin", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "15b3674a-fa9d-4145-b2ab-af0b932fc903";
+        destination = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+      });
+      when(
+        "graph.journeys is called with origin and destination",
+        () => {
+          let journeys;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            try {
+              journeys = pathway.journeys(origin, destination);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of Exception.NotFoundException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.NotFoundException
+                );
+              }
+            );
+            and(
+              `error is an instance of Exception.NotFoundException`,
+              () => {
+                then(
+                  `error.message is 'Not found: origin 15b3674a-fa9d-4145-b2ab-af0b932fc903'`,
+                  () => {
+                    expect(error.message).toBe(
+                      "Not found: origin 15b3674a-fa9d-4145-b2ab-af0b932fc903"
+                    );
+                  }
+                );
+              }
+            );
+          });
+        }
+      );
+    });
+    and("nodes does not contains no destination", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+        destination = "15b3674a-fa9d-4145-b2ab-af0b932fc903";
+      });
+      when(
+        "graph.journeys is called with origin and destination",
+        () => {
+          let journeys;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            try {
+              journeys = pathway.journeys(origin, destination);
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of Exception.NotFoundException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.NotFoundException
+                );
+              }
+            );
+            and(
+              `error is an instance of Exception.NotFoundException`,
+              () => {
+                then(
+                  `error.message is 'Not found: destination 15b3674a-fa9d-4145-b2ab-af0b932fc903'`,
+                  () => {
+                    expect(error.message).toBe(
+                      "Not found: destination 15b3674a-fa9d-4145-b2ab-af0b932fc903"
+                    );
+                  }
+                );
+              }
+            );
+          });
+        }
+      );
+    });
+    and("one edge connects origin and destination", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "35c6779a-fd9d-4089-d1ab-af0b932fc912";
+        destination = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+      });
+      when(
+        "graph.journeys is called with origin and destination",
+        () => {
+          let journeys;
+          beforeEach(() => {
+            journeys = pathway.journeys(origin, destination);
+          });
+          then("journeys is an array", () => {
+            expect(Array.isArray(journeys)).toBeTrue();
+            console.log(journeys);
+          });
+          then("journeys contains one journey", () => {
+            expect(journeys.length).toBe(1);
+          });
+          and("journeys contains one journey", () => {
+            let journey;
+            beforeEach(() => {
+              journey = journeys[0];
+            });
+            then("journey is an object", () => {
+              expect(typeof journey).toBe("object");
+            });
+            then("journey.nodes is defined", () => {
+              expect(journey.nodes).toBeDefined();
+            });
+            then("journey.edges is defined", () => {
+              expect(journey.edges).toBeDefined();
+            });
+          });
+        }
+      );
+    });
+    and("two journeys connects origin and destination", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "251660a8-0e35-4edd-950d-866c5c7cc92c";
+        destination = "73f06535-1356-4f15-a184-356ea459680d";
+      });
+
+      when("graph.journeys(origin, destination)", () => {
+        let journeys;
+        beforeEach(() => {
+          journeys = pathway.journeys(origin, destination);
+        });
+        then("journeys contain two paths", () => {
+          expect(journeys.length).toBe(2);
+        });
+
+        and("journeys contain two journeys", () => {
+          let one: any;
+          let two: any;
+
+          beforeEach(() => {
+            [one, two] = journeys;
+          });
+
+          then("each journey is an object", () => {
+            [one, two].forEach((journey) =>
+              expect(typeof journey).toBe("object")
+            );
+          });
+
+          then("each journey contains nodes and edges", () => {
+            [one, two].forEach((journey) =>
+              expect(journey).toEqual(
+                jasmine.objectContaining({
+                  nodes: jasmine.any(Array),
+                  edges: jasmine.any(Array),
+                })
+              )
+            );
+          });
+
+          then(
+            "each journey's edges form a sequence of connected edges",
+            () => {
+              [one, two].forEach(({ edges }) =>
+                expect(
+                  edges.every((edge, i, arr) =>
+                    i === arr.length - 1
+                      ? true
+                      : edge.target === arr[i + 1].source
+                  )
+                ).toBeTrue()
+              );
+            }
+          );
+
+          then(
+            "first edge.source in each journey equals origin",
+            () => {
+              [one, two].forEach(({ edges }) => {
+                const edge = edges[0];
+                expect(edge.source).toBe(origin);
+              });
+            }
+          );
+
+          then(
+            "last edge.target in each journey equals destination",
+            () => {
+              [one, two].forEach(({ edges }) => {
+                const edge = edges[edges.length - 1];
+                expect(edge.target).toBe(destination);
+              });
+            }
+          );
+
+          then("first node in each journey equals origin", () => {
+            [one, two].forEach(({ nodes }) => {
+              expect(nodes[0].id).toBe(origin);
+            });
+          });
+
+          then(
+            "last node.id in each journey equals destination",
+            () => {
+              [one, two].forEach(({ nodes }) => {
+                expect(nodes[nodes.length - 1].id).toBe(destination);
+              });
+            }
+          );
+
+          then(
+            "nodes and edges are aligned within each journey",
+            () => {
+              [one, two].forEach(({ nodes, edges }) => {
+                edges.forEach((edge, i) => {
+                  expect(edge.source).toBe(nodes[i].id);
+                  expect(edge.target).toBe(nodes[i + 1].id);
+                });
+              });
+            }
+          );
+        });
+      });
+    });
+  });
+});

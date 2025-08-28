@@ -297,19 +297,20 @@ This example shows how to model typed actors and directional paths within a spat
 
 ### ⚙️ Graph Operations
 
-| **API**          | **Signature**                      | **Type** | **Description**                                                                                         |
-| :--------------- | :--------------------------------- | :------- | :------------------------------------------------------------------------------------------------------ |
-| **Constructor**  | `constructor(graph?)`              | Logic    | Initializes metadata, nodes, and edges when optionally provided with initial data.                      |
-| **import**       | `import(graph)`                    | Logic    | Replaces the entire graph’s data with new data (in a JSON-like structure).                              |
-| **export**       | `export()`                         | Logic    | Returns all current graph data (in a JSON-like structure).                                              |
-| **toJSON**       | `toJSON()`                         | Logic    | Alias for `export()`.                                                                                   |
-| **degree**       | `degree(id)`                       | Logic    | Calculates the total number of connections for a node (incoming + outgoing) by its identifier.          |
-| **in**           | `in(id)`                           | Logic    | Returns the count of incoming connections for a given node.                                             |
-| **out**          | `out(id)`                          | Logic    | Returns the count of outgoing connections for a given node.                                             |
-| **neighbors**    | `neighbors(id)`                    | Logic    | Retrieves the identifiers of all nodes directly connected to the specified node.                        |
-| **extend**       | `extend()`                         | Logic    | Computes the spatial extent of the graph in coordinate space.                                           |
-| **domain**       | `domain()`                         | Logic    | Computes the rectangular domain of the graph by determining the minimum and maximum.                    |
-| **trajectories** | `trajectories(origin,destination)` | Logic    | Returns array of trajectories with each trajectory a sequence of edges connecting origin to destination |
+| **API**          | **Signature**                      | **Type** | **Description**                                                                                                             |
+| :--------------- | :--------------------------------- | :------- | :-------------------------------------------------------------------------------------------------------------------------- |
+| **Constructor**  | `constructor(graph?)`              | Logic    | Initializes metadata, nodes, and edges when optionally provided with initial data.                                          |
+| **import**       | `import(graph)`                    | Logic    | Replaces the entire graph’s data with new data (in a JSON-like structure).                                                  |
+| **export**       | `export()`                         | Logic    | Returns all current graph data (in a JSON-like structure).                                                                  |
+| **toJSON**       | `toJSON()`                         | Logic    | Alias for `export()`.                                                                                                       |
+| **degree**       | `degree(id)`                       | Logic    | Calculates the total number of connections for a node (incoming + outgoing) by its identifier.                              |
+| **in**           | `in(id)`                           | Logic    | Returns the count of incoming connections for a given node.                                                                 |
+| **out**          | `out(id)`                          | Logic    | Returns the count of outgoing connections for a given node.                                                                 |
+| **neighbors**    | `neighbors(id)`                    | Logic    | Retrieves the identifiers of all nodes directly connected to the specified node.                                            |
+| **extend**       | `extend()`                         | Logic    | Computes the spatial extent of the graph in coordinate space.                                                               |
+| **domain**       | `domain()`                         | Logic    | Computes the rectangular domain of the graph by determining the minimum and maximum.                                        |
+| **trajectories** | `trajectories(origin,destination)` | Logic    | Returns array of trajectories with each trajectory a sequence of edges connecting origin to destination                     |
+| **journeys**     | `journeys(origin,destination)`     | Logic    | Returns array of journeys containing nodes and edges with each pair representing a valid journey from origin to destination |
 
 ---
 
