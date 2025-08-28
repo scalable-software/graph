@@ -324,7 +324,14 @@ export class Graph<T extends IGraph> {
     return results;
   };
 
-  public journeys = () => {};
+  public journeys = (origin: UUID, destination: UUID) =>
+    this.trajectories(origin, destination).map((edges) => ({
+      nodes: [
+        this.nodes.findById(edges[0].source)!,
+        ...edges.map(({ target }) => this.nodes.findById(target)!),
+      ],
+      edges,
+    }));
 
   private traverse = (
     node: UUID,
