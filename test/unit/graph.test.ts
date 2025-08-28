@@ -4,6 +4,7 @@ import {
   Metadata,
   Nodes,
   Edges,
+  Exception,
   type UUID,
 } from "@scalable.software/graph";
 
@@ -747,4 +748,438 @@ given("Graph.neighbors method behavior test", () => {
       }
     );
   });
+});
+
+given("Graph.trajectories method availability test", () => {
+  when("Graph is instantiated", () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then("Graph.trajectories is defined", () => {
+      expect(graph.trajectories).toBeDefined();
+    });
+  });
+});
+
+given("Graph.trajectories method behavior test", () => {
+  and("graph instantiated with pathway using new Graph()", () => {
+    let pathway: Graph<IPathway>;
+    beforeEach(() => {
+      let { metadata, actors, paths } = data;
+      pathway = new Graph({ metadata, nodes: actors, edges: paths });
+    });
+    and("origin is an invalid UUID", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "invalid";
+        destination = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+      });
+      when(
+        "graph.trajectories is called with origin and destination",
+        () => {
+          let trajectories;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            try {
+              trajectories = pathway.trajectories(
+                origin,
+                destination
+              );
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of Exception.InvalidArgumentException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.InvalidArgumentException
+                );
+              }
+            );
+            and(
+              `error is an instance of Exception.InvalidArgumentException`,
+              () => {
+                then(
+                  `error.message is 'Invalid argument: id - must be a valid UUID'`,
+                  () => {
+                    expect(error.message).toBe(
+                      "Invalid argument: id - must be a valid UUID"
+                    );
+                  }
+                );
+              }
+            );
+          });
+        }
+      );
+    });
+    and("destination is an invalid UUID", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+        destination = "invalid";
+      });
+      when(
+        "graph.trajectories is called with origin and destination",
+        () => {
+          let trajectories;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            try {
+              trajectories = pathway.trajectories(
+                origin,
+                destination
+              );
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of Exception.InvalidArgumentException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.InvalidArgumentException
+                );
+              }
+            );
+            and(
+              `error is an instance of Exception.InvalidArgumentException`,
+              () => {
+                then(
+                  `error.message is 'Invalid argument: id - must be a valid UUID'`,
+                  () => {
+                    expect(error.message).toBe(
+                      "Invalid argument: id - must be a valid UUID"
+                    );
+                  }
+                );
+              }
+            );
+          });
+        }
+      );
+    });
+    and("nodes does not contains no origin", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "15b3674a-fa9d-4145-b2ab-af0b932fc903";
+        destination = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+      });
+      when(
+        "graph.trajectories is called with origin and destination",
+        () => {
+          let trajectories;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            try {
+              trajectories = pathway.trajectories(
+                origin,
+                destination
+              );
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of Exception.NotFoundException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.NotFoundException
+                );
+              }
+            );
+            and(
+              `error is an instance of Exception.NotFoundException`,
+              () => {
+                then(
+                  `error.message is 'Not found: origin 15b3674a-fa9d-4145-b2ab-af0b932fc903'`,
+                  () => {
+                    expect(error.message).toBe(
+                      "Not found: origin 15b3674a-fa9d-4145-b2ab-af0b932fc903"
+                    );
+                  }
+                );
+              }
+            );
+          });
+        }
+      );
+    });
+    and("nodes does not contains no destination", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+        destination = "15b3674a-fa9d-4145-b2ab-af0b932fc903";
+      });
+      when(
+        "graph.trajectories is called with origin and destination",
+        () => {
+          let trajectories;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            try {
+              trajectories = pathway.trajectories(
+                origin,
+                destination
+              );
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of Exception.NotFoundException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.NotFoundException
+                );
+              }
+            );
+            and(
+              `error is an instance of Exception.NotFoundException`,
+              () => {
+                then(
+                  `error.message is 'Not found: destination 15b3674a-fa9d-4145-b2ab-af0b932fc903'`,
+                  () => {
+                    expect(error.message).toBe(
+                      "Not found: destination 15b3674a-fa9d-4145-b2ab-af0b932fc903"
+                    );
+                  }
+                );
+              }
+            );
+          });
+        }
+      );
+    });
+    and("one edge connects origin and destination", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "35c6779a-fd9d-4089-d1ab-af0b932fc912";
+        destination = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+      });
+      when(
+        "graph.trajectories is called with origin and destination",
+        () => {
+          let trajectories;
+          beforeEach(() => {
+            trajectories = pathway.trajectories(origin, destination);
+          });
+          then("trajectories is an array", () => {
+            expect(Array.isArray(trajectories)).toBeTrue();
+          });
+          then("trajectories contains one trajectory", () => {
+            expect(trajectories.length).toBe(1);
+          });
+          and("trajectories contains one trajectory", () => {
+            let trajectory;
+            beforeEach(() => {
+              trajectory = trajectories[0];
+            });
+            then("the trajectory is an array", () => {
+              expect(Array.isArray(trajectory)).toBeTrue();
+            });
+            then("the trajectory contains one edge", () => {
+              expect(trajectory.length).toBe(1);
+            });
+            and("the trajectory contains one edge", () => {
+              let edge;
+              beforeEach(() => {
+                edge = trajectory[0];
+              });
+              then("the edge.source equals origin", () => {
+                expect(edge.source).toBe(origin);
+              });
+              then("then edge.target equals destination", () => {
+                expect(edge.target).toBe(destination);
+              });
+            });
+          });
+        }
+      );
+    });
+    and("two trajectories connects origin and destination", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "251660a8-0e35-4edd-950d-866c5c7cc92c";
+        destination = "73f06535-1356-4f15-a184-356ea459680d";
+      });
+
+      when("graph.trajectories(origin, destination)", () => {
+        let trajectories;
+        beforeEach(() => {
+          trajectories = pathway.trajectories(origin, destination);
+        });
+        then("trajectories contain two paths", () => {
+          expect(trajectories.length).toBe(2);
+        });
+
+        and("trajectories contain two trajectories", () => {
+          let one: any[];
+          let two: any[];
+
+          beforeEach(() => {
+            [one, two] = trajectories;
+          });
+
+          then(
+            "each trajectory is a sequence of connected edges",
+            () => {
+              [one, one].forEach((trajectory) =>
+                expect(
+                  trajectory.every((edge, i, arr) =>
+                    i === arr.length - 1
+                      ? true
+                      : edge.target === arr[i + 1].source
+                  )
+                ).toBeTrue()
+              );
+            }
+          );
+
+          then(
+            "first edge.source in each trajectory equal origin",
+            () => {
+              [one, one].forEach((trajectory) => {
+                const edge = trajectory[0];
+                expect(edge.source).toBe(origin);
+              });
+            }
+          );
+          then(
+            "last edge.target in each trajectory equal destination",
+            () => {
+              [one, one].forEach((trajectory) => {
+                const edge = trajectory[trajectory.length - 1];
+                expect(edge.target).toBe(destination);
+              });
+            }
+          );
+        });
+      });
+    });
+  });
+  and(
+    "graph instantiated with cyclic pathway using new Graph()",
+    () => {
+      let cyclic: Graph<IPathway>;
+      beforeEach(() => {
+        const metadata = {
+          id: "c4076ede-bddf-47f3-8237-5712b4d3eda6",
+          name: "ACS Diagnostic",
+          type: "pathway",
+        } as any;
+        const nodes = [
+          {
+            id: "3d66e968-70e2-42bd-9460-c3a924447da3",
+            coordinates: { x: 0, y: 0 },
+          },
+          {
+            id: "8371703f-9bc7-4e7a-9fe0-196cc517fada",
+            coordinates: { x: 1, y: 0 },
+          },
+          {
+            id: "e2e558a9-02b4-4a87-a09c-9a0d4b759693",
+            coordinates: { x: 2, y: 0 },
+          },
+        ] as any;
+        const edges = [
+          {
+            id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+            source: "3d66e968-70e2-42bd-9460-c3a924447da3",
+            target: "8371703f-9bc7-4e7a-9fe0-196cc517fada",
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 0 },
+            },
+          },
+          {
+            id: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+            source: "8371703f-9bc7-4e7a-9fe0-196cc517fada",
+            target: "3d66e968-70e2-42bd-9460-c3a924447da3",
+            coordinates: {
+              start: { x: 1, y: 0 },
+              end: { x: 0, y: 0 },
+            },
+          },
+          {
+            id: "cccccccc-cccc-cccc-cccc-cccccccccccc",
+            source: "8371703f-9bc7-4e7a-9fe0-196cc517fada",
+            target: "e2e558a9-02b4-4a87-a09c-9a0d4b759693",
+            coordinates: {
+              start: { x: 1, y: 0 },
+              end: { x: 2, y: 0 },
+            },
+          },
+        ] as any;
+
+        cyclic = new Graph({ metadata, nodes, edges });
+      });
+      when("graph.trajectories(origin, destination)", () => {
+        let trajectories;
+        let origin;
+        let destination;
+        beforeEach(() => {
+          origin = "3d66e968-70e2-42bd-9460-c3a924447da3";
+          destination = "e2e558a9-02b4-4a87-a09c-9a0d4b759693";
+          trajectories = cyclic.trajectories(origin, destination);
+        });
+        then("trajectories contains one trajectory", () => {
+          expect(trajectories.length).toBe(1);
+        });
+        and("trajectories contains one trajectory", () => {
+          let trajectory;
+          beforeEach(() => {
+            trajectory = trajectories[0];
+          });
+          then("first edge.source in trajectory is origin", () => {
+            const edge = trajectory[0];
+            expect(edge.source).toBe(origin);
+          });
+          then(
+            "last edge.target in trajectory is destination",
+            () => {
+              const edge = trajectory[trajectory.length - 1];
+              expect(edge.target).toBe(destination);
+            }
+          );
+          then(
+            "each trajectory is a sequence of connected edges",
+            () => {
+              expect(
+                trajectory.every((edge, i, arr) =>
+                  i === arr.length - 1
+                    ? true
+                    : edge.target === arr[i + 1].source
+                )
+              ).toBeTrue();
+            }
+          );
+        });
+      });
+    }
+  );
 });

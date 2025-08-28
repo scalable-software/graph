@@ -14,7 +14,8 @@ import { type IEdge } from "./edge.js";
 
 import { Nodes } from "./nodes.js";
 import { Edges } from "./edges.js";
-import { Validate } from "./index.js";
+import { Validate } from "./validations/validate.js";
+import { Exceptions } from "./exceptions/exceptions.js";
 
 import { type UUID } from "./graph.types.js";
 
@@ -307,6 +308,48 @@ export class Graph<T extends IGraph> {
       )
     ),
   ];
+
+  public trajectories = (origin: UUID, destination: UUID) => {
+    Validate.uuid(origin);
+    Validate.uuid(destination);
+
+    !this.nodes.findById(origin) &&
+      Exceptions.notFoundException("origin", origin);
+
+    !this.nodes.findById(destination) &&
+      Exceptions.notFoundException("destination", destination);
+
+    const results = [];
+    this.traverse(origin, destination, results);
+    return results;
+  };
+
+  private traverse = (
+    node: UUID,
+    destination: UUID,
+    results: any[],
+    stack: any[] = [],
+    visited: Set<UUID> = new Set()
+  ) =>
+    node === destination
+      ? results.push([...stack])
+      : this.edges.findBySource(node).forEach((edge) => {
+          if (visited.has(edge.target)) return;
+
+          stack.push(edge);
+          visited.add(edge.target);
+
+          this.traverse(
+            edge.target,
+            destination,
+            results,
+            stack,
+            visited
+          );
+
+          visited.delete(edge.target);
+          stack.pop();
+        });
 
   protected _import = (graph) => {
     ((graph) => {
