@@ -922,6 +922,57 @@ given("Graph.trajectories method behavior test", () => {
         }
       );
     });
+    and("nodes does not contains no destination", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+        destination = "15b3674a-fa9d-4145-b2ab-af0b932fc903";
+      });
+      when(
+        "graph.trajectories is called with origin and destination",
+        () => {
+          let trajectories;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            try {
+              trajectories = pathway.trajectories(
+                origin,
+                destination
+              );
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of Exception.NotFoundException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.NotFoundException
+                );
+              }
+            );
+            and(
+              `error is an instance of Exception.NotFoundException`,
+              () => {
+                then(
+                  `error.message is 'Not found: node 15b3674a-fa9d-4145-b2ab-af0b932fc903' to be 'Invalid argument: id - must be a valid UUID'`,
+                  () => {
+                    expect(error.message).toBe(
+                      "Not found: node 15b3674a-fa9d-4145-b2ab-af0b932fc903"
+                    );
+                  }
+                );
+              }
+            );
+          });
+        }
+      );
+    });
     and("one edge connects origin and destination", () => {
       let origin: UUID;
       let destination: UUID;
