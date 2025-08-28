@@ -4,6 +4,7 @@ import {
   Metadata,
   Nodes,
   Edges,
+  Exception,
   type UUID,
 } from "@scalable.software/graph";
 
@@ -767,6 +768,57 @@ given("Graph.trajectories method behavior test", () => {
     beforeEach(() => {
       let { metadata, actors, paths } = data;
       pathway = new Graph({ metadata, nodes: actors, edges: paths });
+    });
+    and("origin is an invalid UUID", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "invalid";
+        destination = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+      });
+      when(
+        "graph.trajectories is called with origin and destination",
+        () => {
+          let trajectories;
+          let error: Exception.Exception;
+          beforeEach(() => {
+            try {
+              trajectories = pathway.trajectories(
+                origin,
+                destination
+              );
+            } catch (e) {
+              error = e;
+            }
+          });
+          then(`error is defined`, () => {
+            expect(error).toBeDefined();
+          });
+          and(`error is defined`, () => {
+            then(
+              `error is an instance of Exception.InvalidArgumentException`,
+              () => {
+                expect(error).toBeInstanceOf(
+                  Exception.InvalidArgumentException
+                );
+              }
+            );
+            and(
+              `error is an instance of Exception.InvalidArgumentException`,
+              () => {
+                then(
+                  `error.message is 'Invalid argument: id - must be a valid UUID'`,
+                  () => {
+                    expect(error.message).toBe(
+                      "Invalid argument: id - must be a valid UUID"
+                    );
+                  }
+                );
+              }
+            );
+          });
+        }
+      );
     });
     and("one edge connects origin and destination", () => {
       let origin: UUID;
