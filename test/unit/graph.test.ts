@@ -909,10 +909,10 @@ given("Graph.trajectories method behavior test", () => {
               `error is an instance of Exception.NotFoundException`,
               () => {
                 then(
-                  `error.message is 'Not found: node 15b3674a-fa9d-4145-b2ab-af0b932fc903' to be 'Invalid argument: id - must be a valid UUID'`,
+                  `error.message is 'Not found: origin 15b3674a-fa9d-4145-b2ab-af0b932fc903'`,
                   () => {
                     expect(error.message).toBe(
-                      "Not found: node 15b3674a-fa9d-4145-b2ab-af0b932fc903"
+                      "Not found: origin 15b3674a-fa9d-4145-b2ab-af0b932fc903"
                     );
                   }
                 );
@@ -960,10 +960,10 @@ given("Graph.trajectories method behavior test", () => {
               `error is an instance of Exception.NotFoundException`,
               () => {
                 then(
-                  `error.message is 'Not found: node 15b3674a-fa9d-4145-b2ab-af0b932fc903' to be 'Invalid argument: id - must be a valid UUID'`,
+                  `error.message is 'Not found: destination 15b3674a-fa9d-4145-b2ab-af0b932fc903'`,
                   () => {
                     expect(error.message).toBe(
-                      "Not found: node 15b3674a-fa9d-4145-b2ab-af0b932fc903"
+                      "Not found: destination 15b3674a-fa9d-4145-b2ab-af0b932fc903"
                     );
                   }
                 );
