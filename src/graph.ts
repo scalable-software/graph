@@ -314,11 +314,11 @@ export class Graph<T extends IGraph> {
     Validate.uuid(destination);
 
     if (!this.nodes.findById(origin)) {
-      Exceptions.notFoundException("node", origin);
+      Exceptions.notFoundException("origin", origin);
     }
 
     if (!this.nodes.findById(destination)) {
-      Exceptions.notFoundException("node", destination);
+      Exceptions.notFoundException("destination", destination);
     }
 
     const results = [];
