@@ -308,7 +308,27 @@ export class Graph<T extends IGraph> {
     ),
   ];
 
-  public trajectories = () => {};
+  public trajectories = (origin: UUID, destination: UUID) => {
+    const results = [];
+    this.traverse(origin, destination, results);
+    return results;
+  };
+
+  private traverse = (
+    node: UUID,
+    destination: UUID,
+    results: any[],
+    stack: any[] = []
+  ) =>
+    node === destination
+      ? results.push([...stack])
+      : this.edges.findBySource(node).forEach((edge) => {
+          stack.push(edge);
+
+          this.traverse(edge.target, destination, results, stack);
+
+          stack.pop();
+        });
 
   protected _import = (graph) => {
     ((graph) => {
