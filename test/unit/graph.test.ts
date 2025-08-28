@@ -748,3 +748,15 @@ given("Graph.neighbors method behavior test", () => {
     );
   });
 });
+
+given("Graph.trajectories method availability test", () => {
+  when("Graph is instantiated", () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then("Graph.trajectories is defined", () => {
+      expect(graph.trajectories).toBeDefined();
+    });
+  });
+});
