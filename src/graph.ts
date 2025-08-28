@@ -317,6 +317,10 @@ export class Graph<T extends IGraph> {
       Exceptions.notFoundException("node", origin);
     }
 
+    if (!this.nodes.findById(destination)) {
+      Exceptions.notFoundException("node", destination);
+    }
+
     const results = [];
     this.traverse(origin, destination, results);
     return results;
