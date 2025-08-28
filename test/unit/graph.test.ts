@@ -1183,3 +1183,15 @@ given("Graph.trajectories method behavior test", () => {
     }
   );
 });
+
+given("Graph.journeys method availability test", () => {
+  when("Graph is instantiated", () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    then("Graph.journeys is defined", () => {
+      expect(graph.journeys).toBeDefined();
+    });
+  });
+});
