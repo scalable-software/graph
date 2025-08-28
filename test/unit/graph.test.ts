@@ -760,3 +760,121 @@ given("Graph.trajectories method availability test", () => {
     });
   });
 });
+
+given("Graph.trajectories method behavior test", () => {
+  and("graph instantiated with pathway using new Graph()", () => {
+    let pathway: Graph<IPathway>;
+    beforeEach(() => {
+      let { metadata, actors, paths } = data;
+      pathway = new Graph({ metadata, nodes: actors, edges: paths });
+    });
+    and("one edge connects origin and destination", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "35c6779a-fd9d-4089-d1ab-af0b932fc912";
+        destination = "15b6679a-fd9d-4036-b1ab-af0b932fc903";
+      });
+      when(
+        "graph.trajectories is called with origin and destination",
+        () => {
+          let trajectories;
+          beforeEach(() => {
+            trajectories = pathway.trajectories(origin, destination);
+          });
+          then("trajectories is an array", () => {
+            expect(Array.isArray(trajectories)).toBeTrue();
+          });
+          then("trajectories contains one trajectory", () => {
+            expect(trajectories.length).toBe(1);
+          });
+          and("trajectories contains one trajectory", () => {
+            let trajectory;
+            beforeEach(() => {
+              trajectory = trajectories[0];
+            });
+            then("the trajectory is an array", () => {
+              expect(Array.isArray(trajectory)).toBeTrue();
+            });
+            then("the trajectory contains one edge", () => {
+              expect(trajectory.length).toBe(1);
+            });
+            and("the trajectory contains one edge", () => {
+              let edge;
+              beforeEach(() => {
+                edge = trajectory[0];
+              });
+              then("the edge.source equals origin", () => {
+                expect(edge.source).toBe(origin);
+              });
+              then("then edge.target equals destination", () => {
+                expect(edge.target).toBe(destination);
+              });
+            });
+          });
+        }
+      );
+    });
+    and("two trajectories connects origin and destination", () => {
+      let origin: UUID;
+      let destination: UUID;
+      beforeEach(() => {
+        origin = "251660a8-0e35-4edd-950d-866c5c7cc92c";
+        destination = "73f06535-1356-4f15-a184-356ea459680d";
+      });
+
+      when("graph.trajectories(origin, destination)", () => {
+        let trajectories;
+        beforeEach(() => {
+          trajectories = pathway.trajectories(origin, destination);
+        });
+        then("trajectories contain two paths", () => {
+          expect(trajectories.length).toBe(2);
+        });
+
+        and("trajectories contain two trajectories", () => {
+          let one: any[];
+          let two: any[];
+
+          beforeEach(() => {
+            [one, two] = trajectories;
+          });
+
+          then(
+            "each trajectory is a sequence of connected edges",
+            () => {
+              [one, one].forEach((trajectory) =>
+                expect(
+                  trajectory.every((edge, i, arr) =>
+                    i === arr.length - 1
+                      ? true
+                      : edge.target === arr[i + 1].source
+                  )
+                ).toBeTrue()
+              );
+            }
+          );
+
+          then(
+            "first edge.source in each trajectory equal origin",
+            () => {
+              [one, one].forEach((trajectory) => {
+                const edge = trajectory[0];
+                expect(edge.source).toBe(origin);
+              });
+            }
+          );
+          then(
+            "last edge.target in each trajectory equal destination",
+            () => {
+              [one, one].forEach((trajectory) => {
+                const edge = trajectory[trajectory.length - 1];
+                expect(edge.target).toBe(destination);
+              });
+            }
+          );
+        });
+      });
+    });
+  });
+});
