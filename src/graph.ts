@@ -14,7 +14,8 @@ import { type IEdge } from "./edge.js";
 
 import { Nodes } from "./nodes.js";
 import { Edges } from "./edges.js";
-import { Validate } from "./index.js";
+import { Validate } from "./validations/validate.js";
+import { Exceptions } from "./exceptions/exceptions.js";
 
 import { type UUID } from "./graph.types.js";
 
@@ -311,6 +312,10 @@ export class Graph<T extends IGraph> {
   public trajectories = (origin: UUID, destination: UUID) => {
     Validate.uuid(origin);
     Validate.uuid(destination);
+
+    if (!this.nodes.findById(origin)) {
+      Exceptions.notFoundException("node", origin);
+    }
 
     const results = [];
     this.traverse(origin, destination, results);
