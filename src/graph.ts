@@ -318,15 +318,26 @@ export class Graph<T extends IGraph> {
     node: UUID,
     destination: UUID,
     results: any[],
-    stack: any[] = []
+    stack: any[] = [],
+    visited: Set<UUID> = new Set()
   ) =>
     node === destination
       ? results.push([...stack])
       : this.edges.findBySource(node).forEach((edge) => {
+          if (visited.has(edge.target)) return;
+
           stack.push(edge);
+          visited.add(edge.target);
 
-          this.traverse(edge.target, destination, results, stack);
+          this.traverse(
+            edge.target,
+            destination,
+            results,
+            stack,
+            visited
+          );
 
+          visited.delete(edge.target);
           stack.pop();
         });
 
