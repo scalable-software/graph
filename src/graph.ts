@@ -324,6 +324,8 @@ export class Graph<T extends IGraph> {
     return results;
   };
 
+  public journeys = () => {};
+
   private traverse = (
     node: UUID,
     destination: UUID,
