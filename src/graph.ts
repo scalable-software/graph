@@ -310,6 +310,7 @@ export class Graph<T extends IGraph> {
 
   public trajectories = (origin: UUID, destination: UUID) => {
     Validate.uuid(origin);
+    Validate.uuid(destination);
 
     const results = [];
     this.traverse(origin, destination, results);
