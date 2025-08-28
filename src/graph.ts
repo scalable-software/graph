@@ -308,6 +308,8 @@ export class Graph<T extends IGraph> {
     ),
   ];
 
+  public trajectories = () => {};
+
   protected _import = (graph) => {
     ((graph) => {
       graph.metadata && this.metadata.add(graph.metadata);
