@@ -313,13 +313,11 @@ export class Graph<T extends IGraph> {
     Validate.uuid(origin);
     Validate.uuid(destination);
 
-    if (!this.nodes.findById(origin)) {
+    !this.nodes.findById(origin) &&
       Exceptions.notFoundException("origin", origin);
-    }
 
-    if (!this.nodes.findById(destination)) {
+    !this.nodes.findById(destination) &&
       Exceptions.notFoundException("destination", destination);
-    }
 
     const results = [];
     this.traverse(origin, destination, results);
