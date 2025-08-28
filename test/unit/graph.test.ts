@@ -877,4 +877,104 @@ given("Graph.trajectories method behavior test", () => {
       });
     });
   });
+  and(
+    "graph instantiated with cyclic pathway using new Graph()",
+    () => {
+      let cyclic: Graph<IPathway>;
+      beforeEach(() => {
+        const metadata = {
+          id: "c4076ede-bddf-47f3-8237-5712b4d3eda6",
+          name: "ACS Diagnostic",
+          type: "pathway",
+        } as any;
+        const nodes = [
+          {
+            id: "3d66e968-70e2-42bd-9460-c3a924447da3",
+            coordinates: { x: 0, y: 0 },
+          },
+          {
+            id: "8371703f-9bc7-4e7a-9fe0-196cc517fada",
+            coordinates: { x: 1, y: 0 },
+          },
+          {
+            id: "e2e558a9-02b4-4a87-a09c-9a0d4b759693",
+            coordinates: { x: 2, y: 0 },
+          },
+        ] as any;
+        const edges = [
+          {
+            id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+            source: "3d66e968-70e2-42bd-9460-c3a924447da3",
+            target: "8371703f-9bc7-4e7a-9fe0-196cc517fada",
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: 1, y: 0 },
+            },
+          },
+          {
+            id: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+            source: "8371703f-9bc7-4e7a-9fe0-196cc517fada",
+            target: "3d66e968-70e2-42bd-9460-c3a924447da3",
+            coordinates: {
+              start: { x: 1, y: 0 },
+              end: { x: 0, y: 0 },
+            },
+          },
+          {
+            id: "cccccccc-cccc-cccc-cccc-cccccccccccc",
+            source: "8371703f-9bc7-4e7a-9fe0-196cc517fada",
+            target: "e2e558a9-02b4-4a87-a09c-9a0d4b759693",
+            coordinates: {
+              start: { x: 1, y: 0 },
+              end: { x: 2, y: 0 },
+            },
+          },
+        ] as any;
+
+        cyclic = new Graph({ metadata, nodes, edges });
+      });
+      when("graph.trajectories(origin, destination)", () => {
+        let trajectories;
+        let origin;
+        let destination;
+        beforeEach(() => {
+          origin = "3d66e968-70e2-42bd-9460-c3a924447da3";
+          destination = "e2e558a9-02b4-4a87-a09c-9a0d4b759693";
+          trajectories = cyclic.trajectories(origin, destination);
+        });
+        then("trajectories contains one trajectory", () => {
+          expect(trajectories.length).toBe(1);
+        });
+        and("trajectories contains one trajectory", () => {
+          let trajectory;
+          beforeEach(() => {
+            trajectory = trajectories[0];
+          });
+          then("first edge.source in trajectory is origin", () => {
+            const edge = trajectory[0];
+            expect(edge.source).toBe(origin);
+          });
+          then(
+            "last edge.target in trajectory is destination",
+            () => {
+              const edge = trajectory[trajectory.length - 1];
+              expect(edge.target).toBe(destination);
+            }
+          );
+          then(
+            "each trajectory is a sequence of connected edges",
+            () => {
+              expect(
+                trajectory.every((edge, i, arr) =>
+                  i === arr.length - 1
+                    ? true
+                    : edge.target === arr[i + 1].source
+                )
+              ).toBeTrue();
+            }
+          );
+        });
+      });
+    }
+  );
 });
