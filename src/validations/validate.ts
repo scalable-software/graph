@@ -75,11 +75,20 @@ export class Validate {
    * ```
    */
   public static nodes = <T extends INode>(nodes: T[]): T[] =>
-    Validator.validate<T[]>(nodes, [
-      (nodes) => nodes.map(Validate.node),
-      (nodes) => Validate.unique(nodes, (node) => node.id),
-      (nodes) => Validate.unique(nodes, (node) => node.coordinates),
-    ]);
+    nodes.some((node) => node.coordinates != null)
+      ? Validator.validate<T[]>(nodes, [
+          (nodes) => nodes.map(Validate.node),
+          (nodes) => Validate.unique(nodes, (node) => node.id),
+          (nodes) =>
+            Validate.unique(
+              nodes.filter((node) => node.coordinates != null),
+              (node) => node.coordinates
+            ),
+        ])
+      : Validator.validate<T[]>(nodes, [
+          (nodes) => nodes.map(Validate.node),
+          (nodes) => Validate.unique(nodes, (node) => node.id),
+        ]);
 
   public static edges = <T extends IEdge>(edges: T[]): T[] =>
     Validator.validate<T[]>(edges, [
