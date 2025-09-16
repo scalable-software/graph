@@ -313,9 +313,9 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
       Validator.compare(
         [this, nodes],
         [
-          (sets) => Validate.distinct(sets, (node) => node.id),
+          (sets) => Validate.distinct(sets, ({ id }) => id),
           (sets) =>
-            Validate.distinct(sets, (node) => node.coordinates),
+            Validate.distinct(sets, ({ coordinates }) => coordinates),
         ]
       ))(Validate.nodes<T>(nodes));
 }
