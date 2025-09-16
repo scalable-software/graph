@@ -6,7 +6,7 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
 
 export type INode = {
   id: UUID;
-  coordinates: Coordinates;
+  coordinates?: Coordinates;
 };
 
 export type PartialNode<T> = Partial<T>;
@@ -32,7 +32,9 @@ export class Node {
    * ```
    * @category Utilities
    */
-  public static create = <T extends INode>(details: Omit<T, "id">): T =>
+  public static create = <T extends INode>(
+    details: Omit<T, "id">
+  ): T =>
     ({
       id: crypto.randomUUID() as UUID,
       ...details,
@@ -143,7 +145,10 @@ export class Node {
    * ```
    * @category Utilities
    */
-  public static translate = <T extends INode>(node: T, offset: Offset): T => ({
+  public static translate = <T extends INode>(
+    node: T,
+    offset: Offset
+  ): T => ({
     ...node,
     coordinates: {
       x: node.coordinates.x + offset.x,
