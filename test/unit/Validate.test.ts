@@ -136,7 +136,9 @@ given(`Validate.notNull static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -160,7 +162,9 @@ given(`Validate.notNull static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -281,7 +285,9 @@ given(`Validate.id static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -316,7 +322,9 @@ given(`Validate.id static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -338,7 +346,9 @@ given(`Validate.id static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -441,7 +451,9 @@ given(`Validate.flag static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -461,7 +473,9 @@ given(`Validate.flag static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -481,7 +495,9 @@ given(`Validate.flag static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -526,7 +542,9 @@ given(`Validate.uuid static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -546,7 +564,9 @@ given(`Validate.uuid static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -564,37 +584,48 @@ given(`Validate.coordinates static method availability test`, () => {
 });
 
 given(`Validate.coordinates static method behavior test`, () => {
-  when(`Validate.coordinates is called with valid coordinates`, () => {
-    let coordinates: any;
-    let result: any;
-    beforeEach(() => {
-      coordinates = { x: 0, y: 0 };
-      result = Validate.coordinates(coordinates);
-    });
-    then(`Validate.coordinates returns the coordinates`, () => {
-      expect(result).toBe(coordinates);
-    });
-  });
-  when(`Validate.coordinates is called with invalid coordinates`, () => {
-    let coordinates: any;
-    let error: Exception.Exception;
-    beforeEach(() => {
-      coordinates = { x: 0 };
-      try {
-        Validate.coordinates(coordinates);
-      } catch (e) {
-        error = e;
-      }
-    });
-    then(`error is defined`, () => {
-      expect(error).toBeDefined();
-    });
-    and(`error is defined`, () => {
-      then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+  when(
+    `Validate.coordinates is called with valid coordinates`,
+    () => {
+      let coordinates: any;
+      let result: any;
+      beforeEach(() => {
+        coordinates = { x: 0, y: 0 };
+        result = Validate.coordinates(coordinates);
       });
-    });
-  });
+      then(`Validate.coordinates returns the coordinates`, () => {
+        expect(result).toBe(coordinates);
+      });
+    }
+  );
+  when(
+    `Validate.coordinates is called with invalid coordinates`,
+    () => {
+      let coordinates: any;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        coordinates = { x: 0 };
+        try {
+          Validate.coordinates(coordinates);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
+          }
+        );
+      });
+    }
+  );
   when(`Validate.coordinates is called with null`, () => {
     let coordinates: any;
     let error: Exception.Exception;
@@ -611,7 +642,9 @@ given(`Validate.coordinates static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -656,7 +689,9 @@ given(`Validate.name static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -676,7 +711,9 @@ given(`Validate.name static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -696,7 +733,9 @@ given(`Validate.name static method behavior test`, () => {
     });
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
@@ -918,41 +957,52 @@ given(`Validate.immutable static method availability test`, () => {
 });
 
 given(`Validate.immutable static method behavior test`, () => {
-  when(`Validate.immutable is called with keys and matching key`, () => {
-    let keys: string[];
-    let immutable: string;
-    let error: Exception.Exception;
-    beforeEach(() => {
-      keys = ["id", "name"];
-      immutable = "id";
-      try {
-        Validate.immutable(keys, immutable);
-      } catch (e) {
-        error = e;
-      }
-    });
-    then(`error is defined`, () => {
-      expect(error).toBeDefined();
-    });
-    and(`error is defined`, () => {
-      then(`error is an instance of ImmutablePropertyException`, () => {
-        expect(error).toBeInstanceOf(Exception.ImmutablePropertyException);
+  when(
+    `Validate.immutable is called with keys and matching key`,
+    () => {
+      let keys: string[];
+      let immutable: string;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        keys = ["id", "name"];
+        immutable = "id";
+        try {
+          Validate.immutable(keys, immutable);
+        } catch (e) {
+          error = e;
+        }
       });
-    });
-  });
-  when(`Validate.immutable is called with keys and non-matching key`, () => {
-    let keys: string[];
-    let immutable: string;
-    let result;
-    beforeEach(() => {
-      keys = ["id", "name"];
-      immutable = "type";
-      result = Validate.immutable(keys, immutable);
-    });
-    then(`Validate.immutable returns true`, () => {
-      expect(result).toBe(true);
-    });
-  });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of ImmutablePropertyException`,
+          () => {
+            expect(error).toBeInstanceOf(
+              Exception.ImmutablePropertyException
+            );
+          }
+        );
+      });
+    }
+  );
+  when(
+    `Validate.immutable is called with keys and non-matching key`,
+    () => {
+      let keys: string[];
+      let immutable: string;
+      let result;
+      beforeEach(() => {
+        keys = ["id", "name"];
+        immutable = "type";
+        result = Validate.immutable(keys, immutable);
+      });
+      then(`Validate.immutable returns true`, () => {
+        expect(result).toBe(true);
+      });
+    }
+  );
 });
 
 given(`Validate.metadata static method availability test`, () => {
@@ -971,7 +1021,10 @@ given(`Validate.metadata static method behavior test`, () => {
     let data: IMetadata;
     let result: any;
     beforeEach(() => {
-      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "test" };
+      data = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "test",
+      };
       result = Validate.metadata(data);
     });
     then("data is returned", () => {
@@ -1025,7 +1078,10 @@ given(`Validate.metadata static method behavior test`, () => {
     let result: any;
     let error: Exception.ValidationException;
     beforeEach(() => {
-      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "T" };
+      data = {
+        id: "123e4567-e89b-12d3-a456-426614174000",
+        name: "T",
+      };
       try {
         result = Validate.metadata(data as IMetadata);
       } catch (e) {
@@ -1055,130 +1111,185 @@ given(`Validate.node static method availability test`, () => {
 });
 
 given(`Validate.node static method behavior test`, () => {
-  when("Validate.node called with no arguments", () => {
-    let response: INode;
-    let error: Exception.Exception;
-    beforeEach(() => {
-      try {
-        response = Validate.node() as INode;
-      } catch (e) {
-        error = e;
-      }
-    });
-    then("error is undefined", () => {
-      expect(error).toBeUndefined();
-    });
-    then("response is null", () => {
-      expect(response).toBeNull();
-    });
-  });
-  when("Validate.node called with valid node", () => {
-    let node: INode;
-    let response: INode;
-    let error: Exception.Exception;
-    beforeEach(() => {
-      node = {
-        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-        coordinates: { x: 0, y: 0 },
-      };
-      try {
-        response = Validate.node<INode>(node) as INode;
-      } catch (e) {
-        error = e;
-      }
-    });
-    then("error is undefined", () => {
-      expect(error).toBeUndefined();
-    });
-    then("response is defined", () => {
-      expect(response).toBeDefined();
-    });
-    and("response is defined", () => {
-      then("response equals node", () => {
-        expect(response).toEqual(node);
+  when("Validate.node(node)", () => {
+    and("node is undefined", () => {
+      let response: INode;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          response = Validate.node() as INode;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is undefined", () => {
+        expect(error).toBeUndefined();
+      });
+      then("response is null", () => {
+        expect(response).toBeNull();
       });
     });
-  });
-  when("Validate.node called with invalid id", () => {
-    let node: INode;
-    let response: INode;
-    let error: Exception.Exception;
-    beforeEach(() => {
-      node = {
-        id: "invalid",
-        coordinates: { x: 0, y: 0 },
-      };
-      try {
-        response = Validate.node<INode>(node) as INode;
-      } catch (e) {
-        error = e;
-      }
-    });
-    then("error is defined", () => {
-      expect(error).toBeDefined();
-    });
-    then("response is undefined", () => {
-      expect(response).toBeUndefined();
-    });
-    and("error is defined", () => {
-      then("error is an instance of ValidationException", () => {
-        expect(error).toBeInstanceOf(Exception.ValidationException);
+    and("node is valid node with coordinates", () => {
+      let node: INode;
+      let response: INode;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        node = {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: { x: 0, y: 0 },
+        };
+        try {
+          response = Validate.node<INode>(node) as INode;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is undefined", () => {
+        expect(error).toBeUndefined();
+      });
+      then("response is defined", () => {
+        expect(response).toBeDefined();
+      });
+      and("response is defined", () => {
+        then("response equals node", () => {
+          expect(response).toEqual(node);
+        });
       });
     });
-  });
-  when("Validate.node called with invalid coordinates", () => {
-    let node: INode;
-    let response: INode;
-    let error: Exception.Exception;
-    beforeEach(() => {
-      const x = "invalid" as any;
-      node = {
-        id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-        coordinates: { x, y: 0 },
-      };
-      try {
-        response = Validate.node<INode>(node) as INode;
-      } catch (e) {
-        error = e;
-      }
-    });
-    then("error is defined", () => {
-      expect(error).toBeDefined();
-    });
-    then("response is undefined", () => {
-      expect(response).toBeUndefined();
-    });
-    and("error is defined", () => {
-      then("error is an instance of ValidationException", () => {
-        expect(error).toBeInstanceOf(Exception.ValidationException);
+    and("node is valid node with no coordinates", () => {
+      let node: INode;
+      let response: INode;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        node = {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        };
+        try {
+          response = Validate.node<INode>(node) as INode;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is undefined", () => {
+        expect(error).toBeUndefined();
+      });
+      then("response is defined", () => {
+        expect(response).toBeDefined();
+      });
+      and("response is defined", () => {
+        then("response equals node", () => {
+          expect(response).toEqual(node);
+        });
       });
     });
-  });
-  when("Validate.node called with invalid node", () => {
-    let node: INode;
-    let response: INode;
-    let error: Exception.Exception;
-    beforeEach(() => {
-      const x = "invalid" as any;
-      node = {
-        id: "invalid",
-        coordinates: { x, y: 0 },
-      };
-      try {
-        response = Validate.node<INode>(node) as INode;
-      } catch (e) {
-        error = e;
-      }
+    and("node has invalid id and valid coordinates", () => {
+      let node: INode;
+      let response: INode;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        node = {
+          id: "invalid",
+          coordinates: { x: 0, y: 0 },
+        };
+        try {
+          response = Validate.node<INode>(node) as INode;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      then("response is undefined", () => {
+        expect(response).toBeUndefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
     });
-    then("error is defined", () => {
-      expect(error).toBeDefined();
+    and("node has valid id and invalid coordinates", () => {
+      let node: INode;
+      let response: INode;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        const x = "invalid" as any;
+        node = {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          coordinates: { x, y: 0 },
+        };
+        try {
+          response = Validate.node<INode>(node) as INode;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      then("response is undefined", () => {
+        expect(response).toBeUndefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
     });
-    then("response is undefined", () => {
-      expect(response).toBeUndefined();
+    and("node has invalid id and invalid coordinates", () => {
+      let node: INode;
+      let response: INode;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        const x = "invalid" as any;
+        node = {
+          id: "invalid",
+          coordinates: { x, y: 0 },
+        };
+        try {
+          response = Validate.node<INode>(node) as INode;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      then("response is undefined", () => {
+        expect(response).toBeUndefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
     });
-    and("error is defined", () => {
-      then("error is an instance of ValidationException", () => {
-        expect(error).toBeInstanceOf(Exception.ValidationException);
+    and("node has invalid id and no coordinates", () => {
+      let node: INode;
+      let response: INode;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        const x = "invalid" as any;
+        node = {
+          id: "invalid",
+        };
+        try {
+          response = Validate.node<INode>(node) as INode;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      then("response is undefined", () => {
+        expect(response).toBeUndefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
       });
     });
   });
@@ -1465,35 +1576,41 @@ given(`Validate.nodes static method behavior test`, () => {
       });
     });
   });
-  when("Validate.nodes called with invalid coordinates in nodes", () => {
-    let nodes: INode[];
-    let response: INode[];
-    let error: Exception.Exception;
-    beforeEach(() => {
-      nodes = [
-        {
-          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-          coordinates: { x: "invalid", y: 0 } as unknown as Coordinates,
-        },
-      ];
-      try {
-        response = Validate.nodes(nodes) as INode[];
-      } catch (e) {
-        error = e;
-      }
-    });
-    then("response is undefined", () => {
-      expect(response).toBeUndefined();
-    });
-    then("error is defined", () => {
-      expect(error).toBeDefined();
-    });
-    and("error is defined", () => {
-      then("error is an instance of ValidationException", () => {
-        expect(error).toBeInstanceOf(Exception.ValidationException);
+  when(
+    "Validate.nodes called with invalid coordinates in nodes",
+    () => {
+      let nodes: INode[];
+      let response: INode[];
+      let error: Exception.Exception;
+      beforeEach(() => {
+        nodes = [
+          {
+            id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+            coordinates: {
+              x: "invalid",
+              y: 0,
+            } as unknown as Coordinates,
+          },
+        ];
+        try {
+          response = Validate.nodes(nodes) as INode[];
+        } catch (e) {
+          error = e;
+        }
       });
-    });
-  });
+      then("response is undefined", () => {
+        expect(response).toBeUndefined();
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    }
+  );
   when("Validate.nodes called with duplicate ids in nodes", () => {
     let nodes: INode[];
     let response: INode[];
@@ -1527,39 +1644,42 @@ given(`Validate.nodes static method behavior test`, () => {
       });
     });
   });
-  when("Validate.nodes called with duplicate coordinates in nodes", () => {
-    let nodes: INode[];
-    let response: INode[];
-    let error: Exception.Exception;
-    beforeEach(() => {
-      nodes = [
-        {
-          id: "12b6679a-fd9d-4036-b1ab-af0b932fc902",
-          coordinates: { x: 0, y: 0 },
-        },
-        {
-          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-          coordinates: { x: 0, y: 0 },
-        },
-      ];
-      try {
-        response = Validate.nodes(nodes) as INode[];
-      } catch (e) {
-        error = e;
-      }
-    });
-    then("response is undefined", () => {
-      expect(response).toBeUndefined();
-    });
-    then("error is defined", () => {
-      expect(error).toBeDefined();
-    });
-    and("error is defined", () => {
-      then("error is an instance of ValidationException", () => {
-        expect(error).toBeInstanceOf(Exception.ValidationException);
+  when(
+    "Validate.nodes called with duplicate coordinates in nodes",
+    () => {
+      let nodes: INode[];
+      let response: INode[];
+      let error: Exception.Exception;
+      beforeEach(() => {
+        nodes = [
+          {
+            id: "12b6679a-fd9d-4036-b1ab-af0b932fc902",
+            coordinates: { x: 0, y: 0 },
+          },
+          {
+            id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+            coordinates: { x: 0, y: 0 },
+          },
+        ];
+        try {
+          response = Validate.nodes(nodes) as INode[];
+        } catch (e) {
+          error = e;
+        }
       });
-    });
-  });
+      then("response is undefined", () => {
+        expect(response).toBeUndefined();
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+      and("error is defined", () => {
+        then("error is an instance of ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    }
+  );
 });
 
 given(`Validate.edges static method availability test`, () => {
@@ -1725,88 +1845,100 @@ given(`Validate.edges static method behavior test`, () => {
       });
     });
   });
-  when("Validate.edges called with invalid start coordinates in edges", () => {
-    let edges: IEdge[];
-    let response: IEdge[];
-    let error: Exception.Exception;
-    beforeEach(() => {
-      edges = [
-        {
-          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-          source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-          target: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
-          coordinates: {
-            start: { x: "invalid" as unknown as number, y: 0 },
-            end: { x: 1, y: 1 },
+  when(
+    "Validate.edges called with invalid start coordinates in edges",
+    () => {
+      let edges: IEdge[];
+      let response: IEdge[];
+      let error: Exception.Exception;
+      beforeEach(() => {
+        edges = [
+          {
+            id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+            source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+            target: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+            coordinates: {
+              start: { x: "invalid" as unknown as number, y: 0 },
+              end: { x: 1, y: 1 },
+            },
           },
-        },
-        {
-          id: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
-          source: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
-          target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-          coordinates: { start: { x: 1, y: 1 }, end: { x: 0, y: 0 } },
-        },
-      ];
-      try {
-        response = Validate.edges(edges) as IEdge[];
-      } catch (e) {
-        error = e;
-      }
-    });
-    then("response is undefined", () => {
-      expect(response).toBeUndefined();
-    });
-    then("error is defined", () => {
-      expect(error).toBeDefined();
-    });
-
-    and("response is defined", () => {
-      then("error is an instance of ValidationException", () => {
-        expect(error).toBeInstanceOf(Exception.ValidationException);
-      });
-    });
-  });
-  when("Validate.edges called with invalid end coordinates in edges", () => {
-    let edges: IEdge[];
-    let response: IEdge[];
-    let error: Exception.Exception;
-    beforeEach(() => {
-      edges = [
-        {
-          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-          source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-          target: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
-          coordinates: {
-            start: { x: 0, y: 0 },
-            end: { x: "invalid" as unknown as number, y: 1 },
+          {
+            id: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+            source: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+            target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+            coordinates: {
+              start: { x: 1, y: 1 },
+              end: { x: 0, y: 0 },
+            },
           },
-        },
-        {
-          id: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
-          source: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
-          target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-          coordinates: { start: { x: 1, y: 1 }, end: { x: 0, y: 0 } },
-        },
-      ];
-      try {
-        response = Validate.edges(edges) as IEdge[];
-      } catch (e) {
-        error = e;
-      }
-    });
-    then("response is undefined", () => {
-      expect(response).toBeUndefined();
-    });
-    then("error is defined", () => {
-      expect(error).toBeDefined();
-    });
-
-    and("response is defined", () => {
-      then("error is an instance of ValidationException", () => {
-        expect(error).toBeInstanceOf(Exception.ValidationException);
+        ];
+        try {
+          response = Validate.edges(edges) as IEdge[];
+        } catch (e) {
+          error = e;
+        }
       });
-    });
-  });
+      then("response is undefined", () => {
+        expect(response).toBeUndefined();
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+
+      and("response is defined", () => {
+        then("error is an instance of ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    }
+  );
+  when(
+    "Validate.edges called with invalid end coordinates in edges",
+    () => {
+      let edges: IEdge[];
+      let response: IEdge[];
+      let error: Exception.Exception;
+      beforeEach(() => {
+        edges = [
+          {
+            id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+            source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+            target: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+            coordinates: {
+              start: { x: 0, y: 0 },
+              end: { x: "invalid" as unknown as number, y: 1 },
+            },
+          },
+          {
+            id: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+            source: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+            target: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+            coordinates: {
+              start: { x: 1, y: 1 },
+              end: { x: 0, y: 0 },
+            },
+          },
+        ];
+        try {
+          response = Validate.edges(edges) as IEdge[];
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("response is undefined", () => {
+        expect(response).toBeUndefined();
+      });
+      then("error is defined", () => {
+        expect(error).toBeDefined();
+      });
+
+      and("response is defined", () => {
+        then("error is an instance of ValidationException", () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+      });
+    }
+  );
   when("Validate.edges called with duplicate ids in edges", () => {
     let edges: IEdge[];
     let response: IEdge[];
@@ -1884,52 +2016,58 @@ given(`Validate.edgesDetails static method behavior test`, () => {
       });
     });
   });
-  when(`Validate.edgeDetails called with data containing valid source`, () => {
-    let data: PartialEdge<IEdge>;
-    let result: PartialEdge<IEdge>;
-    let error: Exception.Exception;
-    beforeEach(() => {
-      data = {
-        source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
-      };
-      try {
-        result = Validate.edgeDetails(data);
-      } catch (e) {
-        error = e;
-      }
-    });
-    then(`error is undefined`, () => {
-      expect(error).toBeUndefined();
-    });
-    and(`result is defined`, () => {
-      then(`result equals data`, () => {
-        expect(result).toEqual(data);
+  when(
+    `Validate.edgeDetails called with data containing valid source`,
+    () => {
+      let data: PartialEdge<IEdge>;
+      let result: PartialEdge<IEdge>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = {
+          source: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+        };
+        try {
+          result = Validate.edgeDetails(data);
+        } catch (e) {
+          error = e;
+        }
       });
-    });
-  });
-  when(`Validate.edgeDetails called with data containing valid target`, () => {
-    let data: PartialEdge<IEdge>;
-    let result: PartialEdge<IEdge>;
-    let error: Exception.Exception;
-    beforeEach(() => {
-      data = {
-        target: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
-      };
-      try {
-        result = Validate.edgeDetails(data);
-      } catch (e) {
-        error = e;
-      }
-    });
-    then(`error is undefined`, () => {
-      expect(error).toBeUndefined();
-    });
-    and(`result is defined`, () => {
-      then(`result equals data`, () => {
-        expect(result).toEqual(data);
+      then(`error is undefined`, () => {
+        expect(error).toBeUndefined();
       });
-    });
-  });
+      and(`result is defined`, () => {
+        then(`result equals data`, () => {
+          expect(result).toEqual(data);
+        });
+      });
+    }
+  );
+  when(
+    `Validate.edgeDetails called with data containing valid target`,
+    () => {
+      let data: PartialEdge<IEdge>;
+      let result: PartialEdge<IEdge>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = {
+          target: "11b6679a-fd9d-4036-b1ab-af0b932fc923",
+        };
+        try {
+          result = Validate.edgeDetails(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is undefined`, () => {
+        expect(error).toBeUndefined();
+      });
+      and(`result is defined`, () => {
+        then(`result equals data`, () => {
+          expect(result).toEqual(data);
+        });
+      });
+    }
+  );
   when(
     `Validate.edgeDetails called with data containing valid start coordinates`,
     () => {
@@ -2002,9 +2140,14 @@ given(`Validate.edgesDetails static method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`result is undefined`, () => {
-        then(`error is an instance of InvalidArgumentException`, () => {
-          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
-        });
+        then(
+          `error is an instance of InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
+          }
+        );
       });
     }
   );
@@ -2028,9 +2171,14 @@ given(`Validate.edgesDetails static method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`result is undefined`, () => {
-        then(`error is an instance of InvalidArgumentException`, () => {
-          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
-        });
+        then(
+          `error is an instance of InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
+          }
+        );
       });
     }
   );
@@ -2042,7 +2190,9 @@ given(`Validate.edgesDetails static method behavior test`, () => {
       let error: Exception.Exception;
       beforeEach(() => {
         data = {
-          coordinates: { start: { x: "invalid" as any, y: 0 } } as any,
+          coordinates: {
+            start: { x: "invalid" as any, y: 0 },
+          } as any,
         };
         try {
           result = Validate.edgeDetails(data);
@@ -2054,9 +2204,14 @@ given(`Validate.edgesDetails static method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`result is undefined`, () => {
-        then(`error is an instance of InvalidArgumentException`, () => {
-          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
-        });
+        then(
+          `error is an instance of InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
+          }
+        );
       });
     }
   );
@@ -2080,9 +2235,14 @@ given(`Validate.edgesDetails static method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`result is undefined`, () => {
-        then(`error is an instance of InvalidArgumentException`, () => {
-          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
-        });
+        then(
+          `error is an instance of InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
+          }
+        );
       });
     }
   );
@@ -2242,7 +2402,9 @@ given(`Validate.graphDetails static method behavior test`, () => {
 
     and(`error is defined`, () => {
       then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        expect(error).toBeInstanceOf(
+          Exception.InvalidArgumentException
+        );
       });
     });
   });
