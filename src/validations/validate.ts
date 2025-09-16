@@ -9,10 +9,17 @@ import type { IGraph } from "../graph.js";
 import type { IMetadata } from "../metadata.js";
 import type { INode } from "../node.js";
 import type { IEdge, PartialEdge } from "../edge.js";
-import type { UUID, Name, Coordinates, Offset } from "../graph.types.js";
+import type {
+  UUID,
+  Name,
+  Coordinates,
+  Offset,
+} from "../graph.types.js";
 
 export class Validate {
-  public static graph = <T extends IGraph>(graph?: Partial<T>): Partial<T> => {
+  public static graph = <T extends IGraph>(
+    graph?: Partial<T>
+  ): Partial<T> => {
     graph && Validate.metadata<T["metadata"]>(graph.metadata);
     return graph;
   };
@@ -98,12 +105,16 @@ export class Validate {
    * @category Validation
    */
   public static node = <T extends INode>(node?: T): T | void =>
-    node
+    !node
+      ? null
+      : "coordinates" in node && node.coordinates != null
       ? (Validator.validate<T>(node, [
           ({ id }) => Validate.uuid(id),
           ({ coordinates }) => Validate.coordinates(coordinates),
         ]) as T)
-      : null;
+      : (Validator.validate<T>(node, [
+          ({ id }) => Validate.uuid(id),
+        ]) as T);
 
   public static edge = <T extends IEdge>(edge?: T) =>
     edge
@@ -111,12 +122,15 @@ export class Validate {
           ({ id }) => Validate.uuid(id),
           ({ source }) => Validate.uuid(source),
           ({ target }) => Validate.uuid(target),
-          ({ coordinates }) => Validate.coordinates(coordinates.start),
+          ({ coordinates }) =>
+            Validate.coordinates(coordinates.start),
           ({ coordinates }) => Validate.coordinates(coordinates.end),
         ]) as T)
       : null;
 
-  public static nodeDetails = <T extends { coordinates: Coordinates }>(
+  public static nodeDetails = <
+    T extends { coordinates: Coordinates }
+  >(
     details: Partial<T>
   ): Partial<T> => {
     details.coordinates && Validate.coordinates(details.coordinates);
@@ -184,8 +198,13 @@ export class Validate {
    */
   public static uuid = (id: string | null): UUID =>
     !id ||
-    !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
-      ? Exceptions.invalidArgumentException("id", "must be a valid UUID")
+    !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+      id
+    )
+      ? Exceptions.invalidArgumentException(
+          "id",
+          "must be a valid UUID"
+        )
       : (id as UUID);
 
   /**
@@ -210,7 +229,10 @@ export class Validate {
    */
   public static name = (name: string | null): Name =>
     !name || name.length < 3 || name.length > 100
-      ? Exceptions.invalidArgumentException("name", "must be a valid name")
+      ? Exceptions.invalidArgumentException(
+          "name",
+          "must be a valid name"
+        )
       : (name as Name);
 
   /**
@@ -234,7 +256,10 @@ export class Validate {
     !("y" in offset) ||
     typeof offset.x !== "number" ||
     typeof offset.y !== "number"
-      ? Exceptions.invalidArgumentException("offset", "must be valid offset")
+      ? Exceptions.invalidArgumentException(
+          "offset",
+          "must be valid offset"
+        )
       : (offset as Offset);
 
   /**
@@ -253,7 +278,9 @@ export class Validate {
    * ```
    *
    */
-  public static coordinates = (coordinates: Coordinates | null): Coordinates =>
+  public static coordinates = (
+    coordinates: Coordinates | null
+  ): Coordinates =>
     !coordinates ||
     !("x" in coordinates) ||
     !("y" in coordinates) ||
@@ -288,7 +315,9 @@ export class Validate {
     Exceptions.immutablePropertyException(String(value));
 
   public static many = <T>(item: T | T[], validator: (T) => T) =>
-    Array.isArray(item) ? item.map((item) => validator(item)) : validator(item);
+    Array.isArray(item)
+      ? item.map((item) => validator(item))
+      : validator(item);
 
   /**
    * Validate a single of multiple ids to ensure they are valid UUIDs.
@@ -352,12 +381,18 @@ export class Validate {
 
   public static notNull = <T>(value: T): T =>
     value === undefined || value === null
-      ? Exceptions.invalidArgumentException("", "operation requires argument")
+      ? Exceptions.invalidArgumentException(
+          "",
+          "operation requires argument"
+        )
       : value;
 
   public static flag = (flag: boolean): boolean =>
     typeof flag !== "boolean"
-      ? Exceptions.invalidArgumentException("flag", "must be a boolean")
+      ? Exceptions.invalidArgumentException(
+          "flag",
+          "must be a boolean"
+        )
       : flag;
 
   /**
