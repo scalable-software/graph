@@ -126,7 +126,9 @@ export class Validate {
         ]) as T);
 
   public static edge = <T extends IEdge>(edge?: T) =>
-    edge
+    !edge
+      ? null
+      : "coordinates" in edge && edge.coordinates != null
       ? (Validator.validate<T>(edge, [
           ({ id }) => Validate.uuid(id),
           ({ source }) => Validate.uuid(source),
@@ -135,7 +137,11 @@ export class Validate {
             Validate.coordinates(coordinates.start),
           ({ coordinates }) => Validate.coordinates(coordinates.end),
         ]) as T)
-      : null;
+      : (Validator.validate<T>(edge, [
+          ({ id }) => Validate.uuid(id),
+          ({ source }) => Validate.uuid(source),
+          ({ target }) => Validate.uuid(target),
+        ]) as T);
 
   public static nodeDetails = <
     T extends { coordinates: Coordinates }
