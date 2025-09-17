@@ -211,12 +211,14 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
   public findByCoordinates = (
     coordinates: Coordinates
   ): T | undefined =>
-    ((coordinates) =>
-      this.find(
-        (node) =>
-          node.coordinates.x === coordinates.x &&
-          node.coordinates.y === coordinates.y
-      ))(Validate.coordinates(coordinates));
+    this.geometric
+      ? ((coordinates) =>
+          this.find(
+            (node) =>
+              node.coordinates.x === coordinates.x &&
+              node.coordinates.y === coordinates.y
+          ))(Validate.coordinates(coordinates))
+      : undefined;
 
   /**
    * Move a node to a new position.
