@@ -1226,7 +1226,7 @@ given(`nodes.findByCoordinates method availability test`, () => {
 });
 
 given(`nodes.findByCoordinates method behavior test`, () => {
-  and(`a nodes instance is created with nodes`, () => {
+  and(`nodes created with coordinates`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1242,9 +1242,8 @@ given(`nodes.findByCoordinates method behavior test`, () => {
       ];
       nodes = Nodes.create(data);
     });
-    when(
-      `nodes.findByCoordinates called with existing coordinates`,
-      () => {
+    when(`nodes.findByCoordinates(coordinate)`, () => {
+      and(`coordinates match coordinates in a node`, () => {
         let coordinates: Coordinates;
         let result: INode;
         beforeEach(() => {
@@ -1259,11 +1258,8 @@ given(`nodes.findByCoordinates method behavior test`, () => {
             expect(result).toEqual(data[0]);
           });
         });
-      }
-    );
-    when(
-      `nodes.findByCoordinates called with unknown coordinates`,
-      () => {
+      });
+      and(`coordinates is unknown`, () => {
         let coordinates: Coordinates;
         let result: INode;
         beforeEach(() => {
@@ -1273,11 +1269,8 @@ given(`nodes.findByCoordinates method behavior test`, () => {
         then(`result is undefined`, () => {
           expect(result).toBeUndefined();
         });
-      }
-    );
-    when(
-      `nodes.findByCoordinates called with invalid coordinates`,
-      () => {
+      });
+      and(`coordinates is invalid`, () => {
         let coordinates: Coordinates;
         let error: Exception.Exception;
         beforeEach(() => {
@@ -1314,8 +1307,36 @@ given(`nodes.findByCoordinates method behavior test`, () => {
             }
           );
         });
-      }
-    );
+      });
+    });
+  });
+  and(`nodes created with no coordinates`, () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+        },
+      ];
+      nodes = Nodes.create(data);
+    });
+    when(`nodes.findByCoordinates(coordinate)`, () => {
+      and(`coordinates is unknown`, () => {
+        let coordinates: Coordinates;
+        let result: INode;
+        beforeEach(() => {
+          coordinates = { x: 2, y: 2 };
+          result = nodes.findByCoordinates(coordinates);
+        });
+        then(`result is undefined`, () => {
+          expect(result).toBeUndefined();
+        });
+      });
+    });
   });
 });
 
