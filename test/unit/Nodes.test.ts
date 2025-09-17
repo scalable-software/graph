@@ -245,7 +245,7 @@ given(`Nodes.create static method behavior test`, () => {
   });
 });
 
-given(`node.immutable accessor availability test`, () => {
+given(`nodes.immutable accessor availability test`, () => {
   and(`a nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
@@ -260,7 +260,7 @@ given(`node.immutable accessor availability test`, () => {
   });
 });
 
-given(`node.immutable accessor behavior test`, () => {
+given(`nodes.immutable accessor behavior test`, () => {
   and(`a nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
@@ -352,7 +352,7 @@ given(`node.immutable accessor behavior test`, () => {
   });
 });
 
-given(`node.geometric accessor availability test`, () => {
+given(`nodes.geometric accessor availability test`, () => {
   and(`a nodes instance is created`, () => {
     let nodes: Nodes<INode>;
     beforeEach(() => {
