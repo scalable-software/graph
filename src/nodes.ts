@@ -92,8 +92,13 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
     this._immutable = Validate.flag(immutable);
   }
 
-  get geometric() {
-    return true;
+  get geometric(): boolean {
+    return this.every(
+      (node) =>
+        "coordinates" in node &&
+        node.coordinates?.x != null &&
+        node.coordinates?.y != null
+    );
   }
 
   /**
