@@ -352,6 +352,18 @@ given(`Node.immutable accessor behavior test`, () => {
   });
 });
 
+given(`Node.geometric accessor availability test`, () => {
+  and(`a nodes instance is created`, () => {
+    let nodes: Nodes<INode>;
+    beforeEach(() => {
+      nodes = Nodes.create();
+    });
+    then(`nodes.geometric getter is defined`, () => {
+      expect(nodes.geometric).toBeDefined();
+    });
+  });
+});
+
 given(`nodes.add method availability test`, () => {
   and(`a nodes instance is created`, () => {
     let nodes: Nodes<INode>;
