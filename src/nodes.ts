@@ -230,16 +230,19 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
    * @category Operations
    */
   public move = (id: UUID, coordinates: Coordinates): Nodes<T> => {
-    (([id, coordinates]) =>
-      this.apply(id as UUID, (node) => Node.move(node, coordinates)))(
-      Validator.validate<[UUID, Coordinates]>(
-        [id, coordinates],
-        [
-          ([id, coordinates]) => Validate.id(this, id),
-          ([id, coordinates]) => Validate.coordinates(coordinates),
-        ]
-      )
-    );
+    this.geometric &&
+      (([id, coordinates]) =>
+        this.apply(id as UUID, (node) =>
+          Node.move(node, coordinates)
+        ))(
+        Validator.validate<[UUID, Coordinates]>(
+          [id, coordinates],
+          [
+            ([id, coordinates]) => Validate.id(this, id),
+            ([id, coordinates]) => Validate.coordinates(coordinates),
+          ]
+        )
+      );
     return this;
   };
 
