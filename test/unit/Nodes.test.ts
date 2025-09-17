@@ -1369,7 +1369,7 @@ given(`nodes.move method availability test`, () => {
 });
 
 given(`nodes.move method behavior test`, () => {
-  and(`a nodes instance is created with nodes`, () => {
+  and(`nodes created with coordinates`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1385,14 +1385,96 @@ given(`nodes.move method behavior test`, () => {
       ];
       nodes = Nodes.create(data);
     });
-    when(`nodes.move called with existing coordinates`, () => {
-      let coordinates: Coordinates;
-      beforeEach(() => {
-        coordinates = { x: 2, y: 2 };
-        nodes.move(data[0].id, coordinates);
+    when(`nodes.move(id, coordinates)`, () => {
+      and(`id is valid and coordinates is valid`, () => {
+        let id: UUID;
+        let coordinates: Coordinates;
+        beforeEach(() => {
+          id = data[0].id;
+          coordinates = { x: 2, y: 2 };
+          nodes.move(id, coordinates);
+        });
+        then(`nodes[0].coordinates is equal to coordinates`, () => {
+          expect(nodes[0].coordinates).toEqual(coordinates);
+        });
       });
-      then(`nodes[0].coordinates is equal to coordinates`, () => {
-        expect(nodes[0].coordinates).toEqual(coordinates);
+      and(`id is invalid and coordinates is valid`, () => {
+        let id: UUID;
+        let coordinates: Coordinates;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = "invalid" as UUID;
+          coordinates = { x: 2, y: 2 };
+          try {
+            nodes.move(id, coordinates);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
+          });
+        });
+      });
+      and(`id is valid and coordinates is invalid`, () => {
+        let id: UUID;
+        let coordinates: Coordinates;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          id = "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d";
+          let x = "2" as unknown as number;
+          coordinates = { x: x, y: 2 };
+          try {
+            nodes.move(id, coordinates);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
+          });
+        });
+      });
+    });
+  });
+  and(`nodes created with no coordinates`, () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+        },
+      ];
+      nodes = Nodes.create(data);
+    });
+    when(`nodes.move(id, coordinates)`, () => {
+      and(`id is valid and coordinates is valid`, () => {
+        let id: UUID;
+        let coordinates: Coordinates;
+        beforeEach(() => {
+          id = data[0].id;
+          coordinates = { x: 2, y: 2 };
+          nodes.move(id, coordinates);
+        });
+        then(`nodes.coordinates is undefined`, () => {
+          expect(nodes[0].coordinates).not.toBeDefined();
+        });
       });
     });
   });
