@@ -364,6 +364,42 @@ given(`node.geometric accessor availability test`, () => {
   });
 });
 
+given(`nodes.geometric accessor behavior test`, () => {
+  and(`a nodes instance is created`, () => {
+    let nodes: Nodes<INode>;
+    beforeEach(() => {
+      nodes = Nodes.create();
+    });
+    when(`nodes.add(node)`, () => {
+      and(`node has coordinates`, () => {
+        let node: INode;
+        beforeEach(() => {
+          node = {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { x: 0, y: 0 },
+          };
+          nodes.add(node);
+        });
+        then(`nodes.geometric return true`, () => {
+          expect(nodes.geometric).toBeTrue();
+        });
+      });
+    });
+    and(`node has no coordinates`, () => {
+      let node: INode;
+      beforeEach(() => {
+        node = {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+        };
+        nodes.add(node);
+      });
+      then(`nodes.geometric return false`, () => {
+        expect(nodes.geometric).toBeFalse();
+      });
+    });
+  });
+});
+
 given(`nodes.add method availability test`, () => {
   and(`a nodes instance is created`, () => {
     let nodes: Nodes<INode>;
