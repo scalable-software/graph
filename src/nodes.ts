@@ -92,6 +92,10 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
     this._immutable = Validate.flag(immutable);
   }
 
+  get geometric() {
+    return true;
+  }
+
   /**
    * Adds new nodes to the `Nodes` collection while ensuring unique IDs and coordinates.
    * If a node does not have an `id`, it will be automatically assigned one.
