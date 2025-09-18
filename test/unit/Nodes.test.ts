@@ -1509,7 +1509,7 @@ given(`nodes.translate method availability test`, () => {
 });
 
 given(`nodes.translate method behavior test`, () => {
-  and(`a nodes instance is created with nodes`, () => {
+  and(`nodes created with coordinates`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1525,21 +1525,20 @@ given(`nodes.translate method behavior test`, () => {
       ];
       nodes = Nodes.create(data);
     });
-    when(`nodes.translate called with valid id and offset`, () => {
-      let ids: UUID[];
-      let offset: Offset;
-      beforeEach(() => {
-        ids = data[0].id as any;
-        offset = { x: 1, y: 1 };
-        nodes.translate(ids, offset);
+    when(`nodes.translate(ids, offset)`, () => {
+      and(`ids is a valid id and offset is valid`, () => {
+        let ids: UUID[];
+        let offset: Offset;
+        beforeEach(() => {
+          ids = data[0].id as any;
+          offset = { x: 1, y: 1 };
+          nodes.translate(ids, offset);
+        });
+        then(`nodes[0].coordinates is { x: 1, y: 1 }`, () => {
+          expect(nodes[0].coordinates).toEqual({ x: 1, y: 1 });
+        });
       });
-      then(`nodes[0].coordinates is { x: 1, y: 1 }`, () => {
-        expect(nodes[0].coordinates).toEqual({ x: 1, y: 1 });
-      });
-    });
-    when(
-      `nodes.translate called with invalid id and valid offset`,
-      () => {
+      and(`ids is an invalid id and offset is valid`, () => {
         let ids: UUID[];
         let offset: Offset;
         let error: Exception.Exception;
@@ -1565,26 +1564,23 @@ given(`nodes.translate method behavior test`, () => {
             }
           );
         });
-      }
-    );
-    when(`nodes.translate called with valid ids and offset`, () => {
-      let ids: UUID[];
-      let offset: Offset;
-      beforeEach(() => {
-        ids = [data[0].id, data[1].id];
-        offset = { x: 1, y: 1 };
-        nodes.translate(ids, offset);
       });
-      then(`nodes[0].coordinates is { x: 1, y: 1 }`, () => {
-        expect(nodes[0].coordinates).toEqual({ x: 1, y: 1 });
+      and(`ids are valid ids and offset is valid`, () => {
+        let ids: UUID[];
+        let offset: Offset;
+        beforeEach(() => {
+          ids = [data[0].id, data[1].id];
+          offset = { x: 1, y: 1 };
+          nodes.translate(ids, offset);
+        });
+        then(`nodes[0].coordinates is { x: 1, y: 1 }`, () => {
+          expect(nodes[0].coordinates).toEqual({ x: 1, y: 1 });
+        });
+        then(`nodes[1].coordinates is { x: 2, y: 2 }`, () => {
+          expect(nodes[1].coordinates).toEqual({ x: 3, y: 3 });
+        });
       });
-      then(`nodes[1].coordinates is { x: 2, y: 2 }`, () => {
-        expect(nodes[1].coordinates).toEqual({ x: 3, y: 3 });
-      });
-    });
-    when(
-      `nodes.translate called with valid ids and invalid offset`,
-      () => {
+      and(`ids are valid ids and offset is valid`, () => {
         let ids: UUID[];
         let offset: Offset;
         let error: Exception.Exception;
@@ -1607,11 +1603,8 @@ given(`nodes.translate method behavior test`, () => {
             );
           });
         });
-      }
-    );
-    when(
-      `nodes.translate called with unknown ids and valid offset`,
-      () => {
+      });
+      and(`ids has unknown ids and offset is valid`, () => {
         let ids: UUID[];
         let offset: Offset;
         let error: Exception.Exception;
@@ -1634,8 +1627,129 @@ given(`nodes.translate method behavior test`, () => {
             );
           });
         });
-      }
-    );
+      });
+    });
+  });
+  and(`nodes created with coordinates`, () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          coordinates: { x: 0, y: 0 },
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          coordinates: { x: 2, y: 2 },
+        },
+      ];
+      nodes = Nodes.create(data);
+    });
+    when(`nodes.translate(ids, offset)`, () => {
+      and(`ids is a valid id and offset is valid`, () => {
+        let ids: UUID[];
+        let offset: Offset;
+        beforeEach(() => {
+          ids = data[0].id as any;
+          offset = { x: 1, y: 1 };
+          nodes.translate(ids, offset);
+        });
+        then(`nodes[0].coordinates is { x: 1, y: 1 }`, () => {
+          expect(nodes[0].coordinates).toEqual({ x: 1, y: 1 });
+        });
+      });
+      and(`ids is an invalid id and offset is valid`, () => {
+        let ids: UUID[];
+        let offset: Offset;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          ids = ["1"];
+          offset = { x: 1, y: 1 };
+          try {
+            nodes.translate(ids, offset);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(
+            `error is an instance of Exception.ValidationException`,
+            () => {
+              expect(error).toBeInstanceOf(
+                Exception.ValidationException
+              );
+            }
+          );
+        });
+      });
+      and(`ids are valid ids and offset is valid`, () => {
+        let ids: UUID[];
+        let offset: Offset;
+        beforeEach(() => {
+          ids = [data[0].id, data[1].id];
+          offset = { x: 1, y: 1 };
+          nodes.translate(ids, offset);
+        });
+        then(`nodes[0].coordinates is { x: 1, y: 1 }`, () => {
+          expect(nodes[0].coordinates).toEqual({ x: 1, y: 1 });
+        });
+        then(`nodes[1].coordinates is { x: 2, y: 2 }`, () => {
+          expect(nodes[1].coordinates).toEqual({ x: 3, y: 3 });
+        });
+      });
+      and(`ids are valid ids and offset is valid`, () => {
+        let ids: UUID[];
+        let offset: Offset;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          ids = [data[0].id, data[1].id];
+          offset = { x: "1" as unknown as number, y: 1 };
+          try {
+            nodes.translate(ids, offset);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
+          });
+        });
+      });
+      and(`ids has unknown ids and offset is valid`, () => {
+        let ids: UUID[];
+        let offset: Offset;
+        let error: Exception.Exception;
+        beforeEach(() => {
+          ids = ["453a4547-e89b-12d3-a456-426614174011"];
+          offset = { x: 1, y: 1 };
+          try {
+            nodes.translate(ids, offset);
+          } catch (e) {
+            error = e;
+          }
+        });
+        then(`error is defined`, () => {
+          expect(error).toBeDefined();
+        });
+        and(`error is defined`, () => {
+          then(`error is an instance of ValidationException`, () => {
+            expect(error).toBeInstanceOf(
+              Exception.ValidationException
+            );
+          });
+        });
+      });
+    });
   });
 });
 
