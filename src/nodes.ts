@@ -259,18 +259,19 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
     id: UUID | UUID[],
     offset: Offset
   ): Nodes<T> => {
-    (([id, offset]) =>
-      Utilities.toArray(id).forEach((id) =>
-        this.apply(id, (node) => Node.translate(node, offset))
-      ))(
-      Validator.validate<[UUID, Offset]>(
-        [id as UUID, offset],
-        [
-          ([id, offset]) => Validate.id(this, id),
-          ([id, offset]) => Validate.offset(offset),
-        ]
-      )
-    );
+    this.geometric &&
+      (([id, offset]) =>
+        Utilities.toArray(id).forEach((id) =>
+          this.apply(id, (node) => Node.translate(node, offset))
+        ))(
+        Validator.validate<[UUID, Offset]>(
+          [id as UUID, offset],
+          [
+            ([id, offset]) => Validate.id(this, id),
+            ([id, offset]) => Validate.offset(offset),
+          ]
+        )
+      );
     return this;
   };
 
