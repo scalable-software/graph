@@ -89,7 +89,16 @@ export class Edges<T extends IEdge> extends Array<T> {
   }
 
   get geometric(): boolean {
-    return true
+    return this.every(
+      (node) =>
+        "coordinates" in node &&
+        node.coordinates?.start != null &&
+        node.coordinates?.start?.x != null &&
+        node.coordinates?.start?.y != null &&
+        node.coordinates?.end != null &&
+        node.coordinates?.end?.x != null &&
+        node.coordinates?.end?.y != null
+    );
   }
 
   /**
