@@ -1887,3 +1887,15 @@ given(`edges.immutable accessor behavior test`, () => {
     });
   });
 });
+
+given(`edges.geometric accessor availability test`, () => {
+  and(`a edges instance is created`, () => {
+    let edges: Edges<IEdge>;
+    beforeEach(() => {
+      edges = Edges.create();
+    });
+    then(`edges.geometric getter is defined`, () => {
+      expect(edges.geometric).toBeDefined();
+    });
+  });
+});
