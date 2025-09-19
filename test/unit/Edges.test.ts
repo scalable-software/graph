@@ -180,6 +180,165 @@ given(`Edges.create static method behavior test`, () => {
   });
 });
 
+given(`edges.immutable accessor availability test`, () => {
+  and(`a edges instance is created`, () => {
+    let edges: Edges<IEdge>;
+    beforeEach(() => {
+      edges = Edges.create();
+    });
+    then(`edges.immutable getter is defined`, () => {
+      expect(edges.immutable).toBeDefined();
+    });
+    then(`edges.immutable setter is defined`, () => {
+      expect(hasSetter(edges, "immutable")).toBeTruthy();
+    });
+  });
+});
+
+given(`edges.immutable accessor behavior test`, () => {
+  and(`a edges instance is created`, () => {
+    let edges: Edges<IEdge>;
+    beforeEach(() => {
+      edges = Edges.create();
+    });
+    then(`edges.immutable is by default true`, () => {
+      expect(edges.immutable).toBeTruthy();
+    });
+    when(`edges.immutable is set to false`, () => {
+      beforeEach(() => {
+        edges.immutable = false;
+      });
+      then(`edges.immutable is false`, () => {
+        expect(edges.immutable).toBeFalsy();
+      });
+    });
+    when(`edges.immutable is set to number`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          edges.immutable = 1 as any;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
+          }
+        );
+        and(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            then(
+              `error.message is 'Invalid argument: flag - must be a boolean'`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: flag - must be a boolean"
+                );
+              }
+            );
+          }
+        );
+      });
+    });
+    when(`edges.immutable is set to string`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          edges.immutable = "test" as any;
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            expect(error).toBeInstanceOf(
+              Exception.InvalidArgumentException
+            );
+          }
+        );
+        and(
+          `error is an instance of Exception.InvalidArgumentException`,
+          () => {
+            then(
+              `error.message is 'Invalid argument: flag - must be a boolean'`,
+              () => {
+                expect(error.message).toBe(
+                  "Invalid argument: flag - must be a boolean"
+                );
+              }
+            );
+          }
+        );
+      });
+    });
+  });
+});
+
+given(`edges.geometric accessor availability test`, () => {
+  and(`a edges instance is created`, () => {
+    let edges: Edges<IEdge>;
+    beforeEach(() => {
+      edges = Edges.create();
+    });
+    then(`edges.geometric getter is defined`, () => {
+      expect(edges.geometric).toBeDefined();
+    });
+  });
+});
+
+given(`edges.geometric accessor behavior test`, () => {
+  and(`a edges instance is created`, () => {
+    let edges: Edges<IEdge>;
+    beforeEach(() => {
+      edges = Edges.create();
+    });
+    when(`edges.add(node)`, () => {
+      and(`edge has coordinates`, () => {
+        let edge: IEdge;
+        beforeEach(() => {
+          edge = {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+          };
+          edges.add(edge);
+        });
+        then(`edges.geometric return true`, () => {
+          expect(edges.geometric).toBeTrue();
+        });
+      });
+    });
+    and(`edges has no coordinates`, () => {
+      let edge: IEdge;
+      beforeEach(() => {
+        edge = {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d"
+          };
+        edges.add(edge);
+      });
+      then(`edges.geometric return false`, () => {
+        expect(edges.geometric).toBeFalse();
+      });
+    });
+  });
+});
+
 given(`edges.add method availability test`, () => {
   when(`an instance of Edges is created`, () => {
     let instance: Edges<IEdge>;
@@ -1776,165 +1935,6 @@ given(`edges.toJSON method behavior test`, () => {
       });
       then(`result is equal to edges`, () => {
         expect(result).toEqual(data);
-      });
-    });
-  });
-});
-
-given(`edges.immutable accessor availability test`, () => {
-  and(`a edges instance is created`, () => {
-    let edges: Edges<IEdge>;
-    beforeEach(() => {
-      edges = Edges.create();
-    });
-    then(`edges.immutable getter is defined`, () => {
-      expect(edges.immutable).toBeDefined();
-    });
-    then(`edges.immutable setter is defined`, () => {
-      expect(hasSetter(edges, "immutable")).toBeTruthy();
-    });
-  });
-});
-
-given(`edges.immutable accessor behavior test`, () => {
-  and(`a edges instance is created`, () => {
-    let edges: Edges<IEdge>;
-    beforeEach(() => {
-      edges = Edges.create();
-    });
-    then(`edges.immutable is by default true`, () => {
-      expect(edges.immutable).toBeTruthy();
-    });
-    when(`edges.immutable is set to false`, () => {
-      beforeEach(() => {
-        edges.immutable = false;
-      });
-      then(`edges.immutable is false`, () => {
-        expect(edges.immutable).toBeFalsy();
-      });
-    });
-    when(`edges.immutable is set to number`, () => {
-      let error: Exception.Exception;
-      beforeEach(() => {
-        try {
-          edges.immutable = 1 as any;
-        } catch (e) {
-          error = e;
-        }
-      });
-      then(`error is defined`, () => {
-        expect(error).toBeDefined();
-      });
-      and(`error is defined`, () => {
-        then(
-          `error is an instance of Exception.InvalidArgumentException`,
-          () => {
-            expect(error).toBeInstanceOf(
-              Exception.InvalidArgumentException
-            );
-          }
-        );
-        and(
-          `error is an instance of Exception.InvalidArgumentException`,
-          () => {
-            then(
-              `error.message is 'Invalid argument: flag - must be a boolean'`,
-              () => {
-                expect(error.message).toBe(
-                  "Invalid argument: flag - must be a boolean"
-                );
-              }
-            );
-          }
-        );
-      });
-    });
-    when(`edges.immutable is set to string`, () => {
-      let error: Exception.Exception;
-      beforeEach(() => {
-        try {
-          edges.immutable = "test" as any;
-        } catch (e) {
-          error = e;
-        }
-      });
-      then(`error is defined`, () => {
-        expect(error).toBeDefined();
-      });
-      and(`error is defined`, () => {
-        then(
-          `error is an instance of Exception.InvalidArgumentException`,
-          () => {
-            expect(error).toBeInstanceOf(
-              Exception.InvalidArgumentException
-            );
-          }
-        );
-        and(
-          `error is an instance of Exception.InvalidArgumentException`,
-          () => {
-            then(
-              `error.message is 'Invalid argument: flag - must be a boolean'`,
-              () => {
-                expect(error.message).toBe(
-                  "Invalid argument: flag - must be a boolean"
-                );
-              }
-            );
-          }
-        );
-      });
-    });
-  });
-});
-
-given(`edges.geometric accessor availability test`, () => {
-  and(`a edges instance is created`, () => {
-    let edges: Edges<IEdge>;
-    beforeEach(() => {
-      edges = Edges.create();
-    });
-    then(`edges.geometric getter is defined`, () => {
-      expect(edges.geometric).toBeDefined();
-    });
-  });
-});
-
-given(`edges.geometric accessor behavior test`, () => {
-  and(`a edges instance is created`, () => {
-    let edges: Edges<IEdge>;
-    beforeEach(() => {
-      edges = Edges.create();
-    });
-    when(`edges.add(node)`, () => {
-      and(`edge has coordinates`, () => {
-        let edge: IEdge;
-        beforeEach(() => {
-          edge = {
-            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
-          };
-          edges.add(edge);
-        });
-        then(`edges.geometric return true`, () => {
-          expect(edges.geometric).toBeTrue();
-        });
-      });
-    });
-    and(`edges has no coordinates`, () => {
-      let edge: IEdge;
-      beforeEach(() => {
-        edge = {
-            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d"
-          };
-        edges.add(edge);
-      });
-      then(`edges.geometric return false`, () => {
-        expect(edges.geometric).toBeFalse();
       });
     });
   });
