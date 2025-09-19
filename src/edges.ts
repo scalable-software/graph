@@ -88,6 +88,10 @@ export class Edges<T extends IEdge> extends Array<T> {
     this._immutable = Validate.flag(immutable);
   }
 
+  get geometric(): boolean {
+    return true
+  }
+
   /**
    * Adds new edges to the `Edges` collection while ensuring unique IDs.
    * If a edge does not have an `id`, it will be automatically assigned one.
