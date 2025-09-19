@@ -1899,3 +1899,43 @@ given(`edges.geometric accessor availability test`, () => {
     });
   });
 });
+
+given(`edges.geometric accessor behavior test`, () => {
+  and(`a edges instance is created`, () => {
+    let edges: Edges<IEdge>;
+    beforeEach(() => {
+      edges = Edges.create();
+    });
+    when(`edges.add(node)`, () => {
+      and(`edge has coordinates`, () => {
+        let edge: IEdge;
+        beforeEach(() => {
+          edge = {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { start: { x: 0, y: 0 }, end: { x: 0, y: 0 } },
+          };
+          edges.add(edge);
+        });
+        then(`edges.geometric return true`, () => {
+          expect(edges.geometric).toBeTrue();
+        });
+      });
+    });
+    and(`edges has no coordinates`, () => {
+      let edge: IEdge;
+      beforeEach(() => {
+        edge = {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d"
+          };
+        edges.add(edge);
+      });
+      then(`edges.geometric return false`, () => {
+        expect(edges.geometric).toBeFalse();
+      });
+    });
+  });
+});
