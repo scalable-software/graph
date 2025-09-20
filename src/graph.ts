@@ -219,16 +219,14 @@ export class Graph<T extends IGraph> {
    * @returns An object with `x` and `y` representing the inclusive span of the graph’s domain.
    * @category Data
    */
-  public get extend() {
-    if (this.nodes.length === 0) {
-      return { x: 0, y: 0 };
-    }
-
-    const { x, y } = this.domain;
-    return {
-      x: x.max - x.min + 1,
-      y: y.max - y.min + 1,
-    };
+  public get extent() {
+    return ((hasCoordinates: boolean) =>
+      hasCoordinates
+        ? (({ x, y }) => ({
+            x: x.max - x.min + 1,
+            y: y.max - y.min + 1,
+          }))(this.domain)
+        : { x: 0, y: 0 })(this.geometric);
   }
 
   /**
@@ -326,6 +324,10 @@ export class Graph<T extends IGraph> {
       ],
       edges,
     }));
+
+  private get geometric(): boolean {
+    return this.nodes.some(this.nodeHasCoordinates);
+  }
 
   private traverse = (
     node: UUID,
