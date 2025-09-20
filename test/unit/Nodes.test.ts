@@ -143,38 +143,23 @@ given(`Nodes.create static method behavior test`, () => {
       expect(error).toBeDefined();
     });
     and("error is defined", () => {
-      then(
-        "error is an instance of Exception.ValidationException",
-        () => {
-          expect(error).toBeInstanceOf(Exception.ValidationException);
-        }
-      );
-      and(
-        "error is an instance of Exception.ValidationException",
-        () => {
-          then(
-            "error.errors[0] is Exception.ValidationException",
-            () => {
-              expect(error.errors[0]).toBeInstanceOf(
-                Exception.InvalidArgumentException
-              );
-            }
+      then("error is an instance of Exception.ValidationException", () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
+      and("error is an instance of Exception.ValidationException", () => {
+        then("error.errors[0] is Exception.ValidationException", () => {
+          expect(error.errors[0]).toBeInstanceOf(
+            Exception.InvalidArgumentException
           );
-          and(
-            "error.errors[0] is Exception.InvalidArgumentException",
-            () => {
-              then(
-                "error.errors[0].message is 'Invalid argument: id'",
-                () => {
-                  expect(error.errors[0].message).toBe(
-                    "Invalid argument: id - must be a valid UUID"
-                  );
-                }
-              );
-            }
-          );
-        }
-      );
+        });
+        and("error.errors[0] is Exception.InvalidArgumentException", () => {
+          then("error.errors[0].message is 'Invalid argument: id'", () => {
+            expect(error.errors[0].message).toBe(
+              "Invalid argument: id - must be a valid UUID"
+            );
+          });
+        });
+      });
     });
   });
   when("Nodes.create() is called with duplicate nodes", () => {
@@ -209,38 +194,24 @@ given(`Nodes.create static method behavior test`, () => {
       expect(error).toBeDefined();
     });
     and("error is defined", () => {
-      then(
-        "error is an instance of Exception.ValidationException",
-        () => {
-          expect(error).toBeInstanceOf(Exception.ValidationException);
-        }
-      );
-      and(
-        "error is an instance of Exception.ValidationException",
-        () => {
+      then("error is an instance of Exception.ValidationException", () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
+      and("error is an instance of Exception.ValidationException", () => {
+        then("error.errors[0] is Exception.DuplicateException", () => {
+          expect(error.errors[0]).toBeInstanceOf(Exception.DuplicateException);
+        });
+        and("error.errors[0] is Exception.DuplicateException", () => {
           then(
-            "error.errors[0] is Exception.DuplicateException",
+            "error.errors[0].message is 'Duplicate found: ${JSON.stringify(nodes[3])}",
             () => {
-              expect(error.errors[0]).toBeInstanceOf(
-                Exception.DuplicateException
+              expect(error.errors[0].message).toBe(
+                `Duplicate found: ${JSON.stringify(nodes[3])}`
               );
             }
           );
-          and(
-            "error.errors[0] is Exception.DuplicateException",
-            () => {
-              then(
-                "error.errors[0].message is 'Duplicate found: ${JSON.stringify(nodes[3])}",
-                () => {
-                  expect(error.errors[0].message).toBe(
-                    `Duplicate found: ${JSON.stringify(nodes[3])}`
-                  );
-                }
-              );
-            }
-          );
-        }
-      );
+        });
+      });
     });
   });
 });
@@ -293,9 +264,7 @@ given(`nodes.immutable accessor behavior test`, () => {
         then(
           `error is an instance of Exception.InvalidArgumentException`,
           () => {
-            expect(error).toBeInstanceOf(
-              Exception.InvalidArgumentException
-            );
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
           }
         );
         and(
@@ -329,9 +298,7 @@ given(`nodes.immutable accessor behavior test`, () => {
         then(
           `error is an instance of Exception.InvalidArgumentException`,
           () => {
-            expect(error).toBeInstanceOf(
-              Exception.InvalidArgumentException
-            );
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
           }
         );
         and(
@@ -479,9 +446,7 @@ given(`nodes.add method behavior test`, () => {
         then(
           `error is an instance of Exception.InvalidArgumentException`,
           () => {
-            expect(error).toBeInstanceOf(
-              Exception.InvalidArgumentException
-            );
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
           }
         );
       });
@@ -499,14 +464,9 @@ given(`nodes.add method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(
-          `error is an instance of InvalidArgumentException`,
-          () => {
-            expect(error).toBeInstanceOf(
-              Exception.InvalidArgumentException
-            );
-          }
-        );
+        then(`error is an instance of InvalidArgumentException`, () => {
+          expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+        });
       });
     });
     when(`nodes.add called with nodes having no ids`, () => {
@@ -566,27 +526,14 @@ given(`nodes.add method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(
-          `error is an instance of Exception.ValidationException`,
-          () => {
-            expect(error).toBeInstanceOf(
-              Exception.ValidationException
-            );
-          }
-        );
-        and(
-          `error is an instance of Exception.ValidationException`,
-          () => {
-            then(
-              `error.message is 'Validation failed with 2 error(s).'`,
-              () => {
-                expect(error.message).toBe(
-                  "Validation failed with 2 error(s)."
-                );
-              }
-            );
-          }
-        );
+        then(`error is an instance of Exception.ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+        and(`error is an instance of Exception.ValidationException`, () => {
+          then(`error.message is 'Validation failed with 2 error(s).'`, () => {
+            expect(error.message).toBe("Validation failed with 2 error(s).");
+          });
+        });
       });
     });
     when(`nodes.add called with nodes with invalid id`, () => {
@@ -613,79 +560,50 @@ given(`nodes.add method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(
-          `error is an instance of Exception.ValidationException`,
-          () => {
-            expect(error).toBeInstanceOf(
-              Exception.ValidationException
-            );
-          }
-        );
-        and(
-          `error is an instance of Exception.ValidationException`,
-          () => {
-            then(
-              `error.message is 'Validation failed with 1 error(s).'`,
-              () => {
-                expect(error.message).toBe(
-                  "Validation failed with 1 error(s)."
-                );
-              }
-            );
-          }
-        );
+        then(`error is an instance of Exception.ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+        and(`error is an instance of Exception.ValidationException`, () => {
+          then(`error.message is 'Validation failed with 1 error(s).'`, () => {
+            expect(error.message).toBe("Validation failed with 1 error(s).");
+          });
+        });
       });
     });
-    when(
-      `nodes.add called with nodes with invalid x coordinates`,
-      () => {
-        let data: INode[];
-        let error: Exception.Exception;
-        beforeEach(() => {
-          data = [
-            {
-              id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
-              coordinates: { x: 0, y: 0 },
-            },
-            {
-              id: "a5f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a2d",
-              coordinates: { x: "1" as unknown as number, y: 0 },
-            },
-          ];
-          try {
-            nodes.add(data);
-          } catch (e) {
-            error = e;
-          }
+    when(`nodes.add called with nodes with invalid x coordinates`, () => {
+      let data: INode[];
+      let error: Exception.Exception;
+      beforeEach(() => {
+        data = [
+          {
+            id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+            coordinates: { x: 0, y: 0 },
+          },
+          {
+            id: "a5f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a2d",
+            coordinates: { x: "1" as unknown as number, y: 0 },
+          },
+        ];
+        try {
+          nodes.add(data);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of Exception.ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
+        and(`error is an instance of Exception.ValidationException`, () => {
+          then(`error.message is 'Validation failed with 1 error(s).'`, () => {
+            expect(error.message).toBe("Validation failed with 1 error(s).");
+          });
         });
-        and(`error is defined`, () => {
-          then(
-            `error is an instance of Exception.ValidationException`,
-            () => {
-              expect(error).toBeInstanceOf(
-                Exception.ValidationException
-              );
-            }
-          );
-          and(
-            `error is an instance of Exception.ValidationException`,
-            () => {
-              then(
-                `error.message is 'Validation failed with 1 error(s).'`,
-                () => {
-                  expect(error.message).toBe(
-                    "Validation failed with 1 error(s)."
-                  );
-                }
-              );
-            }
-          );
-        });
-      }
-    );
+      });
+    });
   });
   and(`nodes instance is created with nodes`, () => {
     let data: INode[];
@@ -746,40 +664,21 @@ given(`nodes.add method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(
-          `error is an instance of Exception.ValidationException`,
-          () => {
-            expect(error).toBeInstanceOf(
-              Exception.ValidationException
-            );
-          }
-        );
-        and(
-          `error is an instance of Exception.ValidationException`,
-          () => {
-            then(
-              `error.message is 'Validation failed with 2 error(s).'`,
-              () => {
-                expect(error.message).toBe(
-                  "Validation failed with 2 error(s)."
-                );
-              }
-            );
-            and(
-              `error.message is 'Validation failed with 2 error(s).'`,
-              () => {
-                then(
-                  `error.errors[0] is Exception.DuplicateException`,
-                  () => {
-                    expect(error.errors[0]).toBeInstanceOf(
-                      Exception.DuplicateException
-                    );
-                  }
-                );
-              }
-            );
-          }
-        );
+        then(`error is an instance of Exception.ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
+        });
+        and(`error is an instance of Exception.ValidationException`, () => {
+          then(`error.message is 'Validation failed with 2 error(s).'`, () => {
+            expect(error.message).toBe("Validation failed with 2 error(s).");
+          });
+          and(`error.message is 'Validation failed with 2 error(s).'`, () => {
+            then(`error.errors[0] is Exception.DuplicateException`, () => {
+              expect(error.errors[0]).toBeInstanceOf(
+                Exception.DuplicateException
+              );
+            });
+          });
+        });
       });
     });
   });
@@ -829,65 +728,49 @@ given(`nodes.update method behavior test`, () => {
         });
       });
     });
-    when(
-      `nodes.update called with invalid id and valid details`,
-      () => {
-        let id: UUID;
-        let details: Partial<INode>;
-        let error: Exception.Exception;
-        beforeEach(() => {
-          id = "1";
-          try {
-            nodes.update(id, details);
-          } catch (e) {
-            error = e;
-          }
+    when(`nodes.update called with invalid id and valid details`, () => {
+      let id: UUID;
+      let details: Partial<INode>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        id = "1";
+        try {
+          nodes.update(id, details);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of Exception.ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
+      });
+    });
+    when(`nodes.update called with unknown id and valid details`, () => {
+      let id: UUID;
+      let details: Partial<INode>;
+      let error: Exception.Exception;
+      beforeEach(() => {
+        id = "453a4547-e89b-12d3-a456-426614174011";
+        details = { coordinates: { x: 1, y: 1 } };
+        try {
+          nodes.update(id, details);
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is defined`, () => {
+        expect(error).toBeDefined();
+      });
+      and(`error is defined`, () => {
+        then(`error is an instance of Exception.ValidationException`, () => {
+          expect(error).toBeInstanceOf(Exception.ValidationException);
         });
-        and(`error is defined`, () => {
-          then(
-            `error is an instance of Exception.ValidationException`,
-            () => {
-              expect(error).toBeInstanceOf(
-                Exception.ValidationException
-              );
-            }
-          );
-        });
-      }
-    );
-    when(
-      `nodes.update called with unknown id and valid details`,
-      () => {
-        let id: UUID;
-        let details: Partial<INode>;
-        let error: Exception.Exception;
-        beforeEach(() => {
-          id = "453a4547-e89b-12d3-a456-426614174011";
-          details = { coordinates: { x: 1, y: 1 } };
-          try {
-            nodes.update(id, details);
-          } catch (e) {
-            error = e;
-          }
-        });
-        then(`error is defined`, () => {
-          expect(error).toBeDefined();
-        });
-        and(`error is defined`, () => {
-          then(
-            `error is an instance of Exception.ValidationException`,
-            () => {
-              expect(error).toBeInstanceOf(
-                Exception.ValidationException
-              );
-            }
-          );
-        });
-      }
-    );
+      });
+    });
     when(
       `nodes.update called with valid id and details with invalid coordinates`,
       () => {
@@ -909,14 +792,9 @@ given(`nodes.update method behavior test`, () => {
           expect(error).toBeDefined();
         });
         and(`error is defined`, () => {
-          then(
-            `error is an instance of Exception.ValidationException`,
-            () => {
-              expect(error).toBeInstanceOf(
-                Exception.ValidationException
-              );
-            }
-          );
+          then(`error is an instance of Exception.ValidationException`, () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
         });
       }
     );
@@ -1022,9 +900,7 @@ given(`nodes.remove method behavior test`, () => {
         then(
           `error is an instance of Exception.InvalidArgumentException`,
           () => {
-            expect(error).toBeInstanceOf(
-              Exception.InvalidArgumentException
-            );
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
           }
         );
         and(
@@ -1057,25 +933,19 @@ given(`nodes.remove method behavior test`, () => {
         expect(error).toBeDefined();
       });
       and(`error is defined`, () => {
-        then(
-          `error is an instance of Exception.NotFoundException`,
-          () => {
-            expect(error).toBeInstanceOf(Exception.NotFoundException);
-          }
-        );
-        and(
-          `error is an instance of Exception.NotFoundException`,
-          () => {
-            then(
-              `error.message is 'Not found: id 453a4547-e89b-12d3-a456-426614174011'`,
-              () => {
-                expect(error.message).toBe(
-                  `Not found: id 453a4547-e89b-12d3-a456-426614174011`
-                );
-              }
-            );
-          }
-        );
+        then(`error is an instance of Exception.NotFoundException`, () => {
+          expect(error).toBeInstanceOf(Exception.NotFoundException);
+        });
+        and(`error is an instance of Exception.NotFoundException`, () => {
+          then(
+            `error.message is 'Not found: id 453a4547-e89b-12d3-a456-426614174011'`,
+            () => {
+              expect(error.message).toBe(
+                `Not found: id 453a4547-e89b-12d3-a456-426614174011`
+              );
+            }
+          );
+        });
       });
     });
   });
@@ -1171,9 +1041,7 @@ given(`nodes.findById method behavior test`, () => {
         then(
           `error is an instance of Exception.InvalidArgumentException`,
           () => {
-            expect(error).toBeInstanceOf(
-              Exception.InvalidArgumentException
-            );
+            expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
           }
         );
         and(
@@ -1215,12 +1083,9 @@ given(`nodes.findByCoordinates method availability test`, () => {
       expect(nodes.findByCoordinates).toBeDefined();
     });
     and(`nodes.findByCoordinates is defined`, () => {
-      then(
-        `nodes.findByCoordinates is an instance of Function`,
-        () => {
-          expect(nodes.findByCoordinates).toBeInstanceOf(Function);
-        }
-      );
+      then(`nodes.findByCoordinates is an instance of Function`, () => {
+        expect(nodes.findByCoordinates).toBeInstanceOf(Function);
+      });
     });
   });
 });
@@ -1288,9 +1153,7 @@ given(`nodes.findByCoordinates method behavior test`, () => {
           then(
             `error is an instance of Exception.InvalidArgumentException`,
             () => {
-              expect(error).toBeInstanceOf(
-                Exception.InvalidArgumentException
-              );
+              expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
             }
           );
           and(
@@ -1416,9 +1279,7 @@ given(`nodes.move method behavior test`, () => {
         });
         and(`error is defined`, () => {
           then(`error is instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(
-              Exception.ValidationException
-            );
+            expect(error).toBeInstanceOf(Exception.ValidationException);
           });
         });
       });
@@ -1441,9 +1302,7 @@ given(`nodes.move method behavior test`, () => {
         });
         and(`error is defined`, () => {
           then(`error is instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(
-              Exception.ValidationException
-            );
+            expect(error).toBeInstanceOf(Exception.ValidationException);
           });
         });
       });
@@ -1555,14 +1414,9 @@ given(`nodes.translate method behavior test`, () => {
           expect(error).toBeDefined();
         });
         and(`error is defined`, () => {
-          then(
-            `error is an instance of Exception.ValidationException`,
-            () => {
-              expect(error).toBeInstanceOf(
-                Exception.ValidationException
-              );
-            }
-          );
+          then(`error is an instance of Exception.ValidationException`, () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
         });
       });
       and(`ids are valid ids and offset is valid`, () => {
@@ -1598,9 +1452,7 @@ given(`nodes.translate method behavior test`, () => {
         });
         and(`error is defined`, () => {
           then(`error is an instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(
-              Exception.ValidationException
-            );
+            expect(error).toBeInstanceOf(Exception.ValidationException);
           });
         });
       });
@@ -1622,9 +1474,7 @@ given(`nodes.translate method behavior test`, () => {
         });
         and(`error is defined`, () => {
           then(`error is an instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(
-              Exception.ValidationException
-            );
+            expect(error).toBeInstanceOf(Exception.ValidationException);
           });
         });
       });
@@ -1676,14 +1526,9 @@ given(`nodes.translate method behavior test`, () => {
           expect(error).toBeDefined();
         });
         and(`error is defined`, () => {
-          then(
-            `error is an instance of Exception.ValidationException`,
-            () => {
-              expect(error).toBeInstanceOf(
-                Exception.ValidationException
-              );
-            }
-          );
+          then(`error is an instance of Exception.ValidationException`, () => {
+            expect(error).toBeInstanceOf(Exception.ValidationException);
+          });
         });
       });
       and(`ids are valid ids and offset is valid`, () => {
@@ -1719,9 +1564,7 @@ given(`nodes.translate method behavior test`, () => {
         });
         and(`error is defined`, () => {
           then(`error is an instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(
-              Exception.ValidationException
-            );
+            expect(error).toBeInstanceOf(Exception.ValidationException);
           });
         });
       });
@@ -1743,9 +1586,7 @@ given(`nodes.translate method behavior test`, () => {
         });
         and(`error is defined`, () => {
           then(`error is an instance of ValidationException`, () => {
-            expect(error).toBeInstanceOf(
-              Exception.ValidationException
-            );
+            expect(error).toBeInstanceOf(Exception.ValidationException);
           });
         });
       });
@@ -1782,7 +1623,7 @@ given(`nodes.project method availability test`, () => {
 });
 
 given(`nodes.project method behavior test`, () => {
-  and(`a nodes instance is created with nodes`, () => {
+  and(`nodes created with coordinates`, () => {
     let nodes: Nodes<INode>;
     let data: INode[];
     beforeEach(() => {
@@ -1798,33 +1639,72 @@ given(`nodes.project method behavior test`, () => {
       ];
       nodes = Nodes.create(data);
     });
-    when(`nodes.project called with no transform function`, () => {
-      let projected: INode[];
-      beforeEach(() => {
-        projected = nodes.project();
+    when(`nodes.project(transformation)`, () => {
+      and(`transform is undefined`, () => {
+        let projected: INode[];
+        beforeEach(() => {
+          projected = nodes.project();
+        });
+        then(`projected equal [...nodes]`, () => {
+          expect(projected).toEqual([...nodes]);
+        });
       });
-      then(`projected equal [...nodes]`, () => {
-        expect(projected).toEqual([...nodes]);
+      and(`transform is valid function`, () => {
+        let projected: INode[];
+        let transform: (Coordinates, INode) => Coordinates;
+        beforeEach(() => {
+          transform = ({ x, y }, node) => ({ x: x + 1, y: y + 1 });
+          projected = nodes.project(transform);
+        });
+        then(
+          `projected coordinates equal to nodes coordinates transformed`,
+          () => {
+            expect(projected).toEqual(
+              [...nodes].map((node) => ({
+                ...node,
+                coordinates: transform(node.coordinates, node),
+              }))
+            );
+          }
+        );
       });
     });
-    when(`nodes.project called with transform function`, () => {
-      let projected: INode[];
-      let transform: (Coordinates, INode) => Coordinates;
-      beforeEach(() => {
-        transform = ({ x, y }, node) => ({ x: x + 1, y: y + 1 });
-        projected = nodes.project(transform);
+  });
+  and(`nodes created with no coordinates`, () => {
+    let nodes: Nodes<INode>;
+    let data: INode[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+        },
+      ];
+      nodes = Nodes.create(data);
+    });
+    when(`nodes.project(transformation)`, () => {
+      and(`transform is undefined`, () => {
+        let projected: INode[];
+        beforeEach(() => {
+          projected = nodes.project();
+        });
+        then(`projected equal [...nodes]`, () => {
+          expect(projected).toEqual([...nodes]);
+        });
       });
-      then(
-        `projected coordinates equal to nodes coordinates transformed`,
-        () => {
-          expect(projected).toEqual(
-            [...nodes].map((node) => ({
-              ...node,
-              coordinates: transform(node.coordinates, node),
-            }))
-          );
-        }
-      );
+      and(`transform is valid function`, () => {
+        let projected: INode[];
+        let transform: (Coordinates, INode) => Coordinates;
+        beforeEach(() => {
+          transform = ({ x, y }, node) => ({ x: x + 1, y: y + 1 });
+          projected = nodes.project(transform);
+        });
+        then(`projected equal nodes`, () => {
+          expect(projected).toEqual([...nodes]);
+        });
+      });
     });
   });
 });
