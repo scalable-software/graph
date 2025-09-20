@@ -169,12 +169,7 @@ This library is ideal for modeling clinical pathways containing different actors
 1. Define Custom Types (`pathway.types.ts`)
 
 ```typescript
-import type {
-  IMetadata,
-  INode,
-  IEdge,
-  IGraph,
-} from "@scalable.software/graph";
+import type { IMetadata, INode, IEdge, IGraph } from "@scalable.software/graph";
 
 export type PathwayMetadata = IMetadata & {
   type: string;
@@ -228,10 +223,7 @@ const data: IPathway = {
         {
           duration: {
             distribution: "log normal",
-            parameters: [
-              { meanlog: 0.1640238 },
-              { sdlog: 0.4169375 },
-            ],
+            parameters: [{ meanlog: 0.1640238 }, { sdlog: 0.4169375 }],
           },
         },
       ],
@@ -307,7 +299,7 @@ This example shows how to model typed actors and directional paths within a spat
 | **in**           | `in(id)`                           | Logic    | Returns the count of incoming connections for a given node.                                                                 |
 | **out**          | `out(id)`                          | Logic    | Returns the count of outgoing connections for a given node.                                                                 |
 | **neighbors**    | `neighbors(id)`                    | Logic    | Retrieves the identifiers of all nodes directly connected to the specified node.                                            |
-| **extend**       | `extend()`                         | Logic    | Computes the spatial extent of the graph in coordinate space.                                                               |
+| **extent**       | `extent()`                         | Logic    | Computes the spatial extent of the graph in coordinate space.                                                               |
 | **domain**       | `domain()`                         | Logic    | Computes the rectangular domain of the graph by determining the minimum and maximum.                                        |
 | **trajectories** | `trajectories(origin,destination)` | Logic    | Returns array of trajectories with each trajectory a sequence of edges connecting origin to destination                     |
 | **journeys**     | `journeys(origin,destination)`     | Logic    | Returns array of journeys containing nodes and edges with each pair representing a valid journey from origin to destination |
