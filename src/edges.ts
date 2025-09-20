@@ -47,9 +47,7 @@ export class Edges<T extends IEdge> extends Array<T> {
   /**
    * @category Factory
    */
-  public static create = <T extends IEdge>(
-    edges?: T[] | null
-  ): Edges<T> =>
+  public static create = <T extends IEdge>(edges?: T[] | null): Edges<T> =>
     new Edges<T>(...Edges.normalize<T>(edges)) as Edges<T>;
 
   private static defaults = <T extends IEdge>(): T[] => [];
@@ -88,6 +86,19 @@ export class Edges<T extends IEdge> extends Array<T> {
     this._immutable = Validate.flag(immutable);
   }
 
+  get geometric(): boolean {
+    return this.every(
+      (node) =>
+        "coordinates" in node &&
+        node.coordinates?.start != null &&
+        node.coordinates?.start?.x != null &&
+        node.coordinates?.start?.y != null &&
+        node.coordinates?.end != null &&
+        node.coordinates?.end?.x != null &&
+        node.coordinates?.end?.y != null
+    );
+  }
+
   /**
    * Adds new edges to the `Edges` collection while ensuring unique IDs.
    * If a edge does not have an `id`, it will be automatically assigned one.
@@ -98,14 +109,10 @@ export class Edges<T extends IEdge> extends Array<T> {
    *
    * @category Operations
    */
-  public add = (
-    edges: T | Omit<T, "id"> | (T | Omit<T, "id">)[]
-  ): Edges<T> => {
+  public add = (edges: T | Omit<T, "id"> | (T | Omit<T, "id">)[]): Edges<T> => {
     ((edges) => this.push(...edges))(
       ((edges) => this.validate(edges))(
-        ((edges) => Utilities.normalize(edges))(
-          Validate.notNull(edges)
-        )
+        ((edges) => Utilities.normalize(edges))(Validate.notNull(edges))
       )
     );
     return this;
@@ -161,22 +168,20 @@ export class Edges<T extends IEdge> extends Array<T> {
     id: UUID,
     coordinates: { start?: Coordinates; end?: Coordinates }
   ): Edges<T> => {
-    (([id, coordinates]) =>
-      this.apply(id as UUID, (edge) => Edge.move(edge, coordinates)))(
-      Validator.validate<
-        [UUID, { start?: Coordinates; end?: Coordinates }]
-      >(
-        [id, coordinates],
-        [
-          ([id, coordinates]) => Validate.id(this, id),
-          ([id, coordinates]) =>
-            coordinates.start &&
-            Validate.coordinates(coordinates.start),
-          ([id, coordinates]) =>
-            coordinates.end && Validate.coordinates(coordinates.end),
-        ]
-      )
-    );
+    this.geometric &&
+      (([id, coordinates]) =>
+        this.apply(id as UUID, (edge) => Edge.move(edge, coordinates)))(
+        Validator.validate<[UUID, { start?: Coordinates; end?: Coordinates }]>(
+          [id, coordinates],
+          [
+            ([id, coordinates]) => Validate.id(this, id),
+            ([id, coordinates]) =>
+              coordinates.start && Validate.coordinates(coordinates.start),
+            ([id, coordinates]) =>
+              coordinates.end && Validate.coordinates(coordinates.end),
+          ]
+        )
+      );
     return this;
   };
 
@@ -200,22 +205,20 @@ export class Edges<T extends IEdge> extends Array<T> {
    *
    * @category Operations
    */
-  public translate = (
-    id: UUID | UUID[],
-    offset: Offset
-  ): Edges<T> => {
-    (([id, offset]) =>
-      Utilities.toArray(id).forEach((id) =>
-        this.apply(id, (node) => Edge.translate(node, offset))
-      ))(
-      Validator.validate<[UUID, Offset]>(
-        [id as UUID, offset],
-        [
-          ([id, offset]) => Validate.id(this, id),
-          ([id, offset]) => Validate.offset(offset),
-        ]
-      )
-    );
+  public translate = (id: UUID | UUID[], offset: Offset): Edges<T> => {
+    this.geometric &&
+      (([id, offset]) =>
+        Utilities.toArray(id).forEach((id) =>
+          this.apply(id, (node) => Edge.translate(node, offset))
+        ))(
+        Validator.validate<[UUID, Offset]>(
+          [id as UUID, offset],
+          [
+            ([id, offset]) => Validate.id(this, id),
+            ([id, offset]) => Validate.offset(offset),
+          ]
+        )
+      );
     return this;
   };
 
@@ -240,9 +243,7 @@ export class Edges<T extends IEdge> extends Array<T> {
    * @category Operations
    */
   public remove = (id: UUID): Edges<T> => {
-    ((id) => this.splice(this.index(id), 1))(
-      Validate.id(this, id) as UUID
-    );
+    ((id) => this.splice(this.index(id), 1))(Validate.id(this, id) as UUID);
     return this;
   };
 
@@ -354,13 +355,15 @@ export class Edges<T extends IEdge> extends Array<T> {
       coordinates
     ) => coordinates
   ): T[] =>
-    [...this].map((edge) => ({
-      ...edge,
-      coordinates: {
-        start: transform(edge.coordinates.start, edge),
-        end: transform(edge.coordinates.end, edge),
-      },
-    }));
+    this.geometric
+      ? [...this].map((edge) => ({
+          ...edge,
+          coordinates: {
+            start: transform(edge.coordinates.start, edge),
+            end: transform(edge.coordinates.end, edge),
+          },
+        }))
+      : [...this];
 
   /**
    * Converts the `Edges` collection into a JSON-compatible array.
@@ -371,11 +374,9 @@ export class Edges<T extends IEdge> extends Array<T> {
    */
   public toJSON = (): T[] => [...this];
 
-  private index = (id: UUID): number =>
-    Utilities.Index.byId<T>(this, id);
+  private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
-  private edge = (id: UUID): T =>
-    this.at(Utilities.Index.byId<T>(this, id));
+  private edge = (id: UUID): T => this.at(Utilities.Index.byId<T>(this, id));
 
   private assign = (edge: T, updatedEdge: T): T =>
     this.immutable

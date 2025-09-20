@@ -57,9 +57,7 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
    *
    * @category Factory
    */
-  public static create = <T extends INode>(
-    nodes?: T[] | null
-  ): Nodes<T> =>
+  public static create = <T extends INode>(nodes?: T[] | null): Nodes<T> =>
     new Nodes<T>(...Nodes.normalize<T>(nodes)) as Nodes<T>;
 
   private static defaults = <T extends INode>(): T[] => [];
@@ -92,6 +90,15 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
     this._immutable = Validate.flag(immutable);
   }
 
+  get geometric(): boolean {
+    return this.every(
+      (node) =>
+        "coordinates" in node &&
+        node.coordinates?.x != null &&
+        node.coordinates?.y != null
+    );
+  }
+
   /**
    * Adds new nodes to the `Nodes` collection while ensuring unique IDs and coordinates.
    * If a node does not have an `id`, it will be automatically assigned one.
@@ -103,14 +110,10 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
    *
    * @category Operations
    */
-  public add = (
-    nodes: T | Omit<T, "id"> | (T | Omit<T, "id">)[]
-  ): Nodes<T> => {
+  public add = (nodes: T | Omit<T, "id"> | (T | Omit<T, "id">)[]): Nodes<T> => {
     ((nodes) => this.push(...nodes))(
       ((nodes) => this.validate(nodes))(
-        ((nodes) => Utilities.normalize(nodes))(
-          Validate.notNull(nodes)
-        )
+        ((nodes) => Utilities.normalize(nodes))(Validate.notNull(nodes))
       )
     );
     return this;
@@ -150,9 +153,7 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
    * @category Operations
    */
   public remove = (id: UUID): Nodes<T> => {
-    ((id) => this.splice(this.index(id), 1))(
-      Validate.id(this, id) as UUID
-    );
+    ((id) => this.splice(this.index(id), 1))(Validate.id(this, id) as UUID);
     return this;
   };
 
@@ -199,15 +200,15 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
    * ```
    * @category Operations
    */
-  public findByCoordinates = (
-    coordinates: Coordinates
-  ): T | undefined =>
-    ((coordinates) =>
-      this.find(
-        (node) =>
-          node.coordinates.x === coordinates.x &&
-          node.coordinates.y === coordinates.y
-      ))(Validate.coordinates(coordinates));
+  public findByCoordinates = (coordinates: Coordinates): T | undefined =>
+    this.geometric
+      ? ((coordinates) =>
+          this.find(
+            (node) =>
+              node.coordinates.x === coordinates.x &&
+              node.coordinates.y === coordinates.y
+          ))(Validate.coordinates(coordinates))
+      : undefined;
 
   /**
    * Move a node to a new position.
@@ -219,16 +220,17 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
    * @category Operations
    */
   public move = (id: UUID, coordinates: Coordinates): Nodes<T> => {
-    (([id, coordinates]) =>
-      this.apply(id as UUID, (node) => Node.move(node, coordinates)))(
-      Validator.validate<[UUID, Coordinates]>(
-        [id, coordinates],
-        [
-          ([id, coordinates]) => Validate.id(this, id),
-          ([id, coordinates]) => Validate.coordinates(coordinates),
-        ]
-      )
-    );
+    this.geometric &&
+      (([id, coordinates]) =>
+        this.apply(id as UUID, (node) => Node.move(node, coordinates)))(
+        Validator.validate<[UUID, Coordinates]>(
+          [id, coordinates],
+          [
+            ([id, coordinates]) => Validate.id(this, id),
+            ([id, coordinates]) => Validate.coordinates(coordinates),
+          ]
+        )
+      );
     return this;
   };
 
@@ -241,22 +243,20 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
    *
    * @category Operations
    */
-  public translate = (
-    id: UUID | UUID[],
-    offset: Offset
-  ): Nodes<T> => {
-    (([id, offset]) =>
-      Utilities.toArray(id).forEach((id) =>
-        this.apply(id, (node) => Node.translate(node, offset))
-      ))(
-      Validator.validate<[UUID, Offset]>(
-        [id as UUID, offset],
-        [
-          ([id, offset]) => Validate.id(this, id),
-          ([id, offset]) => Validate.offset(offset),
-        ]
-      )
-    );
+  public translate = (id: UUID | UUID[], offset: Offset): Nodes<T> => {
+    this.geometric &&
+      (([id, offset]) =>
+        Utilities.toArray(id).forEach((id) =>
+          this.apply(id, (node) => Node.translate(node, offset))
+        ))(
+        Validator.validate<[UUID, Offset]>(
+          [id as UUID, offset],
+          [
+            ([id, offset]) => Validate.id(this, id),
+            ([id, offset]) => Validate.offset(offset),
+          ]
+        )
+      );
     return this;
   };
 
@@ -280,10 +280,12 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
       coordinates
     ) => coordinates
   ): T[] =>
-    [...this].map((node) => ({
-      ...node,
-      coordinates: transform(node.coordinates, node),
-    }));
+    this.geometric
+      ? [...this].map((node) => ({
+          ...node,
+          coordinates: transform(node.coordinates, node),
+        }))
+      : [...this];
 
   /**
    * Converts the `Nodes` collection into a JSON-compatible array.
@@ -294,11 +296,9 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
    */
   public toJSON = (): T[] => [...this];
 
-  private index = (id: UUID): number =>
-    Utilities.Index.byId<T>(this, id);
+  private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
-  private node = (id: UUID): T =>
-    this.at(Utilities.Index.byId<T>(this, id));
+  private node = (id: UUID): T => this.at(Utilities.Index.byId<T>(this, id));
 
   private assign = (node: T, updatedNode: T): T =>
     this.immutable
@@ -313,9 +313,8 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
       Validator.compare(
         [this, nodes],
         [
-          (sets) => Validate.distinct(sets, (node) => node.id),
-          (sets) =>
-            Validate.distinct(sets, (node) => node.coordinates),
+          (sets) => Validate.distinct(sets, ({ id }) => id),
+          (sets) => Validate.distinct(sets, ({ coordinates }) => coordinates),
         ]
       ))(Validate.nodes<T>(nodes));
 }

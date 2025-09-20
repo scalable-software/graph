@@ -1,18 +1,25 @@
 ![License: CC BY-NC-SA 4.0](https://flat.badgen.net/static/license/CC-BY-NC-SA-4.0/green)
 
-# Graph Data Structure (with Geometry)
+# Graph Data Structure (with Optional Geometry)
 
-Graphs are a powerful way to represent relationships among distinct items—whether you're mapping social networks, modeling routes, or understanding dependencies. In this library, **both nodes and edges require coordinates**, giving the entire graph a strong **geometric foundation**. Each node has `(x, y)` coordinates, while edges track start and end points—making it easy to visualize, render, and position connected data in 2D space.
+Graphs are a powerful way to represent relationships among distinct items—whether you're mapping social networks, modeling routes, or understanding dependencies. This library supports graphs with **optional coordinates** for nodes and edges. When coordinates are provided, additional **geometric-based methods** become available for spatial operations and visualizations.
 
-This geometry-oriented design **streamlines** the creation, storage, and manipulation of nodes and edges, offering a suite of tools to effortlessly add, remove, traverse, or analyze them. Instead of building graph logic from scratch, you can rely on well-tested methods that handle everything from **validation** to **navigation**—letting you focus on delivering insights and value from connected data with clear spatial relationships.
+**Flexible Coordinate Support:**
+
+- **Nodes** can optionally have `{ x, y }` coordinates describing their spatial location
+- **Edges** can optionally specify `{ start: { x, y }, end: { x, y } }` coordinates for visual connections
+- **Geometric methods** are automatically enabled when all nodes and edges in the graph have coordinates
+- **Non-geometric graphs** work perfectly without any coordinate data
+
+This flexible design **streamlines** the creation, storage, and manipulation of both abstract and spatially-aware graphs, offering a suite of tools to effortlessly add, remove, traverse, or analyze them. Instead of building graph logic from scratch, you can rely on well-tested methods that handle everything from **validation** to **navigation**—whether you're working with pure logical relationships or spatially positioned data.
 
 ## 💡 Why Use This Library?
 
-✅ Geometry-Driven: Requires coordinates for nodes and edges to enable precise spatial visualizations.  
-✅ Fluent & Unified API: Provides chainable methods for effortless creation, modification, and traversal.  
-✅ Rigorous Integrity: Enforces unique, immutable identifiers and strict coordinate validation with robust error handling.  
-✅ Built-In Analysis & Serialization: Offers integrated graph connectivity analysis and seamless JSON import/export.  
-✅ Customizable & Configurable: Allows extended metadata and supports both immutable and in-place updates for tailored performance.
+✅ **Flexible Geometry Support**: Works with or without coordinates—geometric methods automatically activate when coordinates are present.  
+✅ **Fluent & Unified API**: Provides chainable methods for effortless creation, modification, and traversal.  
+✅ **Rigorous Integrity**: Enforces unique, immutable identifiers and optional coordinate validation with robust error handling.  
+✅ **Built-In Analysis & Serialization**: Offers integrated graph connectivity analysis and seamless JSON import/export.  
+✅ **Customizable & Configurable**: Allows extended metadata and supports both immutable and in-place updates for tailored performance.
 
 ## 📦 Installation
 
@@ -22,14 +29,23 @@ npm install @scalable.software/graph
 
 ## 🛠️ Usage
 
-This library is **geometry-first**, requiring **coordinates** for both nodes and edges:
+This library supports both **geometric** and **non-geometric** graphs:
 
-- **Nodes** have `{ x, y }` coordinates describing their location.
-- **Edges** specify `{ start: { x, y }, end: { x, y } }` to define how they connect in 2D space.
+**For geometric graphs** (with spatial operations):
 
-### ✨ Creating a Graph
+- **Nodes** can have optional `{ x, y }` coordinates describing their location
+- **Edges** can have optional `{ start: { x, y }, end: { x, y } }` coordinates defining spatial connections
+- **Geometric methods** (like `move`, `translate`, `project`, `domain`, `extent`) are automatically available when all nodes and edges have coordinates
 
-1. Define your graph data with **coordinates** for nodes and edges:
+**For non-geometric graphs** (pure logical relationships):
+
+- **Nodes** and **edges** work perfectly without any coordinate data
+- All core graph operations (add, remove, find, traverse) remain fully functional
+- Geometric methods like `move`, `translate`, `findByCoordinates`, `project` are available but will not operate when coordinates are missing (they return early without throwing errors)
+
+### ✨ Creating a Geometric Graph
+
+1. Define your graph data with **coordinates** for nodes and edges to enable geometric methods:
 
 ```typescript
 let data = {
@@ -71,7 +87,9 @@ const graph = new Graph<IGraph>(data);
 
 ### 📥 Importing a Graph
 
-You can also start with an **empty** graph and **import** data (with coordinates) later:
+You can also start with an **empty** graph and **import** data later. Coordinates are optional:
+
+**With coordinates (enables geometric methods):**
 
 ```typescript
 let data = {
@@ -81,6 +99,28 @@ let data = {
   nodes: [
     {
       coordinates: { x: 5, y: 10 },
+    },
+  ],
+};
+
+const graph = new Graph<IGraph>().import(data);
+```
+
+**Without coordinates (pure logical graph):**
+
+```typescript
+let data = {
+  metadata: {
+    name: "Social Network",
+  },
+  nodes: [
+    { id: "123e4567-e89b-12d3-a456-426614174001", name: "Alice" },
+    { id: "123e4567-e89b-12d3-a456-426614174002", name: "Bob" },
+  ],
+  edges: [
+    {
+      source: "123e4567-e89b-12d3-a456-426614174001",
+      target: "123e4567-e89b-12d3-a456-426614174002",
     },
   ],
 };
@@ -101,9 +141,19 @@ console.log(data);
 
 ### 📍 Working with Geometry
 
-Below is a short example showing how to **move** an existing node, **add** another node, and then **connect** them with an edge—demonstrating the library’s geometry-first approach.
+Below is a short example showing how to **create** nodes with coordinates, **move** an existing node, **add** another node, and then **connect** them with an edge—demonstrating the library's geometry-first approach.
 
-1. Move the first node (id "123e4567-e89b-12d3-a456-426614174000") to (0,0):
+1. First, create a graph and add an initial node with coordinates:
+
+```typescript
+const graph = new Graph<IGraph>();
+graph.nodes.add({
+  id: "123e4567-e89b-12d3-a456-426614174000",
+  coordinates: { x: 1, y: 1 },
+});
+```
+
+2. Move the first node to (0,0):
 
 ```typescript
 graph.nodes.move("123e4567-e89b-12d3-a456-426614174000", {
@@ -112,24 +162,24 @@ graph.nodes.move("123e4567-e89b-12d3-a456-426614174000", {
 });
 ```
 
-2. Add a second node at coordinates (5,5):
+3. Add a second node at coordinates (5,5):
 
 ```typescript
 graph.nodes.add({ coordinates: { x: 5, y: 5 } });
 ```
 
-3. Retrieve the newly added node's ID (assuming it's in position 1 of the array)
+4. Retrieve the newly added node's ID:
 
 ```typescript
 const { id } = graph.nodes.findByCoordinates({ x: 5, y: 5 });
 ```
 
-4. Add an edge from the first node to the second node:
+5. Add an edge from the first node to the second node:
 
 ```typescript
 graph.edges.add({
   source: "123e4567-e89b-12d3-a456-426614174000",
-  target: "123e4567-e89b-12d3-a456-426614174001",
+  target: id,
   coordinates: {
     start: { x: 0, y: 0 },
     end: { x: 5, y: 5 },
@@ -169,12 +219,7 @@ This library is ideal for modeling clinical pathways containing different actors
 1. Define Custom Types (`pathway.types.ts`)
 
 ```typescript
-import type {
-  IMetadata,
-  INode,
-  IEdge,
-  IGraph,
-} from "@scalable.software/graph";
+import type { IMetadata, INode, IEdge, IGraph } from "@scalable.software/graph";
 
 export type PathwayMetadata = IMetadata & {
   type: string;
@@ -228,10 +273,7 @@ const data: IPathway = {
         {
           duration: {
             distribution: "log normal",
-            parameters: [
-              { meanlog: 0.1640238 },
-              { sdlog: 0.4169375 },
-            ],
+            parameters: [{ meanlog: 0.1640238 }, { sdlog: 0.4169375 }],
           },
         },
       ],
@@ -297,20 +339,20 @@ This example shows how to model typed actors and directional paths within a spat
 
 ### ⚙️ Graph Operations
 
-| **API**          | **Signature**                      | **Type** | **Description**                                                                                                             |
-| :--------------- | :--------------------------------- | :------- | :-------------------------------------------------------------------------------------------------------------------------- |
-| **Constructor**  | `constructor(graph?)`              | Logic    | Initializes metadata, nodes, and edges when optionally provided with initial data.                                          |
-| **import**       | `import(graph)`                    | Logic    | Replaces the entire graph’s data with new data (in a JSON-like structure).                                                  |
-| **export**       | `export()`                         | Logic    | Returns all current graph data (in a JSON-like structure).                                                                  |
-| **toJSON**       | `toJSON()`                         | Logic    | Alias for `export()`.                                                                                                       |
-| **degree**       | `degree(id)`                       | Logic    | Calculates the total number of connections for a node (incoming + outgoing) by its identifier.                              |
-| **in**           | `in(id)`                           | Logic    | Returns the count of incoming connections for a given node.                                                                 |
-| **out**          | `out(id)`                          | Logic    | Returns the count of outgoing connections for a given node.                                                                 |
-| **neighbors**    | `neighbors(id)`                    | Logic    | Retrieves the identifiers of all nodes directly connected to the specified node.                                            |
-| **extend**       | `extend()`                         | Logic    | Computes the spatial extent of the graph in coordinate space.                                                               |
-| **domain**       | `domain()`                         | Logic    | Computes the rectangular domain of the graph by determining the minimum and maximum.                                        |
-| **trajectories** | `trajectories(origin,destination)` | Logic    | Returns array of trajectories with each trajectory a sequence of edges connecting origin to destination                     |
-| **journeys**     | `journeys(origin,destination)`     | Logic    | Returns array of journeys containing nodes and edges with each pair representing a valid journey from origin to destination |
+| **API**          | **Signature**                      | **Type** | **Description**                                                                                                                          |
+| :--------------- | :--------------------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| **Constructor**  | `constructor(graph?)`              | Logic    | Initializes metadata, nodes, and edges when optionally provided with initial data.                                                       |
+| **import**       | `import(graph)`                    | Logic    | Replaces the entire graph’s data with new data (in a JSON-like structure).                                                               |
+| **export**       | `export()`                         | Logic    | Returns all current graph data (in a JSON-like structure).                                                                               |
+| **toJSON**       | `toJSON()`                         | Logic    | Alias for `export()`.                                                                                                                    |
+| **degree**       | `degree(id)`                       | Logic    | Calculates the total number of connections for a node (incoming + outgoing) by its identifier.                                           |
+| **in**           | `in(id)`                           | Logic    | Returns the count of incoming connections for a given node.                                                                              |
+| **out**          | `out(id)`                          | Logic    | Returns the count of outgoing connections for a given node.                                                                              |
+| **neighbors**    | `neighbors(id)`                    | Logic    | Retrieves the identifiers of all nodes directly connected to the specified node.                                                         |
+| **extent**       | `extent()`                         | Logic    | Computes the spatial extent of the graph in coordinate space. **Only available when all nodes have coordinates.**                        |
+| **domain**       | `domain()`                         | Logic    | Computes the rectangular domain of the graph by determining the minimum and maximum. **Only available when all nodes have coordinates.** |
+| **trajectories** | `trajectories(origin,destination)` | Logic    | Returns array of trajectories with each trajectory a sequence of edges connecting origin to destination                                  |
+| **journeys**     | `journeys(origin,destination)`     | Logic    | Returns array of journeys containing nodes and edges with each pair representing a valid journey from origin to destination              |
 
 ---
 
@@ -327,17 +369,17 @@ This example shows how to model typed actors and directional paths within a spat
 
 ### ⚙️ Node Operations
 
-| **API**               | **Signature**                | **Type** | **Description**                                                                                                                                              |
-| :-------------------- | :--------------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **add**               | `add(nodes)`                 | Logic    | Adds one or more nodes; automatically ensures each has an identifier and valid coordinates.                                                                  |
-| **update**            | `update(id, details)`        | Logic    | Updates the node matching the given identifier with new details.                                                                                             |
-| **remove**            | `remove(id)`                 | Logic    | Removes the node matching the given identifier.                                                                                                              |
-| **findById**          | `findById(id)`               | Logic    | Retrieves the node for a given identifier, if any.                                                                                                           |
-| **findByCoordinates** | `findByCoordinates(coords)`  | Logic    | Finds a node by its exact `(x, y)` coordinates.                                                                                                              |
-| **move**              | `move(id, coords)`           | Logic    | Moves the node with the given identifier to new coordinates.                                                                                                 |
-| **translate**         | `translate(idOrIds, offset)` | Logic    | Translates one or multiple nodes by a given `(dx, dy)` offset.                                                                                               |
-| **project**           | `project(transform)`         | Logic    | Applies a transformation function to the coordinates of each node, returning an array with all node coordinates projected using the transformation function. |
-| **toJSON**            | `toJSON()`                   | Logic    | Returns an array of all nodes in a JSON-like format.                                                                                                         |
+| **API**               | **Signature**                | **Type** | **Description**                                                                                                                                                                                                  |
+| :-------------------- | :--------------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **add**               | `add(nodes)`                 | Logic    | Adds one or more nodes; automatically ensures each has an identifier and valid coordinates.                                                                                                                      |
+| **update**            | `update(id, details)`        | Logic    | Updates the node matching the given identifier with new details.                                                                                                                                                 |
+| **remove**            | `remove(id)`                 | Logic    | Removes the node matching the given identifier.                                                                                                                                                                  |
+| **findById**          | `findById(id)`               | Logic    | Retrieves the node for a given identifier, if any.                                                                                                                                                               |
+| **findByCoordinates** | `findByCoordinates(coords)`  | Logic    | Finds a node by its exact `(x, y)` coordinates. **Only available when all nodes have coordinates.**                                                                                                              |
+| **move**              | `move(id, coords)`           | Logic    | Moves the node with the given identifier to new coordinates. **Only available when all nodes have coordinates.**                                                                                                 |
+| **translate**         | `translate(idOrIds, offset)` | Logic    | Translates one or multiple nodes by a given `(dx, dy)` offset. **Only available when all nodes have coordinates.**                                                                                               |
+| **project**           | `project(transform)`         | Logic    | Applies a transformation function to the coordinates of each node, returning an array with all node coordinates projected using the transformation function. **Only available when all nodes have coordinates.** |
+| **toJSON**            | `toJSON()`                   | Logic    | Returns an array of all nodes in a JSON-like format.                                                                                                                                                             |
 
 ---
 
