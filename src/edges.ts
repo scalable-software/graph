@@ -174,6 +174,7 @@ export class Edges<T extends IEdge> extends Array<T> {
     id: UUID,
     coordinates: { start?: Coordinates; end?: Coordinates }
   ): Edges<T> => {
+    this.geometric &&
     (([id, coordinates]) =>
       this.apply(id as UUID, (edge) => Edge.move(edge, coordinates)))(
       Validator.validate<
