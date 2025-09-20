@@ -304,37 +304,37 @@ given(`Graph.domain getter value test`, () => {
   });
 });
 
-given(`Graph.extend getter availability test`, () => {
+given(`Graph.extent getter availability test`, () => {
   when(`Graph is instantiated`, () => {
     let graph: Graph<IGraph>;
     beforeEach(() => {
       graph = new Graph();
     });
-    then(`Graph.extend is defined`, () => {
-      expect(graph.extend).toBeDefined();
+    then(`Graph.extent is defined`, () => {
+      expect(graph.extent).toBeDefined();
     });
   });
 });
 
-given(`Graph.extend getter value test`, () => {
+given(`Graph.extent getter value test`, () => {
   when(`Graph is instantiated`, () => {
     let graph: Graph<IGraph>;
     let data: IGraph;
     beforeEach(() => {
       graph = new Graph();
     });
-    then(`Graph.extend is defined`, () => {
-      expect(graph.extend).toBeDefined();
+    then(`Graph.extent is defined`, () => {
+      expect(graph.extent).toBeDefined();
     });
     and(`Graph.extend is defined`, () => {
-      then(`Graph.extend returns empty extend`, () => {
-        expect(graph.extend).toEqual({
+      then(`Graph.extent returns empty extend`, () => {
+        expect(graph.extent).toEqual({
           x: 0,
           y: 0,
         });
       });
     });
-    and(`Graph with nodes is imported`, () => {
+    and(`Graph with nodes with coordinates is imported`, () => {
       beforeEach(() => {
         data = {
           metadata: {
@@ -365,10 +365,42 @@ given(`Graph.extend getter value test`, () => {
         };
         graph.import(data);
       });
-      then("Graph.extend returns extend of imported graph", () => {
-        expect(graph.extend).toEqual({
+      then("Graph.extent returns extend of imported graph", () => {
+        expect(graph.extent).toEqual({
           x: 3,
           y: 3,
+        });
+      });
+    });
+    and(`Graph with nodes with no coordinates is imported`, () => {
+      beforeEach(() => {
+        data = {
+          metadata: {
+            id: "123e4567-e89b-12d3-a456-426614174000",
+            name: "Clinical Pathway",
+          },
+          nodes: [
+            {
+              id: "123e4567-e89b-12d3-a456-426614174001",
+            },
+            {
+              id: "123e4567-e89b-12d3-a456-426614174002",
+            },
+          ],
+          edges: [
+            {
+              id: "123e4567-e89b-12d3-a456-426614174000",
+              source: "123e4567-e89b-12d3-a456-426614174001",
+              target: "123e4567-e89b-12d3-a456-426614174002",
+            },
+          ],
+        };
+        graph.import(data);
+      });
+      then("Graph.extent returns extend of imported graph", () => {
+        expect(graph.extent).toEqual({
+          x: 0,
+          y: 0,
         });
       });
     });
