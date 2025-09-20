@@ -1796,7 +1796,7 @@ given(`edges.project method availability test`, () => {
 });
 
 given(`edges.project method behavior test`, () => {
-  and(`a edges instance is created with edges`, () => {
+  and(`edges created with coordinates`, () => {
     let edges: Edges<IEdge>;
     let data: IEdge[];
     beforeEach(() => {
@@ -1816,25 +1816,24 @@ given(`edges.project method behavior test`, () => {
       ];
       edges = Edges.create(data);
     });
-    when(`edges.project called with no transform function`, () => {
-      let projected: IEdge[];
-      beforeEach(() => {
-        projected = edges.project();
+    when(`edges.project(transform)`, () => {
+      and(`transform is undefined`, () => {
+        let projected: IEdge[];
+        beforeEach(() => {
+          projected = edges.project();
+        });
+        then(`projected equal [...edges]`, () => {
+          expect(projected).toEqual([...edges]);
+        });
       });
-      then(`projected equal [...edges]`, () => {
-        expect(projected).toEqual([...edges]);
-      });
-    });
-    when(`edges.project called with transform function`, () => {
-      let projected: IEdge[];
-      let transform: (Coordinates, IEdge) => Coordinates;
-      beforeEach(() => {
-        transform = ({ x, y }, edge) => ({ x: x + 1, y: y + 1 });
-        projected = edges.project(transform);
-      });
-      then(
-        `projected coordinates equal to edges coordinates transformed`,
-        () => {
+      and(`transform is valid function`, () => {
+        let projected: IEdge[];
+        let transform: (Coordinates, IEdge) => Coordinates;
+        beforeEach(() => {
+          transform = ({ x, y }, edge) => ({ x: x + 0, y: y + 1 });
+          projected = edges.project(transform);
+        });
+        then(`projected coordinates matches transformed coordinates`, () => {
           expect(projected).toEqual(
             [...edges].map((edge) => ({
               ...edge,
@@ -1844,8 +1843,49 @@ given(`edges.project method behavior test`, () => {
               },
             }))
           );
-        }
-      );
+        });
+      });
+    });
+  });
+  and(`edges created with no coordinates`, () => {
+    let edges: Edges<IEdge>;
+    let data: IEdge[];
+    beforeEach(() => {
+      data = [
+        {
+          id: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          source: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+          target: "d6f8a7b2-1c4e-4d3b-9e2f-8a6e4f7c5a1d",
+        },
+        {
+          id: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          source: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+          target: "3e9c2b68-7d51-4e99-b6c3-2f98a1e4d7b5",
+        },
+      ];
+      edges = Edges.create(data);
+    });
+    when(`edges.project(transform)`, () => {
+      and(`transform is undefined`, () => {
+        let projected: IEdge[];
+        beforeEach(() => {
+          projected = edges.project();
+        });
+        then(`projected equals edges`, () => {
+          expect(projected).toEqual([...edges]);
+        });
+      });
+      and(`transform is valid function`, () => {
+        let projected: IEdge[];
+        let transform: (Coordinates, IEdge) => Coordinates;
+        beforeEach(() => {
+          transform = ({ x, y }, edge) => ({ x: x + 0, y: y + 1 });
+          projected = edges.project(transform);
+        });
+        then(`projected equals edges`, () => {
+          expect(projected).toEqual([...edges]);
+        });
+      });
     });
   });
 });
