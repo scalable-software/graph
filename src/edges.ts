@@ -355,13 +355,15 @@ export class Edges<T extends IEdge> extends Array<T> {
       coordinates
     ) => coordinates
   ): T[] =>
-    [...this].map((edge) => ({
-      ...edge,
-      coordinates: {
-        start: transform(edge.coordinates.start, edge),
-        end: transform(edge.coordinates.end, edge),
-      },
-    }));
+    this.geometric
+      ? [...this].map((edge) => ({
+          ...edge,
+          coordinates: {
+            start: transform(edge.coordinates.start, edge),
+            end: transform(edge.coordinates.end, edge),
+          },
+        }))
+      : [...this];
 
   /**
    * Converts the `Edges` collection into a JSON-compatible array.
