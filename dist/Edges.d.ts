@@ -41,7 +41,7 @@ export declare class Edges<T extends IEdge> extends Array<T> {
     /**
      * @category Factory
      */
-    static create: <T_1 extends IEdge>(edges?: T_1[]) => Edges<T_1>;
+    static create: <T_1 extends IEdge>(edges?: T_1[] | null) => Edges<T_1>;
     private static defaults;
     private static normalize;
     private _immutable;
@@ -66,6 +66,7 @@ export declare class Edges<T extends IEdge> extends Array<T> {
      */
     get immutable(): boolean;
     set immutable(immutable: boolean);
+    get geometric(): boolean;
     /**
      * Adds new edges to the `Edges` collection while ensuring unique IDs.
      * If a edge does not have an `id`, it will be automatically assigned one.

@@ -54,11 +54,16 @@ export class Validate {
      * // throws ValidationException: Validation failed with 2 error(s).
      * ```
      */
-    static nodes = (nodes) => Validator.validate(nodes, [
-        (nodes) => nodes.map(Validate.node),
-        (nodes) => Validate.unique(nodes, (node) => node.id),
-        (nodes) => Validate.unique(nodes, (node) => node.coordinates),
-    ]);
+    static nodes = (nodes) => nodes.some((node) => node.coordinates != null)
+        ? Validator.validate(nodes, [
+            (nodes) => nodes.map(Validate.node),
+            (nodes) => Validate.unique(nodes, (node) => node.id),
+            (nodes) => Validate.unique(nodes.filter((node) => node.coordinates != null), (node) => node.coordinates),
+        ])
+        : Validator.validate(nodes, [
+            (nodes) => nodes.map(Validate.node),
+            (nodes) => Validate.unique(nodes, (node) => node.id),
+        ]);
     static edges = (edges) => Validator.validate(edges, [
         (edges) => edges.map(Validate.edge),
         (nodes) => Validate.unique(nodes, (node) => node.id),
@@ -80,21 +85,31 @@ export class Validate {
      * ```
      * @category Validation
      */
-    static node = (node) => node
-        ? Validator.validate(node, [
-            ({ id }) => Validate.uuid(id),
-            ({ coordinates }) => Validate.coordinates(coordinates),
-        ])
-        : null;
-    static edge = (edge) => edge
-        ? Validator.validate(edge, [
-            ({ id }) => Validate.uuid(id),
-            ({ source }) => Validate.uuid(source),
-            ({ target }) => Validate.uuid(target),
-            ({ coordinates }) => Validate.coordinates(coordinates.start),
-            ({ coordinates }) => Validate.coordinates(coordinates.end),
-        ])
-        : null;
+    static node = (node) => !node
+        ? null
+        : "coordinates" in node && node.coordinates != null
+            ? Validator.validate(node, [
+                ({ id }) => Validate.uuid(id),
+                ({ coordinates }) => Validate.coordinates(coordinates),
+            ])
+            : Validator.validate(node, [
+                ({ id }) => Validate.uuid(id),
+            ]);
+    static edge = (edge) => !edge
+        ? null
+        : "coordinates" in edge && edge.coordinates != null
+            ? Validator.validate(edge, [
+                ({ id }) => Validate.uuid(id),
+                ({ source }) => Validate.uuid(source),
+                ({ target }) => Validate.uuid(target),
+                ({ coordinates }) => Validate.coordinates(coordinates.start),
+                ({ coordinates }) => Validate.coordinates(coordinates.end),
+            ])
+            : Validator.validate(edge, [
+                ({ id }) => Validate.uuid(id),
+                ({ source }) => Validate.uuid(source),
+                ({ target }) => Validate.uuid(target),
+            ]);
     static nodeDetails = (details) => {
         details.coordinates && Validate.coordinates(details.coordinates);
         return details;
@@ -239,7 +254,9 @@ export class Validate {
      */
     static immutable = (items, value) => !items.includes(value) ||
         Exceptions.immutablePropertyException(String(value));
-    static many = (item, validator) => Array.isArray(item) ? item.map((item) => validator(item)) : validator(item);
+    static many = (item, validator) => Array.isArray(item)
+        ? item.map((item) => validator(item))
+        : validator(item);
     /**
      * Validate a single of multiple ids to ensure they are valid UUIDs.
      *

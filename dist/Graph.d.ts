@@ -183,7 +183,7 @@ export declare class Graph<T extends IGraph> {
      * @returns An object with `x` and `y` representing the inclusive span of the graph’s domain.
      * @category Data
      */
-    get extend(): {
+    get extent(): {
         x: number;
         y: number;
     };
@@ -240,6 +240,14 @@ export declare class Graph<T extends IGraph> {
      * @category Operation
      */
     neighbors: (id: UUID) => UUID[];
+    trajectories: (origin: UUID, destination: UUID) => any[];
+    journeys: (origin: UUID, destination: UUID) => {
+        nodes: any[];
+        edges: any;
+    }[];
+    private get geometric();
+    private traverse;
     protected _import: (graph: any) => this;
     private getEdges;
+    private nodeHasCoordinates;
 }

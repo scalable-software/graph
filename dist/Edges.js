@@ -74,6 +74,15 @@ export class Edges extends Array {
     set immutable(immutable) {
         this._immutable = Validate.flag(immutable);
     }
+    get geometric() {
+        return this.every((node) => "coordinates" in node &&
+            node.coordinates?.start != null &&
+            node.coordinates?.start?.x != null &&
+            node.coordinates?.start?.y != null &&
+            node.coordinates?.end != null &&
+            node.coordinates?.end?.x != null &&
+            node.coordinates?.end?.y != null);
+    }
     /**
      * Adds new edges to the `Edges` collection while ensuring unique IDs.
      * If a edge does not have an `id`, it will be automatically assigned one.
@@ -128,12 +137,12 @@ export class Edges extends Array {
      *
      */
     move = (id, coordinates) => {
-        (([id, coordinates]) => this.apply(id, (edge) => Edge.move(edge, coordinates)))(Validator.validate([id, coordinates], [
-            ([id, coordinates]) => Validate.id(this, id),
-            ([id, coordinates]) => coordinates.start &&
-                Validate.coordinates(coordinates.start),
-            ([id, coordinates]) => coordinates.end && Validate.coordinates(coordinates.end),
-        ]));
+        this.geometric &&
+            (([id, coordinates]) => this.apply(id, (edge) => Edge.move(edge, coordinates)))(Validator.validate([id, coordinates], [
+                ([id, coordinates]) => Validate.id(this, id),
+                ([id, coordinates]) => coordinates.start && Validate.coordinates(coordinates.start),
+                ([id, coordinates]) => coordinates.end && Validate.coordinates(coordinates.end),
+            ]));
         return this;
     };
     /**
@@ -157,10 +166,11 @@ export class Edges extends Array {
      * @category Operations
      */
     translate = (id, offset) => {
-        (([id, offset]) => Utilities.toArray(id).forEach((id) => this.apply(id, (node) => Edge.translate(node, offset))))(Validator.validate([id, offset], [
-            ([id, offset]) => Validate.id(this, id),
-            ([id, offset]) => Validate.offset(offset),
-        ]));
+        this.geometric &&
+            (([id, offset]) => Utilities.toArray(id).forEach((id) => this.apply(id, (node) => Edge.translate(node, offset))))(Validator.validate([id, offset], [
+                ([id, offset]) => Validate.id(this, id),
+                ([id, offset]) => Validate.offset(offset),
+            ]));
         return this;
     };
     /**
@@ -280,13 +290,15 @@ export class Edges extends Array {
      *
      * @category Operations
      */
-    project = (transform = (coordinates) => coordinates) => [...this].map((edge) => ({
-        ...edge,
-        coordinates: {
-            start: transform(edge.coordinates.start, edge),
-            end: transform(edge.coordinates.end, edge),
-        },
-    }));
+    project = (transform = (coordinates) => coordinates) => this.geometric
+        ? [...this].map((edge) => ({
+            ...edge,
+            coordinates: {
+                start: transform(edge.coordinates.start, edge),
+                end: transform(edge.coordinates.end, edge),
+            },
+        }))
+        : [...this];
     /**
      * Converts the `Edges` collection into a JSON-compatible array.
      *

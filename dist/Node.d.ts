@@ -4,7 +4,7 @@
 import type { UUID, Coordinates, Offset } from "./graph.types.js";
 export type INode = {
     id: UUID;
-    coordinates: Coordinates;
+    coordinates?: Coordinates;
 };
 export type PartialNode<T> = Partial<T>;
 /**

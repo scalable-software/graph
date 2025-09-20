@@ -51,7 +51,7 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
      *
      * @category Factory
      */
-    static create: <T_1 extends INode>(nodes?: T_1[]) => Nodes<T_1>;
+    static create: <T_1 extends INode>(nodes?: T_1[] | null) => Nodes<T_1>;
     private static defaults;
     private static normalize;
     private _immutable;
@@ -70,6 +70,7 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
      */
     get immutable(): boolean;
     set immutable(immutable: boolean);
+    get geometric(): boolean;
     /**
      * Adds new nodes to the `Nodes` collection while ensuring unique IDs and coordinates.
      * If a node does not have an `id`, it will be automatically assigned one.

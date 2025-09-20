@@ -65,6 +65,11 @@ import { Utilities } from "./utilities/utilities.js";
     set immutable(immutable) {
         this._immutable = Validate.flag(immutable);
     }
+    get geometric() {
+        return this.every((node) => "coordinates" in node &&
+            node.coordinates?.x != null &&
+            node.coordinates?.y != null);
+    }
     /**
      * Adds new nodes to the `Nodes` collection while ensuring unique IDs and coordinates.
      * If a node does not have an `id`, it will be automatically assigned one.
@@ -151,8 +156,10 @@ import { Utilities } from "./utilities/utilities.js";
      * ```
      * @category Operations
      */
-    findByCoordinates = (coordinates) => ((coordinates) => this.find((node) => node.coordinates.x === coordinates.x &&
-        node.coordinates.y === coordinates.y))(Validate.coordinates(coordinates));
+    findByCoordinates = (coordinates) => this.geometric
+        ? ((coordinates) => this.find((node) => node.coordinates.x === coordinates.x &&
+            node.coordinates.y === coordinates.y))(Validate.coordinates(coordinates))
+        : undefined;
     /**
      * Move a node to a new position.
      *
@@ -163,10 +170,11 @@ import { Utilities } from "./utilities/utilities.js";
      * @category Operations
      */
     move = (id, coordinates) => {
-        (([id, coordinates]) => this.apply(id, (node) => Node.move(node, coordinates)))(Validator.validate([id, coordinates], [
-            ([id, coordinates]) => Validate.id(this, id),
-            ([id, coordinates]) => Validate.coordinates(coordinates),
-        ]));
+        this.geometric &&
+            (([id, coordinates]) => this.apply(id, (node) => Node.move(node, coordinates)))(Validator.validate([id, coordinates], [
+                ([id, coordinates]) => Validate.id(this, id),
+                ([id, coordinates]) => Validate.coordinates(coordinates),
+            ]));
         return this;
     };
     /**
@@ -179,10 +187,11 @@ import { Utilities } from "./utilities/utilities.js";
      * @category Operations
      */
     translate = (id, offset) => {
-        (([id, offset]) => Utilities.toArray(id).forEach((id) => this.apply(id, (node) => Node.translate(node, offset))))(Validator.validate([id, offset], [
-            ([id, offset]) => Validate.id(this, id),
-            ([id, offset]) => Validate.offset(offset),
-        ]));
+        this.geometric &&
+            (([id, offset]) => Utilities.toArray(id).forEach((id) => this.apply(id, (node) => Node.translate(node, offset))))(Validator.validate([id, offset], [
+                ([id, offset]) => Validate.id(this, id),
+                ([id, offset]) => Validate.offset(offset),
+            ]));
         return this;
     };
     /**
@@ -200,10 +209,12 @@ import { Utilities } from "./utilities/utilities.js";
      *
      * @category Operations
      */
-    project = (transform = (coordinates) => coordinates) => [...this].map((node) => ({
-        ...node,
-        coordinates: transform(node.coordinates, node),
-    }));
+    project = (transform = (coordinates) => coordinates) => this.geometric
+        ? [...this].map((node) => ({
+            ...node,
+            coordinates: transform(node.coordinates, node),
+        }))
+        : [...this];
     /**
      * Converts the `Nodes` collection into a JSON-compatible array.
      *
@@ -219,7 +230,7 @@ import { Utilities } from "./utilities/utilities.js";
         : Object.assign(node, updatedNode);
     apply = (id, transform) => ((node) => this.assign(node, transform(node)))(this.node(id));
     validate = (nodes) => ((nodes) => Validator.compare([this, nodes], [
-        (sets) => Validate.distinct(sets, (node) => node.id),
-        (sets) => Validate.distinct(sets, (node) => node.coordinates),
+        (sets) => Validate.distinct(sets, ({ id }) => id),
+        (sets) => Validate.distinct(sets, ({ coordinates }) => coordinates),
     ]))(Validate.nodes(nodes));
 }

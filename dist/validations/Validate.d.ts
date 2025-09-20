@@ -189,7 +189,7 @@ export declare class Validate {
      *
      */
     static immutable: <T>(items: T[], value: T) => unknown;
-    static many: <T>(item: T | T[], validator: (T) => T) => T | T[];
+    static many: <T>(item: T | T[], validator: (T: any) => T) => T | T[];
     /**
      * Validate a single of multiple ids to ensure they are valid UUIDs.
      *

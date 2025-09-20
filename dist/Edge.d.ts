@@ -6,7 +6,7 @@ export type IEdge = {
     id: UUID;
     source: UUID;
     target: UUID;
-    coordinates: {
+    coordinates?: {
         start: Coordinates;
         end: Coordinates;
     };

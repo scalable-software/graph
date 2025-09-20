@@ -10,7 +10,8 @@
 import { Metadata } from "./metadata.js";
 import { Nodes } from "./nodes.js";
 import { Edges } from "./edges.js";
-import { Validate } from "./index.js";
+import { Validate } from "./validations/validate.js";
+import { Exceptions } from "./exceptions/exceptions.js";
 /**
  * Represents a graph data structure containing:
  * - {@link Metadata} for graph-wide information.
@@ -128,18 +129,20 @@ export class Graph {
      * @category Data
      */
     get domain() {
-        return this.nodes.length === 0
+        return ((coordinates) => coordinates.length === 0
             ? { x: { min: 0, max: 0 }, y: { min: 0, max: 0 } }
             : {
                 x: {
-                    min: Math.min(...this.nodes.map(({ coordinates }) => coordinates.x)),
-                    max: Math.max(...this.nodes.map(({ coordinates }) => coordinates.x)),
+                    min: Math.min(...coordinates.map(({ x }) => x)),
+                    max: Math.max(...coordinates.map(({ x }) => x)),
                 },
                 y: {
-                    min: Math.min(...this.nodes.map(({ coordinates }) => coordinates.y)),
-                    max: Math.max(...this.nodes.map(({ coordinates }) => coordinates.y)),
+                    min: Math.min(...coordinates.map(({ y }) => y)),
+                    max: Math.max(...coordinates.map(({ y }) => y)),
                 },
-            };
+            })(this.nodes
+            .filter(this.nodeHasCoordinates)
+            .map((node) => node.coordinates));
     }
     /**
      * Computes the spatial extent of the graph in coordinate space.
@@ -192,15 +195,13 @@ export class Graph {
      * @returns An object with `x` and `y` representing the inclusive span of the graph’s domain.
      * @category Data
      */
-    get extend() {
-        if (this.nodes.length === 0) {
-            return { x: 0, y: 0 };
-        }
-        const { x, y } = this.domain;
-        return {
-            x: x.max - x.min + 1,
-            y: y.max - y.min + 1,
-        };
+    get extent() {
+        return ((hasCoordinates) => hasCoordinates
+            ? (({ x, y }) => ({
+                x: x.max - x.min + 1,
+                y: y.max - y.min + 1,
+            }))(this.domain)
+            : { x: 0, y: 0 })(this.geometric);
     }
     /**
      * Imports new graph data by merging with existing data.
@@ -236,8 +237,7 @@ export class Graph {
      *
      * @category Operation
      */
-    degree = (id) => this.edges.findByTarget(id).length +
-        this.edges.findBySource(id).length;
+    degree = (id) => this.edges.findByTarget(id).length + this.edges.findBySource(id).length;
     /**
      * Returns the in-degree: number of incoming connections, of a node.
      * @param id - The id of the node.
@@ -262,6 +262,38 @@ export class Graph {
     neighbors = (id) => [
         ...new Set(this.getEdges(id).flatMap(({ source, target }) => source === id ? [target] : [source])),
     ];
+    trajectories = (origin, destination) => {
+        Validate.uuid(origin);
+        Validate.uuid(destination);
+        !this.nodes.findById(origin) &&
+            Exceptions.notFoundException("origin", origin);
+        !this.nodes.findById(destination) &&
+            Exceptions.notFoundException("destination", destination);
+        const results = [];
+        this.traverse(origin, destination, results);
+        return results;
+    };
+    journeys = (origin, destination) => this.trajectories(origin, destination).map((edges) => ({
+        nodes: [
+            this.nodes.findById(edges[0].source),
+            ...edges.map(({ target }) => this.nodes.findById(target)),
+        ],
+        edges,
+    }));
+    get geometric() {
+        return this.nodes.some(this.nodeHasCoordinates);
+    }
+    traverse = (node, destination, results, stack = [], visited = new Set()) => node === destination
+        ? results.push([...stack])
+        : this.edges.findBySource(node).forEach((edge) => {
+            if (visited.has(edge.target))
+                return;
+            stack.push(edge);
+            visited.add(edge.target);
+            this.traverse(edge.target, destination, results, stack, visited);
+            visited.delete(edge.target);
+            stack.pop();
+        });
     _import = (graph) => {
         ((graph) => {
             graph.metadata && this.metadata.add(graph.metadata);
@@ -271,4 +303,5 @@ export class Graph {
         return this;
     };
     getEdges = (id) => this.edges.filter(({ source, target }) => source === id || target === id);
+    nodeHasCoordinates = (node) => node?.coordinates?.x != null && node?.coordinates?.y != null;
 }
