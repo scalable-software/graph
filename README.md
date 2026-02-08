@@ -382,19 +382,6 @@ const snapshot = pathway.export();
 
 This example shows how to model typed actors and directional paths within a spatially aware, validated graph structure—making it ideal for visualization, simulation, or rule-based execution engines.
 
-## 🚀 Features
-
-✅ **Comprehensive Graph Structure** – Manage nodes, edges, and metadata through a unified API.
-✅ **Fluent API** – Chainable, expressive method calls (e.g., `nodes.add(...).update(...).remove(...)`).
-✅ **Immutable & Validated Identifiers** – Nodes, edges, and metadata all enforce consistent UUIDs.
-✅ **Configurable Immutability** – Toggle between immutable collections or in-place modifications.
-✅ **Partial Updates** – Update only what you need, such as node details, edge properties, or metadata fields.
-✅ **Strict Validation** – Prevents duplicate IDs, enforces coordinate uniqueness (when coordinates are present), and checks all inputs.
-✅ **Custom Metadata Support** – Extend the base `id` and `name` fields with additional properties.
-✅ **Well-Defined Exceptions** – Predictable error handling for invalid operations or conflicts.
-✅ **Built-In Graph Analysis** – Quickly check `degree`, `in`, `out`, and `neighbors` for any node.
-✅ **Intuitive Import/Export** – Easily serialize your entire graph with `import(graph)` and `export()`.
-
 ## 📖 API Reference
 
 For complete API documentation, see **[API.md](./API.md)**
