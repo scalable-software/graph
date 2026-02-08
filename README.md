@@ -134,9 +134,11 @@ const graph = new Graph<IGraph>(data);
 
 ### 📥 Importing a Graph with Auto-Generated IDs
 
-You can start with an **empty** graph and use the **`import()`** method to add data later. When IDs are omitted, the library automatically generates UUIDs for you:
+You can start with an **empty** graph and use the **`import()`** method to add data later. When IDs are omitted, the library automatically generates UUIDs for you.
 
 **Geometric graph (with coordinates):**
+
+1. Define your graph data with coordinates but without IDs:
 
 ```typescript
 let data = {
@@ -154,14 +156,24 @@ let data = {
     },
   ],
 };
+```
 
+2. Create an empty graph and import the data:
+
+```typescript
 const graph = new Graph<IGraph>().import(data);
+```
 
-// IDs were auto-generated - retrieve them by coordinates
+3. Retrieve the auto-generated node IDs by coordinates:
+
+```typescript
 const startNode = graph.nodes.findByCoordinates({ x: 0, y: 0 });
 const endNode = graph.nodes.findByCoordinates({ x: 5, y: 10 });
+```
 
-// Add edge using auto-generated IDs
+4. Add an edge connecting the nodes:
+
+```typescript
 graph.edges.add({
   source: startNode.id,
   target: endNode.id,
@@ -174,6 +186,8 @@ graph.edges.add({
 
 **Non-geometric graph (without coordinates):**
 
+1. Define your graph data without coordinates or IDs:
+
 ```typescript
 let data = {
   metadata: {
@@ -184,14 +198,24 @@ let data = {
     { name: "Bob" },
   ],
 };
+```
 
+2. Create an empty graph and import the data:
+
+```typescript
 const graph = new Graph<IGraph>().import(data);
+```
 
-// IDs were auto-generated - retrieve them by property
+3. Retrieve the auto-generated node IDs by property:
+
+```typescript
 const alice = graph.nodes.find((node) => node.name === "Alice");
 const bob = graph.nodes.find((node) => node.name === "Bob");
+```
 
-// Add edge using auto-generated IDs
+4. Add an edge connecting the nodes:
+
+```typescript
 graph.edges.add({
   source: alice.id,
   target: bob.id,
