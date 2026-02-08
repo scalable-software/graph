@@ -90,11 +90,53 @@ import { Graph, type IGraph } from "@scalable.software/graph";
 const graph = new Graph<IGraph>(data);
 ```
 
-### 📥 Importing a Graph
+### ✨ Creating a Non-Geometric Graph
 
-You can also start with an **empty** graph and **import** data later. Coordinates are optional:
+1. Define your graph data **without coordinates** for pure logical relationships:
 
-**With coordinates (enables geometric methods):**
+```typescript
+let data = {
+  metadata: {
+    id: "123e4567-e89b-12d3-a456-426614174000",
+    name: "Social Network",
+  },
+  nodes: [
+    {
+      id: "123e4567-e89b-12d3-a456-426614174001",
+      name: "Alice",
+    },
+    {
+      id: "123e4567-e89b-12d3-a456-426614174002",
+      name: "Bob",
+    },
+  ],
+  edges: [
+    {
+      id: "123e4567-e89b-12d3-a456-426614174003",
+      source: "123e4567-e89b-12d3-a456-426614174001",
+      target: "123e4567-e89b-12d3-a456-426614174002",
+    },
+  ],
+};
+```
+
+2. Import the `Graph` class and the `IGraph` interface:
+
+```typescript
+import { Graph, type IGraph } from "@scalable.software/graph";
+```
+
+3. Create a new graph instance:
+
+```typescript
+const graph = new Graph<IGraph>(data);
+```
+
+### 📥 Importing a Graph with Auto-Generated IDs
+
+You can start with an **empty** graph and use the **`import()`** method to add data later. When IDs are omitted, the library automatically generates UUIDs for you:
+
+**Geometric graph (with coordinates):**
 
 ```typescript
 let data = {
@@ -103,15 +145,34 @@ let data = {
   },
   nodes: [
     {
+      coordinates: { x: 0, y: 0 },
+      name: "Registration",
+    },
+    {
       coordinates: { x: 5, y: 10 },
+      name: "Triage",
     },
   ],
 };
 
 const graph = new Graph<IGraph>().import(data);
+
+// IDs were auto-generated - retrieve them by coordinates
+const startNode = graph.nodes.findByCoordinates({ x: 0, y: 0 });
+const endNode = graph.nodes.findByCoordinates({ x: 5, y: 10 });
+
+// Add edge using auto-generated IDs
+graph.edges.add({
+  source: startNode.id,
+  target: endNode.id,
+  coordinates: {
+    start: { x: 0, y: 0 },
+    end: { x: 5, y: 10 },
+  },
+});
 ```
 
-**Without coordinates (pure logical graph):**
+**Non-geometric graph (without coordinates):**
 
 ```typescript
 let data = {
@@ -119,18 +180,22 @@ let data = {
     name: "Social Network",
   },
   nodes: [
-    { id: "123e4567-e89b-12d3-a456-426614174001", name: "Alice" },
-    { id: "123e4567-e89b-12d3-a456-426614174002", name: "Bob" },
-  ],
-  edges: [
-    {
-      source: "123e4567-e89b-12d3-a456-426614174001",
-      target: "123e4567-e89b-12d3-a456-426614174002",
-    },
+    { name: "Alice" },
+    { name: "Bob" },
   ],
 };
 
 const graph = new Graph<IGraph>().import(data);
+
+// IDs were auto-generated - retrieve them by property
+const alice = graph.nodes.find((node) => node.name === "Alice");
+const bob = graph.nodes.find((node) => node.name === "Bob");
+
+// Add edge using auto-generated IDs
+graph.edges.add({
+  source: alice.id,
+  target: bob.id,
+});
 ```
 
 ### 📤 Export & Serialize
