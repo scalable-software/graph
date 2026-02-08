@@ -8,7 +8,7 @@ Graphs are a powerful way to represent relationships among distinct items—whet
 
 - **Nodes** can optionally have `{ x, y }` coordinates describing their spatial location
 - **Edges** can optionally specify `{ start: { x, y }, end: { x, y } }` coordinates for visual connections
-- **Geometric methods** are automatically enabled when all nodes and edges in the graph have coordinates
+- **Geometric methods** are automatically enabled when coordinates are present (specific requirements vary by method)
 - **Non-geometric graphs** work perfectly without any coordinate data
 
 This flexible design **streamlines** the creation, storage, and manipulation of both abstract and spatially-aware graphs, offering a suite of tools to effortlessly add, remove, traverse, or analyze them. Instead of building graph logic from scratch, you can rely on well-tested methods that handle everything from **validation** to **navigation**—whether you're working with pure logical relationships or spatially positioned data.
@@ -35,7 +35,8 @@ This library supports both **geometric** and **non-geometric** graphs:
 
 - **Nodes** can have optional `{ x, y }` coordinates describing their location
 - **Edges** can have optional `{ start: { x, y }, end: { x, y } }` coordinates defining spatial connections
-- **Geometric methods** (like `move`, `translate`, `project`, `domain`, `extent`) are automatically available when all nodes and edges have coordinates
+- **Geometric methods** (like `move`, `translate`, `project`) require all nodes/edges in the collection to have coordinates to operate
+- **Graph-level spatial methods** (like `domain`, `extent`) work when any nodes have coordinates (filtering to only those with coordinates)
 
 **For non-geometric graphs** (pure logical relationships):
 
@@ -314,15 +315,15 @@ This example shows how to model typed actors and directional paths within a spat
 
 ## 🚀 Features
 
-✅ **Comprehensive Graph Structure** – Manage nodes, edges, and metadata through a unified API.  
-✅ **Fluent API** – Chainable, expressive method calls (e.g., `nodes.add(...).update(...).remove(...)`).  
-✅ **Immutable & Validated Identifiers** – Nodes, edges, and metadata all enforce consistent UUIDs.  
-✅ **Configurable Immutability** – Toggle between immutable collections or in-place modifications.  
-✅ **Partial Updates** – Update only what you need, such as node details, edge properties, or metadata fields.  
-✅ **Strict Validation** – Prevents duplicate IDs, enforces coordinate uniqueness, and checks all inputs.  
-✅ **Custom Metadata Support** – Extend the base `id` and `name` fields with additional properties.  
-✅ **Well-Defined Exceptions** – Predictable error handling for invalid operations or conflicts.  
-✅ **Built-In Graph Analysis** – Quickly check `degree`, `in`, `out`, and `neighbors` for any node.  
+✅ **Comprehensive Graph Structure** – Manage nodes, edges, and metadata through a unified API.
+✅ **Fluent API** – Chainable, expressive method calls (e.g., `nodes.add(...).update(...).remove(...)`).
+✅ **Immutable & Validated Identifiers** – Nodes, edges, and metadata all enforce consistent UUIDs.
+✅ **Configurable Immutability** – Toggle between immutable collections or in-place modifications.
+✅ **Partial Updates** – Update only what you need, such as node details, edge properties, or metadata fields.
+✅ **Strict Validation** – Prevents duplicate IDs, enforces coordinate uniqueness (when coordinates are present), and checks all inputs.
+✅ **Custom Metadata Support** – Extend the base `id` and `name` fields with additional properties.
+✅ **Well-Defined Exceptions** – Predictable error handling for invalid operations or conflicts.
+✅ **Built-In Graph Analysis** – Quickly check `degree`, `in`, `out`, and `neighbors` for any node.
 ✅ **Intuitive Import/Export** – Easily serialize your entire graph with `import(graph)` and `export()`.
 
 ## 🗂️ Graph API Reference
@@ -349,8 +350,8 @@ This example shows how to model typed actors and directional paths within a spat
 | **in**           | `in(id)`                           | Logic    | Returns the count of incoming connections for a given node.                                                                              |
 | **out**          | `out(id)`                          | Logic    | Returns the count of outgoing connections for a given node.                                                                              |
 | **neighbors**    | `neighbors(id)`                    | Logic    | Retrieves the identifiers of all nodes directly connected to the specified node.                                                         |
-| **extent**       | `extent()`                         | Logic    | Computes the spatial extent of the graph in coordinate space. **Only available when all nodes have coordinates.**                        |
-| **domain**       | `domain()`                         | Logic    | Computes the rectangular domain of the graph by determining the minimum and maximum. **Only available when all nodes have coordinates.** |
+| **extent**       | `extent()`                         | Logic    | Computes the spatial extent of the graph in coordinate space. **Only operates when nodes have coordinates.**                        |
+| **domain**       | `domain()`                         | Logic    | Computes the rectangular domain of the graph by determining the minimum and maximum. **Only operates when nodes have coordinates.** |
 | **trajectories** | `trajectories(origin,destination)` | Logic    | Returns array of trajectories with each trajectory a sequence of edges connecting origin to destination                                  |
 | **journeys**     | `journeys(origin,destination)`     | Logic    | Returns array of journeys containing nodes and edges with each pair representing a valid journey from origin to destination              |
 
@@ -375,10 +376,10 @@ This example shows how to model typed actors and directional paths within a spat
 | **update**            | `update(id, details)`        | Logic    | Updates the node matching the given identifier with new details.                                                                                                                                                 |
 | **remove**            | `remove(id)`                 | Logic    | Removes the node matching the given identifier.                                                                                                                                                                  |
 | **findById**          | `findById(id)`               | Logic    | Retrieves the node for a given identifier, if any.                                                                                                                                                               |
-| **findByCoordinates** | `findByCoordinates(coords)`  | Logic    | Finds a node by its exact `(x, y)` coordinates. **Only available when all nodes have coordinates.**                                                                                                              |
-| **move**              | `move(id, coords)`           | Logic    | Moves the node with the given identifier to new coordinates. **Only available when all nodes have coordinates.**                                                                                                 |
-| **translate**         | `translate(idOrIds, offset)` | Logic    | Translates one or multiple nodes by a given `(dx, dy)` offset. **Only available when all nodes have coordinates.**                                                                                               |
-| **project**           | `project(transform)`         | Logic    | Applies a transformation function to the coordinates of each node, returning an array with all node coordinates projected using the transformation function. **Only available when all nodes have coordinates.** |
+| **findByCoordinates** | `findByCoordinates(coords)`  | Logic    | Finds a node by its exact `(x, y)` coordinates. **Only operates when all nodes have coordinates.**                                                                                                              |
+| **move**              | `move(id, coords)`           | Logic    | Moves the node with the given identifier to new coordinates. **Only operates when all nodes have coordinates.**                                                                                                 |
+| **translate**         | `translate(idOrIds, offset)` | Logic    | Translates one or multiple nodes by a given `(dx, dy)` offset. **Only operates when all nodes have coordinates.**                                                                                               |
+| **project**           | `project(transform)`         | Logic    | Applies a transformation function to the coordinates of each node, returning an array with all node coordinates projected using the transformation function. **Only operates when all nodes have coordinates.** |
 | **toJSON**            | `toJSON()`                   | Logic    | Returns an array of all nodes in a JSON-like format.                                                                                                                                                             |
 
 ---
@@ -393,8 +394,9 @@ This example shows how to model typed actors and directional paths within a spat
 | **findById**     | `findById(id)`             | Logic    | Locates an edge by its identifier.                                                                                                                           |
 | **findBySource** | `findBySource(sourceId)`   | Logic    | Retrieves all edges originating from the specified source.                                                                                                   |
 | **findByTarget** | `findByTarget(targetId)`   | Logic    | Retrieves all edges pointing to the specified target.                                                                                                        |
-| **move**         | `move(id, coordsOrOffset)` | Logic    | Moves or shifts the edge’s coordinates, depending on whether absolute coordinates or an offset is given.                                                     |
-| **project**      | `project(transform)`       | Logic    | Applies a transformation function to the coordinates of each edge, returning an array with all edge coordinates projected using the transformation function. |
+| **move**         | `move(id, coordsOrOffset)` | Logic    | Moves or shifts the edge's coordinates, depending on whether absolute coordinates or an offset is given. **Only operates when all edges have coordinates.**                                                     |
+| **translate**    | `translate(idOrIds, offset)` | Logic  | Translates one or multiple edges by a given `(dx, dy)` offset. **Only operates when all edges have coordinates.**                           |
+| **project**      | `project(transform)`       | Logic    | Applies a transformation function to the coordinates of each edge, returning an array with all edge coordinates projected using the transformation function. **Only operates when all edges have coordinates.** |
 | **toJSON**       | `toJSON()`                 | Logic    | Returns all edges in a JSON-like array.                                                                                                                      |
 
 ## 🛡️ Exception Handling
@@ -409,6 +411,9 @@ The library throws **structured exceptions** for invalid operations:
 | `AssignedException`          | Thrown when attempting to reassign existing metadata.                |
 | `UnassignedException`        | Raised when updating uninitialized metadata.                         |
 | `MissMatchException`         | Thrown when metadata identifiers do not match.                       |
+| `DuplicateException`         | Raised when a duplicate ID or coordinate is detected.                |
+| `NotFoundException`          | Thrown when a requested node or edge is not found.                   |
+| `InvalidIndexException`      | Raised when an array index is out of bounds.                         |
 
 ## License
 
