@@ -673,26 +673,42 @@ given(`Validate.name static method behavior test`, () => {
       expect(result).toBe(name);
     });
   });
-  when(`Validate.name is called with too short name`, () => {
+  when(`Validate.name is called with a name of 1 character`, () => {
     let name: string;
+    let result: string | null | undefined;
     let error: Exception.Exception;
     beforeEach(() => {
       name = "J";
       try {
-        Validate.name(name);
+        result = Validate.name(name);
       } catch (e) {
         error = e;
       }
     });
-    then(`error is defined`, () => {
-      expect(error).toBeDefined();
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
     });
-    and(`error is defined`, () => {
-      then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(
-          Exception.InvalidArgumentException
-        );
-      });
+    then(`Validate.name returns the name`, () => {
+      expect(result).toBe(name);
+    });
+  });
+  when(`Validate.name is called with a name of 100 characters`, () => {
+    let name: string;
+    let result: string | null | undefined;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      name = "J".repeat(100);
+      try {
+        result = Validate.name(name);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`Validate.name returns the name`, () => {
+      expect(result).toBe(name);
     });
   });
   when(`Validate.name is called with too long name`, () => {
