@@ -124,6 +124,25 @@ given(`Graph class instantiation test`, () => {
       expect(graph.metadata.name).toBe("Clinical Pathway");
     });
   });
+  when(`Graph is instantiated with an graph containing metadata with invalid id`, () => {
+    let graph: Graph<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      try {
+        graph = new Graph({
+          metadata: { id: "invalid", name: "Clinical Pathway" },
+        });
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`Graph is undefined`, () => {
+      expect(graph).toBeUndefined();
+    });
+    then(`error is an instance of Exception.ValidationException`, () => {
+      expect(error).toBeInstanceOf(Exception.ValidationException);
+    });
+  });
   when(`Graph is instantiated with an graph containing nodes`, () => {
     let graph: Graph<IGraph>;
     let nodes: IGraph["nodes"];
