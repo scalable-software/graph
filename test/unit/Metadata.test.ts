@@ -557,6 +557,24 @@ given(`Metadata.add method behavior test`, () => {
         expect(metadata.id).toBe(id);
       });
     });
+    when("metadata.add is called with invalid id", () => {
+      let error: Exception.Exception;
+      let id: UUID | null;
+      beforeEach(() => {
+        id = metadata.id;
+        try {
+          metadata.add({ id: "invalid", name: "test", custom: "custom" });
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is an instance of ValidationException", () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
+      then("metadata.id is the id generated when metadata was created", () => {
+        expect(metadata.id).toBe(id);
+      });
+    });
   });
   and("a metadata instance is created with data", () => {
     type T = { custom: string } & IMetadata;
