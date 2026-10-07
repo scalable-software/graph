@@ -580,6 +580,21 @@ given(`Graph without a name test`, () => {
       expect(graph.metadata.name).toBe("AB");
     });
   });
+  and(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    when(`Graph.metadata.name is set to an empty string`, () => {
+      beforeEach(() => {
+        graph.metadata.name = "Clinical Pathway";
+        graph.metadata.name = "";
+      });
+      then(`Graph.metadata.name is null`, () => {
+        expect(graph.metadata.name).toBeNull();
+      });
+    });
+  });
 });
 
 given(`Graph.import method metadata id test`, () => {
