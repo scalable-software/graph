@@ -554,6 +554,28 @@ given(`Graph.import method behavior test`, () => {
   });
 });
 
+given(`Graph.import method metadata id test`, () => {
+  and(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    let id: UUID | null;
+    beforeEach(() => {
+      graph = new Graph();
+      id = graph.metadata.id;
+    });
+    when(`Graph.import is called with metadata with no id`, () => {
+      beforeEach(() => {
+        graph.import({ metadata: { name: "Clinical Pathway" } });
+      });
+      then(`Graph.metadata.id is the id generated when Graph was instantiated`, () => {
+        expect(graph.metadata.id).toBe(id);
+      });
+      then(`Graph.metadata.name is the name of the metadata`, () => {
+        expect(graph.metadata.name).toBe("Clinical Pathway");
+      });
+    });
+  });
+});
+
 given("Graph.export method availability test", () => {
   when("Graph is instantiated", () => {
     let graph: Graph<IGraph>;
