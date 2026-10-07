@@ -653,6 +653,22 @@ given(`Graph without a name test`, () => {
         expect(graph.metadata.name).toBeNull();
       });
     });
+    when(`Graph.import is called with metadata with name of 101 characters`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          graph.import({ metadata: { name: "A".repeat(101) } });
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is an instance of Exception.InvalidArgumentException`, () => {
+        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+      });
+      then(`Graph.metadata.name is null`, () => {
+        expect(graph.metadata.name).toBeNull();
+      });
+    });
     when(`Graph.metadata.name is set to an empty string`, () => {
       beforeEach(() => {
         graph.metadata.name = "Clinical Pathway";
