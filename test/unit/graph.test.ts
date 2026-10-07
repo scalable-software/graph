@@ -586,6 +586,24 @@ given(`Graph.import method metadata id test`, () => {
         expect(graph.metadata.id).toBe("123e4567-e89b-12d3-a456-426614174000");
       });
     });
+    when(`Graph.import is called with metadata with an invalid id`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          graph.import({
+            metadata: { id: "invalid", name: "Clinical Pathway" },
+          });
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is an instance of Exception.InvalidArgumentException`, () => {
+        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+      });
+      then(`Graph.metadata.id is the id generated when Graph was instantiated`, () => {
+        expect(graph.metadata.id).toBe(id);
+      });
+    });
   });
 });
 
