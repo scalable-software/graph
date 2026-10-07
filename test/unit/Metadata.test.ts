@@ -525,7 +525,9 @@ given(`Metadata.add method behavior test`, () => {
     });
     when("metadata.add is called with no id", () => {
       let data: Omit<T, "id">;
+      let id: UUID | null;
       beforeEach(() => {
+        id = metadata.id;
         data = {
           name: "test",
           custom: "custom",
@@ -534,6 +536,25 @@ given(`Metadata.add method behavior test`, () => {
       });
       then("metadata.id is defined", () => {
         expect(metadata.id).toBeDefined();
+      });
+      then("metadata.id is the id generated when metadata was created", () => {
+        expect(metadata.id).toBe(id);
+      });
+    });
+    when("metadata.add is called with id null", () => {
+      let data: T;
+      let id: UUID | null;
+      beforeEach(() => {
+        id = metadata.id;
+        data = {
+          id: null,
+          name: "test",
+          custom: "custom",
+        };
+        metadata.add(data);
+      });
+      then("metadata.id is the id generated when metadata was created", () => {
+        expect(metadata.id).toBe(id);
       });
     });
   });
