@@ -661,6 +661,30 @@ given(`Metadata.add method behavior test`, () => {
         expect(metadata.id).toBe(id);
       });
     });
+    when("metadata.add is called with no name", () => {
+      let id: UUID | null;
+      beforeEach(() => {
+        id = metadata.id;
+        metadata.add({ custom: "custom" } as T);
+      });
+      then("metadata.id is the id generated when metadata was created", () => {
+        expect(metadata.id).toBe(id);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+      then("metadata.custom is the custom of the added metadata", () => {
+        expect(metadata.custom).toBe("custom");
+      });
+    });
+    when("metadata.add is called with name an empty string", () => {
+      beforeEach(() => {
+        metadata.add({ name: "", custom: "custom" } as T);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+    });
     when("metadata.add is called with invalid id", () => {
       let error: Exception.Exception;
       let id: UUID | null;
