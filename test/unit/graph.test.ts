@@ -573,6 +573,19 @@ given(`Graph.import method metadata id test`, () => {
         expect(graph.metadata.name).toBe("Clinical Pathway");
       });
     });
+    when(`Graph.import is called with metadata with a valid id`, () => {
+      beforeEach(() => {
+        graph.import({
+          metadata: {
+            id: "123e4567-e89b-12d3-a456-426614174000",
+            name: "Clinical Pathway",
+          },
+        });
+      });
+      then(`Graph.metadata.id is the id of the metadata`, () => {
+        expect(graph.metadata.id).toBe("123e4567-e89b-12d3-a456-426614174000");
+      });
+    });
   });
 });
 
