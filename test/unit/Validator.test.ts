@@ -96,7 +96,7 @@ given(`Validator.validate static method behavior test`, () => {
       beforeEach(() => {
         entity = {
           id: "123e4567-e89b-12d3-a456-426614174000",
-          name: "J",
+          name: "J".repeat(101),
         };
         validators = [
           ({ id }) => Validate.uuid(id),
@@ -129,7 +129,7 @@ given(`Validator.validate static method behavior test`, () => {
     beforeEach(() => {
       entity = {
         id: "invalid",
-        name: "J",
+        name: "J".repeat(101),
       };
       validators = [
         ({ id }) => Validate.uuid(id),

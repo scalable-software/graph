@@ -554,6 +554,160 @@ given(`Graph.import method behavior test`, () => {
   });
 });
 
+given(`Graph without a name test`, () => {
+  when(`Graph is instantiated with an graph containing metadata with name null`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { id: "123e4567-e89b-12d3-a456-426614174000", name: null },
+      });
+    });
+    then(`Graph.metadata.id is the id of the metadata`, () => {
+      expect(graph.metadata.id).toBe("123e4567-e89b-12d3-a456-426614174000");
+    });
+    then(`Graph.metadata.name is null`, () => {
+      expect(graph.metadata.name).toBeNull();
+    });
+  });
+  when(`Graph is instantiated with an graph containing metadata with name an empty string`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { id: "123e4567-e89b-12d3-a456-426614174000", name: "" },
+      });
+    });
+    then(`Graph.metadata.name is null`, () => {
+      expect(graph.metadata.name).toBeNull();
+    });
+    then(`Graph.export().metadata.name is null`, () => {
+      expect(graph.export().metadata.name).toBeNull();
+    });
+  });
+  when(`Graph is instantiated with an graph containing metadata with no name`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { id: "123e4567-e89b-12d3-a456-426614174000" },
+      } as Partial<IGraph>);
+    });
+    then(`Graph.metadata.name is null`, () => {
+      expect(graph.metadata.name).toBeNull();
+    });
+    then(`Graph.export().metadata.name is null`, () => {
+      expect(graph.export().metadata.name).toBeNull();
+    });
+  });
+  when(`Graph is instantiated with an graph containing metadata with name of 2 characters`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { id: "123e4567-e89b-12d3-a456-426614174000", name: "AB" },
+      });
+    });
+    then(`Graph.metadata.name is the name of the metadata`, () => {
+      expect(graph.metadata.name).toBe("AB");
+    });
+  });
+  when(`Graph is instantiated with an graph containing metadata with name of 101 characters`, () => {
+    let graph: Graph<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      try {
+        graph = new Graph({
+          metadata: { id: "123e4567-e89b-12d3-a456-426614174000", name: "A".repeat(101) },
+        });
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`Graph is undefined`, () => {
+      expect(graph).toBeUndefined();
+    });
+    then(`error is an instance of Exception.ValidationException`, () => {
+      expect(error).toBeInstanceOf(Exception.ValidationException);
+    });
+  });
+  and(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    when(`Graph.import is called with metadata with no name`, () => {
+      beforeEach(() => {
+        graph.import({
+          metadata: { id: "123e4567-e89b-12d3-a456-426614174000" },
+        } as Partial<IGraph>);
+      });
+      then(`Graph.metadata.id is the id of the metadata`, () => {
+        expect(graph.metadata.id).toBe("123e4567-e89b-12d3-a456-426614174000");
+      });
+      then(`Graph.metadata.name is null`, () => {
+        expect(graph.metadata.name).toBeNull();
+      });
+    });
+    when(`Graph.import is called with metadata with name an empty string`, () => {
+      beforeEach(() => {
+        graph.import({ metadata: { name: "" } });
+      });
+      then(`Graph.metadata.name is null`, () => {
+        expect(graph.metadata.name).toBeNull();
+      });
+    });
+    when(`Graph.import is called with metadata with name of 101 characters`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          graph.import({ metadata: { name: "A".repeat(101) } });
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is an instance of Exception.InvalidArgumentException`, () => {
+        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+      });
+      then(`Graph.metadata.name is null`, () => {
+        expect(graph.metadata.name).toBeNull();
+      });
+    });
+    when(`Graph.metadata.name is set to an empty string`, () => {
+      beforeEach(() => {
+        graph.metadata.name = "Clinical Pathway";
+        graph.metadata.name = "";
+      });
+      then(`Graph.metadata.name is null`, () => {
+        expect(graph.metadata.name).toBeNull();
+      });
+    });
+    when(`a new Graph is instantiated with the export of the graph`, () => {
+      let copy: Graph<IGraph>;
+      beforeEach(() => {
+        copy = new Graph(graph.export());
+      });
+      then(`copy.metadata.id is graph.metadata.id`, () => {
+        expect(copy.metadata.id).toBe(graph.metadata.id);
+      });
+      then(`copy.metadata.name is null`, () => {
+        expect(copy.metadata.name).toBeNull();
+      });
+      then(`copy.export() equals graph.export()`, () => {
+        expect(copy.export()).toEqual(graph.export());
+      });
+    });
+    when(`the export of the graph is imported into a new Graph`, () => {
+      let copy: Graph<IGraph>;
+      beforeEach(() => {
+        copy = new Graph<IGraph>().import(graph.export());
+      });
+      then(`copy.metadata.id is graph.metadata.id`, () => {
+        expect(copy.metadata.id).toBe(graph.metadata.id);
+      });
+      then(`copy.metadata.name is null`, () => {
+        expect(copy.metadata.name).toBeNull();
+      });
+    });
+  });
+});
+
 given(`Graph.import method metadata id test`, () => {
   and(`Graph is instantiated`, () => {
     let graph: Graph<IGraph>;

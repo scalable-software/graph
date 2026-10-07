@@ -164,6 +164,75 @@ given(`Metadata.create static method behavior test`, () => {
     });
   });
   when(
+    "an instance is created using Metadata.create and data with name null",
+    () => {
+      let data: IMetadata;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: null };
+
+        metadata = Metadata.create(data);
+      });
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+    }
+  );
+  when(
+    "an instance is created using Metadata.create and data with name an empty string",
+    () => {
+      let data: IMetadata;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "" };
+
+        metadata = Metadata.create(data);
+      });
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+    }
+  );
+  when(
+    "an instance is created using Metadata.create and data with no name",
+    () => {
+      let data: Omit<IMetadata, "name">;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000" };
+
+        metadata = Metadata.create(data as IMetadata);
+      });
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+    }
+  );
+  when(
+    "an instance is created using Metadata.create and data with name of 2 characters",
+    () => {
+      let data: IMetadata;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "AB" };
+
+        metadata = Metadata.create(data);
+      });
+      then("metadata.name is data.name", () => {
+        expect(metadata.name).toBe(data.name);
+      });
+    }
+  );
+  when(
     "an instance is created using Metadata.create and invalid data.id",
     () => {
       let data: Partial<IMetadata>;
@@ -197,7 +266,10 @@ given(`Metadata.create static method behavior test`, () => {
       let data: Partial<IMetadata>;
       let error: Exception.Exception;
       beforeEach(() => {
-        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "T" };
+        data = {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "T".repeat(101),
+        };
         try {
           Metadata.create(data as IMetadata);
         } catch (e) {
@@ -223,7 +295,7 @@ given(`Metadata.create static method behavior test`, () => {
     let data: Partial<IMetadata>;
     let error: Exception.Exception;
     beforeEach(() => {
-      data = { id: "invalid", name: "T" };
+      data = { id: "invalid", name: "T".repeat(101) };
       try {
         Metadata.create(data as IMetadata);
       } catch (e) {
@@ -377,11 +449,43 @@ given(`Metadata.name setter behavior test`, () => {
         expect(metadata.name).toBe(name);
       });
     });
+    when("metadata.name is set to a name of 1 character", () => {
+      beforeEach(() => {
+        metadata.name = "T";
+      });
+      then("metadata.name is the name", () => {
+        expect(metadata.name).toBe("T");
+      });
+    });
+    and("metadata.name is set to valid name", () => {
+      beforeEach(() => {
+        metadata.name = "test";
+      });
+      when("metadata.name is set to null", () => {
+        beforeEach(() => {
+          metadata.name = null;
+        });
+        then("metadata.name is null", () => {
+          expect(metadata.name).toBeNull();
+        });
+      });
+      when("metadata.name is set to an empty string", () => {
+        beforeEach(() => {
+          metadata.name = "";
+        });
+        then("metadata.name is null", () => {
+          expect(metadata.name).toBeNull();
+        });
+        then("metadata.toJSON().name is null", () => {
+          expect(metadata.toJSON().name).toBeNull();
+        });
+      });
+    });
     when("metadata.name is set to invalid name", () => {
       let name: Name;
       let error: Exception.Exception;
       beforeEach(() => {
-        name = "T";
+        name = "T".repeat(101);
         try {
           metadata.name = name;
         } catch (e) {
@@ -555,6 +659,30 @@ given(`Metadata.add method behavior test`, () => {
       });
       then("metadata.id is the id generated when metadata was created", () => {
         expect(metadata.id).toBe(id);
+      });
+    });
+    when("metadata.add is called with no name", () => {
+      let id: UUID | null;
+      beforeEach(() => {
+        id = metadata.id;
+        metadata.add({ custom: "custom" } as T);
+      });
+      then("metadata.id is the id generated when metadata was created", () => {
+        expect(metadata.id).toBe(id);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+      then("metadata.custom is the custom of the added metadata", () => {
+        expect(metadata.custom).toBe("custom");
+      });
+    });
+    when("metadata.add is called with name an empty string", () => {
+      beforeEach(() => {
+        metadata.add({ name: "", custom: "custom" } as T);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
       });
     });
     when("metadata.add is called with invalid id", () => {

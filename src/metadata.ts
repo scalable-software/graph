@@ -11,7 +11,7 @@ import type { UUID, Name } from "./graph.types.js";
 /**
  * The metadata object has an `id` and `name` property.
  * - The `id` property is immutable, and is generated when none is given.
- * - The `name` property is mutable but gets validated.
+ * - The `name` property is mutable but gets validated. It is optional: a graph without a name has the name `null`.
  */
 export type IMetadata = {
   id: UUID | null;
@@ -69,6 +69,12 @@ export class Metadata<T extends IMetadata = IMetadata> {
       ? metadata
       : ({ ...metadata, id: id ?? crypto.randomUUID() } as T);
 
+  /**
+   * A missing or empty name is always held as `null`.
+   */
+  private static named = (name?: Name | null): Name | null =>
+    name == null || name === "" ? null : name;
+
   private _id: UUID | null = null;
   private _name: Name | null = null;
 
@@ -105,8 +111,8 @@ export class Metadata<T extends IMetadata = IMetadata> {
 
   /**
    * The `name` property is mutable but gets validated:
-   * `get` returns value
-   * `set` validates and updates value
+   * `get` returns value, or `null` when there is no name
+   * `set` validates and updates value; an empty value removes the name
    *
    * @example
    * ```ts
@@ -114,6 +120,10 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * metadata.name = "Test";
    * metadata.name;
    * // => "Test"
+   *
+   * metadata.name = "";
+   * metadata.name;
+   * // => null
    * ```
    *
    * @category Data
@@ -122,7 +132,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
     return this._name;
   }
   set name(name: Name | null) {
-    this._name = Validate.name(name);
+    this._name = Metadata.named(Validate.name(name));
   }
 
   /**
@@ -267,7 +277,11 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * ```
    */
   private hydrate = ({ id, name, ...properties }: Partial<T>) =>
-    Object.assign(this, { _id: id, _name: name, ...properties });
+    Object.assign(this, {
+      _id: id,
+      _name: Metadata.named(name),
+      ...properties,
+    });
 
   private match = ({ id }: Partial<T>): boolean => this._id === id;
 

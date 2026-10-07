@@ -673,26 +673,76 @@ given(`Validate.name static method behavior test`, () => {
       expect(result).toBe(name);
     });
   });
-  when(`Validate.name is called with too short name`, () => {
+  when(`Validate.name is called with a name of 1 character`, () => {
     let name: string;
+    let result: string | null | undefined;
     let error: Exception.Exception;
     beforeEach(() => {
       name = "J";
       try {
-        Validate.name(name);
+        result = Validate.name(name);
       } catch (e) {
         error = e;
       }
     });
-    then(`error is defined`, () => {
-      expect(error).toBeDefined();
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
     });
-    and(`error is defined`, () => {
-      then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(
-          Exception.InvalidArgumentException
-        );
-      });
+    then(`Validate.name returns the name`, () => {
+      expect(result).toBe(name);
+    });
+  });
+  when(`Validate.name is called with a name of 100 characters`, () => {
+    let name: string;
+    let result: string | null | undefined;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      name = "J".repeat(100);
+      try {
+        result = Validate.name(name);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`Validate.name returns the name`, () => {
+      expect(result).toBe(name);
+    });
+  });
+  when(`Validate.name is called with an empty string`, () => {
+    let result: string | null | undefined;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      try {
+        result = Validate.name("");
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`Validate.name returns the empty string`, () => {
+      expect(result).toBe("");
+    });
+  });
+  when(`Validate.name is called with undefined`, () => {
+    let result: string | null | undefined;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      try {
+        result = Validate.name(undefined);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`Validate.name returns undefined`, () => {
+      expect(result).toBeUndefined();
     });
   });
   when(`Validate.name is called with too long name`, () => {
@@ -718,25 +768,20 @@ given(`Validate.name static method behavior test`, () => {
     });
   });
   when(`Validate.name is called with null`, () => {
-    let name: string;
+    let result: string | null | undefined;
     let error: Exception.Exception;
     beforeEach(() => {
-      name = null;
       try {
-        Validate.name(name);
+        result = Validate.name(null);
       } catch (e) {
         error = e;
       }
     });
-    then(`error is defined`, () => {
-      expect(error).toBeDefined();
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
     });
-    and(`error is defined`, () => {
-      then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(
-          Exception.InvalidArgumentException
-        );
-      });
+    then(`Validate.name returns null`, () => {
+      expect(result).toBeNull();
     });
   });
 });
@@ -1031,12 +1076,69 @@ given(`Validate.metadata static method behavior test`, () => {
       expect(result).toBe(data);
     });
   });
+  when("Validate.metadata is called with data.name null", () => {
+    let data: IMetadata;
+    let result: any;
+    let error: Exception.ValidationException;
+    beforeEach(() => {
+      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: null };
+      try {
+        result = Validate.metadata(data);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("error is undefined", () => {
+      expect(error).toBeUndefined();
+    });
+    then("data is returned", () => {
+      expect(result).toBe(data);
+    });
+  });
+  when("Validate.metadata is called with data.name an empty string", () => {
+    let data: IMetadata;
+    let result: any;
+    let error: Exception.ValidationException;
+    beforeEach(() => {
+      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "" };
+      try {
+        result = Validate.metadata(data);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("error is undefined", () => {
+      expect(error).toBeUndefined();
+    });
+    then("data is returned", () => {
+      expect(result).toBe(data);
+    });
+  });
+  when("Validate.metadata is called with data with no name", () => {
+    let data: Omit<IMetadata, "name">;
+    let result: any;
+    let error: Exception.ValidationException;
+    beforeEach(() => {
+      data = { id: "123e4567-e89b-12d3-a456-426614174000" };
+      try {
+        result = Validate.metadata(data as IMetadata);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("error is undefined", () => {
+      expect(error).toBeUndefined();
+    });
+    then("data is returned", () => {
+      expect(result).toBe(data);
+    });
+  });
   when("Validate.metadata is called with invalid data", () => {
     let data: Partial<IMetadata>;
     let result: any;
     let error: Exception.ValidationException;
     beforeEach(() => {
-      data = { id: "invalid", name: "T" };
+      data = { id: "invalid", name: "T".repeat(101) };
       try {
         result = Validate.metadata(data as IMetadata);
       } catch (e) {
@@ -1080,7 +1182,7 @@ given(`Validate.metadata static method behavior test`, () => {
     beforeEach(() => {
       data = {
         id: "123e4567-e89b-12d3-a456-426614174000",
-        name: "T",
+        name: "T".repeat(101),
       };
       try {
         result = Validate.metadata(data as IMetadata);
@@ -2704,6 +2806,51 @@ given(`Validate.graph static method behavior test`, () => {
       expect(response).toEqual(graph);
     });
   });
+  when(`Validate.graph called with graph with metadata with name null`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: { id: "15b6679a-fd9d-4036-b1ab-af0b932fc903", name: null },
+      };
+      try {
+        response = Validate.graph<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`response equals graph`, () => {
+      expect(response).toEqual(graph);
+    });
+  });
+  when(`Validate.graph called with graph with metadata with too long name`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          name: "g".repeat(101),
+        },
+      };
+      try {
+        response = Validate.graph<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`response is undefined`, () => {
+      expect(response).toBeUndefined();
+    });
+    then(`error is an instance of ValidationException`, () => {
+      expect(error).toBeInstanceOf(Exception.ValidationException);
+    });
+  });
   when(`Validate.graph called with invalid graph`, () => {
     let graph: Partial<IGraph>;
     let response: Partial<IGraph>;
@@ -2772,6 +2919,51 @@ given(`Validate.graphDetails static method behavior test`, () => {
       then(`response equals graph`, () => {
         expect(response).toEqual(graph);
       });
+    });
+  });
+  when(`Validate.graphDetails called with graph with metadata with no name`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: { id: "15b6679a-fd9d-4036-b1ab-af0b932fc903" },
+      } as Partial<IGraph>;
+      try {
+        response = Validate.graphDetails<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`response equals graph`, () => {
+      expect(response).toEqual(graph);
+    });
+  });
+  when(`Validate.graphDetails called with graph with metadata with too long name`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          name: "g".repeat(101),
+        },
+      };
+      try {
+        response = Validate.graphDetails<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`response is undefined`, () => {
+      expect(response).toBeUndefined();
+    });
+    then(`error is an instance of InvalidArgumentException`, () => {
+      expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
     });
   });
   when(`Validate.graphDetails called with invalid graph`, () => {

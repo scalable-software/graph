@@ -227,11 +227,13 @@ export class Validate {
       : (id as UUID);
 
   /**
-   * Validate name and throw if not valid
+   * Validate name and throw if not valid.
+   * A name is optional: a missing, `null` or empty name is valid.
+   * A name that is given has at most 100 characters.
    *
    * @param name - The name to validate
    * @returns The name if valid
-   * @throws {InvalidArgumentException} If the name is invalid or null
+   * @throws {InvalidArgumentException} If the name has more than 100 characters
    *
    * @example
    * ```ts
@@ -239,20 +241,25 @@ export class Validate {
    * // => "John Doe"
    *
    * Validate.name("J");
-   * // => InvalidArgumentException: Invalid argument: name - must be a valid name
+   * // => "J"
    *
    * Validate.name(null);
+   * // => null
+   *
+   * Validate.name("J".repeat(101));
    * // => InvalidArgumentException: Invalid argument: name - must be a valid name
    * ```
    *
    */
-  public static name = (name: string | null): Name =>
-    !name || name.length < 3 || name.length > 100
+  public static name = (
+    name?: string | null
+  ): Name | null | undefined =>
+    name != null && name.length > 100
       ? Exceptions.invalidArgumentException(
           "name",
           "must be a valid name"
         )
-      : (name as Name);
+      : (name as Name | null | undefined);
 
   /**
    * Validate offset and throw if not valid
