@@ -1036,7 +1036,7 @@ given(`Validate.metadata static method behavior test`, () => {
     let result: any;
     let error: Exception.ValidationException;
     beforeEach(() => {
-      data = { id: "invalid", name: "T" };
+      data = { id: "invalid", name: "T".repeat(101) };
       try {
         result = Validate.metadata(data as IMetadata);
       } catch (e) {
@@ -1080,7 +1080,7 @@ given(`Validate.metadata static method behavior test`, () => {
     beforeEach(() => {
       data = {
         id: "123e4567-e89b-12d3-a456-426614174000",
-        name: "T",
+        name: "T".repeat(101),
       };
       try {
         result = Validate.metadata(data as IMetadata);

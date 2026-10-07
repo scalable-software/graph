@@ -197,7 +197,10 @@ given(`Metadata.create static method behavior test`, () => {
       let data: Partial<IMetadata>;
       let error: Exception.Exception;
       beforeEach(() => {
-        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "T" };
+        data = {
+          id: "123e4567-e89b-12d3-a456-426614174000",
+          name: "T".repeat(101),
+        };
         try {
           Metadata.create(data as IMetadata);
         } catch (e) {
@@ -223,7 +226,7 @@ given(`Metadata.create static method behavior test`, () => {
     let data: Partial<IMetadata>;
     let error: Exception.Exception;
     beforeEach(() => {
-      data = { id: "invalid", name: "T" };
+      data = { id: "invalid", name: "T".repeat(101) };
       try {
         Metadata.create(data as IMetadata);
       } catch (e) {
@@ -381,7 +384,7 @@ given(`Metadata.name setter behavior test`, () => {
       let name: Name;
       let error: Exception.Exception;
       beforeEach(() => {
-        name = "T";
+        name = "T".repeat(101);
         try {
           metadata.name = name;
         } catch (e) {
