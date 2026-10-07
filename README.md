@@ -132,9 +132,51 @@ import { Graph, type IGraph } from "@scalable.software/graph";
 const graph = new Graph<IGraph>(data);
 ```
 
+### 🆔 Graph Id and Name
+
+Every graph has an **id**, and a **name** is optional.
+
+A graph created without an id gets a generated UUID, so it can be exported, handed to another component and rebuilt from the first moment:
+
+```typescript
+const graph = new Graph<IGraph>();
+
+console.log(graph.metadata.id); // "8f14e45f-ceea-467f-a9b0-4f3c2d1e5a6b" (generated)
+console.log(graph.metadata.name); // null
+```
+
+The same rules apply to the constructor and to `import()`:
+
+- **Id**: a missing or `null` id is generated, a valid UUID is kept exactly, and an id that is not a UUID is refused. The id is immutable.
+- **Name**: a missing, `null` or empty name is accepted and held as `null`. A name that is given has 1 to 100 characters.
+
+```typescript
+const graph = new Graph<IGraph>({
+  metadata: { id: null, name: "" },
+});
+
+console.log(graph.metadata.id); // generated UUID
+console.log(graph.metadata.name); // null
+```
+
+A graph can always be rebuilt from its own export, with the same id and name:
+
+```typescript
+const copy = new Graph<IGraph>(graph.export());
+
+console.log(copy.metadata.id === graph.metadata.id); // true
+```
+
+Name a graph, or remove its name, through the `name` property:
+
+```typescript
+graph.metadata.name = "Clinical Pathway";
+graph.metadata.name = ""; // the name is null again
+```
+
 ### 📥 Importing a Graph with Auto-Generated IDs
 
-You can start with an **empty** graph and use the **`import()`** method to add data later. When IDs are omitted, the library automatically generates UUIDs for you.
+You can start with an **empty** graph and use the **`import()`** method to add data later. When IDs are omitted, the library automatically generates UUIDs for you. An empty graph already has an id: it keeps that id when the imported metadata has none, and takes the imported id when one is given.
 
 **Geometric graph (with coordinates):**
 
@@ -283,7 +325,7 @@ graph.edges.add({
 
 ### 🔗 Fluent Metadata Modification
 
-You can also **chain** methods, for example the metadata operations to update, remove, or add fields:
+You can also **chain** methods, for example the metadata operations to update, remove, or add fields. `update()` works on a graph that has a name; `remove()` without keys clears the name and the custom fields, and keeps the id:
 
 ```typescript
 graph.metadata
