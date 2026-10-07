@@ -2643,6 +2643,48 @@ given(`Validate.graph static method behavior test`, () => {
       });
     });
   });
+  when(`Validate.graph called with graph with metadata with no id`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: { name: "graph" },
+      } as Partial<IGraph>;
+      try {
+        response = Validate.graph<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`response equals graph`, () => {
+      expect(response).toEqual(graph);
+    });
+  });
+  when(`Validate.graph called with graph with metadata with id null`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: { id: null, name: "graph" },
+      };
+      try {
+        response = Validate.graph<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`response equals graph`, () => {
+      expect(response).toEqual(graph);
+    });
+  });
   when(`Validate.graph called with graph with no metadata`, () => {
     let graph: Partial<IGraph>;
     let response: Partial<IGraph>;
