@@ -395,6 +395,14 @@ given(`Metadata.name setter behavior test`, () => {
         expect(metadata.name).toBe(name);
       });
     });
+    when("metadata.name is set to a name of 1 character", () => {
+      beforeEach(() => {
+        metadata.name = "T";
+      });
+      then("metadata.name is the name", () => {
+        expect(metadata.name).toBe("T");
+      });
+    });
     when("metadata.name is set to invalid name", () => {
       let name: Name;
       let error: Exception.Exception;
