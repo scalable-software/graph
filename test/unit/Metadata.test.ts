@@ -55,6 +55,42 @@ given(`Metadata.create static method behavior test`, () => {
       expect(first.id).not.toBe(second.id);
     });
   });
+  when(
+    "an instance is created using Metadata.create and data with no id",
+    () => {
+      let data: Omit<IMetadata, "id">;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { name: "test" };
+
+        metadata = Metadata.create(data as IMetadata);
+      });
+      then("metadata.id is a generated UUID", () => {
+        expect(metadata.id).toMatch(UUID_PATTERN);
+      });
+      then("metadata.name is data.name", () => {
+        expect(metadata.name).toBe(data.name);
+      });
+    }
+  );
+  when(
+    "an instance is created using Metadata.create and data with id null",
+    () => {
+      let data: IMetadata;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { id: null, name: "test" };
+
+        metadata = Metadata.create(data);
+      });
+      then("metadata.id is a generated UUID", () => {
+        expect(metadata.id).toMatch(UUID_PATTERN);
+      });
+      then("metadata.name is data.name", () => {
+        expect(metadata.name).toBe(data.name);
+      });
+    }
+  );
   when("an instance is created using Metadata.create and data", () => {
     let data: IMetadata;
     let metadata: Metadata;
