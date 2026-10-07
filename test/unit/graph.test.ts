@@ -678,6 +678,21 @@ given(`Graph without a name test`, () => {
         expect(graph.metadata.name).toBeNull();
       });
     });
+    when(`a new Graph is instantiated with the export of the graph`, () => {
+      let copy: Graph<IGraph>;
+      beforeEach(() => {
+        copy = new Graph(graph.export());
+      });
+      then(`copy.metadata.id is graph.metadata.id`, () => {
+        expect(copy.metadata.id).toBe(graph.metadata.id);
+      });
+      then(`copy.metadata.name is null`, () => {
+        expect(copy.metadata.name).toBeNull();
+      });
+      then(`copy.export() equals graph.export()`, () => {
+        expect(copy.export()).toEqual(graph.export());
+      });
+    });
   });
 });
 
