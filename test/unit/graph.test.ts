@@ -680,6 +680,26 @@ given(`Graph.export method behavior test`, () => {
       });
     });
   });
+  and(`Graph is instantiated with metadata with no id`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { name: "Clinical Pathway" },
+      } as Partial<IGraph>);
+    });
+    when(`a new Graph is instantiated with the export of the graph`, () => {
+      let copy: Graph<IGraph>;
+      beforeEach(() => {
+        copy = new Graph(graph.export());
+      });
+      then(`copy.metadata.id is graph.metadata.id`, () => {
+        expect(copy.metadata.id).toBe(graph.metadata.id);
+      });
+      then(`copy.metadata.name is graph.metadata.name`, () => {
+        expect(copy.metadata.name).toBe(graph.metadata.name);
+      });
+    });
+  });
 });
 
 given("Graph.toJSON method availability test", () => {
