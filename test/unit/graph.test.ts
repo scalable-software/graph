@@ -555,6 +555,20 @@ given(`Graph.import method behavior test`, () => {
 });
 
 given(`Graph without a name test`, () => {
+  when(`Graph is instantiated with an graph containing metadata with name null`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { id: "123e4567-e89b-12d3-a456-426614174000", name: null },
+      });
+    });
+    then(`Graph.metadata.id is the id of the metadata`, () => {
+      expect(graph.metadata.id).toBe("123e4567-e89b-12d3-a456-426614174000");
+    });
+    then(`Graph.metadata.name is null`, () => {
+      expect(graph.metadata.name).toBeNull();
+    });
+  });
   when(`Graph is instantiated with an graph containing metadata with name of 2 characters`, () => {
     let graph: Graph<IGraph>;
     beforeEach(() => {
