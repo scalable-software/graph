@@ -164,6 +164,24 @@ given(`Metadata.create static method behavior test`, () => {
     });
   });
   when(
+    "an instance is created using Metadata.create and data with name null",
+    () => {
+      let data: IMetadata;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: null };
+
+        metadata = Metadata.create(data);
+      });
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+    }
+  );
+  when(
     "an instance is created using Metadata.create and data with name of 2 characters",
     () => {
       let data: IMetadata;
