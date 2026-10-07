@@ -164,6 +164,21 @@ given(`Metadata.create static method behavior test`, () => {
     });
   });
   when(
+    "an instance is created using Metadata.create and data with name of 2 characters",
+    () => {
+      let data: IMetadata;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "AB" };
+
+        metadata = Metadata.create(data);
+      });
+      then("metadata.name is data.name", () => {
+        expect(metadata.name).toBe(data.name);
+      });
+    }
+  );
+  when(
     "an instance is created using Metadata.create and invalid data.id",
     () => {
       let data: Partial<IMetadata>;
