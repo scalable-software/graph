@@ -4,18 +4,18 @@
  * @module Extension
  */
 
-import { Graph } from "./graph.js";
+import { Graph, type PartialGraph } from "./graph.js";
 import { Nodes } from "./nodes.js";
 import { Edges } from "./edges.js";
 
 import { IPathway } from "./pathway.types.js";
 
 export class Pathway extends Graph<IPathway> {
-  public get actors(): Nodes<IPathway["actors"][number]> {
+  public get actors(): Nodes<NonNullable<IPathway["actors"]>[number]> {
     return this.nodes;
   }
 
-  public get paths(): Edges<IPathway["paths"][number]> {
+  public get paths(): Edges<NonNullable<IPathway["paths"]>[number]> {
     return this.edges;
   }
 
@@ -23,7 +23,8 @@ export class Pathway extends Graph<IPathway> {
     metadata,
     actors: nodes,
     paths: edges,
-  }: Partial<IPathway>) => this._import({ metadata, nodes, edges });
+  }: PartialGraph<IPathway> & Partial<Pick<IPathway, "actors" | "paths">>) =>
+    this._import({ metadata, nodes, edges });
 
   public export = (): IPathway =>
     ({

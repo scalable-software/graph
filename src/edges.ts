@@ -52,7 +52,7 @@ export class Edges<T extends IEdge> extends Array<T> {
 
   private static defaults = <T extends IEdge>(): T[] => [];
 
-  private static normalize = <T extends IEdge>(edges?: T[]): T[] =>
+  private static normalize = <T extends IEdge>(edges?: T[] | null): T[] =>
     edges ? Validate.edges(edges) : Edges.defaults();
 
   private _immutable = true;
@@ -297,7 +297,7 @@ export class Edges<T extends IEdge> extends Array<T> {
    *
    * @category Operations
    */
-  public findBySource = (source: UUID): T[] | undefined =>
+  public findBySource = (source: UUID): T[] =>
     ((source) => this.filter((edge) => edge.source === source))(
       Validate.uuid(source)
     );
@@ -330,7 +330,7 @@ export class Edges<T extends IEdge> extends Array<T> {
    *
    * @category Operations
    */
-  public findByTarget = (target: UUID): T[] | undefined =>
+  public findByTarget = (target: UUID): T[] =>
     ((target) => this.filter((edge) => edge.target === target))(
       Validate.uuid(target)
     );
@@ -359,8 +359,8 @@ export class Edges<T extends IEdge> extends Array<T> {
       ? [...this].map((edge) => ({
           ...edge,
           coordinates: {
-            start: transform(edge.coordinates.start, edge),
-            end: transform(edge.coordinates.end, edge),
+            start: transform(edge.coordinates!.start, edge),
+            end: transform(edge.coordinates!.end, edge),
           },
         }))
       : [...this];
@@ -376,7 +376,7 @@ export class Edges<T extends IEdge> extends Array<T> {
 
   private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
-  private edge = (id: UUID): T => this.at(Utilities.Index.byId<T>(this, id));
+  private edge = (id: UUID): T => this.at(Utilities.Index.byId<T>(this, id))!;
 
   private assign = (edge: T, updatedEdge: T): T =>
     this.immutable

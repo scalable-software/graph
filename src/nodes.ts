@@ -62,7 +62,7 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
 
   private static defaults = <T extends INode>(): T[] => [];
 
-  private static normalize = <T extends INode>(nodes?: T[]): T[] =>
+  private static normalize = <T extends INode>(nodes?: T[] | null): T[] =>
     nodes ? Validate.nodes(nodes) : Nodes.defaults();
 
   private _immutable = true;
@@ -205,8 +205,8 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
       ? ((coordinates) =>
           this.find(
             (node) =>
-              node.coordinates.x === coordinates.x &&
-              node.coordinates.y === coordinates.y
+              node.coordinates!.x === coordinates.x &&
+              node.coordinates!.y === coordinates.y
           ))(Validate.coordinates(coordinates))
       : undefined;
 
@@ -283,7 +283,7 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
     this.geometric
       ? [...this].map((node) => ({
           ...node,
-          coordinates: transform(node.coordinates, node),
+          coordinates: transform(node.coordinates!, node),
         }))
       : [...this];
 
@@ -298,7 +298,7 @@ import type { UUID, Coordinates, Offset } from "./graph.types.js";
 
   private index = (id: UUID): number => Utilities.Index.byId<T>(this, id);
 
-  private node = (id: UUID): T => this.at(Utilities.Index.byId<T>(this, id));
+  private node = (id: UUID): T => this.at(Utilities.Index.byId<T>(this, id))!;
 
   private assign = (node: T, updatedNode: T): T =>
     this.immutable

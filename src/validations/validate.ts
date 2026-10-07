@@ -19,8 +19,8 @@ import type {
 export class Validate {
   public static graph = <T extends IGraph>(
     graph?: Partial<T>
-  ): Partial<T> => {
-    graph && Validate.metadata<T["metadata"]>(graph.metadata);
+  ): Partial<T> | undefined => {
+    graph && Validate.metadata(graph.metadata as T["metadata"]);
     return graph;
   };
 
@@ -113,7 +113,7 @@ export class Validate {
    * ```
    * @category Validation
    */
-  public static node = <T extends INode>(node?: T): T | void =>
+  public static node = <T extends INode>(node?: T): T | null =>
     !node
       ? null
       : "coordinates" in node && node.coordinates != null
@@ -134,8 +134,8 @@ export class Validate {
           ({ source }) => Validate.uuid(source),
           ({ target }) => Validate.uuid(target),
           ({ coordinates }) =>
-            Validate.coordinates(coordinates.start),
-          ({ coordinates }) => Validate.coordinates(coordinates.end),
+            Validate.coordinates(coordinates?.start),
+          ({ coordinates }) => Validate.coordinates(coordinates?.end),
         ]) as T)
       : (Validator.validate<T>(edge, [
           ({ id }) => Validate.uuid(id),
@@ -294,7 +294,7 @@ export class Validate {
    *
    */
   public static coordinates = (
-    coordinates: Coordinates | null
+    coordinates: Coordinates | null | undefined
   ): Coordinates =>
     !coordinates ||
     !("x" in coordinates) ||
@@ -329,7 +329,7 @@ export class Validate {
     !items.includes(value) ||
     Exceptions.immutablePropertyException(String(value));
 
-  public static many = <T>(item: T | T[], validator: (T) => T) =>
+  public static many = <T>(item: T | T[], validator: (item: T) => T) =>
     Array.isArray(item)
       ? item.map((item) => validator(item))
       : validator(item);
@@ -430,10 +430,13 @@ export class Validate {
    * // => DuplicateException: Duplicate item found: "a"
    * ```
    */
-  public static unique = (items, identifier?) =>
+  public static unique = <T>(
+    items: T[],
+    identifier?: (item: T) => unknown
+  ): T[] =>
     ((duplicate) =>
       duplicate
-        ? Exceptions.duplicateException(Utilities.toString(duplicate))
+        ? Exceptions.duplicateException(Utilities.toString<unknown>(duplicate))
         : items)(Utilities.Duplicate.find(items, identifier));
 
   /**
@@ -455,9 +458,12 @@ export class Validate {
    * // => [{ id: "c" }, { id: "d" }]
    * ```
    */
-  public static distinct = (sets, identifier?) =>
+  public static distinct = <T>(
+    sets: [T[], T[]],
+    identifier?: (item: T) => unknown
+  ): T[] =>
     ((match) =>
       match
-        ? Exceptions.duplicateException(Utilities.toString(match))
+        ? Exceptions.duplicateException(Utilities.toString<unknown>(match))
         : sets[1])(Utilities.Match.find(sets, identifier));
 }

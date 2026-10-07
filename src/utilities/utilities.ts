@@ -65,7 +65,7 @@ export class Utilities {
    * // Returns: { id: "generated-id", name: "Item A" }
    * ```
    */
-  public static idify = <T extends { id: string }>(
+  public static idify = <T extends { id: string | null }>(
     item: T | Omit<T, "id">,
     generator: () => UUID = () => crypto.randomUUID()
   ): T =>

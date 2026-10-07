@@ -255,7 +255,9 @@ export class Metadata<T extends IMetadata = IMetadata> {
   private match = ({ id }: Partial<T>): boolean => this._id === id;
 
   private reset = () =>
-    Object.keys(this.properties).forEach((key) => delete this[key]);
+    Object.keys(this.properties).forEach(
+      (key) => delete this[key as keyof this]
+    );
 
   private validateUnassigned = () =>
     this.assigned &&

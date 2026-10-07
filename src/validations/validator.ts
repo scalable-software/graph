@@ -73,15 +73,15 @@ export class Validator {
         ? Exceptions.validationException(exceptions)
         : entities[1])(Validator.process(entities, validators));
 
-  private static process = <T>(
-    entity: T | [T[], T[]],
-    validators: ((entity: T | [T[], T[]]) => unknown)[]
+  private static process = <E>(
+    entity: E,
+    validators: ((entity: E) => unknown)[]
   ): Exception[] =>
     validators.reduce<Exception[]>((exceptions, validate) => {
       try {
         validate(entity);
       } catch (exception) {
-        exceptions.push(exception);
+        exceptions.push(exception as Exception);
       }
       return exceptions;
     }, []);

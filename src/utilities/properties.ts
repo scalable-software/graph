@@ -33,7 +33,7 @@ export class Properties {
    */
   private static get = <T>(instance: T): Partial<T> =>
     Object.fromEntries(
-      Object.entries(instance).filter(([key, value]) =>
+      Object.entries(instance as object).filter(([key, value]) =>
         Properties.isProperty(instance, key as keyof T, value)
       )
     ) as Partial<T>;
