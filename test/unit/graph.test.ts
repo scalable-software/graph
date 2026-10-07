@@ -632,6 +632,27 @@ given(`Graph without a name test`, () => {
     beforeEach(() => {
       graph = new Graph();
     });
+    when(`Graph.import is called with metadata with no name`, () => {
+      beforeEach(() => {
+        graph.import({
+          metadata: { id: "123e4567-e89b-12d3-a456-426614174000" },
+        } as Partial<IGraph>);
+      });
+      then(`Graph.metadata.id is the id of the metadata`, () => {
+        expect(graph.metadata.id).toBe("123e4567-e89b-12d3-a456-426614174000");
+      });
+      then(`Graph.metadata.name is null`, () => {
+        expect(graph.metadata.name).toBeNull();
+      });
+    });
+    when(`Graph.import is called with metadata with name an empty string`, () => {
+      beforeEach(() => {
+        graph.import({ metadata: { name: "" } });
+      });
+      then(`Graph.metadata.name is null`, () => {
+        expect(graph.metadata.name).toBeNull();
+      });
+    });
     when(`Graph.metadata.name is set to an empty string`, () => {
       beforeEach(() => {
         graph.metadata.name = "Clinical Pathway";
