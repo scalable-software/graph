@@ -693,6 +693,18 @@ given(`Graph without a name test`, () => {
         expect(copy.export()).toEqual(graph.export());
       });
     });
+    when(`the export of the graph is imported into a new Graph`, () => {
+      let copy: Graph<IGraph>;
+      beforeEach(() => {
+        copy = new Graph<IGraph>().import(graph.export());
+      });
+      then(`copy.metadata.id is graph.metadata.id`, () => {
+        expect(copy.metadata.id).toBe(graph.metadata.id);
+      });
+      then(`copy.metadata.name is null`, () => {
+        expect(copy.metadata.name).toBeNull();
+      });
+    });
   });
 });
 
