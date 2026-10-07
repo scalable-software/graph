@@ -2643,6 +2643,25 @@ given(`Validate.graph static method behavior test`, () => {
       });
     });
   });
+  when(`Validate.graph called with graph with no metadata`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = { nodes: [], edges: [] };
+      try {
+        response = Validate.graph<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`response equals graph`, () => {
+      expect(response).toEqual(graph);
+    });
+  });
   when(`Validate.graph called with invalid graph`, () => {
     let graph: Partial<IGraph>;
     let response: Partial<IGraph>;
