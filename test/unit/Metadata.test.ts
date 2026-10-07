@@ -433,6 +433,17 @@ given(`Metadata.name setter behavior test`, () => {
           expect(metadata.name).toBeNull();
         });
       });
+      when("metadata.name is set to an empty string", () => {
+        beforeEach(() => {
+          metadata.name = "";
+        });
+        then("metadata.name is null", () => {
+          expect(metadata.name).toBeNull();
+        });
+        then("metadata.toJSON().name is null", () => {
+          expect(metadata.toJSON().name).toBeNull();
+        });
+      });
     });
     when("metadata.name is set to invalid name", () => {
       let name: Name;
