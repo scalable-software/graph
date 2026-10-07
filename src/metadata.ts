@@ -11,7 +11,7 @@ import type { UUID, Name } from "./graph.types.js";
 /**
  * The metadata object has an `id` and `name` property.
  * - The `id` property is immutable, and is generated when none is given.
- * - The `name` property is mutable but gets validated.
+ * - The `name` property is mutable but gets validated. It is optional: a graph without a name has the name `null`.
  */
 export type IMetadata = {
   id: UUID | null;
@@ -277,7 +277,11 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * ```
    */
   private hydrate = ({ id, name, ...properties }: Partial<T>) =>
-    Object.assign(this, { _id: id, _name: name, ...properties });
+    Object.assign(this, {
+      _id: id,
+      _name: Metadata.named(name),
+      ...properties,
+    });
 
   private match = ({ id }: Partial<T>): boolean => this._id === id;
 
