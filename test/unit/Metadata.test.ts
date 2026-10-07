@@ -182,6 +182,42 @@ given(`Metadata.create static method behavior test`, () => {
     }
   );
   when(
+    "an instance is created using Metadata.create and data with name an empty string",
+    () => {
+      let data: IMetadata;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "" };
+
+        metadata = Metadata.create(data);
+      });
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+    }
+  );
+  when(
+    "an instance is created using Metadata.create and data with no name",
+    () => {
+      let data: Omit<IMetadata, "name">;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { id: "123e4567-e89b-12d3-a456-426614174000" };
+
+        metadata = Metadata.create(data as IMetadata);
+      });
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+    }
+  );
+  when(
     "an instance is created using Metadata.create and data with name of 2 characters",
     () => {
       let data: IMetadata;
