@@ -711,6 +711,40 @@ given(`Validate.name static method behavior test`, () => {
       expect(result).toBe(name);
     });
   });
+  when(`Validate.name is called with an empty string`, () => {
+    let result: string | null | undefined;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      try {
+        result = Validate.name("");
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`Validate.name returns the empty string`, () => {
+      expect(result).toBe("");
+    });
+  });
+  when(`Validate.name is called with undefined`, () => {
+    let result: string | null | undefined;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      try {
+        result = Validate.name(undefined);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`Validate.name returns undefined`, () => {
+      expect(result).toBeUndefined();
+    });
+  });
   when(`Validate.name is called with too long name`, () => {
     let name: string;
     let error: Exception.Exception;
@@ -734,25 +768,20 @@ given(`Validate.name static method behavior test`, () => {
     });
   });
   when(`Validate.name is called with null`, () => {
-    let name: string;
+    let result: string | null | undefined;
     let error: Exception.Exception;
     beforeEach(() => {
-      name = null;
       try {
-        Validate.name(name);
+        result = Validate.name(null);
       } catch (e) {
         error = e;
       }
     });
-    then(`error is defined`, () => {
-      expect(error).toBeDefined();
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
     });
-    and(`error is defined`, () => {
-      then(`error is an instance of InvalidArgumentException`, () => {
-        expect(error).toBeInstanceOf(
-          Exception.InvalidArgumentException
-        );
-      });
+    then(`Validate.name returns null`, () => {
+      expect(result).toBeNull();
     });
   });
 });
