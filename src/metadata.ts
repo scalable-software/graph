@@ -52,7 +52,22 @@ export class Metadata<T extends IMetadata = IMetadata> {
     ({ id: crypto.randomUUID(), name: null } as T);
 
   private static normalize = <T extends IMetadata>(metadata?: T): T =>
-    metadata ? Validate.metadata(metadata) : Metadata.defaults();
+    metadata
+      ? Validate.metadata(Metadata.identify<T>(metadata))
+      : Metadata.defaults();
+
+  /**
+   * Ensures that metadata has an `id`.
+   * A missing or `null` id becomes the given id, or a generated one when none is given.
+   * An id that is present is left unchanged, also when it is not a valid UUID.
+   */
+  private static identify = <T extends IMetadata>(
+    metadata: T | Omit<T, "id">,
+    id?: UUID | null
+  ): T =>
+    "id" in metadata && metadata.id != null
+      ? metadata
+      : ({ ...metadata, id: id ?? crypto.randomUUID() } as T);
 
   private _id: UUID | null = null;
   private _name: Name | null = null;
