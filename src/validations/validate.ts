@@ -20,7 +20,8 @@ export class Validate {
   public static graph = <T extends IGraph>(
     graph?: Partial<T>
   ): Partial<T> | undefined => {
-    graph && Validate.metadata(graph.metadata as T["metadata"]);
+    graph?.metadata &&
+      Validate.metadata(graph.metadata as T["metadata"]);
     return graph;
   };
 
