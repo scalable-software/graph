@@ -143,6 +143,18 @@ given(`Graph class instantiation test`, () => {
       expect(error).toBeInstanceOf(Exception.ValidationException);
     });
   });
+  when(`Graph is instantiated with an graph containing no metadata`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({ nodes: [], edges: [] });
+    });
+    then(`Graph.metadata.id is a generated UUID`, () => {
+      expect(graph.metadata.id).toMatch(UUID_PATTERN);
+    });
+    then(`Graph.metadata.name is null`, () => {
+      expect(graph.metadata.name).toBeNull();
+    });
+  });
   when(`Graph is instantiated with an graph containing nodes`, () => {
     let graph: Graph<IGraph>;
     let nodes: IGraph["nodes"];
