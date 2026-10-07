@@ -1076,6 +1076,63 @@ given(`Validate.metadata static method behavior test`, () => {
       expect(result).toBe(data);
     });
   });
+  when("Validate.metadata is called with data.name null", () => {
+    let data: IMetadata;
+    let result: any;
+    let error: Exception.ValidationException;
+    beforeEach(() => {
+      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: null };
+      try {
+        result = Validate.metadata(data);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("error is undefined", () => {
+      expect(error).toBeUndefined();
+    });
+    then("data is returned", () => {
+      expect(result).toBe(data);
+    });
+  });
+  when("Validate.metadata is called with data.name an empty string", () => {
+    let data: IMetadata;
+    let result: any;
+    let error: Exception.ValidationException;
+    beforeEach(() => {
+      data = { id: "123e4567-e89b-12d3-a456-426614174000", name: "" };
+      try {
+        result = Validate.metadata(data);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("error is undefined", () => {
+      expect(error).toBeUndefined();
+    });
+    then("data is returned", () => {
+      expect(result).toBe(data);
+    });
+  });
+  when("Validate.metadata is called with data with no name", () => {
+    let data: Omit<IMetadata, "name">;
+    let result: any;
+    let error: Exception.ValidationException;
+    beforeEach(() => {
+      data = { id: "123e4567-e89b-12d3-a456-426614174000" };
+      try {
+        result = Validate.metadata(data as IMetadata);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then("error is undefined", () => {
+      expect(error).toBeUndefined();
+    });
+    then("data is returned", () => {
+      expect(result).toBe(data);
+    });
+  });
   when("Validate.metadata is called with invalid data", () => {
     let data: Partial<IMetadata>;
     let result: any;
