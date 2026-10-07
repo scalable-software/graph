@@ -8,6 +8,9 @@ import {
   type UUID,
 } from "@scalable.software/graph";
 
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 // Clinical Pathway
 import type { IPathway } from "../../src/pathway.types.js";
 import { data } from "../../src/pathway.data.js";
@@ -41,6 +44,12 @@ given(`Graph class instantiation test`, () => {
       and(`Graph.metadata is defined`, () => {
         then(`Graph.metadata is an instance of Metadata`, () => {
           expect(graph.metadata).toBeInstanceOf(Metadata);
+        });
+        then(`Graph.metadata.id is a generated UUID`, () => {
+          expect(graph.metadata.id).toMatch(UUID_PATTERN);
+        });
+        then(`Graph.metadata.name is null`, () => {
+          expect(graph.metadata.name).toBeNull();
         });
       });
       and(`Graph.nodes is defined`, () => {
