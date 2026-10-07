@@ -18,3 +18,5 @@ karma.conf.js
 test
 output
 .npmrc
+.claude
+.mcp.json
