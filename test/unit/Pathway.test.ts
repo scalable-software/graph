@@ -267,8 +267,10 @@ given("pathway.metadata.add method behavior test", () => {
     });
 
     and("pathway.metadata is an instance of Metadata", () => {
-      then("pathway.metadata.id is null", () => {
-        expect(pathway.metadata.id).toBeNull();
+      then("pathway.metadata.id is a generated UUID", () => {
+        expect(pathway.metadata.id).toMatch(
+          /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+        );
       });
       then("pathway.metadata.name is null", () => {
         expect(pathway.metadata.name).toBe(null);

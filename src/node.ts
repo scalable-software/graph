@@ -151,8 +151,8 @@ export class Node {
   ): T => ({
     ...node,
     coordinates: {
-      x: node.coordinates.x + offset.x,
-      y: node.coordinates.y + offset.y,
+      x: node.coordinates!.x + offset.x,
+      y: node.coordinates!.y + offset.y,
     },
   });
 }

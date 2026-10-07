@@ -1,6 +1,9 @@
 import { Metadata, Exception } from "@scalable.software/graph";
 import type { UUID, Name, IMetadata } from "@scalable.software/graph";
 
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 given(`Metadata class availability test`, () => {
   and(`Metadata is imported`, () => {
     then(`Metadata is defined`, () => {
@@ -33,8 +36,61 @@ given(`Metadata.create static method behavior test`, () => {
       then("metadata is an instance of Metadata", () => {
         expect(metadata).toBeInstanceOf(Metadata);
       });
+      then("metadata.id is a generated UUID", () => {
+        expect(metadata.id).toMatch(UUID_PATTERN);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
     });
   });
+  when("two instances are created using Metadata.create", () => {
+    let first: Metadata;
+    let second: Metadata;
+    beforeEach(() => {
+      first = Metadata.create();
+      second = Metadata.create();
+    });
+    then("first.id is not second.id", () => {
+      expect(first.id).not.toBe(second.id);
+    });
+  });
+  when(
+    "an instance is created using Metadata.create and data with no id",
+    () => {
+      let data: Omit<IMetadata, "id">;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { name: "test" };
+
+        metadata = Metadata.create(data as IMetadata);
+      });
+      then("metadata.id is a generated UUID", () => {
+        expect(metadata.id).toMatch(UUID_PATTERN);
+      });
+      then("metadata.name is data.name", () => {
+        expect(metadata.name).toBe(data.name);
+      });
+    }
+  );
+  when(
+    "an instance is created using Metadata.create and data with id null",
+    () => {
+      let data: IMetadata;
+      let metadata: Metadata;
+      beforeEach(() => {
+        data = { id: null, name: "test" };
+
+        metadata = Metadata.create(data);
+      });
+      then("metadata.id is a generated UUID", () => {
+        expect(metadata.id).toMatch(UUID_PATTERN);
+      });
+      then("metadata.name is data.name", () => {
+        expect(metadata.name).toBe(data.name);
+      });
+    }
+  );
   when("an instance is created using Metadata.create and data", () => {
     let data: IMetadata;
     let metadata: Metadata;
@@ -469,7 +525,9 @@ given(`Metadata.add method behavior test`, () => {
     });
     when("metadata.add is called with no id", () => {
       let data: Omit<T, "id">;
+      let id: UUID | null;
       beforeEach(() => {
+        id = metadata.id;
         data = {
           name: "test",
           custom: "custom",
@@ -478,6 +536,43 @@ given(`Metadata.add method behavior test`, () => {
       });
       then("metadata.id is defined", () => {
         expect(metadata.id).toBeDefined();
+      });
+      then("metadata.id is the id generated when metadata was created", () => {
+        expect(metadata.id).toBe(id);
+      });
+    });
+    when("metadata.add is called with id null", () => {
+      let data: T;
+      let id: UUID | null;
+      beforeEach(() => {
+        id = metadata.id;
+        data = {
+          id: null,
+          name: "test",
+          custom: "custom",
+        };
+        metadata.add(data);
+      });
+      then("metadata.id is the id generated when metadata was created", () => {
+        expect(metadata.id).toBe(id);
+      });
+    });
+    when("metadata.add is called with invalid id", () => {
+      let error: Exception.Exception;
+      let id: UUID | null;
+      beforeEach(() => {
+        id = metadata.id;
+        try {
+          metadata.add({ id: "invalid", name: "test", custom: "custom" });
+        } catch (e) {
+          error = e;
+        }
+      });
+      then("error is an instance of ValidationException", () => {
+        expect(error).toBeInstanceOf(Exception.ValidationException);
+      });
+      then("metadata.id is the id generated when metadata was created", () => {
+        expect(metadata.id).toBe(id);
       });
     });
   });
@@ -717,8 +812,8 @@ given(`Metadata.remove method behavior test`, () => {
       beforeEach(() => {
         metadata.remove();
       });
-      then("metadata.id is null", () => {
-        expect(metadata.id).toBeNull();
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
       });
       then("metadata.name is null", () => {
         expect(metadata.name).toBeNull();

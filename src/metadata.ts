@@ -10,7 +10,7 @@ import type { UUID, Name } from "./graph.types.js";
 
 /**
  * The metadata object has an `id` and `name` property.
- * - The `id` property is immutable.
+ * - The `id` property is immutable, and is generated when none is given.
  * - The `name` property is mutable but gets validated.
  */
 export type IMetadata = {
@@ -49,10 +49,25 @@ export class Metadata<T extends IMetadata = IMetadata> {
     new Metadata<T>(Metadata.normalize<T>(metadata)) as Metadata<T> & T;
 
   private static defaults = <T extends IMetadata>(): T =>
-    ({ id: null, name: null } as T);
+    ({ id: crypto.randomUUID(), name: null } as T);
 
   private static normalize = <T extends IMetadata>(metadata?: T): T =>
-    metadata ? Validate.metadata(metadata) : Metadata.defaults();
+    metadata
+      ? Validate.metadata(Metadata.identify<T>(metadata))
+      : Metadata.defaults();
+
+  /**
+   * Ensures that metadata has an `id`.
+   * A missing or `null` id becomes the given id, or a generated one when none is given.
+   * An id that is present is left unchanged, also when it is not a valid UUID.
+   */
+  private static identify = <T extends IMetadata>(
+    metadata: T | Omit<T, "id">,
+    id?: UUID | null
+  ): T =>
+    "id" in metadata && metadata.id != null
+      ? metadata
+      : ({ ...metadata, id: id ?? crypto.randomUUID() } as T);
 
   private _id: UUID | null = null;
   private _name: Name | null = null;
@@ -144,6 +159,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
 
   /**
    * Adds metadata to the instance if not already assigned.
+   * When the metadata has no `id`, the instance keeps the id it already has.
    *
    * @param metadata The metadata object to add.
    * @throws {AssignedException} A value has already been assigned to metadata.
@@ -159,7 +175,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
   public add = (metadata: T | Omit<T, "id">) => {
     this.validateUnassigned();
 
-    metadata = Utilities.idify<T>(metadata);
+    metadata = Metadata.identify<T>(metadata, this._id);
     metadata = Validate.metadata<T>(metadata as T);
 
     this.hydrate(metadata as T);
@@ -205,13 +221,14 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * @example
    * ```ts
    * metadata.remove(["customKey"]); // ✅ Removes only "customKey"
-   * metadata.remove(); // ✅ Clears all custom properties but keeps id & name
+   * metadata.remove(); // ✅ Clears all custom properties and the name, but keeps the id
    * ```
    * @category Operations
    */
   public remove = <K extends Extract<keyof T, string>>(keys?: K[]) => {
     !keys
-      ? (this.reset(), this.hydrate(Metadata.normalize<T>()))
+      ? (this.reset(),
+        this.hydrate({ ...Metadata.defaults<T>(), id: this._id }))
       : Validator.validate<K[]>(keys, [
           (key) => Validate.immutable(key, "id" as K),
           (key) => Validate.immutable(key, "name" as K),
@@ -255,7 +272,9 @@ export class Metadata<T extends IMetadata = IMetadata> {
   private match = ({ id }: Partial<T>): boolean => this._id === id;
 
   private reset = () =>
-    Object.keys(this.properties).forEach((key) => delete this[key]);
+    Object.keys(this.properties).forEach(
+      (key) => delete this[key as keyof this]
+    );
 
   private validateUnassigned = () =>
     this.assigned &&

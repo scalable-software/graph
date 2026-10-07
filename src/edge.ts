@@ -157,8 +157,8 @@ export class Edge {
   ): T => ({
     ...edge,
     coordinates: {
-      start: coordinates.start ?? edge.coordinates.start,
-      end: coordinates.end ?? edge.coordinates.end,
+      start: coordinates.start ?? edge.coordinates!.start,
+      end: coordinates.end ?? edge.coordinates!.end,
     },
   });
 
@@ -196,12 +196,12 @@ export class Edge {
     ...edge,
     coordinates: {
       start: {
-        x: edge.coordinates.start.x + offset.x,
-        y: edge.coordinates.start.y + offset.y,
+        x: edge.coordinates!.start.x + offset.x,
+        y: edge.coordinates!.start.y + offset.y,
       },
       end: {
-        x: edge.coordinates.end.x + offset.x,
-        y: edge.coordinates.end.y + offset.y,
+        x: edge.coordinates!.end.x + offset.x,
+        y: edge.coordinates!.end.y + offset.y,
       },
     },
   });

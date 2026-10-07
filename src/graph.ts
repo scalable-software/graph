@@ -26,6 +26,16 @@ export type IGraph = {
 };
 
 /**
+ * The graph data accepted by {@link Graph.import}.
+ * Every part is optional, and an `id` that is left out is generated.
+ */
+export type PartialGraph<T extends IGraph> = {
+  metadata?: T["metadata"] | Omit<T["metadata"], "id">;
+  nodes?: (T["nodes"][number] | Omit<T["nodes"][number], "id">)[];
+  edges?: (T["edges"][number] | Omit<T["edges"][number], "id">)[];
+};
+
+/**
  * Represents a graph data structure containing:
  * - {@link Metadata} for graph-wide information.
  * - {@link Nodes} for individual entities with coordinates.
@@ -232,13 +242,13 @@ export class Graph<T extends IGraph> {
   /**
    * Imports new graph data by merging with existing data.
    *
-   * @param {Partial<T>} graph - The graph data to import.
+   * @param graph - The graph data to import.
    * Merges metadata, nodes, and edges if they are provided.
    *
-   * @returns {this} The updated graph instance.
+   * @returns The updated graph instance.
    * @category Operation
    */
-  public import = (graph) => this._import(graph);
+  public import = (graph: PartialGraph<T>) => this._import(graph);
 
   /**
    * Exports the graph data as a JSON-compatible object.
@@ -311,7 +321,7 @@ export class Graph<T extends IGraph> {
     !this.nodes.findById(destination) &&
       Exceptions.notFoundException("destination", destination);
 
-    const results = [];
+    const results: T["edges"][number][][] = [];
     this.traverse(origin, destination, results);
     return results;
   };
@@ -332,8 +342,8 @@ export class Graph<T extends IGraph> {
   private traverse = (
     node: UUID,
     destination: UUID,
-    results: any[],
-    stack: any[] = [],
+    results: T["edges"][number][][],
+    stack: T["edges"][number][] = [],
     visited: Set<UUID> = new Set()
   ) =>
     node === destination
@@ -350,12 +360,12 @@ export class Graph<T extends IGraph> {
           stack.pop();
         });
 
-  protected _import = (graph) => {
+  protected _import = (graph: PartialGraph<T>) => {
     ((graph) => {
       graph.metadata && this.metadata.add(graph.metadata);
       graph.nodes && this.nodes.add(graph.nodes);
       graph.edges && this.edges.add(graph.edges);
-    })(Validate.graphDetails(graph));
+    })(Validate.graphDetails(graph as Partial<T>));
     return this;
   };
 

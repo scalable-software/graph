@@ -8,6 +8,9 @@ import {
   type UUID,
 } from "@scalable.software/graph";
 
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 // Clinical Pathway
 import type { IPathway } from "../../src/pathway.types.js";
 import { data } from "../../src/pathway.data.js";
@@ -41,6 +44,12 @@ given(`Graph class instantiation test`, () => {
       and(`Graph.metadata is defined`, () => {
         then(`Graph.metadata is an instance of Metadata`, () => {
           expect(graph.metadata).toBeInstanceOf(Metadata);
+        });
+        then(`Graph.metadata.id is a generated UUID`, () => {
+          expect(graph.metadata.id).toMatch(UUID_PATTERN);
+        });
+        then(`Graph.metadata.name is null`, () => {
+          expect(graph.metadata.name).toBeNull();
         });
       });
       and(`Graph.nodes is defined`, () => {
@@ -85,6 +94,65 @@ given(`Graph class instantiation test`, () => {
           expect(graph.metadata.toJSON()).toEqual(metadata);
         });
       });
+    });
+  });
+  when(`Graph is instantiated with an graph containing metadata with no id`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { name: "Clinical Pathway" },
+      } as Partial<IGraph>);
+    });
+    then(`Graph.metadata.id is a generated UUID`, () => {
+      expect(graph.metadata.id).toMatch(UUID_PATTERN);
+    });
+    then(`Graph.metadata.name is the name of the metadata`, () => {
+      expect(graph.metadata.name).toBe("Clinical Pathway");
+    });
+  });
+  when(`Graph is instantiated with an graph containing metadata with id null`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { id: null, name: "Clinical Pathway" },
+      });
+    });
+    then(`Graph.metadata.id is a generated UUID`, () => {
+      expect(graph.metadata.id).toMatch(UUID_PATTERN);
+    });
+    then(`Graph.metadata.name is the name of the metadata`, () => {
+      expect(graph.metadata.name).toBe("Clinical Pathway");
+    });
+  });
+  when(`Graph is instantiated with an graph containing metadata with invalid id`, () => {
+    let graph: Graph<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      try {
+        graph = new Graph({
+          metadata: { id: "invalid", name: "Clinical Pathway" },
+        });
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`Graph is undefined`, () => {
+      expect(graph).toBeUndefined();
+    });
+    then(`error is an instance of Exception.ValidationException`, () => {
+      expect(error).toBeInstanceOf(Exception.ValidationException);
+    });
+  });
+  when(`Graph is instantiated with an graph containing no metadata`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({ nodes: [], edges: [] });
+    });
+    then(`Graph.metadata.id is a generated UUID`, () => {
+      expect(graph.metadata.id).toMatch(UUID_PATTERN);
+    });
+    then(`Graph.metadata.name is null`, () => {
+      expect(graph.metadata.name).toBeNull();
     });
   });
   when(`Graph is instantiated with an graph containing nodes`, () => {
@@ -486,6 +554,59 @@ given(`Graph.import method behavior test`, () => {
   });
 });
 
+given(`Graph.import method metadata id test`, () => {
+  and(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    let id: UUID | null;
+    beforeEach(() => {
+      graph = new Graph();
+      id = graph.metadata.id;
+    });
+    when(`Graph.import is called with metadata with no id`, () => {
+      beforeEach(() => {
+        graph.import({ metadata: { name: "Clinical Pathway" } });
+      });
+      then(`Graph.metadata.id is the id generated when Graph was instantiated`, () => {
+        expect(graph.metadata.id).toBe(id);
+      });
+      then(`Graph.metadata.name is the name of the metadata`, () => {
+        expect(graph.metadata.name).toBe("Clinical Pathway");
+      });
+    });
+    when(`Graph.import is called with metadata with a valid id`, () => {
+      beforeEach(() => {
+        graph.import({
+          metadata: {
+            id: "123e4567-e89b-12d3-a456-426614174000",
+            name: "Clinical Pathway",
+          },
+        });
+      });
+      then(`Graph.metadata.id is the id of the metadata`, () => {
+        expect(graph.metadata.id).toBe("123e4567-e89b-12d3-a456-426614174000");
+      });
+    });
+    when(`Graph.import is called with metadata with an invalid id`, () => {
+      let error: Exception.Exception;
+      beforeEach(() => {
+        try {
+          graph.import({
+            metadata: { id: "invalid", name: "Clinical Pathway" },
+          });
+        } catch (e) {
+          error = e;
+        }
+      });
+      then(`error is an instance of Exception.InvalidArgumentException`, () => {
+        expect(error).toBeInstanceOf(Exception.InvalidArgumentException);
+      });
+      then(`Graph.metadata.id is the id generated when Graph was instantiated`, () => {
+        expect(graph.metadata.id).toBe(id);
+      });
+    });
+  });
+});
+
 given("Graph.export method availability test", () => {
   when("Graph is instantiated", () => {
     let graph: Graph<IGraph>;
@@ -536,6 +657,46 @@ given(`Graph.export method behavior test`, () => {
       });
       then(`Graph.export returns data`, () => {
         expect(result).toEqual(data);
+      });
+    });
+  });
+  and(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    when(`Graph.export is called twice`, () => {
+      let first: IGraph;
+      let second: IGraph;
+      beforeEach(() => {
+        first = graph.export();
+        second = graph.export();
+      });
+      then(`first.metadata.id is a generated UUID`, () => {
+        expect(first.metadata.id).toMatch(UUID_PATTERN);
+      });
+      then(`second.metadata.id is first.metadata.id`, () => {
+        expect(second.metadata.id).toBe(first.metadata.id);
+      });
+    });
+  });
+  and(`Graph is instantiated with metadata with no id`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { name: "Clinical Pathway" },
+      } as Partial<IGraph>);
+    });
+    when(`a new Graph is instantiated with the export of the graph`, () => {
+      let copy: Graph<IGraph>;
+      beforeEach(() => {
+        copy = new Graph(graph.export());
+      });
+      then(`copy.metadata.id is graph.metadata.id`, () => {
+        expect(copy.metadata.id).toBe(graph.metadata.id);
+      });
+      then(`copy.metadata.name is graph.metadata.name`, () => {
+        expect(copy.metadata.name).toBe(graph.metadata.name);
       });
     });
   });

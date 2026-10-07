@@ -7,7 +7,7 @@
  * When using V8, the stack trace is captured.
  */
 export abstract class Exception extends Error {
-  public errors: Exception[];
+  public errors?: Exception[];
   constructor(message: string) {
     super(message);
     this.name = this.constructor.name;
@@ -30,6 +30,7 @@ export class InvalidArgumentException extends Exception {
  * Exception thrown when validation of arguments fails.
  */
 export class ValidationException extends Exception {
+  public declare errors: Exception[];
   constructor(errors: Exception[]) {
     // Flatten nested ValidationExceptions by extracting their errors
     const flattenedErrors = errors.flatMap((error) =>
