@@ -1,6 +1,9 @@
 import { Metadata, Exception } from "@scalable.software/graph";
 import type { UUID, Name, IMetadata } from "@scalable.software/graph";
 
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 given(`Metadata class availability test`, () => {
   and(`Metadata is imported`, () => {
     then(`Metadata is defined`, () => {
@@ -33,6 +36,23 @@ given(`Metadata.create static method behavior test`, () => {
       then("metadata is an instance of Metadata", () => {
         expect(metadata).toBeInstanceOf(Metadata);
       });
+      then("metadata.id is a generated UUID", () => {
+        expect(metadata.id).toMatch(UUID_PATTERN);
+      });
+      then("metadata.name is null", () => {
+        expect(metadata.name).toBeNull();
+      });
+    });
+  });
+  when("two instances are created using Metadata.create", () => {
+    let first: Metadata;
+    let second: Metadata;
+    beforeEach(() => {
+      first = Metadata.create();
+      second = Metadata.create();
+    });
+    then("first.id is not second.id", () => {
+      expect(first.id).not.toBe(second.id);
     });
   });
   when("an instance is created using Metadata.create and data", () => {
