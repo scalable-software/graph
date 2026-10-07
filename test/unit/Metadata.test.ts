@@ -421,6 +421,19 @@ given(`Metadata.name setter behavior test`, () => {
         expect(metadata.name).toBe("T");
       });
     });
+    and("metadata.name is set to valid name", () => {
+      beforeEach(() => {
+        metadata.name = "test";
+      });
+      when("metadata.name is set to null", () => {
+        beforeEach(() => {
+          metadata.name = null;
+        });
+        then("metadata.name is null", () => {
+          expect(metadata.name).toBeNull();
+        });
+      });
+    });
     when("metadata.name is set to invalid name", () => {
       let name: Name;
       let error: Exception.Exception;
