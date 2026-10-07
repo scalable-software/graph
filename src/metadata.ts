@@ -10,7 +10,7 @@ import type { UUID, Name } from "./graph.types.js";
 
 /**
  * The metadata object has an `id` and `name` property.
- * - The `id` property is immutable.
+ * - The `id` property is immutable, and is generated when none is given.
  * - The `name` property is mutable but gets validated.
  */
 export type IMetadata = {
@@ -49,7 +49,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
     new Metadata<T>(Metadata.normalize<T>(metadata)) as Metadata<T> & T;
 
   private static defaults = <T extends IMetadata>(): T =>
-    ({ id: null, name: null } as T);
+    ({ id: crypto.randomUUID(), name: null } as T);
 
   private static normalize = <T extends IMetadata>(metadata?: T): T =>
     metadata ? Validate.metadata(metadata) : Metadata.defaults();
