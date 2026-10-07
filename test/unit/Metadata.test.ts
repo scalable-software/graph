@@ -717,8 +717,8 @@ given(`Metadata.remove method behavior test`, () => {
       beforeEach(() => {
         metadata.remove();
       });
-      then("metadata.id is null", () => {
-        expect(metadata.id).toBeNull();
+      then("metadata.id is data.id", () => {
+        expect(metadata.id).toBe(data.id);
       });
       then("metadata.name is null", () => {
         expect(metadata.name).toBeNull();
