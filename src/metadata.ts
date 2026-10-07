@@ -159,6 +159,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
 
   /**
    * Adds metadata to the instance if not already assigned.
+   * When the metadata has no `id`, the instance keeps the id it already has.
    *
    * @param metadata The metadata object to add.
    * @throws {AssignedException} A value has already been assigned to metadata.
@@ -174,7 +175,7 @@ export class Metadata<T extends IMetadata = IMetadata> {
   public add = (metadata: T | Omit<T, "id">) => {
     this.validateUnassigned();
 
-    metadata = Utilities.idify<T>(metadata);
+    metadata = Metadata.identify<T>(metadata, this._id);
     metadata = Validate.metadata<T>(metadata as T);
 
     this.hydrate(metadata as T);
