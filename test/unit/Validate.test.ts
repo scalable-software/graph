@@ -2806,6 +2806,51 @@ given(`Validate.graph static method behavior test`, () => {
       expect(response).toEqual(graph);
     });
   });
+  when(`Validate.graph called with graph with metadata with name null`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: { id: "15b6679a-fd9d-4036-b1ab-af0b932fc903", name: null },
+      };
+      try {
+        response = Validate.graph<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`error is undefined`, () => {
+      expect(error).toBeUndefined();
+    });
+    then(`response equals graph`, () => {
+      expect(response).toEqual(graph);
+    });
+  });
+  when(`Validate.graph called with graph with metadata with too long name`, () => {
+    let graph: Partial<IGraph>;
+    let response: Partial<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      graph = {
+        metadata: {
+          id: "15b6679a-fd9d-4036-b1ab-af0b932fc903",
+          name: "g".repeat(101),
+        },
+      };
+      try {
+        response = Validate.graph<IGraph>(graph);
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`response is undefined`, () => {
+      expect(response).toBeUndefined();
+    });
+    then(`error is an instance of ValidationException`, () => {
+      expect(error).toBeInstanceOf(Exception.ValidationException);
+    });
+  });
   when(`Validate.graph called with invalid graph`, () => {
     let graph: Partial<IGraph>;
     let response: Partial<IGraph>;
