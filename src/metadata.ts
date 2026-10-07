@@ -205,13 +205,14 @@ export class Metadata<T extends IMetadata = IMetadata> {
    * @example
    * ```ts
    * metadata.remove(["customKey"]); // ✅ Removes only "customKey"
-   * metadata.remove(); // ✅ Clears all custom properties but keeps id & name
+   * metadata.remove(); // ✅ Clears all custom properties and the name, but keeps the id
    * ```
    * @category Operations
    */
   public remove = <K extends Extract<keyof T, string>>(keys?: K[]) => {
     !keys
-      ? (this.reset(), this.hydrate(Metadata.normalize<T>()))
+      ? (this.reset(),
+        this.hydrate({ ...Metadata.defaults<T>(), id: this._id }))
       : Validator.validate<K[]>(keys, [
           (key) => Validate.immutable(key, "id" as K),
           (key) => Validate.immutable(key, "name" as K),
