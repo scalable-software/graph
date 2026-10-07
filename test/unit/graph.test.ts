@@ -96,6 +96,34 @@ given(`Graph class instantiation test`, () => {
       });
     });
   });
+  when(`Graph is instantiated with an graph containing metadata with no id`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { name: "Clinical Pathway" },
+      } as Partial<IGraph>);
+    });
+    then(`Graph.metadata.id is a generated UUID`, () => {
+      expect(graph.metadata.id).toMatch(UUID_PATTERN);
+    });
+    then(`Graph.metadata.name is the name of the metadata`, () => {
+      expect(graph.metadata.name).toBe("Clinical Pathway");
+    });
+  });
+  when(`Graph is instantiated with an graph containing metadata with id null`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { id: null, name: "Clinical Pathway" },
+      });
+    });
+    then(`Graph.metadata.id is a generated UUID`, () => {
+      expect(graph.metadata.id).toMatch(UUID_PATTERN);
+    });
+    then(`Graph.metadata.name is the name of the metadata`, () => {
+      expect(graph.metadata.name).toBe("Clinical Pathway");
+    });
+  });
   when(`Graph is instantiated with an graph containing nodes`, () => {
     let graph: Graph<IGraph>;
     let nodes: IGraph["nodes"];
