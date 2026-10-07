@@ -569,6 +569,34 @@ given(`Graph without a name test`, () => {
       expect(graph.metadata.name).toBeNull();
     });
   });
+  when(`Graph is instantiated with an graph containing metadata with name an empty string`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { id: "123e4567-e89b-12d3-a456-426614174000", name: "" },
+      });
+    });
+    then(`Graph.metadata.name is null`, () => {
+      expect(graph.metadata.name).toBeNull();
+    });
+    then(`Graph.export().metadata.name is null`, () => {
+      expect(graph.export().metadata.name).toBeNull();
+    });
+  });
+  when(`Graph is instantiated with an graph containing metadata with no name`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph({
+        metadata: { id: "123e4567-e89b-12d3-a456-426614174000" },
+      } as Partial<IGraph>);
+    });
+    then(`Graph.metadata.name is null`, () => {
+      expect(graph.metadata.name).toBeNull();
+    });
+    then(`Graph.export().metadata.name is null`, () => {
+      expect(graph.export().metadata.name).toBeNull();
+    });
+  });
   when(`Graph is instantiated with an graph containing metadata with name of 2 characters`, () => {
     let graph: Graph<IGraph>;
     beforeEach(() => {
