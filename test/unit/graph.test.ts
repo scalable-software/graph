@@ -608,6 +608,25 @@ given(`Graph without a name test`, () => {
       expect(graph.metadata.name).toBe("AB");
     });
   });
+  when(`Graph is instantiated with an graph containing metadata with name of 101 characters`, () => {
+    let graph: Graph<IGraph>;
+    let error: Exception.Exception;
+    beforeEach(() => {
+      try {
+        graph = new Graph({
+          metadata: { id: "123e4567-e89b-12d3-a456-426614174000", name: "A".repeat(101) },
+        });
+      } catch (e) {
+        error = e;
+      }
+    });
+    then(`Graph is undefined`, () => {
+      expect(graph).toBeUndefined();
+    });
+    then(`error is an instance of Exception.ValidationException`, () => {
+      expect(error).toBeInstanceOf(Exception.ValidationException);
+    });
+  });
   and(`Graph is instantiated`, () => {
     let graph: Graph<IGraph>;
     beforeEach(() => {
