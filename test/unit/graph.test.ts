@@ -548,6 +548,26 @@ given(`Graph.export method behavior test`, () => {
       });
     });
   });
+  and(`Graph is instantiated`, () => {
+    let graph: Graph<IGraph>;
+    beforeEach(() => {
+      graph = new Graph();
+    });
+    when(`Graph.export is called twice`, () => {
+      let first: IGraph;
+      let second: IGraph;
+      beforeEach(() => {
+        first = graph.export();
+        second = graph.export();
+      });
+      then(`first.metadata.id is a generated UUID`, () => {
+        expect(first.metadata.id).toMatch(UUID_PATTERN);
+      });
+      then(`second.metadata.id is first.metadata.id`, () => {
+        expect(second.metadata.id).toBe(first.metadata.id);
+      });
+    });
+  });
 });
 
 given("Graph.toJSON method availability test", () => {
