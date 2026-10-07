@@ -21,7 +21,10 @@ export class Validate {
     graph?: Partial<T>
   ): Partial<T> | undefined => {
     graph?.metadata &&
-      Validate.metadata(graph.metadata as T["metadata"]);
+      Validator.validate<T["metadata"]>(graph.metadata, [
+        ({ id }) => id == null || Validate.uuid(id),
+        ({ name }) => Validate.name(name),
+      ]);
     return graph;
   };
 
